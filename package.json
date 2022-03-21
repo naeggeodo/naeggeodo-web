@@ -9,8 +9,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "sb": "start-storybook -p 6006",
+    "build-storybook": "build-storybook",
+    "chromatic": "npx chromatic --project-token=f23de09fc34e"
   },
   "dependencies": {
     "axios": "^0.26.0",
@@ -36,6 +37,7 @@
     "@typescript-eslint/eslint-plugin": "^5.13.0",
     "@typescript-eslint/parser": "^5.13.0",
     "babel-loader": "^8.2.3",
+    "chromatic": "^6.5.3",
     "eslint": "^8.10.0",
     "eslint-plugin-react": "^7.29.3",
     "eslint-plugin-storybook": "^0.5.7",
