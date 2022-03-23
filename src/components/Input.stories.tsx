@@ -1,8 +1,8 @@
-import Input from "./Input";
+import Input from './Input';
 
 export default {
-  title: "input",
+  title: 'input',
   component: Input,
 };
 
-export const example = () => <Input textValue="인풋" />;
+export const example = () => <Input textValue='인풋' />;
