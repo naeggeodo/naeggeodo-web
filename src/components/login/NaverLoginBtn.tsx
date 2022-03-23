@@ -35,9 +35,9 @@ const NaverLoginBtn = () => {
 
 export default NaverLoginBtn;
 const Wrap = styled.div`
-  width: 94%;
+  width: 100%;
   border-radius: 10px;
-  height: 50px;
+  height: 28%;
   color: #fff;
   display: flex;
   align-items: center;
@@ -45,6 +45,8 @@ const Wrap = styled.div`
   background: ${palette.naverGreen};
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
   cursor: pointer;
+  font-size: 17px;
+  margin-bottom: 3%;
 `;
 const Icon = styled.svg`
   width: 14px;
