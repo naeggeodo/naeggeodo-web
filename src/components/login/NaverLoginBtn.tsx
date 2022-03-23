@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import palette from "../../styles/palette";
-import { SiNaver } from "react-icons/si";
+import styled from 'styled-components';
+import palette from '../../styles/palette';
+import { SiNaver } from 'react-icons/si';
 const NaverLoginBtn = () => {
   return (
     <Wrap>

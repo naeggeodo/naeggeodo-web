@@ -1,7 +1,7 @@
-import KaKaoLoginBtn from "../KaKaoLoginBtn";
+import KaKaoLoginBtn from '../KaKaoLoginBtn';
 
 export default {
-  title: "KaKaoLoginBtn",
+  title: 'KaKaoLoginBtn',
   component: KaKaoLoginBtn,
 };
 

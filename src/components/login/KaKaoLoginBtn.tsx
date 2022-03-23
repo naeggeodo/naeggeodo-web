@@ -1,6 +1,7 @@
-import styled from "styled-components";
-import palette from "../../styles/palette";
-import { RiKakaoTalkFill } from "react-icons/ri";
+import styled from 'styled-components';
+import palette from '../../styles/palette';
+import { RiKakaoTalkFill } from 'react-icons/ri';
+
 const KaKaoLoginBtn = () => {
   return (
     <Wrap>
@@ -12,6 +13,7 @@ const KaKaoLoginBtn = () => {
 
 export default KaKaoLoginBtn;
 const Wrap = styled.div`
+  font-family: 'SpoqaHanSansNeobold', 'Sans-serif';
   width: 94%;
   border-radius: 10px;
   height: 50px;
