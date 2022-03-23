@@ -16,9 +16,9 @@ const KaKaoLoginBtn = () => {
 
 export default KaKaoLoginBtn;
 const Wrap = styled.div`
-  width: 94%;
+  width: 100%;
   border-radius: 10px;
-  height: 50px;
+  height: 28%;
   color: #000;
   display: flex;
   align-items: center;
@@ -26,7 +26,9 @@ const Wrap = styled.div`
   background: ${palette.kakaoYellow};
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
   font-size: 17px;
+  margin-bottom: 6px;
   cursor: pointer;
+  margin-bottom: 3%;
 `;
 const Icon = styled.svg`
   width: 18px;
