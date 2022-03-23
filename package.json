@@ -45,6 +45,7 @@
     "eslint-plugin-storybook": "^0.5.7",
     "file-loader": "^6.2.0",
     "typescript": "^4.6.2",
-    "url-loader": "^4.1.1"
+    "url-loader": "^4.1.1",
+    "storybook-dark-mode": "^1.0.9"
   }
 }
