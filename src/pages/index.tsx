@@ -3,15 +3,15 @@ import styled from 'styled-components';
 const Home: React.FC = () => {
   return (
     <>
-      <Container>Home</Container>
-      <h1>hello</h1>
+      <Container>
+        <h1>안녕</h1>
+      </Container>
     </>
   );
 };
 
 const Container = styled.div`
   height: 100vh;
-  background-color: yellowgreen;
 `;
 
 export default Home;
