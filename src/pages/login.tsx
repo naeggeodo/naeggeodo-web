@@ -4,13 +4,13 @@ import AppleLoginBtn from '../components/login/AppleLoginBtn';
 import KaKaoLoginBtn from '../components/login/KaKaoLoginBtn';
 import NaverLoginBtn from '../components/login/NaverLoginBtn';
 import palette from '../styles/palette';
-import Prevbutton from '../assets/icons/prevbtn.svg';
+import prevbtn from '../assets/icons/prevbtn.svg';
 const login = () => {
   return (
     <Wrap>
       <ContentWrap>
         <Div className='content'>
-          <Image src={Prevbutton} alt='prev button' />
+          <img src={prevbtn} alt='prev button' />
           <Title>로그인하여</Title>
           <Title>내꺼도의 모든 서비스를</Title>
           <Title>이용하세요.</Title>
@@ -37,6 +37,7 @@ const ContentWrap = styled.div`
   width: 90%;
   height: 100%;
   margin: 0 auto;
+  padding-top: 10px;
 `;
 
 // const Header = styled.div`
