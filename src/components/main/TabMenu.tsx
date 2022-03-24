@@ -9,7 +9,6 @@ import moregray from '../../assets/icons/moregray.svg';
 const TabMenu = () => {
   return (
     <Container>
-      <h1>hello</h1>
       <TabButton>
         <img src={homeblack} alt='홈버튼' />
         <p>홈</p>
@@ -49,13 +48,6 @@ const TabButton = styled.button`
   border: none;
   background-color: transparent;
   cursor: pointer;
-  padding: 0;
-  margin: 0;
-
-  & > p {
-    padding: 0;
-    margin: 0;
-  }
 `;
 
 export default TabMenu;

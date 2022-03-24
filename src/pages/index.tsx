@@ -1,10 +1,11 @@
 import styled from 'styled-components';
+import TabMenu from '../components/main/TabMenu';
 
 const Home: React.FC = () => {
   return (
     <>
       <Container>
-        <h1>안녕 hello</h1>
+        <TabMenu />
       </Container>
     </>
   );
