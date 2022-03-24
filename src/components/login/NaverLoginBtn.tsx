@@ -1,11 +1,10 @@
 import styled from 'styled-components';
-import Image from 'next/image';
 import palette from '../../styles/palette';
-import Naverlogo from '../../assets/icons/naverlogo.svg';
+import naverlogo from '../../assets/icons/naverlogo.svg';
 const NaverLoginBtn = () => {
   return (
     <Wrap>
-      <Image src={Naverlogo} alt='naver logo' />
+      <img src={naverlogo} alt='naver logo' width={14} height={14} />
       <Span>네이버 계정으로 로그인</Span>
     </Wrap>
   );

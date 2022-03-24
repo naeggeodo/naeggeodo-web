@@ -1,12 +1,11 @@
 import styled from 'styled-components';
-import Image from 'next/image';
 import palette from '../../styles/palette';
-import KaKaologo from '../../assets/icons/kakaologo.svg';
+import kakaologo from '../../assets/icons/kakaologo.svg';
 
 const KaKaoLoginBtn = () => {
   return (
     <Wrap>
-      <Image src={KaKaologo} alt='kakao logo' />
+      <img src={kakaologo} alt='kakao logo' width={14} height={14} />
       <Span>카카오 계정으로 로그인</Span>
     </Wrap>
   );
