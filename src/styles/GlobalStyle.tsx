@@ -1,16 +1,10 @@
 import { createGlobalStyle, css } from 'styled-components';
 import reset from 'styled-reset';
-import RobotoMedium from '../assets/fonts/Roboto-Medium.woff';
 import SpoqaHanSansNeoBold from '../assets/fonts/SpoqaHanSansNeo-Bold.woff';
 import SpoqaHanSansNeoRegular from '../assets/fonts/SpoqaHanSansNeo-Regular.woff';
 
 const globalStyle = css`
   ${reset}
-
-  @font-face {
-    font-family: 'RobotoMedium';
-    src: url(${RobotoMedium}) format('woff');
-  }
 
   @font-face {
     font-family: 'SpoqaBold';
@@ -26,9 +20,7 @@ const globalStyle = css`
     font-size: 10px;
   }
   body {
-    font-family: 'SpoqaHanSansBold';
-    font-weight: bold;
-    font-size: 30px;
+    font-family: 'Spoqa';
   }
   * {
     box-sizing: border-box;
