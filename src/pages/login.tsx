@@ -7,7 +7,7 @@ const login = () => {
   return (
     <Wrap>
       <ContentWrap>
-        <Header>
+        <Div className='content'>
           <PrevIcon
             viewBox='0 0 10 16'
             fill='none'
@@ -17,8 +17,6 @@ const login = () => {
               fill='#696969'
             />
           </PrevIcon>
-        </Header>
-        <Div className='content'>
           <Title>로그인하여</Title>
           <Title>내꺼도의 모든 서비스를</Title>
           <Title>이용하세요.</Title>
@@ -50,13 +48,15 @@ const ContentWrap = styled.div`
 const PrevIcon = styled.svg`
   width: 10px;
   height: 16px;
-  margin: 10px 0;
+  margin: 20px 0 39px;
 `;
 
-const Header = styled.div`
-  width: 100%;
-  height: 10%;
-`;
+// const Header = styled.div`
+//   width: 100%;
+//   // height: 10%;
+//   border: 1px solid red;
+//   margin-bottom: 39px;
+// `;
 const Title = styled.h2`
   font-size: 26px;
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
@@ -68,16 +68,16 @@ const P = styled.p`
   color: ${palette.black};
   font-size: 17px;
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
-  margin-top: 50px;
+  margin-top: 30px;
 `;
 const Div = styled.div`
   &.content {
     width: 100%;
-    height: 60%;
+    height: 70%;
   }
   &.buttons {
     border-top: 1px solid ${palette.DarkGray};
-    padding-top: 7%;
+    padding-top: 26px;
     position: relative;
     height: 30%;
     &::before {
