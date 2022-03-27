@@ -1,7 +1,7 @@
 import NaverLoginBtn from '../NaverLoginBtn';
 
 export default {
-  title: 'login/NaverLoginBtn',
+  title: 'login/components/NaverLoginBtn',
   component: NaverLoginBtn,
   decorators: [
     () => (

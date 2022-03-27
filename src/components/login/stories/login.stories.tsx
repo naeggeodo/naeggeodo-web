@@ -1,7 +1,7 @@
 import Login from '../../../pages/login';
 
 export default {
-  title: 'Login',
+  title: 'login/Login',
   component: Login,
 };
 

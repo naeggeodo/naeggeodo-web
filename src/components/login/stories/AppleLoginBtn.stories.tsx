@@ -1,7 +1,7 @@
 import AppleLoginBtn from '../AppleLoginBtn';
 
 export default {
-  title: 'login/AppleLoginBtn',
+  title: 'login/components/AppleLoginBtn',
   component: AppleLoginBtn,
   decorators: [
     () => (
