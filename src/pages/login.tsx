@@ -9,14 +9,15 @@ const login = () => {
   return (
     <Wrap>
       <ContentWrap>
-        <Div className='content'>
+        <Div className='header'>
           <img src={prevbtn} alt='prev button' />
+        </Div>
+        <Div className='content'>
           <Title>로그인하여</Title>
           <Title>내꺼도의 모든 서비스를</Title>
           <Title>이용하세요.</Title>
           <P>우리동네 배달비 반값 플랫폼</P>
         </Div>
-
         <Div className='buttons'>
           <KaKaoLoginBtn />
           <NaverLoginBtn />
@@ -40,17 +41,11 @@ const ContentWrap = styled.div`
   padding-top: 10px;
 `;
 
-// const Header = styled.div`
-//   width: 100%;
-//   // height: 10%;
-//   border: 1px solid red;
-//   margin-bottom: 39px;
-// `;
 const Title = styled.h2`
   font-size: 26px;
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
   font-weight: 700;
-  line-height: 36.4px;
+  line-height: 1.4em;
   color: ${palette.black};
 `;
 const P = styled.p`
@@ -60,9 +55,13 @@ const P = styled.p`
   margin-top: 30px;
 `;
 const Div = styled.div`
+  &.header {
+    width: 100%;
+    height: 10%;
+  }
   &.content {
     width: 100%;
-    height: 70%;
+    height: 60%;
   }
   &.buttons {
     border-top: 1px solid ${palette.DarkGray};

@@ -48,7 +48,6 @@ const TabButton = styled.button`
   border: none;
   background-color: transparent;
   cursor: pointer;
-
   & > p {
   }
 `;
