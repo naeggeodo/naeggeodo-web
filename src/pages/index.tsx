@@ -1,10 +1,12 @@
 import styled from 'styled-components';
+import ChatRoomItem from '../components/main/ChatRoomItem';
 import TabMenu from '../components/main/TabMenu';
 
 const Home: React.FC = () => {
   return (
     <>
       <Container>
+        <ChatRoomItem />
         <TabMenu />
       </Container>
     </>

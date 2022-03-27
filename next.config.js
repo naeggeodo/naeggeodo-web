@@ -1,7 +1,7 @@
 module.exports = {
   webpack: (config, options) => {
     config.module.rules.push({
-      test: /\.(ttf|woff|woff2|svg)$/,
+      test: /\.(ttf|woff|woff2|svg|png)$/,
       type: 'asset/resource',
       generator: {
         filename: 'static/chunks/[path][name].[hash][ext]',

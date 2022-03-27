@@ -9,8 +9,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "sb": "start-storybook -p 6006",
-    "build-storybook": "build-storybook",
+    "sb": "start-storybook -p 6006 -s ./public",
+    "build-storybook": "build-storybook -s public",
     "chromatic": "npx chromatic --project-token=f23de09fc34e"
   },
   "dependencies": {
