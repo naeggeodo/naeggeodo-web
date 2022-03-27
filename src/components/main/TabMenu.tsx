@@ -5,6 +5,7 @@ import searchgray from '../../assets/icons/searchgray.svg';
 import plusgray from '../../assets/icons/plusgray.svg';
 import chatgray from '../../assets/icons/chatgray.svg';
 import moregray from '../../assets/icons/moregray.svg';
+import palette from '../../styles/palette';
 
 const TabMenu = () => {
   return (
@@ -51,6 +52,7 @@ const Container = styled.div`
   box-shadow: 0px -0.5px 0px #e0e0e0;
   backdrop-filter: blur(20px);
   border-radius: 20px 20px 0px 0px;
+  border-top: 1px solid ${palette.LightGray};
 `;
 
 const TabButton = styled.button`
