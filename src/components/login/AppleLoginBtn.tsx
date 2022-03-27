@@ -20,7 +20,7 @@ const Wrap = styled.div`
   justify-content: center;
   background: #000;
   color: #fff;
-  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+  font-family: 'Spoqa';
   font-size: 17px;
   cursor: pointer;
   margin-bottom: 10px;

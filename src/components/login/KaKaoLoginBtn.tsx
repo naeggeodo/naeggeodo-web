@@ -21,7 +21,7 @@ const Wrap = styled.div`
   align-items: center;
   justify-content: center;
   background: ${palette.kakaoYellow};
-  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+  font-family: 'Spoqa';
   font-size: 17px;
   margin-bottom: 6px;
   cursor: pointer;

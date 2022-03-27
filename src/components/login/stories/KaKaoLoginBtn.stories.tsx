@@ -1,7 +1,7 @@
 import KaKaoLoginBtn from '../KaKaoLoginBtn';
 
 export default {
-  title: 'login/KaKaoLoginBtn',
+  title: 'login/components/KaKaoLoginBtn',
   component: KaKaoLoginBtn,
   decorators: [
     () => (
