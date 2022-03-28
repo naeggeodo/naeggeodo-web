@@ -81,7 +81,7 @@ const Home: React.FC = () => {
         {MockChatList.map((item) => (
           <ChatRoomItem
             key={item.id}
-            title={item.title}
+            title={item.title + item.id}
             chattingUrl={item.chattingUrl}
             total={item.total}
             numOfPeople={item.numOfPeople}
@@ -95,13 +95,13 @@ const Home: React.FC = () => {
 };
 
 const Container = styled.div`
-  height: 100vh;
   background-color: #ffffff;
   padding-top: 30px;
 `;
 
 const StyledUl = styled.ul`
   padding: 10px 16px 50px;
+  background-color: #ffffff;
 `;
 
 export default Home;

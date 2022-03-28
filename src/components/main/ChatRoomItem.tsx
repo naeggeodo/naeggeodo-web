@@ -52,7 +52,6 @@ const Container = styled.div`
   width: 100%;
   padding: 20px 14px;
   border-bottom: 1px solid ${palette.bgGray};
-  background-color: #ffffff;
 `;
 
 const StyledImage = styled(Image)`
