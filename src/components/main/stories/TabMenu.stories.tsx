@@ -1,7 +1,7 @@
 import TabMenu from '../TabMenu';
 
 export default {
-  title: 'main/components',
+  title: 'main/컴포넌트',
   component: '탭메뉴',
   parameters: {
     layout: 'fullscreen',

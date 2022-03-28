@@ -54,7 +54,7 @@ const MockData = [
 ];
 
 export default {
-  title: 'main/page',
+  title: 'main/페이지',
   parameters: {
     layout: 'fullscreen',
   },
