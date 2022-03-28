@@ -47,12 +47,15 @@ const TabMenu = () => {
 const Container = styled.div`
   display: flex;
   justify-content: space-evenly;
-  height: 83px;
-  background: #ffffff;
+  height: 55px;
+  background-color: #ffffff;
   box-shadow: 0px -0.5px 0px #e0e0e0;
   backdrop-filter: blur(20px);
   border-radius: 20px 20px 0px 0px;
   border-top: 1px solid ${palette.LightGray};
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 `;
 
 const TabButton = styled.button`
@@ -64,21 +67,22 @@ const TabButton = styled.button`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 50px;
+    height: 45px;
 
     & > img {
-      height: 24px;
+      height: 20px;
     }
   }
 
+  /* 전체 부분 */
   &:nth-of-type(5) > div {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 50px;
+    height: 45px;
     & > img {
-      height: 6px;
-      transform: translateY(160%);
+      height: 5px;
+      transform: translateY(200%);
     }
   }
 `;
