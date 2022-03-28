@@ -1,7 +1,7 @@
 import ChatRoomItem, { ChatRoomItemProps } from '../ChatRoomItem';
 
 export default {
-  title: 'main/components',
+  title: 'main/컴포넌트',
   component: '채팅룸',
 };
 
