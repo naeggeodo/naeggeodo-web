@@ -6,7 +6,6 @@ const Home: React.FC = () => {
   return (
     <>
       <Container>
-        <ChatRoomItem />
         <TabMenu />
       </Container>
     </>

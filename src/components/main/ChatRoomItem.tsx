@@ -5,18 +5,34 @@ import styled from 'styled-components';
 import arrowright from '../../assets/icons/arrowright.svg';
 import palette from '../../styles/palette';
 
-const ChatRoomItem = () => {
+export type ChatRoomItemProps = {
+  title: string;
+  total: number;
+  numOfPeople: number;
+  registerTime: number;
+  chattingUrl: string;
+};
+
+const ChatRoomItem = ({
+  title,
+  total,
+  numOfPeople,
+  registerTime,
+  chattingUrl,
+}: ChatRoomItemProps) => {
   return (
     <Container>
       <StyledImage src='/buger.png' width={70} height={70} />
       <FlexRight>
-        <Title>버거킹 백석 이마트점</Title>
-        <NumberOfPeople>인원 1명 / 2명</NumberOfPeople>
+        <Title>{title}</Title>
+        <NumberOfPeople>
+          인원 {numOfPeople}명 / {total}명
+        </NumberOfPeople>
 
         <TimeOrderLinkContainer>
-          <RegisteredTime>34분 전</RegisteredTime>
+          <RegisteredTime>{registerTime}분 전</RegisteredTime>
           <div>
-            <Link href='/login'>
+            <Link href={chattingUrl}>
               <StyledLink>
                 <p>함께 주문하기</p>
                 <img src={arrowright} alt='더보기 화살표' />
