@@ -51,6 +51,7 @@ const Container = styled.div`
   align-items: center;
   width: 100%;
   padding: 20px 14px;
+  background-color: #ffffff;
   border-bottom: 1px solid ${palette.bgGray};
 `;
 
