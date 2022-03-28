@@ -11,25 +11,29 @@ const CategoryMenuSlide: FC<Props> = ({ categories }) => {
   const [currentPosition, setCurrentPosition] = useState(null);
   const [diff, setDiff] = useState(null);
   const [moving, setMoving] = useState(false);
-  const slideRef = useRef(null);
+  const [transform, setTransform] = useState(0);
+  const slideRef = useRef<HTMLDivElement>(null);
 
-  const handleMouseDown = (e) => {
-    e.preventDefault();
+  const gestureStart = (e) => {
     setInitialPosition(e.pageX);
     setMoving(true);
-  };
-
-  const handleMouseMove = (e) => {
-    e.preventDefault();
-    if (moving) {
-      setCurrentPosition(e.pageX);
-      setDiff(currentPosition - initialPosition);
-      slideRef.current.style.transform = `translateX(${diff}px)`;
+    const transformMatrix = window
+      .getComputedStyle(slideRef.current)
+      .getPropertyValue('transform');
+    if (transformMatrix !== 'none') {
+      setTransform(parseInt(transformMatrix.split(',')[4].trim()));
     }
   };
 
-  const handleMouseUp = (e) => {
-    e.preventDefault();
+  const gestureMove = (e) => {
+    if (moving) {
+      setCurrentPosition(e.pageX);
+      setDiff(currentPosition - initialPosition);
+      slideRef.current.style.transform = `translateX(${transform + diff}px)`;
+    }
+  };
+
+  const gestureEnd = (e) => {
     setMoving(false);
   };
 
@@ -37,22 +41,12 @@ const CategoryMenuSlide: FC<Props> = ({ categories }) => {
     <Container>
       <Track
         ref={slideRef}
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}>
-        <Card>1</Card>
-        <Card>2</Card>
-        <Card>3</Card>
-        <Card>4</Card>
-        <Card>5</Card>
-        <Card>6</Card>
-        <Card>7</Card>
-        <Card>8</Card>
-        <Card>9</Card>
-        <Card>10</Card>
-        {/* {categories.map((category, index) => (
+        onPointerDown={gestureStart}
+        onPointerMove={gestureMove}
+        onPointerUp={gestureEnd}>
+        {categories.map((category, index) => (
           <p key={index}>{category}</p>
-        ))} */}
+        ))}
       </Track>
     </Container>
   );
@@ -61,12 +55,9 @@ const CategoryMenuSlide: FC<Props> = ({ categories }) => {
 const Container = styled.div`
   display: flex;
   position: relative;
-  background-color: beige;
-  left: 500px;
-  width: 400px;
-  height: 100vh;
+  width: 100%;
   font-size: 17px;
-  padding-bottom: 4px;
+  padding-bottom: 8px;
   border-bottom: 1px solid ${palette.LineGray};
   overflow: hidden;
 
@@ -77,20 +68,10 @@ const Container = styled.div`
 `;
 
 const Track = styled.div`
-  position: absolute;
   display: flex;
   gap: 20px;
-  left: 10px;
-  top: 150px;
-`;
-
-const Card = styled.div`
-  width: 300px;
-  height: 300px;
-  background-color: blue;
-  border-radius: 3px;
-  font-size: 30px;
-  color: white;
+  touch-action: none;
+  padding-left: 30px;
 `;
 
 export default CategoryMenuSlide;
