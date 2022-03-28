@@ -60,6 +60,7 @@ const Container = styled.div`
   padding-bottom: 8px;
   border-bottom: 1px solid ${palette.LineGray};
   overflow: hidden;
+  background-color: #ffffff;
 
   p {
     white-space: nowrap;

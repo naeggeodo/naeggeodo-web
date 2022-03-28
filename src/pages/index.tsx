@@ -96,6 +96,7 @@ const Home: React.FC = () => {
 
 const Container = styled.div`
   height: 100vh;
+  background-color: #ffffff;
   padding-top: 30px;
 `;
 
