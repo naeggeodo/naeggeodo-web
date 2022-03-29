@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React from 'react';
 import styled from 'styled-components';
 import { TabItem } from './types';
@@ -6,7 +7,7 @@ const TabButtonItem: React.FC<TabItem> = (props) => {
   return (
     <TabButton>
       <div>
-        <img src={props.image} alt={props.altText} />
+        <Image src={props.image} alt={props.altText} width={20} height={20} />
         <p>{props.title}</p>
       </div>
     </TabButton>
@@ -18,26 +19,11 @@ const TabButton = styled.button`
   background-color: transparent;
   cursor: pointer;
 
-  &:nth-of-type(-n + 4) > div {
+  & > div {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     height: 45px;
-
-    & > img {
-      height: 20px;
-    }
-  }
-
-  &:last-child > div {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 45px;
-    & > img {
-      height: 5px;
-      transform: translateY(200%);
-    }
   }
 `;
 
