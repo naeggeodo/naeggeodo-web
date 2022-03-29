@@ -74,8 +74,7 @@ const TabButton = styled.button`
     }
   }
 
-  /* 전체 부분 */
-  &:nth-of-type(5) > div {
+  &:last-child > div {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
