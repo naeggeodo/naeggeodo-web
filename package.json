@@ -10,10 +10,12 @@
     "build": "next build",
     "start": "next start",
     "sb": "start-storybook -p 6006 -s ./public",
+    "opt": "ANALYZE=true yarn build",
     "build-storybook": "build-storybook -s public",
     "chromatic": "npx chromatic --project-token=f23de09fc34e"
   },
   "dependencies": {
+    "@next/bundle-analyzer": "^12.1.2",
     "axios": "^0.26.0",
     "babel-plugin-styled-components": "^2.0.6",
     "next": "^12.1.0",

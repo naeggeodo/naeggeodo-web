@@ -1,4 +1,8 @@
-module.exports = {
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
+
+module.exports = withBundleAnalyzer({
   webpack: (config, options) => {
     config.module.rules.push({
       test: /\.(ttf|woff|woff2|svg|png)$/,
@@ -10,4 +14,4 @@ module.exports = {
 
     return config;
   },
-};
+});
