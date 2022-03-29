@@ -4,14 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import arrowright from '../../assets/icons/arrowright.svg';
 import palette from '../../styles/palette';
-
-export type ChatRoomItemProps = {
-  title: string;
-  total: number;
-  numOfPeople: number;
-  registerTime: number;
-  chattingUrl: string;
-};
+import { ChatRoomItemProps } from './types';
 
 const ChatRoomItem = ({
   title,
@@ -51,8 +44,8 @@ const Container = styled.div`
   align-items: center;
   width: 100%;
   padding: 20px 14px;
-  border-bottom: 1px solid ${palette.bgGray};
   background-color: #ffffff;
+  border-bottom: 1px solid ${palette.bgGray};
 `;
 
 const StyledImage = styled(Image)`
@@ -85,7 +78,8 @@ const RegisteredTime = styled.p`
   color: ${palette.DarkGray};
   background-color: ${palette.LightGray};
   font-size: 12px;
-  width: 48px;
+  min-width: 40px;
+  padding: 0 4px;
   height: 20px;
   border-radius: 3px;
 `;

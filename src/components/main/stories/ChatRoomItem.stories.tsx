@@ -1,4 +1,5 @@
-import ChatRoomItem, { ChatRoomItemProps } from '../ChatRoomItem';
+import ChatRoomItem from '../ChatRoomItem';
+import { ChatRoomItemProps } from '../types';
 
 export default {
   title: 'main/컴포넌트',

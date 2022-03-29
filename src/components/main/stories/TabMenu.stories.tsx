@@ -1,12 +1,13 @@
+import { ComponentMeta } from '@storybook/react';
 import TabMenu from '../TabMenu';
 
 export default {
   title: 'main/컴포넌트',
-  component: '탭메뉴',
+  component: TabMenu,
   parameters: {
     layout: 'fullscreen',
   },
-};
+} as ComponentMeta<typeof TabMenu>;
 
 export const Tab = () => <TabMenu />;
 
