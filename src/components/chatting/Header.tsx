@@ -2,13 +2,9 @@ import Image from 'next/image';
 import React from 'react';
 import styled, { css } from 'styled-components';
 import prevbtn from '../../assets/icons/prevbtn.svg';
-<<<<<<< HEAD
-////// 수정
-=======
 type StyledProps = {
   name: 'title' | 'info';
 };
->>>>>>> refactor/0329-code-review
 const Header = () => {
   return (
     <Wrap>
@@ -36,14 +32,7 @@ const ContentWrap = styled.div`
   width: 90%;
   height: 100%;
   margin: 0 auto;
-<<<<<<< HEAD
-  & > img {
-    cursor: pointer;
-    margin-right: 13px;
-  }
-=======
   gap: 10px;
->>>>>>> refactor/0329-code-review
 `;
 const StyledImage = styled(Image)`
   display: inline-block;

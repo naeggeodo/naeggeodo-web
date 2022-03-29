@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import setting from '../../assets/icons/setting.svg';
 import slidedown from '../../assets/icons/slidedown.svg';

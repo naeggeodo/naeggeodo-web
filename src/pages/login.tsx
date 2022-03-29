@@ -56,18 +56,12 @@ const P = styled.p`
   margin-top: 30px;
 `;
 const Div = styled.div<StyledProps>`
-<<<<<<< HEAD
-  border: 1px solid red;
-=======
->>>>>>> refactor/0329-code-review
   width: 100%;
   ${(props) =>
     props.name === 'header' &&
     css`
       height: 10%;
     `};
-<<<<<<< HEAD
-=======
   ${(props) =>
     props.name === 'content' &&
     css`
@@ -94,30 +88,4 @@ const Div = styled.div<StyledProps>`
         transform: translateX(-50%);
       }
     `};
->>>>>>> refactor/0329-code-review
 `;
-// &.header {
-//   height: 10%;
-// }
-// &.content {
-//   height: 60%;
-// }
-// &.buttons {
-//   border-top: 1px solid ${palette.DarkGray};
-//   padding-top: 26px;
-//   position: relative;
-//   height: 30%;
-//   &::before {
-//     content: '간편 로그인';
-//     width: 100px;
-//     height: 12px;
-//     display: inline-block;
-//     text-align: center;
-//     background: #fff;
-//     position: absolute;
-//     top: -6px;
-//     left: 50%;
-//     font-size: 12px;
-//     transform: translateX(-50%);
-//   }
-// }

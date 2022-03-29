@@ -14,11 +14,7 @@ export default {
   parameters: {
     layout: 'fullscreen',
   },
-<<<<<<< HEAD
-};
-=======
 } as ComponentMeta<typeof Header>;
->>>>>>> refactor/0329-code-review
 
 export const HeaderComp = () => <Header />;
 HeaderComp.storyName = '채팅방 헤더';

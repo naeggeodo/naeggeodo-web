@@ -7,11 +7,7 @@ export default {
   parameters: {
     layout: 'fullscreen',
   },
-<<<<<<< HEAD
-};
-=======
 } as ComponentMeta<typeof Chatting>;
->>>>>>> refactor/0329-code-review
 
 export const ChattingPage = () => <Chatting />;
 ChattingPage.storyName = '채팅 페이지';

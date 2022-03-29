@@ -39,10 +39,6 @@ const Input = styled.input`
   border-radius: 10px;
   width: 90%;
   height: 70%;
-<<<<<<< HEAD
-  margin: 3%;
-=======
->>>>>>> refactor/0329-code-review
   padding: 0 10px;
 `;
 const ImgAddBtn = styled.input`
