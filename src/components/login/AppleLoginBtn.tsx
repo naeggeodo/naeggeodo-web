@@ -5,7 +5,7 @@ const AppleLoginBtn = () => {
   return (
     <Wrap>
       <img src={applelogo} alt='apple logo' width={14} height={14} />
-      <Span>애플 계정으로 로그인</Span>
+      <span>애플 계정으로 로그인</span>
     </Wrap>
   );
 };
@@ -24,7 +24,5 @@ const Wrap = styled.div`
   font-size: 17px;
   cursor: pointer;
   margin-bottom: 10px;
-`;
-const Span = styled.span`
-  margin-left: 6px;
+  gap: 6px;
 `;

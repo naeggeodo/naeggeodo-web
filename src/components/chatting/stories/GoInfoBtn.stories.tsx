@@ -1,15 +1,20 @@
+import { ComponentMeta } from '@storybook/react';
 import GoInfoBtn from '../GoInfoBtn';
 
 export default {
-  title: 'chatting/components/GoInfoBtn',
+  title: 'chatting/컴포넌트',
   component: GoInfoBtn,
   decorators: [
-    () => (
-      <div style={{ height: '100vh', width: '100vw' }}>
-        <GoInfoBtn />
+    (Story) => (
+      <div style={{ height: '8vh', width: '100vw' }}>
+        <Story />
       </div>
     ),
   ],
-};
+  parameters: {
+    layout: 'fullscreen',
+  },
+} as ComponentMeta<typeof GoInfoBtn>;
 
-export const example = () => <GoInfoBtn />;
+export const GoInfo = () => <GoInfoBtn />;
+GoInfo.storyName = '가게 정보 보러가기 버튼';

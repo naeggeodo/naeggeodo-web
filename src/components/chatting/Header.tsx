@@ -1,15 +1,19 @@
+import Image from 'next/image';
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import prevbtn from '../../assets/icons/prevbtn.svg';
+type StyledProps = {
+  name: 'title' | 'info';
+};
 const Header = () => {
   return (
     <Wrap>
       <ContentWrap>
         <img src={prevbtn} alt='prev button' />
-        <HamburgerImg />
+        <StyledImage src='/buger.png' width={44} height={44} />
         <Div>
-          <Info className='title'>버거킹 백석 이마트점</Info>
-          <Info className='info'>인원2명/2명</Info>
+          <Info name='title'>버거킹 백석 이마트점</Info>
+          <Info name='info'>인원2명/2명</Info>
         </Div>
       </ContentWrap>
     </Wrap>
@@ -28,27 +32,29 @@ const ContentWrap = styled.div`
   width: 90%;
   height: 100%;
   margin: 0 auto;
+  gap: 10px;
 `;
-const HamburgerImg = styled.div`
-  width: 44px;
-  height: 44px;
+const StyledImage = styled(Image)`
+  display: inline-block;
   border-radius: 10px;
   background: #fff;
-  margin-left: 13px;
 `;
 const Div = styled.div`
   display: flex;
   flex-direction: column;
-  margin-left: 10px;
+  gap: 5px;
 `;
-const Info = styled.p`
+const Info = styled.p<StyledProps>`
   color: #fff;
   line-height: 20px;
-  &.title {
-    font-size: 15px;
-    margin-bottom: 5px;
-  }
-  &.info {
-    font-size: 12px;
-  }
+  ${(props) =>
+    props.name === 'title' &&
+    css`
+      font-size: 15px;
+    `}
+  ${(props) =>
+    props.name === 'info' &&
+    css`
+      font-size: 12px;
+    `}
 `;
