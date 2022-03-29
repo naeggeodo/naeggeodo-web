@@ -1,8 +1,14 @@
 import Image from 'next/image';
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import prevbtn from '../../assets/icons/prevbtn.svg';
+<<<<<<< HEAD
 ////// 수정
+=======
+type StyledProps = {
+  name: 'title' | 'info';
+};
+>>>>>>> refactor/0329-code-review
 const Header = () => {
   return (
     <Wrap>
@@ -10,8 +16,8 @@ const Header = () => {
         <img src={prevbtn} alt='prev button' />
         <StyledImage src='/buger.png' width={44} height={44} />
         <Div>
-          <Info className='title'>버거킹 백석 이마트점</Info>
-          <Info className='info'>인원2명/2명</Info>
+          <Info name='title'>버거킹 백석 이마트점</Info>
+          <Info name='info'>인원2명/2명</Info>
         </Div>
       </ContentWrap>
     </Wrap>
@@ -30,10 +36,14 @@ const ContentWrap = styled.div`
   width: 90%;
   height: 100%;
   margin: 0 auto;
+<<<<<<< HEAD
   & > img {
     cursor: pointer;
     margin-right: 13px;
   }
+=======
+  gap: 10px;
+>>>>>>> refactor/0329-code-review
 `;
 const StyledImage = styled(Image)`
   display: inline-block;
@@ -43,16 +53,19 @@ const StyledImage = styled(Image)`
 const Div = styled.div`
   display: flex;
   flex-direction: column;
-  margin-left: 10px;
+  gap: 5px;
 `;
-const Info = styled.p`
+const Info = styled.p<StyledProps>`
   color: #fff;
   line-height: 20px;
-  &.title {
-    font-size: 15px;
-    margin-bottom: 5px;
-  }
-  &.info {
-    font-size: 12px;
-  }
+  ${(props) =>
+    props.name === 'title' &&
+    css`
+      font-size: 15px;
+    `}
+  ${(props) =>
+    props.name === 'info' &&
+    css`
+      font-size: 12px;
+    `}
 `;
