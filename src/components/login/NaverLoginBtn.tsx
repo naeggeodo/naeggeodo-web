@@ -5,7 +5,7 @@ const NaverLoginBtn = () => {
   return (
     <Wrap>
       <img src={naverlogo} alt='naver logo' width={14} height={14} />
-      <Span>네이버 계정으로 로그인</Span>
+      <span>네이버 계정으로 로그인</span>
     </Wrap>
   );
 };
@@ -24,7 +24,5 @@ const Wrap = styled.div`
   cursor: pointer;
   font-size: 17px;
   margin-bottom: 10px;
-`;
-const Span = styled.span`
-  margin-left: 6px;
+  gap: 6px;
 `;

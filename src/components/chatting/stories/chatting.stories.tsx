@@ -1,3 +1,4 @@
+import { ComponentMeta } from '@storybook/react';
 import Chatting from '../../../pages/chatting';
 
 export default {
@@ -6,7 +7,7 @@ export default {
   parameters: {
     layout: 'fullscreen',
   },
-};
+} as ComponentMeta<typeof Chatting>;
 
 export const ChattingPage = () => <Chatting />;
 ChattingPage.storyName = '채팅 페이지';

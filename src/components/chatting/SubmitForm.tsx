@@ -30,6 +30,7 @@ const ContentWrap = styled.div`
   height: 100%;
   margin: 0 auto;
   justify-content: center;
+  gap: 3%;
 `;
 const Input = styled.input`
   background: #f2f2f8;
@@ -38,7 +39,6 @@ const Input = styled.input`
   border-radius: 10px;
   width: 90%;
   height: 70%;
-  margin: 3%;
   padding: 0 10px;
 `;
 const ImgAddBtn = styled.input`

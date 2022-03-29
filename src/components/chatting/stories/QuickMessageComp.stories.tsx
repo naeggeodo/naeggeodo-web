@@ -1,3 +1,4 @@
+import { ComponentMeta } from '@storybook/react';
 import QuickMessageComp from '../QuickMessageComp';
 
 export default {
@@ -13,7 +14,7 @@ export default {
   parameters: {
     layout: 'fullscreen',
   },
-};
+} as ComponentMeta<typeof QuickMessageComp>;
 
 export const QuickMessageList = () => <QuickMessageComp />;
 QuickMessageList.storyName = '빠른 메시지 전송';

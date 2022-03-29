@@ -6,7 +6,7 @@ const KaKaoLoginBtn = () => {
   return (
     <Wrap>
       <img src={kakaologo} alt='kakao logo' width={14} height={14} />
-      <Span>카카오 계정으로 로그인</Span>
+      <span>카카오 계정으로 로그인</span>
     </Wrap>
   );
 };
@@ -26,7 +26,5 @@ const Wrap = styled.div`
   margin-bottom: 6px;
   cursor: pointer;
   margin-bottom: 10px;
-`;
-const Span = styled.span`
-  margin-left: 6px;
+  gap: 6px;
 `;

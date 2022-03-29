@@ -27,7 +27,6 @@ const Wrap = styled.div`
   width: 100vw;
   height: 100vh;
   background: #f2f2f8;
-  font-family: 'Spoqa';
 `;
 const Div = styled.div`
   width: 100%;
