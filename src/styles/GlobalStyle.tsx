@@ -8,19 +8,21 @@ const globalStyle = css`
 
   @font-face {
     font-family: 'SpoqaBold';
-    src: url(${SpoqaHanSansNeoBold}) format('woff');
+    src: local(${SpoqaHanSansNeoBold}) format('woff');
+    font-display: fallback;
   }
 
   @font-face {
     font-family: 'Spoqa';
-    src: url(${SpoqaHanSansNeoRegular}) format('woff');
+    font-display: fallback;
+    src: local(${SpoqaHanSansNeoRegular}) format('woff');
   }
 
   html {
     font-size: 10px;
   }
   body {
-    font-family: 'Spoqa';
+    font-family: 'Spoqa', 'sans-serif';
   }
   * {
     box-sizing: border-box;

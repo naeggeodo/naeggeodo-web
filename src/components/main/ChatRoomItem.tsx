@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
-import arrowright from '../../assets/icons/arrowright.svg';
+import arrowRight from '../../assets/icons/arrowright.svg';
 import palette from '../../styles/palette';
 import { ChatRoomItemProps } from './types';
 
@@ -28,7 +28,12 @@ const ChatRoomItem = ({
             <Link href={chattingUrl}>
               <StyledLink>
                 <p>함께 주문하기</p>
-                <img src={arrowright} alt='더보기 화살표' />
+                <Image
+                  src={arrowRight}
+                  alt='더보기 화살표'
+                  width={14}
+                  height={20}
+                />
               </StyledLink>
             </Link>
           </div>
