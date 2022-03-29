@@ -1,12 +1,20 @@
-import React, { Ref, RefObject, useCallback, useRef, useState } from 'react';
+import React, {
+  PointerEvent,
+  RefObject,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
 interface ReturnType {
   slideRef: RefObject<HTMLDivElement>;
-  gestureStart: (e: React.PointerEvent<HTMLElement>) => void;
-  gestureMove: (e: React.PointerEvent<HTMLElement>) => void;
+  gestureStart: (e: PointerEvent<HTMLElement> | MouseEvent) => void;
+  gestureMove: (e: PointerEvent<HTMLElement> | MouseEvent) => void;
   gestureEnd: () => void;
 }
-export function useSlideTransform(): ReturnType {
+
+export function useSlideTransform() {
   const [initialPosition, setInitialPosition] = useState<number | null>(null);
   const [currentPosition, setCurrentPosition] = useState<number | null>(null);
   const [diff, setDiff] = useState<number | null>(null);
@@ -14,9 +22,27 @@ export function useSlideTransform(): ReturnType {
   const [transform, setTransform] = useState<number>(0);
   const slideRef = useRef<HTMLDivElement>(null);
 
-  const gestureStart = useCallback<
-    (e: React.PointerEvent<HTMLDivElement>) => void
-  >(
+  useEffect(() => {
+    if (window.PointerEvent) {
+      slideRef.current.addEventListener('pointerdown', gestureStart);
+      slideRef.current.addEventListener('pointermove', gestureMove);
+      slideRef.current.addEventListener('pointerup', gestureEnd);
+    } else {
+      slideRef.current.addEventListener('mousedown', gestureStart);
+      slideRef.current.addEventListener('mousemove', gestureMove);
+      slideRef.current.addEventListener('mouseup', gestureEnd);
+    }
+    return () => {
+      slideRef.current.addEventListener('pointerdown', gestureStart);
+      slideRef.current.addEventListener('pointermove', gestureMove);
+      slideRef.current.addEventListener('pointerup', gestureEnd);
+      slideRef.current.removeEventListener('mousedown', gestureStart);
+      slideRef.current.removeEventListener('mousemove', gestureMove);
+      slideRef.current.removeEventListener('mouseup', gestureEnd);
+    };
+  }, [currentPosition, moving]);
+
+  const gestureStart = useCallback<(e: PointerEvent | MouseEvent) => void>(
     (e) => {
       setInitialPosition(e.pageX);
       setMoving(true);
@@ -30,9 +56,7 @@ export function useSlideTransform(): ReturnType {
     [initialPosition, moving, transform],
   );
 
-  const gestureMove = useCallback<
-    (e: React.PointerEvent<HTMLDivElement>) => void
-  >(
+  const gestureMove = useCallback<(e: PointerEvent | MouseEvent) => void>(
     (e) => {
       if (moving) {
         setCurrentPosition(e.pageX);
