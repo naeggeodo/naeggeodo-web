@@ -14,7 +14,7 @@ interface ReturnType {
   gestureEnd: () => void;
 }
 
-export function useSlideTransform() {
+export function useSlideTransform(): ReturnType {
   const [initialPosition, setInitialPosition] = useState<number | null>(null);
   const [currentPosition, setCurrentPosition] = useState<number | null>(null);
   const [diff, setDiff] = useState<number | null>(null);
