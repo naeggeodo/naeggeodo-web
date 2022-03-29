@@ -9,7 +9,6 @@ const SubmitForm = () => {
         <label htmlFor='image'>
           <img src={imgaddbtn} alt='img add icon' />
         </label>
-
         <ImgAddBtn type='file' id='image' />
         <Input type='text' />
         <img src={submitbtn} alt='submit button' />
@@ -40,6 +39,7 @@ const Input = styled.input`
   width: 90%;
   height: 70%;
   margin: 3%;
+  padding: 0 10px;
 `;
 const ImgAddBtn = styled.input`
   display: none;

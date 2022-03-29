@@ -1,7 +1,7 @@
 import Header from '../Header';
 
 export default {
-  title: 'chatting/components/Header',
+  title: 'chatting/컴포넌트',
   component: Header,
   decorators: [
     () => (
@@ -10,6 +10,10 @@ export default {
       </div>
     ),
   ],
+  parameters: {
+    layout: 'fullscreen',
+  },
 };
 
-export const example = () => <Header />;
+export const HeaderComp = () => <Header />;
+HeaderComp.storyName = '채팅방 헤더';

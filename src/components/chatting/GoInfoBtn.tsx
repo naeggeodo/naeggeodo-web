@@ -12,7 +12,9 @@ const GoInfoBtn = () => {
 export default GoInfoBtn;
 
 const Button = styled.button`
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   outline: none;
   border: none;
   background: #fff;
@@ -20,22 +22,10 @@ const Button = styled.button`
   width: 80%;
   height: 100%;
   border-radius: 5px;
-  box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.06);
   text-align: left;
   box-sizing: border-box;
   cursor: pointer;
   margin: 0 auto;
   font-size: 12px;
-  position: relative;
-  & > span {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-  & > img {
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-  }
 `;

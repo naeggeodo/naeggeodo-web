@@ -5,7 +5,7 @@ import palette from '../../styles/palette';
 const ChatItem = () => {
   return (
     <Wrap>
-      <Img />
+      <StyledImage src='/buger.png' width={35} height={35} />
       <Content>안녕하세요 주문메뉴 골라주세요</Content>
     </Wrap>
   );
@@ -14,13 +14,12 @@ const ChatItem = () => {
 export default ChatItem;
 const Wrap = styled.div`
   display: flex;
+  margin-left: 10px;
+  gap: 5px;
 `;
-const Img = styled.div`
-  width: 35px;
-  height: 35px;
+const StyledImage = styled(Image)`
   background: ${palette.DarkGray};
   border-radius: 10px 10px 0px 10px;
-  margin: 0px 5px;
 `;
 const Content = styled.p`
   background: ${palette.mainOrange};
