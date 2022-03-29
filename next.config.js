@@ -3,6 +3,10 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 });
 
 module.exports = withBundleAnalyzer({
+  swcMinify: true,
+  compiler: {
+    styledComponents: true,
+  },
   webpack: (config, options) => {
     config.module.rules.push({
       test: /\.(ttf|woff|woff2|svg|png)$/,

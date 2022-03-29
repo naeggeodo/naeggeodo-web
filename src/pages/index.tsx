@@ -5,6 +5,7 @@ import { categoryMockData, chatListMockData } from '../components/main/data';
 import TabMenu from '../components/main/TabMenu';
 
 const Home: React.FC = () => {
+  console.log(123);
   return (
     <Container>
       <CategoryMenuSlide categories={categoryMockData} />
