@@ -1,7 +1,7 @@
 import GoInfoBtn from '../GoInfoBtn';
 
 export default {
-  title: 'chatting/components/GoInfoBtn',
+  title: 'chatting/컴포넌트',
   component: GoInfoBtn,
   decorators: [
     () => (
@@ -12,4 +12,5 @@ export default {
   ],
 };
 
-export const example = () => <GoInfoBtn />;
+export const GoInfo = () => <GoInfoBtn />;
+GoInfo.storyName = '가게 정보 보러가기 버튼';

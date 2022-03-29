@@ -1,7 +1,7 @@
 import KaKaoLoginBtn from '../KaKaoLoginBtn';
 
 export default {
-  title: 'login/components/KaKaoLoginBtn',
+  title: 'login/컴포넌트',
   component: KaKaoLoginBtn,
   decorators: [
     () => (
@@ -12,4 +12,5 @@ export default {
   ],
 };
 
-export const example = () => <KaKaoLoginBtn />;
+export const KaKaoLogin = () => <KaKaoLoginBtn />;
+KaKaoLogin.storyName = '카카오 로그인 버튼';

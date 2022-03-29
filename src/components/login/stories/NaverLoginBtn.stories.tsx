@@ -1,7 +1,7 @@
 import NaverLoginBtn from '../NaverLoginBtn';
 
 export default {
-  title: 'login/components/NaverLoginBtn',
+  title: 'login/컴포넌트',
   component: NaverLoginBtn,
   decorators: [
     () => (
@@ -12,4 +12,5 @@ export default {
   ],
 };
 
-export const example = () => <NaverLoginBtn />;
+export const NaverLogin = () => <NaverLoginBtn />;
+NaverLogin.storyName = '네이버 로그인 버튼';

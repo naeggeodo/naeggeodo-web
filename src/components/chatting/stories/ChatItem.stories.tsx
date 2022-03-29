@@ -1,7 +1,7 @@
 import ChatItem from '../ChatItem';
 
 export default {
-  title: 'chatting/components/ChatItem',
+  title: 'chatting/컴포넌트',
   component: ChatItem,
   decorators: [
     () => (
@@ -12,4 +12,5 @@ export default {
   ],
 };
 
-export const example = () => <ChatItem />;
+export const ChatItemComp = () => <ChatItem />;
+ChatItemComp.storyName = '채팅 내용';
