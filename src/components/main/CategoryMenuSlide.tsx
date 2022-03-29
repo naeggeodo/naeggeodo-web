@@ -1,41 +1,15 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
+import { useSlideTransform } from '../../hooks/useSlideTransform';
 import palette from '../../styles/palette';
 
 interface Props {
   categories: string[];
 }
 
-const CategoryMenuSlide: FC<Props> = ({ categories }) => {
-  const [initialPosition, setInitialPosition] = useState(null);
-  const [currentPosition, setCurrentPosition] = useState(null);
-  const [diff, setDiff] = useState(null);
-  const [moving, setMoving] = useState(false);
-  const [transform, setTransform] = useState(0);
-  const slideRef = useRef<HTMLDivElement>(null);
-
-  const gestureStart = (e) => {
-    setInitialPosition(e.pageX);
-    setMoving(true);
-    const transformMatrix = window
-      .getComputedStyle(slideRef.current)
-      .getPropertyValue('transform');
-    if (transformMatrix !== 'none') {
-      setTransform(parseInt(transformMatrix.split(',')[4].trim()));
-    }
-  };
-
-  const gestureMove = (e) => {
-    if (moving) {
-      setCurrentPosition(e.pageX);
-      setDiff(currentPosition - initialPosition);
-      slideRef.current.style.transform = `translateX(${transform + diff}px)`;
-    }
-  };
-
-  const gestureEnd = (e) => {
-    setMoving(false);
-  };
+const CategoryMenuSlide: React.FC<Props> = ({ categories }) => {
+  const { gestureStart, gestureMove, gestureEnd, slideRef } =
+    useSlideTransform();
 
   return (
     <Container>
@@ -57,7 +31,6 @@ const Container = styled.div`
   position: relative;
   width: 100%;
   font-size: 17px;
-  padding-bottom: 8px;
   border-bottom: 1px solid ${palette.LineGray};
   overflow: hidden;
   background-color: #ffffff;
@@ -71,8 +44,10 @@ const Container = styled.div`
 const Track = styled.div`
   display: flex;
   gap: 20px;
+  width: 100%;
   touch-action: none;
   padding-left: 30px;
+  padding: 15px 0 15px 30px;
 `;
 
 export default CategoryMenuSlide;
