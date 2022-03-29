@@ -4,14 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import arrowright from '../../assets/icons/arrowright.svg';
 import palette from '../../styles/palette';
-
-export type ChatRoomItemProps = {
-  title: string;
-  total: number;
-  numOfPeople: number;
-  registerTime: number;
-  chattingUrl: string;
-};
+import { ChatRoomItemProps } from './types';
 
 const ChatRoomItem = ({
   title,

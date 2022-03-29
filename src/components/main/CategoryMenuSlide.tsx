@@ -3,11 +3,7 @@ import styled from 'styled-components';
 import { useSlideTransform } from '../../hooks/useSlideTransform';
 import palette from '../../styles/palette';
 
-interface Props {
-  categories: string[];
-}
-
-const CategoryMenuSlide: React.FC<Props> = ({ categories }) => {
+const CategoryMenuSlide = ({ categories }: { categories: string[] }) => {
   const { gestureStart, gestureMove, gestureEnd, slideRef } =
     useSlideTransform();
 
