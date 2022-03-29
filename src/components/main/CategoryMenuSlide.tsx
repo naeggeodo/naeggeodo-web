@@ -42,7 +42,6 @@ const Track = styled.div`
   gap: 20px;
   width: 100%;
   touch-action: none;
-  padding-left: 30px;
   padding: 15px 0 15px 30px;
 `;
 
