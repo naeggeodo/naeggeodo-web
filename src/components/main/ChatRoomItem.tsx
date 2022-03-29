@@ -78,7 +78,8 @@ const RegisteredTime = styled.p`
   color: ${palette.DarkGray};
   background-color: ${palette.LightGray};
   font-size: 12px;
-  width: 48px;
+  min-width: 40px;
+  padding: 0 4px;
   height: 20px;
   border-radius: 3px;
 `;
