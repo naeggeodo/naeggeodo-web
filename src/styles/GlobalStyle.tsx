@@ -8,12 +8,14 @@ const globalStyle = css`
 
   @font-face {
     font-family: 'SpoqaBold';
-    src: url(${SpoqaHanSansNeoBold}) format('woff');
+    src: local(${SpoqaHanSansNeoBold}) format('woff');
+    font-display: fallback;
   }
 
   @font-face {
     font-family: 'Spoqa';
-    src: url(${SpoqaHanSansNeoRegular}) format('woff');
+    font-display: fallback;
+    src: local(${SpoqaHanSansNeoRegular}) format('woff');
   }
 
   html {
