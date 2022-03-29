@@ -22,7 +22,7 @@ const globalStyle = css`
     font-size: 10px;
   }
   body {
-    font-family: 'Spoqa';
+    font-family: 'Spoqa', 'sans-serif';
   }
   * {
     box-sizing: border-box;
