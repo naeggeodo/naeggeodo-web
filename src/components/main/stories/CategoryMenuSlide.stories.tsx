@@ -1,6 +1,6 @@
-import { categoryMockData } from '../../../pages';
 import CategoryMenuSlide from '../CategoryMenuSlide';
 import { ComponentMeta } from '@storybook/react';
+import { categoryMockData } from '../data';
 
 export default {
   title: 'main/컴포넌트',
