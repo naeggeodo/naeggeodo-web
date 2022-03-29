@@ -35,12 +35,14 @@ const QuickMessageComp = () => {
         if (currentY - initialY > 50) {
           target.current.style.height = '30px';
           initialY = 0;
+          currentY = 0;
         }
       } else {
         target.current.style.height = `${30 + (initialY - currentY)}px`;
         if (initialY - currentY > 50) {
           target.current.style.height = '200px';
           initialY = 0;
+          currentY = 0;
         }
       }
     }
