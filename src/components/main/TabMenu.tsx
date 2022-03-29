@@ -1,45 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
-import homeblack from '../../assets/icons/homeblack.svg';
-import searchgray from '../../assets/icons/searchgray.svg';
-import plusgray from '../../assets/icons/plusgray.svg';
-import chatgray from '../../assets/icons/chatgray.svg';
-import moregray from '../../assets/icons/moregray.svg';
 import palette from '../../styles/palette';
+import { tabDatas } from './data';
+import TabButtonItem from './TabButtonItem';
 
 const TabMenu = () => {
   return (
     <Container>
-      <TabButton>
-        <div>
-          <img src={homeblack} alt='홈버튼' />
-          <p>홈</p>
-        </div>
-      </TabButton>
-      <TabButton>
-        <div>
-          <img src={searchgray} alt='검색' />
-          <p>검색</p>
-        </div>
-      </TabButton>
-      <TabButton>
-        <div>
-          <img src={plusgray} alt='추가하기' />
-          <p>내꺼도 생성</p>
-        </div>
-      </TabButton>
-      <TabButton>
-        <div>
-          <img src={chatgray} alt='채팅방' />
-          <p>내꺼도</p>
-        </div>
-      </TabButton>
-      <TabButton>
-        <div>
-          <img src={moregray} alt='더보기' />
-          <p>전체</p>
-        </div>
-      </TabButton>
+      {tabDatas.map((tab) => (
+        <TabButtonItem
+          key={tab.id}
+          image={tab.image}
+          title={tab.title}
+          altText={tab.altText}
+        />
+      ))}
     </Container>
   );
 };
@@ -56,34 +31,6 @@ const Container = styled.div`
   position: fixed;
   bottom: 0;
   width: 100%;
-`;
-
-const TabButton = styled.button`
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-
-  &:nth-of-type(-n + 4) > div {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 45px;
-
-    & > img {
-      height: 20px;
-    }
-  }
-
-  &:last-child > div {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 45px;
-    & > img {
-      height: 5px;
-      transform: translateY(200%);
-    }
-  }
 `;
 
 export default TabMenu;
