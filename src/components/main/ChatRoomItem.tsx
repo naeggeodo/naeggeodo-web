@@ -25,7 +25,7 @@ const ChatRoomItem = ({
         <TimeOrderLinkContainer>
           <RegisteredTime>{registerTime}분 전</RegisteredTime>
           <div>
-            <Link href={chattingUrl}>
+            <Link href={chattingUrl} passHref>
               <StyledLink>
                 <p>함께 주문하기</p>
                 <Image
