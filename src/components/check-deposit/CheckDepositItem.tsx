@@ -1,15 +1,24 @@
 import Image from 'next/image';
 import React from 'react';
 
-import styled from 'styled-components';
 import profile from '../../assets/img/profile.svg';
+import styled from 'styled-components';
 import palette from '../../styles/palette';
+import responsive from '../../styles/responsive';
 import CompleteDepositButton from './CompleteDepositButton';
 
 const CheckDepositItem = ({ userNickName }: { userNickName: string }) => {
   return (
     <Container>
-      <Image src={profile} width={52} height={52} />
+      <div style={{ height: '52px' }}>
+        <StyledImg
+          src={profile}
+          layout='fixed'
+          width={52}
+          height={52}
+          objectFit='contain'
+        />
+      </div>
       <NickNameWrapper>{userNickName}</NickNameWrapper>
       <CompleteDepositButton />
     </Container>
@@ -20,15 +29,24 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
+  font-size: 17px;
+
+  & > button {
+    margin-left: 3px;
+  }
+`;
+
+const StyledImg = styled(Image)`
+  border-radius: 10px 0px 0px 10px;
 `;
 
 const NickNameWrapper = styled.div`
   display: flex;
+  min-width: 115px;
   width: 100%;
   align-items: center;
   padding-left: 10px;
-  height: 47px;
-  font-size: 17px;
+  height: 52px;
   background-color: ${palette.bgGray};
 `;
 
