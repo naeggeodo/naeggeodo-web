@@ -1,13 +1,17 @@
 {
   "env": {
     "browser": true,
-    "es2021": true
+    "es2021": true,
+    "jest": true
   },
+  "plugins": ["react", "@typescript-eslint", "testing-library", "jest-dom"],
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:@next/next/recommended"
+    "plugin:@next/next/recommended",
+    "plugin:testing-library/react",
+    "plugin:jest-dom/recommended"
   ],
   "settings": {
     "react": {
@@ -22,7 +26,6 @@
     "ecmaVersion": 9,
     "sourceType": "module"
   },
-  "plugins": ["react", "@typescript-eslint"],
   "rules": {
     "quotes": ["error", "single"],
     "react/react-in-jsx-scope": "off",
