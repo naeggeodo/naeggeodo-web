@@ -18,12 +18,13 @@ const Button = styled.button`
   border: none;
   outline: none;
   border-radius: 10px;
-  width: 100px;
+  max-width: 100px;
+  min-width: 80px;
+  width: 10%;
   height: 52px;
 
   @media ${responsive.compact} {
     font-size: 15px;
-    min-width: 70px;
   }
 `;
 

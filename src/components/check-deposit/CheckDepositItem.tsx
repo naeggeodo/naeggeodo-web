@@ -43,10 +43,11 @@ const StyledImg = styled(Image)`
 const NickNameWrapper = styled.div`
   display: flex;
   min-width: 115px;
-  width: 100%;
   align-items: center;
   padding-left: 10px;
+  width: 90%;
   height: 52px;
+  border-radius: 0px 10px 10px 0px;
   background-color: ${palette.bgGray};
 `;
 

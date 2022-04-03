@@ -28,10 +28,10 @@ const Button = styled.button`
   border-radius: 10px;
   font-size: 17px;
   max-height: 70px;
-  min-height: 30px;
+  min-height: 50px;
   min-width: 172px;
-  height: 9%;
   color: #ffffff;
+  margin-top: 30px;
 `;
 
 const CompletedButton = styled(Button)`
