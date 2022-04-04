@@ -1,19 +1,22 @@
 import styled from 'styled-components';
 import palette from '../../styles/palette';
 import kakaologo from '../../assets/icons/kakaologo.svg';
+import Image from 'next/image';
 
 const KaKaoLoginBtn = () => {
   return (
-    <Wrap>
-      <img src={kakaologo} alt='kakao logo' width={14} height={14} />
+    <Button>
+      <Image src={kakaologo} alt='kakao logo' width={17.5} height={16.25} />
       <span>카카오 계정으로 로그인</span>
-    </Wrap>
+    </Button>
   );
 };
 
 export default KaKaoLoginBtn;
-const Wrap = styled.div`
+const Button = styled.button`
   width: 100%;
+  border: none;
+  outline: none;
   border-radius: 10px;
   height: 28%;
   color: #000;

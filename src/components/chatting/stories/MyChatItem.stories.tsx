@@ -1,9 +1,9 @@
 import { ComponentMeta } from '@storybook/react';
-import QuickMessageComp from '../QuickMessageComp';
+import MyChatItem from '../MyChatItem';
 
 export default {
   title: 'chatting/컴포넌트',
-  component: QuickMessageComp,
+  component: MyChatItem,
   decorators: [
     (Story) => (
       <div style={{ height: '100vh', width: '100vw' }}>
@@ -14,7 +14,7 @@ export default {
   parameters: {
     layout: 'fullscreen',
   },
-} as ComponentMeta<typeof QuickMessageComp>;
+} as ComponentMeta<typeof MyChatItem>;
 
-export const QuickMessageList = () => <QuickMessageComp />;
-QuickMessageList.storyName = '빠른 메시지 전송';
+export const MyChatItemComp = () => <MyChatItem />;
+MyChatItemComp.storyName = '내 채팅 내용';
