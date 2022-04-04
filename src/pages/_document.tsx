@@ -10,10 +10,10 @@ import { ServerStyleSheet } from 'styled-components';
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
     const sheet = new ServerStyleSheet();
-    const originalRenderPage = ctx.renderPage;
+    const view = ctx.renderPage;
     try {
       ctx.renderPage = () =>
-        originalRenderPage({
+        view({
           enhanceApp: (App) => (props) =>
             sheet.collectStyles(<App {...props} />),
         });

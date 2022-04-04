@@ -55,7 +55,7 @@ export const chatListMockData = [
   {
     id: 1,
     title: '버거킹 하남 미사점',
-    chattingUrl: 'login',
+    chattingUrl: '/login',
     total: 3,
     numOfPeople: 2,
     registerTime: 45,
@@ -63,7 +63,7 @@ export const chatListMockData = [
   {
     id: 2,
     title: '버거킹 하남 미사점',
-    chattingUrl: 'login',
+    chattingUrl: '/login',
     total: 3,
     numOfPeople: 2,
     registerTime: 45,
@@ -71,7 +71,7 @@ export const chatListMockData = [
   {
     id: 3,
     title: '버거킹 하남 미사점',
-    chattingUrl: 'login',
+    chattingUrl: '/login',
     total: 3,
     numOfPeople: 2,
     registerTime: 45,
@@ -79,7 +79,7 @@ export const chatListMockData = [
   {
     id: 4,
     title: '버거킹 하남 미사점',
-    chattingUrl: 'login',
+    chattingUrl: '/login',
     total: 3,
     numOfPeople: 2,
     registerTime: 45,
@@ -87,7 +87,7 @@ export const chatListMockData = [
   {
     id: 5,
     title: '버거킹 하남 미사점',
-    chattingUrl: 'login',
+    chattingUrl: '/login',
     total: 3,
     numOfPeople: 2,
     registerTime: 45,
@@ -95,7 +95,7 @@ export const chatListMockData = [
   {
     id: 6,
     title: '버거킹 하남 미사점',
-    chattingUrl: 'login',
+    chattingUrl: '/login',
     total: 3,
     numOfPeople: 2,
     registerTime: 45,
@@ -103,7 +103,7 @@ export const chatListMockData = [
   {
     id: 7,
     title: '버거킹 하남 미사점',
-    chattingUrl: 'login',
+    chattingUrl: '/login',
     total: 3,
     numOfPeople: 2,
     registerTime: 45,
