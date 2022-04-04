@@ -64,7 +64,6 @@ const TitleContainer = styled.div`
 const Title = styled.p`
   font-size: 26px;
   color: ${palette.black};
-  font-family: 'SpoqaBold';
   font-weight: 700;
   letter-spacing: 0.35px;
 `;
