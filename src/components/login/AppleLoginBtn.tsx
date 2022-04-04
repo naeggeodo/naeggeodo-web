@@ -23,7 +23,6 @@ const Button = styled.button`
   justify-content: center;
   background: #000;
   color: #fff;
-  font-family: 'Spoqa';
   font-size: 17px;
   cursor: pointer;
   margin-bottom: 10px;

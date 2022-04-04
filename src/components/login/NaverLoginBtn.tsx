@@ -23,7 +23,6 @@ const Button = styled.button`
   align-items: center;
   justify-content: center;
   background: ${palette.naverGreen};
-  font-family: 'Spoqa';
   cursor: pointer;
   font-size: 17px;
   margin-bottom: 10px;
