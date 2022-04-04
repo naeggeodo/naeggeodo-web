@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import Image from 'next/image';
+import React from 'react';
 import styled from 'styled-components';
 import imgaddbtn from '../../assets/icons/imgaddbtn.svg';
 import submitbtn from '../../assets/icons/submitbtn.svg';
@@ -7,11 +8,11 @@ const SubmitForm = () => {
     <Wrap>
       <ContentWrap>
         <label htmlFor='image'>
-          <img src={imgaddbtn} alt='img add icon' />
+          <Image src={imgaddbtn} alt='img add icon' width={19} height={24} />
         </label>
         <ImgAddBtn type='file' id='image' />
         <Input type='text' />
-        <img src={submitbtn} alt='submit button' />
+        <Image src={submitbtn} alt='submit button' width={23} height={24} />
       </ContentWrap>
     </Wrap>
   );

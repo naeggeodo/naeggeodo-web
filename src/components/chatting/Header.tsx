@@ -9,7 +9,7 @@ const Header = () => {
   return (
     <Wrap>
       <ContentWrap>
-        <img src={prevbtn} alt='prev button' />
+        <Image src={prevbtn} alt='prev button' width={14} height={24} />
         <StyledImage src='/buger.png' width={44} height={44} />
         <Div>
           <Info name='title'>버거킹 백석 이마트점</Info>

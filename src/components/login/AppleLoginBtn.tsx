@@ -1,18 +1,21 @@
+import Image from 'next/image';
 import styled from 'styled-components';
 import applelogo from '../../assets/icons/applelogo.svg';
 
 const AppleLoginBtn = () => {
   return (
     <Wrap>
-      <img src={applelogo} alt='apple logo' width={14} height={14} />
+      <Image src={applelogo} alt='apple logo' width={14} height={16} />
       <span>애플 계정으로 로그인</span>
     </Wrap>
   );
 };
 
 export default AppleLoginBtn;
-const Wrap = styled.div`
+const Wrap = styled.button`
   width: 100%;
+  border: none;
+  outline: none;
   border-radius: 10px;
   height: 28%;
   display: flex;

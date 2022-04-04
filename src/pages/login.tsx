@@ -4,6 +4,7 @@ import KaKaoLoginBtn from '../components/login/KaKaoLoginBtn';
 import NaverLoginBtn from '../components/login/NaverLoginBtn';
 import palette from '../styles/palette';
 import prevbtn from '../assets/icons/prevbtn.svg';
+import Image from 'next/image';
 type StyledProps = {
   name: 'header' | 'content' | 'buttons';
 };
@@ -12,7 +13,7 @@ const login = () => {
     <Wrap>
       <ContentWrap>
         <Div name='header'>
-          <img src={prevbtn} alt='prev button' />
+          <Image src={prevbtn} alt='prev button' width={14} height={24} />
         </Div>
         <Div name='content'>
           <Title>로그인하여</Title>
