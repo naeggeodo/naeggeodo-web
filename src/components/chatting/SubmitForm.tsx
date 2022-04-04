@@ -7,12 +7,14 @@ const SubmitForm = () => {
   return (
     <Wrap>
       <ContentWrap>
-        <label htmlFor='image'>
+        <ImgAddLabel htmlFor='image'>
           <Image src={imgaddbtn} alt='img add icon' width={19} height={24} />
-        </label>
+        </ImgAddLabel>
         <ImgAddBtn type='file' id='image' />
         <Input type='text' />
-        <Image src={submitbtn} alt='submit button' width={23} height={24} />
+        <Button>
+          <Image src={submitbtn} alt='submit button' width={23} height={24} />
+        </Button>
       </ContentWrap>
     </Wrap>
   );
@@ -24,7 +26,7 @@ const Wrap = styled.div`
   width: 100%;
   height: 8%;
 `;
-const ContentWrap = styled.div`
+const ContentWrap = styled.form`
   display: flex;
   align-items: center;
   width: 90%;
@@ -42,6 +44,15 @@ const Input = styled.input`
   height: 70%;
   padding: 0 10px;
 `;
+const ImgAddLabel = styled.label`
+  cursor: pointer;
+`;
 const ImgAddBtn = styled.input`
   display: none;
+`;
+const Button = styled.button`
+  outline: none;
+  cursor: pointer;
+  background: #fff;
+  border: none;
 `;

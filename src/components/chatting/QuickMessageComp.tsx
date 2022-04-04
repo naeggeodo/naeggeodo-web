@@ -3,49 +3,16 @@ import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import setting from '../../assets/icons/setting.svg';
 import slidedown from '../../assets/icons/slidedown.svg';
+import { useSlideMessage } from '../../hooks/useSlideMessage';
 import palette from '../../styles/palette';
 const QuickMessageComp = () => {
   const target = useRef<HTMLDivElement>(null);
   const slideBar = useRef<HTMLDivElement>(null);
-  let initialY = 0;
-  let currentY = 0;
+  const { slideEvent } = useSlideMessage();
+
   useEffect(() => {
-    if (window.PointerEvent) {
-      slideBar.current.addEventListener('pointerdown', grabDown);
-      slideBar.current.addEventListener('pointermove', grabMove);
-    } else {
-      slideBar.current.addEventListener('mousedown', grabDown);
-      slideBar.current.addEventListener('mousemove', grabMove);
-    }
-    return () => {
-      slideBar.current.removeEventListener('pointerdown', grabDown);
-      slideBar.current.removeEventListener('pointermove', grabMove);
-      slideBar.current.removeEventListener('mousedown', grabDown);
-      slideBar.current.removeEventListener('mousemove', grabMove);
-    };
+    slideEvent(slideBar, target);
   }, []);
-  const grabDown = (e: PointerEvent | MouseEvent) => {
-    initialY = e.pageY;
-  };
-  const grabMove = (e: PointerEvent | MouseEvent) => {
-    if (initialY <= 0) return;
-    currentY = e.pageY;
-    if (currentY > initialY) {
-      target.current.style.height = `${200 - (currentY - initialY)}px`;
-      if (currentY - initialY > 50) {
-        target.current.style.height = '30px';
-        initialY = 0;
-        currentY = 0;
-      }
-    } else {
-      target.current.style.height = `${30 + (initialY - currentY)}px`;
-      if (initialY - currentY > 50) {
-        target.current.style.height = '200px';
-        initialY = 0;
-        currentY = 0;
-      }
-    }
-  };
 
   return (
     <Wrap ref={target}>

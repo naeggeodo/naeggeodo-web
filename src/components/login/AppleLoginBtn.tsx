@@ -4,15 +4,15 @@ import applelogo from '../../assets/icons/applelogo.svg';
 
 const AppleLoginBtn = () => {
   return (
-    <Wrap>
+    <Button>
       <Image src={applelogo} alt='apple logo' width={14} height={16} />
       <span>애플 계정으로 로그인</span>
-    </Wrap>
+    </Button>
   );
 };
 
 export default AppleLoginBtn;
-const Wrap = styled.button`
+const Button = styled.button`
   width: 100%;
   border: none;
   outline: none;

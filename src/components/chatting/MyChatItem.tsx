@@ -16,8 +16,8 @@ const Wrap = styled.div`
   gap: 5px;
   justify-content: end;
   align-items: flex-end;
-  margin: 5px 0;
   margin-right: 10px;
+  width: 100%;
 `;
 const Time = styled.p`
   color: ${palette.DarkGray};
@@ -29,5 +29,6 @@ const Content = styled.p`
   border-radius: 10px 10px 0px 10px;
   align-items: flex-start;
   padding: 6px 10px;
-  line-height: 150%;
+  line-height: 1.2em;
+  max-width: 80%;
 `;

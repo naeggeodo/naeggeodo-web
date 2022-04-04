@@ -5,15 +5,15 @@ import Image from 'next/image';
 
 const KaKaoLoginBtn = () => {
   return (
-    <Wrap>
+    <Button>
       <Image src={kakaologo} alt='kakao logo' width={17.5} height={16.25} />
       <span>카카오 계정으로 로그인</span>
-    </Wrap>
+    </Button>
   );
 };
 
 export default KaKaoLoginBtn;
-const Wrap = styled.button`
+const Button = styled.button`
   width: 100%;
   border: none;
   outline: none;
