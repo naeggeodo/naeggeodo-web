@@ -11,7 +11,6 @@ const Button = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'spoqa';
   background-color: ${palette.mainOrange};
   color: #ffffff;
   font-size: 17px;
