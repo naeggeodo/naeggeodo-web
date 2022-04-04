@@ -9,7 +9,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "jest --watch",
+    "test": "jest --watchAll",
     "sb": "start-storybook -p 6006 -s ./public",
     "opt": "ANALYZE=true yarn build",
     "build-storybook": "build-storybook -s public",
