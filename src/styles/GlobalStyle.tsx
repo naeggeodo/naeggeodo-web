@@ -10,7 +10,7 @@ const globalStyle = css`
 
   @font-face {
     font-family: 'SpoqaBold';
-    src: local('SpoqaHanSansNeo-Bold'),
+    src: local('Spoqa Han Sans Neo Bold'),
       url(${SpoqaHanSansNeoBold2}) format('woff2'),
       url(${SpoqaHanSansNeoBold}) format('woff');
     font-display: fallback;
@@ -18,7 +18,7 @@ const globalStyle = css`
 
   @font-face {
     font-family: 'Spoqa';
-    src: local('SpoqaHanSansNeo-Regular'),
+    src: local('Spoqa Han Sans Neo Regular'),
       url(${SpoqaHanSansNeoRegular2}) format('woff2'),
       url(${SpoqaHanSansNeoRegular}) format('woff');
     font-display: fallback;
