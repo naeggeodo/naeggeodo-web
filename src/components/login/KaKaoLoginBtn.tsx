@@ -24,7 +24,6 @@ const Button = styled.button`
   align-items: center;
   justify-content: center;
   background: ${palette.kakaoYellow};
-  font-family: 'Spoqa';
   font-size: 17px;
   margin-bottom: 6px;
   cursor: pointer;
