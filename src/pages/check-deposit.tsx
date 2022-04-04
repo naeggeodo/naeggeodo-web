@@ -23,7 +23,7 @@ const CheckDeposit = () => {
         <Notice>수령체크 후 미수령으로 전환이 어렵습니다.</Notice>
       </TitleContainer>
 
-      <div style={{ marginTop: '195px' }}>
+      <div>
         <DepositUserList>
           <SmallTitle>아직 못받았어요.</SmallTitle>
           <CheckDepositItem userNickName='신길동 호랑이' />
@@ -44,6 +44,8 @@ const CheckDeposit = () => {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
   width: 100%;
   font-size: 17px;
   padding: 20px 30px;
