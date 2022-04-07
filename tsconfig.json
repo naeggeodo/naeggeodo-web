@@ -15,6 +15,6 @@
     "isolatedModules": true,
     "jsx": "preserve"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/mocks/handlers.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/@mocks/handlers.js"],
   "exclude": ["node_modules"]
 }
