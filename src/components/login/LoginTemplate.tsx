@@ -47,7 +47,8 @@ const ContentWrap = styled.div`
 
 const Title = styled.h2`
   font-size: 26px;
-  font-weight: 700;
+  font-family: 'SpoqaBold';
+
   line-height: 1.4em;
   color: ${palette.black};
 `;
