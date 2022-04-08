@@ -14,10 +14,7 @@ export function* rootSaga() {
   yield all([]);
 }
 
-//** RootReducer Types */
-export type RootState = ReturnType<typeof rootReducer>;
-
-// Hydrate
+//** Hydrate */
 const reducer = (state, action) => {
   if (action.type === HYDRATE) {
     const nextState = {
@@ -29,7 +26,7 @@ const reducer = (state, action) => {
   return rootReducer(state, action);
 };
 
-// 스토어 타입
+//** RootReducer Types */
 export type RootState = ReturnType<typeof rootReducer>;
 
 export const configureStore = () => {

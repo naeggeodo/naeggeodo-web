@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import CategoryMenuSlide from './CategoryMenuSlide';
@@ -7,7 +7,7 @@ import TabMenu from './TabMenu';
 
 import { categoryMockData, chatListMockData } from './data';
 
-const MainTemplate = () => {
+const MainTemplate = ({ book }: { book: any }) => {
   return (
     <Container>
       <CategoryMenuSlide categories={categoryMockData} />
