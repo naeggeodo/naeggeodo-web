@@ -67,5 +67,8 @@
     "storybook-dark-mode": "^1.0.9",
     "typescript": "^4.6.2",
     "url-loader": "^4.1.1"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }

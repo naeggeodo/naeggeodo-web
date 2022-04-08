@@ -104,3 +104,11 @@ dist
 .tern-port
 
 .vscode
+
+.env.local
+
+.env.development
+
+.env.production
+
+public/mockServiceWorker.js
