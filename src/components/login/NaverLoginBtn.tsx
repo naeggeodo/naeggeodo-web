@@ -2,16 +2,28 @@ import styled from 'styled-components';
 import palette from '../../styles/palette';
 import naverlogo from '../../assets/icons/naverlogo.svg';
 import Image from 'next/image';
+import { useRef } from 'react';
+
 const NaverLoginBtn = () => {
+  const naverRef = useRef(null);
+
+  const handleClick = () => {
+    naverRef.current.children[0].click();
+  };
+
   return (
-    <Button>
-      <Image src={naverlogo} alt='naver logo' width={14} height={14} />
-      <span>네이버 계정으로 로그인</span>
-    </Button>
+    <>
+      <div ref={naverRef} id='naverIdLogin' style={{ display: 'none' }}></div>
+      <Button onClick={handleClick}>
+        <Image src={naverlogo} alt='naver logo' width={14} height={14} />
+        <span>네이버 계정으로 로그인</span>
+      </Button>
+    </>
   );
 };
 
 export default NaverLoginBtn;
+
 const Button = styled.button`
   width: 100%;
   border: none;
