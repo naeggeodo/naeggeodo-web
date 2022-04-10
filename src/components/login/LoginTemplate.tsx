@@ -5,10 +5,32 @@ import NaverLoginBtn from '../login/NaverLoginBtn';
 import palette from '../../styles/palette';
 import prevbtn from '../../assets/icons/prevbtn.svg';
 import Image from 'next/image';
+import { useEffect } from 'react';
+import { NaverClient } from '../../constant/Login';
+
+declare global {
+  interface Window {
+    naver: any;
+  }
+}
+
 type StyledProps = {
   name: 'header' | 'content' | 'buttons';
 };
+
 const LoginTemplate = () => {
+  useEffect(() => {
+    (() => {
+      new window.naver.LoginWithNaverId({
+        clientId: NaverClient.naverClientId,
+        callbackUrl: NaverClient.naverClientRedirectUri,
+        isPopup: false,
+        loginButton: { color: 'green', type: 3, height: 50 },
+        callbackHandle: true,
+      }).init();
+    })();
+  }, []);
+
   return (
     <Wrap>
       <ContentWrap>
