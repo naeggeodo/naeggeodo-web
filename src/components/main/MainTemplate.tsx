@@ -7,11 +7,14 @@ import TabMenu from './TabMenu';
 
 import { categoryMockData, chatListMockData } from './data';
 import { useKakaoLogin } from '../../hooks/useKakaoLogin';
+import { useRouter } from 'next/router';
 
 const MainTemplate = ({ book }: { book: any }) => {
   const { getToken } = useKakaoLogin();
+  const router = useRouter();
   useEffect(() => {
-    const code = new URL(window.location.href).searchParams.get('code');
+    console.log(router);
+    const code = router.asPath.substring(7);
     getToken(code);
   }, []);
   return (
