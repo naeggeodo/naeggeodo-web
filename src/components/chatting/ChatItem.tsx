@@ -35,8 +35,9 @@ const Content = styled.p`
   border-radius: 10px 10px 10px 0px;
   align-items: flex-start;
   padding: 6px 10px;
-  line-height: 1.2em;
+  line-height: 22.5px;
   max-width: 80%;
+  color: #fff;
 `;
 const Time = styled.p`
   color: ${palette.DarkGray};

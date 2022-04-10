@@ -10,7 +10,7 @@ const SubmitForm = () => {
         <ImgAddLabel htmlFor='image'>
           <Image src={imgaddbtn} alt='img add icon' width={19} height={24} />
         </ImgAddLabel>
-        <ImgAddBtn type='file' id='image' />
+        <ImgAddBtn type='file' accept='image/*' id='image' />
         <Input type='text' />
         <Button>
           <Image src={submitbtn} alt='submit button' width={23} height={24} />

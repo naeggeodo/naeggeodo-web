@@ -36,7 +36,9 @@ class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <Head></Head>
+        <Head>
+          {/* <script src='https://developers.kakao.com/sdk/js/kakao.js'></script> */}
+        </Head>
         <body>
           <Main />
           <NextScript />

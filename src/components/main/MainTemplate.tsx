@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 import CategoryMenuSlide from './CategoryMenuSlide';
@@ -6,8 +6,14 @@ import ChatRoomItem from './ChatRoomItem';
 import TabMenu from './TabMenu';
 
 import { categoryMockData, chatListMockData } from './data';
+import { useKakaoLogin } from '../../hooks/useKakaoLogin';
 
 const MainTemplate = ({ book }: { book: any }) => {
+  const { getToken } = useKakaoLogin();
+  useEffect(() => {
+    const code = new URL(window.location.href).searchParams.get('code');
+    getToken(code);
+  }, []);
   return (
     <Container>
       <CategoryMenuSlide categories={categoryMockData} />
