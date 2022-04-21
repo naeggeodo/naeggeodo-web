@@ -1,11 +1,20 @@
+import moment from 'moment';
 import styled from 'styled-components';
+import { ChatItemType } from '../../../types/dataTypes';
 import palette from '../../styles/palette';
 
-const MyChatItem = () => {
+const MyChatItem = ({ v, date }: { v: ChatItemType; date: string }) => {
   return (
     <Wrap>
-      <Time>오후 3:30</Time>
-      <Content>안녕하세요. 지금 주문 가능하신가요?</Content>
+      <Time>
+        {moment().format('YYYYMMDD') === moment(date).format('YYYYMMDD') &&
+        moment(date).format('a') === 'am'
+          ? moment(date).format('오전 h:mm')
+          : moment(date).format('오후 h:mm')}
+        {moment().format('YYYYMMDD') !== moment(date).format('YYYYMMDD') &&
+          moment(date).format('MM/DD')}
+      </Time>
+      <Content>{v.contents}</Content>
     </Wrap>
   );
 };

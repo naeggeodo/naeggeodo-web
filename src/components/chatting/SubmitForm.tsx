@@ -1,17 +1,45 @@
+import { CompatClient } from '@stomp/stompjs';
 import Image from 'next/image';
-import React from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
+import { ChatItemType } from '../../../types/dataTypes';
 import imgaddbtn from '../../assets/icons/imgaddbtn.svg';
 import submitbtn from '../../assets/icons/submitbtn.svg';
-const SubmitForm = () => {
+import { useChat } from '../../hooks/useChat';
+
+const SubmitForm = ({
+  stompClient,
+}: {
+  stompClient: CompatClient;
+  setMessageList: React.Dispatch<React.SetStateAction<ChatItemType[]>>;
+}) => {
+  const { onSendMessage } = useChat();
+  const [message, setMessage] = useState('');
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const data = {
+      chatMain_id: 1,
+      sender: 1,
+      contents: message,
+      type: 'TEXT',
+    };
+    onSendMessage(stompClient, data, setMessage);
+  };
   return (
     <Wrap>
-      <ContentWrap>
+      <ContentWrap onSubmit={onSubmit}>
         <ImgAddLabel htmlFor='image'>
           <Image src={imgaddbtn} alt='img add icon' width={19} height={24} />
         </ImgAddLabel>
         <ImgAddBtn type='file' accept='image/*' id='image' />
-        <Input type='text' />
+        <Input
+          type='text'
+          value={message}
+          onChange={(e) => {
+            setMessage(e.target.value);
+          }}
+        />
         <Button>
           <Image src={submitbtn} alt='submit button' width={23} height={24} />
         </Button>

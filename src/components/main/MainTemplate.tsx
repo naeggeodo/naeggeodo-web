@@ -13,7 +13,6 @@ const MainTemplate = ({ book }: { book: any }) => {
   const { getToken } = useKakaoLogin();
   const router = useRouter();
   useEffect(() => {
-    console.log(router);
     const code = router.asPath.substring(7);
     getToken(code);
   }, []);
