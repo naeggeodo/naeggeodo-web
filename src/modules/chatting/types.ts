@@ -27,9 +27,3 @@ export type ChatItemType = {
 export type ChatHistoryListType = {
   messages: ChatItemType[];
 };
-// export type ChatItemType = {
-//   chatMain_id: number;
-//   sender: number;
-//   contents: string;
-//   type: string;
-// };

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useEffect } from 'react';
 import Header from '../chatting/Header';
@@ -7,11 +7,15 @@ import SubmitForm from '../chatting/SubmitForm';
 import ChatItem from '../chatting/ChatItem';
 import QuickMessageComp from '../chatting/QuickMessageComp';
 import MyChatItem from '../chatting/MyChatItem';
-import { ChatHistoryListType, ChatItemType } from '../../../types/dataTypes';
+import {
+  ChatHistoryListType,
+  ChatItemType,
+} from '../../modules/chatting/types';
 import { useChat } from '../../hooks/useChat';
 import { Stomp } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 import moment from 'moment';
+
 const ChattingTemplate = ({
   chatList,
 }: {
