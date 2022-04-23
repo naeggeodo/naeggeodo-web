@@ -1,17 +1,22 @@
+import moment from 'moment';
 import Image from 'next/image';
 import styled from 'styled-components';
+import { ChatItemType } from '../../../types/dataTypes';
 import palette from '../../styles/palette';
 
-const ChatItem = () => {
+const ChatItem = ({ v, date }: { v: ChatItemType; date: string }) => {
   return (
     <Wrap>
       <StyledImage src='/buger.png' width={35} height={35} layout='fixed' />
-      <Content>
-        안녕하세요 주문메뉴 골라주세요안녕하세요 주문메뉴 골라주세요안녕하세요
-        주문메뉴 골라주세요안녕하세요 주문메뉴 골라주세요안녕하세요 주문메뉴
-        골라주세요안녕하세요 주문메뉴 골라주세요
-      </Content>
-      <Time>오후 3:30</Time>
+      <Content>{v.contents}</Content>
+      <Time>
+        {moment().format('YYYYMMDD') === moment(date).format('YYYYMMDD') &&
+        moment(date).format('a') === 'am'
+          ? moment(date).format('오전 h:mm')
+          : moment(date).format('오후 h:mm')}
+        {moment().format('YYYYMMDD') !== moment(date).format('YYYYMMDD') &&
+          moment(date).format('MM/DD')}
+      </Time>
     </Wrap>
   );
 };

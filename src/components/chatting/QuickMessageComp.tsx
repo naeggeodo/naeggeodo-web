@@ -36,8 +36,8 @@ const Wrap = styled.div`
   max-height: 200px;
   background: #fff;
   overflow: hidden;
-  position: absolute;
-  bottom: 0;
+  position: fixed;
+  bottom: 8%;
   border-radius: 20px 20px 0px 0px;
   padding: 0 6% 14px;
   touch-action: none;

@@ -5,9 +5,10 @@ import { all, fork } from 'redux-saga/effects';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import counter from './counter';
+import chatting from './chatting';
 
 //** RootReducer */
-export const rootReducer = combineReducers({ counter });
+export const rootReducer = combineReducers({ counter, chatting });
 
 //** RootSaga */
 export function* rootSaga() {
