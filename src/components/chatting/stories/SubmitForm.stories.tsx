@@ -16,5 +16,5 @@ export default {
   },
 } as ComponentMeta<typeof SubmitForm>;
 
-export const SubmitFormComp = () => <SubmitForm />;
-SubmitFormComp.storyName = '채팅 전송 인풋';
+// export const SubmitFormComp = () => <SubmitForm />;
+// SubmitFormComp.storyName = '채팅 전송 인풋';
