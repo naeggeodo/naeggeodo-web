@@ -4,7 +4,6 @@ import React from 'react';
 import profile from '../../assets/img/profile.svg';
 import styled from 'styled-components';
 import palette from '../../styles/palette';
-import responsive from '../../styles/responsive';
 import CompleteDepositButton from './CompleteDepositButton';
 
 const CheckDepositItem = ({ userNickName }: { userNickName: string }) => {

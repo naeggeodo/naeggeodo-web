@@ -1,19 +1,15 @@
-import Document, {
-  Html,
-  Head,
-  Main,
-  NextScript,
-  DocumentContext,
-} from 'next/document';
+import { RenderPageResult } from 'next/dist/shared/lib/utils';
+import Document, { Head, Html, Main, NextScript } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
 
-class MyDocument extends Document {
-  static async getInitialProps(ctx: DocumentContext) {
+export default class MyDocument extends Document {
+  static async getInitialProps(ctx) {
     const sheet = new ServerStyleSheet();
-    const view = ctx.renderPage;
+    const originalRenderPage = ctx.renderPage;
+
     try {
-      ctx.renderPage = () =>
-        view({
+      ctx.renderPage = (): RenderPageResult | Promise<RenderPageResult> =>
+        originalRenderPage({
           enhanceApp: (App) => (props) =>
             sheet.collectStyles(<App {...props} />),
         });
@@ -36,9 +32,7 @@ class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <Head>
-          {/* <script src='https://developers.kakao.com/sdk/js/kakao.js'></script> */}
-        </Head>
+        <Head></Head>
         <body>
           <Main />
           <NextScript />
@@ -47,5 +41,3 @@ class MyDocument extends Document {
     );
   }
 }
-
-export default MyDocument;
