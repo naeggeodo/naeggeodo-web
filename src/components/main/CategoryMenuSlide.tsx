@@ -1,19 +1,13 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { useSlideTransform } from '../../hooks/useSlideTransform';
 import palette from '../../styles/palette';
 
 const CategoryMenuSlide = ({ categories }: { categories: string[] }) => {
-  const { gestureStart, gestureMove, gestureEnd, slideRef } =
-    useSlideTransform();
-
+  const { slideRef } = useSlideTransform();
   return (
-    <Container>
-      <Track
-        ref={slideRef}
-        onPointerDown={gestureStart}
-        onPointerMove={gestureMove}
-        onPointerUp={gestureEnd}>
+    <Container ref={slideRef}>
+      <Track>
         {categories.map((category, index) => (
           <p key={index}>{category}</p>
         ))}
@@ -42,7 +36,7 @@ const Track = styled.div`
   gap: 20px;
   width: 100%;
   touch-action: none;
-  padding: 15px 0 15px 30px;
+  padding: 15px 15px 15px 30px;
 `;
 
 export default CategoryMenuSlide;
