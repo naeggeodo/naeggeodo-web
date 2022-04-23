@@ -8,16 +8,20 @@ import TabMenu from './TabMenu';
 import { categoryMockData, chatListMockData } from './data';
 import { useKakaoLogin } from '../../hooks/useKakaoLogin';
 import { useRouter } from 'next/router';
+import SearchPostCode from './SearchPostCode';
 
 const MainTemplate = ({ book }: { book: any }) => {
   const { getToken } = useKakaoLogin();
   const router = useRouter();
+
   useEffect(() => {
     const code = router.asPath.substring(7);
     getToken(code);
   }, []);
+
   return (
     <Container>
+      <SearchPostCode />
       <CategoryMenuSlide categories={categoryMockData} />
       <StyledUl>
         {chatListMockData.map((item) => (
@@ -37,6 +41,7 @@ const MainTemplate = ({ book }: { book: any }) => {
 };
 
 const Container = styled.div`
+  padding-top: 36px;
   background-color: #ffffff;
 `;
 

@@ -24,9 +24,6 @@ const globalStyle = css`
     font-display: fallback;
   }
 
-  html {
-    font-size: 10px;
-  }
   body {
     font-family: 'Spoqa', 'sans-serif';
   }
