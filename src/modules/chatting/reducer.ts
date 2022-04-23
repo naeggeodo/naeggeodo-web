@@ -1,20 +1,21 @@
 import { ChattingActions, SET_CURRENT_CHATROOM_INFO } from './actions';
 import { ChatRoomDataType } from './types';
+import { createReducer } from 'typesafe-actions';
 
-type ChatState = {
+type ChattingRoomState = {
   currentChat: ChatRoomDataType | null;
 };
 
-const chattingReducer = (
-  state: ChatState,
-  action: ChattingActions,
-): ChatState => {
-  switch (action.type) {
-    case SET_CURRENT_CHATROOM_INFO:
-      return { ...state, currentChat: action.payload };
-    default:
-      return state;
-  }
+const initialChattingRoomState: ChattingRoomState = {
+  currentChat: null,
 };
 
-export default chattingReducer;
+export const chattingRoomState = createReducer<ChattingRoomState>(
+  initialChattingRoomState,
+  {
+    [SET_CURRENT_CHATROOM_INFO]: (state, action) => ({
+      ...state,
+      currentChat: action.payload,
+    }),
+  },
+);

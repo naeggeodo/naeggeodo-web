@@ -14,6 +14,7 @@ export type ChatRoomDataType = {
   user: null;
   createDate: Date;
 };
+
 export type ChatItemType = {
   user_id?: number;
   id?: number;
@@ -24,6 +25,7 @@ export type ChatItemType = {
   contents: string;
   type: string;
 };
+
 export type ChatHistoryListType = {
   messages: ChatItemType[];
 };

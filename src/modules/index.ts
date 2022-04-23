@@ -4,10 +4,10 @@ import { combineReducers, applyMiddleware, createStore } from 'redux';
 import { all, fork } from 'redux-saga/effects';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import chattingReducer from './chatting/reducer';
+import { chattingRoomState } from './chatting/reducer';
 
 //** RootReducer */
-export const rootReducer = combineReducers({ chattingReducer });
+export const rootReducer = combineReducers({ chattingRoomState });
 
 //** RootSaga */
 export function* rootSaga() {

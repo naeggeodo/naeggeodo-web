@@ -8,7 +8,9 @@ type StyledProps = {
   name: 'title' | 'info';
 };
 const Header = () => {
-  const { currentChat } = useSelector((state: RootState) => state.chatting);
+  const { currentChat } = useSelector(
+    (state: RootState) => state.chattingRoomState,
+  );
 
   return (
     <Wrap>
