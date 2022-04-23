@@ -27,7 +27,7 @@ const ChattingTemplate = ({
       connect(stompClient, 1, setMessageList); // 1은 채팅방 아이디
     }
     return () => disconnect(stompClient);
-  }, []);
+  }, [stompClient, messageList]);
   return (
     <Wrap>
       <Header />
