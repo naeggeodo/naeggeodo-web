@@ -1,35 +1,47 @@
-import axios from 'axios';
+import { RootState, wrapper } from '../../modules';
 import { END } from 'redux-saga';
-import { ChatHistoryListType } from '../../modules/chatting/types';
-import ChattingTemplate from '../../components/chatting/ChattingTemplate';
-import { wrapper } from '../../modules';
-import { setCurrentChatRoomInfo } from '../../modules/chatting/actions';
 
-const chatting = ({ chatList }: { chatList: ChatHistoryListType | null }) => {
+import {
+  ChatHistoryListType,
+  ChattingRoomInfoResponsePayload,
+} from '../../modules/chatting/types';
+import ChattingTemplate from '../../components/chatting/ChattingTemplate';
+import { getCurrentChatRoomAsyncActions } from '../../modules/chatting/actions';
+
+const chatting = ({
+  chatList,
+  currentChattingRoomInfo,
+}: {
+  chatList: ChatHistoryListType | null;
+  currentChattingRoomInfo: ChattingRoomInfoResponsePayload;
+}) => {
   return <ChattingTemplate chatList={chatList} />;
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
-    const response = await axios.get(
-      `http://15.165.248.39:9090/chat/rooms/${context.params.id}`,
-    );
-    const data = await response.data;
+    const rootState: RootState = store.getState();
 
-    const chatListResponse = await axios.get(
-      `http://15.165.248.39:9090/chat/messages/${context.params.id}/1`,
+    store.dispatch(
+      getCurrentChatRoomAsyncActions.request({
+        chattingRoomId: Number(context.params.id),
+      }),
     );
-    const chatListData = await chatListResponse.data;
 
-    store.dispatch(setCurrentChatRoomInfo(data));
+    // const chatListResponse = await axios.get(
+    //   `http://15.165.248.39:9090/chat/messages/${context.params.id}/1`,
+    // );
+    // const chatListData = await chatListResponse.data;
+
+    const currentChattingRoomInfo = rootState.chattingRoomState;
+
     store.dispatch(END);
-
     await store.sagaTask.toPromise();
 
     return {
       props: {
-        chat: data,
-        chatList: chatListData,
+        currentChattingRoomInfo,
+        chatList: 123,
       },
     };
   },

@@ -1,7 +1,7 @@
 import moment from 'moment';
 import Image from 'next/image';
 import styled from 'styled-components';
-import { ChatItemType } from '../../../types/dataTypes';
+import { ChatItemType } from '../../modules/chatting/types';
 import palette from '../../styles/palette';
 
 const ChatItem = ({ v, date }: { v: ChatItemType; date: string }) => {

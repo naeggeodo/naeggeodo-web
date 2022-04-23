@@ -1,14 +1,28 @@
-import { ChatRoomDataType } from './types';
-import { createAction } from 'typesafe-actions';
+import { AxiosError } from 'axios';
+import { createAsyncAction } from 'typesafe-actions';
+import {
+  ChattingRoomInfoRequestPayload,
+  ChattingRoomInfoResponsePayload,
+} from './types';
 
 const namespace = 'chatting/';
 
-export const SET_CURRENT_CHATROOM_INFO =
-  namespace + 'SET_CURRENT_CHATROOM_INFO';
+export const GET_CURRENT_CHATROOM_INFO_REQUEST =
+  namespace + 'GET_CURRENT_CHATROOM_INFO_REQUEST';
 
-export const setCurrentChatRoomInfo = createAction(
-  SET_CURRENT_CHATROOM_INFO,
-  (currentChat) => currentChat,
-)();
+export const GET_CURRENT_CHATROOM_INFO_SUCCESS =
+  namespace + 'GET_CURRENT_CHATROOM_INFO_SUCCESS';
 
-export type ChattingActions = ReturnType<typeof setCurrentChatRoomInfo>;
+export const GET_CURRENT_CHATROOM_INFO_FAILURE =
+  namespace + 'GET_CURRENT_CHATROOM_INFO_FAILURE';
+
+// action creators
+export const getCurrentChatRoomAsyncActions = createAsyncAction(
+  GET_CURRENT_CHATROOM_INFO_REQUEST,
+  GET_CURRENT_CHATROOM_INFO_SUCCESS,
+  GET_CURRENT_CHATROOM_INFO_FAILURE,
+)<
+  ChattingRoomInfoRequestPayload,
+  ChattingRoomInfoResponsePayload,
+  AxiosError
+>();

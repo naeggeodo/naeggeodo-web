@@ -1,4 +1,8 @@
-export type ChatRoomDataType = {
+export type ChattingRoomInfoRequestPayload = {
+  chattingRoomId: number;
+};
+
+export type ChattingRoomInfoResponsePayload = {
   imgpath: string;
   link: string | null;
   title: string;

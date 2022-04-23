@@ -5,13 +5,14 @@ import { all, fork } from 'redux-saga/effects';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import { chattingRoomState } from './chatting/reducer';
+import { getChattingRoomInfoSaga } from './chatting/sagas';
 
 //** RootReducer */
 export const rootReducer = combineReducers({ chattingRoomState });
 
 //** RootSaga */
 export function* rootSaga() {
-  yield all([]);
+  yield all([fork(getChattingRoomInfoSaga)]);
 }
 
 //** Hydrate */
