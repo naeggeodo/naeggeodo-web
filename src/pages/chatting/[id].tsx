@@ -1,20 +1,11 @@
 import { RootState, wrapper } from '../../modules';
 import { END } from 'redux-saga';
 
-import {
-  ChatHistoryListType,
-  ChattingRoomInfoResponsePayload,
-} from '../../modules/chatting/types';
+import { ChatHistoryListType } from '../../modules/chatting/types';
 import ChattingTemplate from '../../components/chatting/ChattingTemplate';
 import { getCurrentChatRoomAsyncActions } from '../../modules/chatting/actions';
 
-const chatting = ({
-  chatList,
-  currentChattingRoomInfo,
-}: {
-  chatList: ChatHistoryListType | null;
-  currentChattingRoomInfo: ChattingRoomInfoResponsePayload;
-}) => {
+const chatting = ({ chatList }: { chatList: ChatHistoryListType | null }) => {
   return <ChattingTemplate chatList={chatList} />;
 };
 
