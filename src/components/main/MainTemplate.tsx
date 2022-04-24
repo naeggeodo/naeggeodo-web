@@ -1,17 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import CategoryMenuSlide from './CategoryMenuSlide';
 import ChatRoomItem from './ChatRoomItem';
 import TabMenu from './TabMenu';
-
-import { categoryMockData, chatListMockData } from './data';
 import SearchPostCode from './SearchPostCode';
 
+import { categoryMockData, chatListMockData } from './data';
+import PostCodeWebView from './PostCodeWebView';
+
 const MainTemplate = () => {
+  const [webViewIsOpen, setWebViewIsOpen] = useState(false);
+
+  const openWebView = () => {
+    setWebViewIsOpen(true);
+  };
+
+  const closeWebView = () => {
+    setWebViewIsOpen(false);
+  };
+
   return (
     <Container>
-      <SearchPostCode />
+      <SearchPostCode openWebView={openWebView} />
       <CategoryMenuSlide categories={categoryMockData} />
       <StyledUl>
         {chatListMockData.map((item) => (
@@ -25,6 +36,7 @@ const MainTemplate = () => {
           />
         ))}
       </StyledUl>
+      {webViewIsOpen && <PostCodeWebView closeWebView={closeWebView} />}
       <TabMenu />
     </Container>
   );
