@@ -2,7 +2,6 @@ import Image from 'next/image';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
-import prevbtn from '../../assets/icons/prevbtn.svg';
 import { RootState } from '../../modules';
 type StyledProps = {
   name: 'title' | 'info';
@@ -15,7 +14,12 @@ const Header = () => {
   return (
     <Wrap>
       <ContentWrap>
-        <Image src={prevbtn} alt='prev button' width={14} height={24} />
+        <Image
+          src='/assets/images/prevbtn.svg'
+          alt='prev button'
+          width={14}
+          height={24}
+        />
         <StyledImage src='/buger.png' width={44} height={44} />
         <Div>
           <Info name='title'>{currentChat.title}</Info>

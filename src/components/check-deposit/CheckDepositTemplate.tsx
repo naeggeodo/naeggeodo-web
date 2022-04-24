@@ -3,7 +3,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 import palette from '../../styles/palette';
-import prevBtn from '../../assets/icons/prevbtn.svg';
 import responsive from '../../styles/responsive';
 
 import CheckDepositItem from './CheckDepositItem';
@@ -13,7 +12,12 @@ const CheckDepositTemplate = () => {
   return (
     <Container>
       <TitleContainer>
-        <Image src={prevBtn} width={11} height={24} layout='fixed' />
+        <Image
+          src='/assets/images/prevbtn.svg'
+          width={11}
+          height={24}
+          layout='fixed'
+        />
         <Title>돈을 받으셨나요?</Title>
         <p style={{ lineHeight: 1.5 }}>
           수정완료 버튼을 누르면

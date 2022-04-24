@@ -16,5 +16,5 @@ export default {
   },
 } as ComponentMeta<typeof Header>;
 
-export const HeaderComp = () => <Header />;
-HeaderComp.storyName = '채팅방 헤더';
+// export const HeaderComp = () => <Header />;
+// HeaderComp.storyName = '채팅방 헤더';

@@ -1,19 +1,28 @@
 import React from 'react';
-import location from '../../assets/icons/location.svg';
-import arrowGrayRight from '../../assets/icons/arrowgrayright.svg';
 import styled from 'styled-components';
 import palette from '../../styles/palette';
+import Image from 'next/image';
 
 const SearchPostCode = () => {
   return (
     <Container>
       <CenterWrapper>
         <FlexRow>
-          <img src={location} alt='위치 이미지' />
+          <Image
+            width={14}
+            height={16}
+            src='/assets/images/location.svg'
+            alt='위치 이미지'
+          />
           <AddressText>서울 관악구 관악로 32번길</AddressText>
         </FlexRow>
 
-        <img src={arrowGrayRight} alt='오른쪽 화살표 이미지' />
+        <Image
+          width={11}
+          height={16}
+          src='/assets/images/arrowgrayright.svg'
+          alt='오른쪽 화살표 이미지'
+        />
       </CenterWrapper>
     </Container>
   );

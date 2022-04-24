@@ -3,8 +3,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { ChatItemType } from '../../modules/chatting/types';
-import imgaddbtn from '../../assets/icons/imgaddbtn.svg';
-import submitbtn from '../../assets/icons/submitbtn.svg';
+
 import { useChat } from '../../hooks/useChat';
 
 const SubmitForm = ({
@@ -30,7 +29,12 @@ const SubmitForm = ({
     <Wrap>
       <ContentWrap onSubmit={onSubmit}>
         <ImgAddLabel htmlFor='image'>
-          <Image src={imgaddbtn} alt='img add icon' width={19} height={24} />
+          <Image
+            src='/assets/images/imgaddbtn.svg'
+            alt='img add icon'
+            width={19}
+            height={24}
+          />
         </ImgAddLabel>
         <ImgAddBtn type='file' accept='image/*' id='image' />
         <Input
@@ -41,7 +45,12 @@ const SubmitForm = ({
           }}
         />
         <Button>
-          <Image src={submitbtn} alt='submit button' width={23} height={24} />
+          <Image
+            src='/assets/images/submitbtn.svg'
+            alt='submit button'
+            width={23}
+            height={24}
+          />
         </Button>
       </ContentWrap>
     </Wrap>

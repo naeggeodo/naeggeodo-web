@@ -3,10 +3,7 @@ import AppleLoginBtn from '../login/AppleLoginBtn';
 import KaKaoLoginBtn from '../login/KaKaoLoginBtn';
 import NaverLoginBtn from '../login/NaverLoginBtn';
 import palette from '../../styles/palette';
-import prevbtn from '../../assets/icons/prevbtn.svg';
 import Image from 'next/image';
-import { useEffect } from 'react';
-import { NaverClient } from '../../constant/Login';
 
 declare global {
   interface Window {
@@ -19,23 +16,16 @@ type StyledProps = {
 };
 
 const LoginTemplate = () => {
-  useEffect(() => {
-    (() => {
-      new window.naver.LoginWithNaverId({
-        clientId: NaverClient.naverClientId,
-        callbackUrl: NaverClient.naverClientRedirectUri,
-        isPopup: false,
-        loginButton: { color: 'green', type: 3, height: 50 },
-        callbackHandle: true,
-      }).init();
-    })();
-  }, []);
-
   return (
     <Wrap>
       <ContentWrap>
         <Div name='header'>
-          <Image src={prevbtn} alt='prev button' width={14} height={24} />
+          <Image
+            src='/assets/images/prevbtn.svg'
+            alt='prev button'
+            width={14}
+            height={24}
+          />
         </Div>
         <Div name='content'>
           <Title>로그인하여</Title>

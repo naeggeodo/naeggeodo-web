@@ -1,10 +1,9 @@
 import Image from 'next/image';
 import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import setting from '../../assets/icons/setting.svg';
-import slidedown from '../../assets/icons/slidedown.svg';
 import { useSlideMessage } from '../../hooks/useSlideMessage';
 import palette from '../../styles/palette';
+
 const QuickMessageComp = () => {
   const target = useRef<HTMLDivElement>(null);
   const slideBar = useRef<HTMLDivElement>(null);
@@ -17,14 +16,24 @@ const QuickMessageComp = () => {
   return (
     <Wrap ref={target}>
       <Div ref={slideBar}>
-        <Image src={slidedown} alt='icon' width={36} height={3} />
+        <Image
+          src='/assets/images/slidedown.svg'
+          alt='icon'
+          width={36}
+          height={3}
+        />
       </Div>
       <Item>안녕하세요. 지금 주문 가능하신가요?</Item>
       <Item>백석고등학교 정문 앞에서 만나고 싶습니다.</Item>
       <Item>잠시 메뉴를 고르겠습니다. 2분만 기다려주세요!</Item>
       <EditBtn>
         <p>편집하기</p>
-        <Image src={setting} alt='setting icon' width={15} height={20} />
+        <Image
+          src='/assets/images/setting.svg'
+          alt='setting icon'
+          width={15}
+          height={20}
+        />
       </EditBtn>
     </Wrap>
   );
