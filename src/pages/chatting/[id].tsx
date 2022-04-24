@@ -1,12 +1,19 @@
 import { RootState, wrapper } from '../../modules';
 import { END } from 'redux-saga';
 
-import { ChatHistoryListType } from '../../modules/chatting/types';
 import ChattingTemplate from '../../components/chatting/ChattingTemplate';
-import { getCurrentChatRoomAsyncActions } from '../../modules/chatting/actions';
+import {
+  getCurrentChatRoomAsyncActions,
+  getPreviousChattingListActions,
+} from '../../modules/chatting/actions';
+import { PreviousChattingListResponse } from '../../modules/chatting/types';
 
-const chatting = ({ chatList }: { chatList: ChatHistoryListType | null }) => {
-  return <ChattingTemplate chatList={chatList} />;
+const chatting = ({
+  previousChattingList,
+}: {
+  previousChattingList: PreviousChattingListResponse | null;
+}) => {
+  return <ChattingTemplate previousChattingList={previousChattingList} />;
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(
@@ -19,12 +26,15 @@ export const getServerSideProps = wrapper.getServerSideProps(
       }),
     );
 
-    // const chatListResponse = await axios.get(
-    //   `http://15.165.248.39:9090/chat/messages/${context.params.id}/1`,
-    // );
-    // const chatListData = await chatListResponse.data;
+    store.dispatch(
+      getPreviousChattingListActions.request({
+        chattingRoomId: Number(context.params.id),
+        chattingId: Number(context.params.id),
+      }),
+    );
 
     const currentChattingRoomInfo = rootState.chattingRoomState;
+    const previousChattingList = rootState.chattingRoomState.previousChatting;
 
     store.dispatch(END);
     await store.sagaTask.toPromise();
@@ -32,7 +42,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     return {
       props: {
         currentChattingRoomInfo,
-        chatList: 123,
+        previousChattingList,
       },
     };
   },

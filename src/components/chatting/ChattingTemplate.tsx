@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useEffect } from 'react';
 import Header from '../chatting/Header';
 import GoInfoBtn from '../chatting/GoInfoBtn';
 import SubmitForm from '../chatting/SubmitForm';
@@ -8,21 +7,24 @@ import ChatItem from '../chatting/ChatItem';
 import QuickMessageComp from '../chatting/QuickMessageComp';
 import MyChatItem from '../chatting/MyChatItem';
 import {
-  ChatHistoryListType,
-  ChatItemType,
+  PreviousChattingItemResponse,
+  PreviousChattingListResponse,
 } from '../../modules/chatting/types';
+
 import { useChat } from '../../hooks/useChat';
 import { Stomp } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 import moment from 'moment';
 
 const ChattingTemplate = ({
-  chatList,
+  previousChattingList,
 }: {
-  chatList: ChatHistoryListType | null;
+  previousChattingList: PreviousChattingListResponse | null;
 }) => {
-  const [messageList, setMessageList] = useState<ChatItemType[]>([]);
-  const socket = new SockJS('http://15.165.248.39:9090/chat');
+  const [messageList, setMessageList] = useState<
+    PreviousChattingItemResponse[]
+  >([]);
+  const socket = new SockJS(`${process.env.NEXT_PUBLIC_API_URL}/chat`);
   const stompClient = Stomp.over(socket);
   const { connect, disconnect } = useChat();
 
@@ -32,6 +34,7 @@ const ChattingTemplate = ({
     }
     return () => disconnect(stompClient);
   }, [stompClient, messageList]);
+
   return (
     <Wrap>
       <Header />
@@ -39,10 +42,10 @@ const ChattingTemplate = ({
         <GoInfoBtn />
       </Div>
       <Content>
-        {chatList.messages &&
-          chatList.messages.length > 0 &&
-          chatList.messages.map((v, i) => {
-            if (1 === v.user_id) {
+        {previousChattingList?.messages &&
+          previousChattingList?.messages.length > 0 &&
+          previousChattingList?.messages.map((v, i) => {
+            if (v.user_id === 1) {
               // 1은 내 아이디
               // 내 아이디랑 같으면
               return <MyChatItem key={i} v={v} date={v.regDate} />;
