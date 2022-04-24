@@ -9,5 +9,5 @@ export default {
   },
 } as ComponentMeta<typeof ChattingTemplate>;
 
-export const ChattingPage = () => <ChattingTemplate />;
-ChattingPage.storyName = '채팅 페이지';
+// export const ChattingPage = () => <ChattingTemplate />;
+// ChattingPage.storyName = '채팅 페이지';

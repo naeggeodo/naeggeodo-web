@@ -1,5 +1,5 @@
 import { CompatClient } from '@stomp/stompjs';
-import { ChatItemType } from '../../types/dataTypes';
+import { ChatItemType } from '../modules/chatting/types';
 
 export function useChat() {
   const connect = (

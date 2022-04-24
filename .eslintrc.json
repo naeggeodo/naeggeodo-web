@@ -10,8 +10,16 @@
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:@next/next/recommended",
-    "plugin:testing-library/react",
     "plugin:jest-dom/recommended"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "**/__tests__/**/*.[jt]s?(x)",
+        "**/?(*.)+(spec|test).[jt]s?(x)"
+      ],
+      "extends": ["plugin:testing-library/react"]
+    }
   ],
   "settings": {
     "react": {

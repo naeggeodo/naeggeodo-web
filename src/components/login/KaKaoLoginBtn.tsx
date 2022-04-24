@@ -1,17 +1,18 @@
 import styled from 'styled-components';
 import palette from '../../styles/palette';
-import kakaologo from '../../assets/icons/kakaologo.svg';
 import Image from 'next/image';
-import { useKakaoLogin } from '../../hooks/useKakaoLogin';
 
 const KaKaoLoginBtn = () => {
-  const { authUrl } = useKakaoLogin();
-  const onButtonClick = () => {
-    window.location.href = authUrl;
-  };
+  const onButtonClick = () => {};
+
   return (
     <Button onClick={onButtonClick}>
-      <Image src={kakaologo} alt='kakao logo' width={17.5} height={16.25} />
+      <Image
+        src='/assets/images/kakaologo.svg'
+        alt='kakao logo'
+        width={17.5}
+        height={16.25}
+      />
       <span>카카오 계정으로 로그인</span>
     </Button>
   );

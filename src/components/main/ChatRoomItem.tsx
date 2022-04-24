@@ -2,7 +2,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
-import arrowRight from '../../assets/icons/arrowright.svg';
 import palette from '../../styles/palette';
 import { ChatRoomItemProps } from './types';
 
@@ -15,7 +14,7 @@ const ChatRoomItem = ({
 }: ChatRoomItemProps) => {
   return (
     <Container>
-      <StyledImage src='/buger.png' width={70} height={70} />
+      <StyledImage src='/assets/images/pizza.svg' width={70} height={70} />
       <FlexRight>
         <Title>{title}</Title>
         <NumberOfPeople>
@@ -29,7 +28,7 @@ const ChatRoomItem = ({
               <StyledLink>
                 <p>함께 주문하기</p>
                 <Image
-                  src={arrowRight}
+                  src='/assets/images/arrowright.svg'
                   alt='더보기 화살표'
                   width={14}
                   height={20}
@@ -56,7 +55,6 @@ const Container = styled.div`
 const StyledImage = styled(Image)`
   border-radius: 10px;
   border: 1px solid ${palette.LineGray};
-  background-color: red;
 `;
 
 const FlexRight = styled.div`

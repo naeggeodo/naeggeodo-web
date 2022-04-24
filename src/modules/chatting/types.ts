@@ -1,4 +1,8 @@
-export type ChatRoomDataType = {
+export type ChattingRoomInfoRequestPayload = {
+  chattingRoomId: number;
+};
+
+export type ChattingRoomInfoResponsePayload = {
   imgpath: string;
   link: string | null;
   title: string;
@@ -14,6 +18,7 @@ export type ChatRoomDataType = {
   user: null;
   createDate: Date;
 };
+
 export type ChatItemType = {
   user_id?: number;
   id?: number;
@@ -24,12 +29,7 @@ export type ChatItemType = {
   contents: string;
   type: string;
 };
+
 export type ChatHistoryListType = {
   messages: ChatItemType[];
 };
-// export type ChatItemType = {
-//   chatMain_id: number;
-//   sender: number;
-//   contents: string;
-//   type: string;
-// };

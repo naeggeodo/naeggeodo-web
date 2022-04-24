@@ -1,10 +1,8 @@
 import Image from 'next/image';
 import React from 'react';
 
-import profile from '../../assets/img/profile.svg';
 import styled from 'styled-components';
 import palette from '../../styles/palette';
-import responsive from '../../styles/responsive';
 import CompleteDepositButton from './CompleteDepositButton';
 
 const CheckDepositItem = ({ userNickName }: { userNickName: string }) => {
@@ -12,7 +10,7 @@ const CheckDepositItem = ({ userNickName }: { userNickName: string }) => {
     <Container>
       <div style={{ height: '52px' }}>
         <StyledImg
-          src={profile}
+          src='/assets/images/profile.svg'
           layout='fixed'
           width={52}
           height={52}

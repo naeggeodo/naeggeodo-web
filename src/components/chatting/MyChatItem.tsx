@@ -1,6 +1,6 @@
 import moment from 'moment';
 import styled from 'styled-components';
-import { ChatItemType } from '../../../types/dataTypes';
+import { ChatItemType } from '../../modules/chatting/types';
 import palette from '../../styles/palette';
 
 const MyChatItem = ({ v, date }: { v: ChatItemType; date: string }) => {

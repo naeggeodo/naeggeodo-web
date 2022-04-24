@@ -16,5 +16,5 @@ export default {
   },
 } as ComponentMeta<typeof MyChatItem>;
 
-export const MyChatItemComp = () => <MyChatItem />;
-MyChatItemComp.storyName = '내 채팅 내용';
+// export const MyChatItemComp = () => <MyChatItem />;
+// MyChatItemComp.storyName = '내 채팅 내용';

@@ -1,11 +1,15 @@
 import Image from 'next/image';
 import styled from 'styled-components';
-import applelogo from '../../assets/icons/applelogo.svg';
 
 const AppleLoginBtn = () => {
   return (
     <Button>
-      <Image src={applelogo} alt='apple logo' width={14} height={16} />
+      <Image
+        src='/assets/images/applelogo.svg'
+        alt='apple logo'
+        width={14}
+        height={16}
+      />
       <span>애플 계정으로 로그인</span>
     </Button>
   );

@@ -1,11 +1,16 @@
 import Image from 'next/image';
 import styled from 'styled-components';
-import nextbtn from '../../assets/icons/nextbtn.svg';
+
 const GoInfoBtn = () => {
   return (
     <Button>
       <span>가게정보 보러가기</span>
-      <Image src={nextbtn} alt='icon' width={11} height={16} />
+      <Image
+        src='/assets/images/nextbtn.svg'
+        alt='icon'
+        width={11}
+        height={16}
+      />
     </Button>
   );
 };
