@@ -5,10 +5,14 @@ import { all, fork } from 'redux-saga/effects';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import { chattingRoomState } from './chatting/reducer';
+import { postCodeState } from './search-post-code/reducer';
 import { getChattingRoomInfoSaga } from './chatting/sagas';
 
 //** RootReducer */
-export const rootReducer = combineReducers({ chattingRoomState });
+export const rootReducer = combineReducers({
+  chattingRoomState,
+  postCodeState,
+});
 
 //** RootSaga */
 export function* rootSaga() {

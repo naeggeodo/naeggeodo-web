@@ -2,13 +2,40 @@ import React from 'react';
 import DaumPostcode from 'react-daum-postcode';
 import styled from 'styled-components';
 import Portal from '../common/Portal';
+import { Address } from 'react-daum-postcode';
+import { useDispatch } from 'react-redux';
+import { saveAddresWithBuildingCode } from '../../modules/search-post-code/actions';
 
-const PostCodeWebView = () => {
+const PostCodeWebView = ({ closeWebView }) => {
+  const dispatch = useDispatch();
+
+  const handleComplete = (data: Address) => {
+    let fullAddress = data.address;
+    let extraAddress = '';
+
+    if (data.addressType === 'R') {
+      if (data.bname !== '') {
+        extraAddress += data.bname;
+      }
+      if (data.buildingName !== '') {
+        extraAddress +=
+          extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName;
+      }
+      fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
+    }
+
+    dispatch(saveAddresWithBuildingCode(data));
+  };
+
   return (
     <Portal selector='webviewPortal'>
       <Background />
       <WebViewContainer>
-        <DaumPostcode style={{ height: '100%', width: '100%' }} />
+        <DaumPostcode
+          style={{ height: '100%', width: '100%' }}
+          onComplete={handleComplete}
+          onClose={closeWebView}
+        />
       </WebViewContainer>
     </Portal>
   );

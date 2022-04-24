@@ -16,6 +16,10 @@ const MainTemplate = () => {
     setWebViewIsOpen(true);
   };
 
+  const closeWebView = () => {
+    setWebViewIsOpen(false);
+  };
+
   return (
     <Container>
       <SearchPostCode openWebView={openWebView} />
@@ -32,7 +36,7 @@ const MainTemplate = () => {
           />
         ))}
       </StyledUl>
-      {webViewIsOpen && <PostCodeWebView />}
+      {webViewIsOpen && <PostCodeWebView closeWebView={closeWebView} />}
       <TabMenu />
     </Container>
   );
