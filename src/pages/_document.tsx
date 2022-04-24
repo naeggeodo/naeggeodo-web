@@ -34,6 +34,7 @@ export default class MyDocument extends Document {
       <Html>
         <Head></Head>
         <body>
+          <div id='webviewPortal'></div>
           <Main />
           <NextScript />
         </body>
