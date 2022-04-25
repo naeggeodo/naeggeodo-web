@@ -7,7 +7,7 @@ type StyledProps = {
   name: 'title' | 'info';
 };
 const Header = () => {
-  const { currentChat } = useSelector(
+  const { chatRoomInfo } = useSelector(
     (state: RootState) => state.chattingRoomState,
   );
 
@@ -22,8 +22,8 @@ const Header = () => {
         />
         <StyledImage src='/buger.png' width={44} height={44} />
         <Div>
-          <Info name='title'>{currentChat.title}</Info>
-          <Info name='info'>인원2명/{currentChat.maxCount}명</Info>
+          <Info name='title'>{chatRoomInfo.title}</Info>
+          <Info name='info'>인원2명/{chatRoomInfo.maxCount}명</Info>
         </Div>
       </ContentWrap>
     </Wrap>

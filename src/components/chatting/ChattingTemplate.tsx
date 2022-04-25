@@ -1,28 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useEffect } from 'react';
 import Header from '../chatting/Header';
 import GoInfoBtn from '../chatting/GoInfoBtn';
 import SubmitForm from '../chatting/SubmitForm';
 import ChatItem from '../chatting/ChatItem';
 import QuickMessageComp from '../chatting/QuickMessageComp';
 import MyChatItem from '../chatting/MyChatItem';
-import {
-  ChatHistoryListType,
-  ChatItemType,
-} from '../../modules/chatting/types';
+import { PreviousChattingItemResponse } from '../../modules/chatting/types';
+
 import { useChat } from '../../hooks/useChat';
 import { Stomp } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 import moment from 'moment';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../modules';
 
-const ChattingTemplate = ({
-  chatList,
-}: {
-  chatList: ChatHistoryListType | null;
-}) => {
-  const [messageList, setMessageList] = useState<ChatItemType[]>([]);
-  const socket = new SockJS('http://15.165.248.39:9090/chat');
+const ChattingTemplate = () => {
+  const [messageList, setMessageList] = useState<
+    PreviousChattingItemResponse[]
+  >([]);
+
+  const { previousChatting } = useSelector(
+    (state: RootState) => state.chattingRoomState,
+  );
+
+  const socket = new SockJS(`${process.env.NEXT_PUBLIC_API_URL}/chat`);
   const stompClient = Stomp.over(socket);
   const { connect, disconnect } = useChat();
 
@@ -32,6 +34,7 @@ const ChattingTemplate = ({
     }
     return () => disconnect(stompClient);
   }, [stompClient, messageList]);
+
   return (
     <Wrap>
       <Header />
@@ -39,25 +42,37 @@ const ChattingTemplate = ({
         <GoInfoBtn />
       </Div>
       <Content>
-        {chatList.messages &&
-          chatList.messages.length > 0 &&
-          chatList.messages.map((v, i) => {
-            if (1 === v.user_id) {
+        {previousChatting.messages &&
+          previousChatting.messages.length > 0 &&
+          previousChatting.messages.map((message, i) => {
+            if (message.user_id === 1) {
               // 1은 내 아이디
               // 내 아이디랑 같으면
-              return <MyChatItem key={i} v={v} date={v.regDate} />;
+              return (
+                <MyChatItem key={i} message={message} date={message.regDate} />
+              );
             } else {
-              return <ChatItem key={i} v={v} date={v.regDate} />;
+              return (
+                <ChatItem key={i} message={message} date={message.regDate} />
+              );
             }
           })}
         {messageList &&
           messageList.length > 0 &&
-          messageList.map((v, i) => {
-            if (1 === v.sender) {
+          messageList.map((message, i) => {
+            if (message.sender === 1) {
               // 내 아이디랑 같으면
-              return <MyChatItem key={i} v={v} date={moment().format()} />;
+              return (
+                <MyChatItem
+                  key={i}
+                  message={message}
+                  date={moment().format()}
+                />
+              );
             } else {
-              return <ChatItem key={i} v={v} date={moment().format()} />;
+              return (
+                <ChatItem key={i} message={message} date={moment().format()} />
+              );
             }
           })}
       </Content>

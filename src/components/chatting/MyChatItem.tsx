@@ -1,9 +1,15 @@
 import moment from 'moment';
 import styled from 'styled-components';
-import { ChatItemType } from '../../modules/chatting/types';
+import { PreviousChattingItemResponse } from '../../modules/chatting/types';
 import palette from '../../styles/palette';
 
-const MyChatItem = ({ v, date }: { v: ChatItemType; date: string }) => {
+const MyChatItem = ({
+  message,
+  date,
+}: {
+  message: PreviousChattingItemResponse;
+  date: string;
+}) => {
   return (
     <Wrap>
       <Time>
@@ -14,7 +20,7 @@ const MyChatItem = ({ v, date }: { v: ChatItemType; date: string }) => {
         {moment().format('YYYYMMDD') !== moment(date).format('YYYYMMDD') &&
           moment(date).format('MM/DD')}
       </Time>
-      <Content>{v.contents}</Content>
+      <Content>{message.contents}</Content>
     </Wrap>
   );
 };

@@ -2,7 +2,7 @@ import { CompatClient } from '@stomp/stompjs';
 import Image from 'next/image';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { ChatItemType } from '../../modules/chatting/types';
+import { PreviousChattingItemResponse } from '../../modules/chatting/types';
 
 import { useChat } from '../../hooks/useChat';
 
@@ -10,7 +10,9 @@ const SubmitForm = ({
   stompClient,
 }: {
   stompClient: CompatClient;
-  setMessageList: React.Dispatch<React.SetStateAction<ChatItemType[]>>;
+  setMessageList: React.Dispatch<
+    React.SetStateAction<PreviousChattingItemResponse[]>
+  >;
 }) => {
   const { onSendMessage } = useChat();
   const [message, setMessage] = useState('');

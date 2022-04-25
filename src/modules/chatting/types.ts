@@ -19,7 +19,12 @@ export type ChattingRoomInfoResponsePayload = {
   createDate: Date;
 };
 
-export type ChatItemType = {
+export type PreviousChattingItemRequest = {
+  chattingRoomId: number;
+  userId: number;
+};
+
+export type PreviousChattingItemResponse = {
   user_id?: number;
   id?: number;
   idx?: number;
@@ -30,6 +35,6 @@ export type ChatItemType = {
   type: string;
 };
 
-export type ChatHistoryListType = {
-  messages: ChatItemType[];
+export type PreviousChattingListResponse = {
+  messages: PreviousChattingItemResponse[];
 };

@@ -1,13 +1,23 @@
-import axios from 'axios';
+import { ApiService } from '..';
 
 export default class ChattingService {
-  static async asyncGetChattingRoomInfo(chattingRoomId: any) {
+  static async asyncGetChattingRoomInfo(chattingRoomId: number) {
     try {
-      const res = await axios.get(
-        `http://15.165.248.39:9090/chat/rooms/${chattingRoomId}`,
-      );
-
+      const res = await ApiService.getApi(`/chat/rooms/${chattingRoomId}`);
       return res;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  static async asyncGetPreviousChattingList(
+    chattingRoomId: number,
+    userId: number,
+  ) {
+    try {
+      return await ApiService.getApi(
+        `/chat/messages/${chattingRoomId}/${userId}`,
+      );
     } catch (err) {
       console.log(err);
     }
