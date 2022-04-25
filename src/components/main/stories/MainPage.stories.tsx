@@ -7,6 +7,6 @@ export default {
   },
 };
 
-export const Main = () => <Home />;
+// export const Main = () => <Home />;
 
-Main.storyName = '메인페이지';
+// Main.storyName = '메인페이지';
