@@ -3,10 +3,8 @@ import palette from '../../styles/palette';
 import Image from 'next/image';
 
 const KaKaoLoginBtn = () => {
-  const onButtonClick = () => {};
-
   return (
-    <Button onClick={onButtonClick}>
+    <Button>
       <Image
         src='/assets/images/kakaologo.svg'
         alt='kakao logo'

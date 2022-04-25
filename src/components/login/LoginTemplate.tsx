@@ -5,12 +5,6 @@ import NaverLoginBtn from '../login/NaverLoginBtn';
 import palette from '../../styles/palette';
 import Image from 'next/image';
 
-declare global {
-  interface Window {
-    naver: any;
-  }
-}
-
 type StyledProps = {
   name: 'header' | 'content' | 'buttons';
 };

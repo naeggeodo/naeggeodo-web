@@ -6,7 +6,7 @@ import { Address } from 'react-daum-postcode';
 import { useDispatch } from 'react-redux';
 import { saveAddresWithBuildingCode } from '../../modules/search-post-code/actions';
 
-const PostCodeWebView = ({ closeWebView }) => {
+const PostCodeWebView = ({ closeWebView }: { closeWebView: () => void }) => {
   const dispatch = useDispatch();
 
   const handleComplete = (data: Address) => {
