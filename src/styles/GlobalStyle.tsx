@@ -1,26 +1,27 @@
 import { createGlobalStyle, css } from 'styled-components';
 import reset from 'styled-reset';
-import SpoqaHanSansNeoBold from '../assets/fonts/SpoqaHanSansNeo-Bold.woff';
-import SpoqaHanSansNeoRegular from '../assets/fonts/SpoqaHanSansNeo-Regular.woff';
 
 const globalStyle = css`
   ${reset}
 
   @font-face {
     font-family: 'SpoqaBold';
-    src: url(${SpoqaHanSansNeoBold}) format('woff');
+    src: local('Spoqa Han Sans Neo Bold'),
+      url('/assets/fonts/SpoqaHanSansNeo-Bold.woff2') format('woff2'),
+      url('/assets/fonts/SpoqaHanSansNeo-Bold.woff') format('woff');
+    font-display: fallback;
   }
 
   @font-face {
     font-family: 'Spoqa';
-    src: url(${SpoqaHanSansNeoRegular}) format('woff');
+    src: local('Spoqa Han Sans Neo Regular'),
+      url('/assets/fonts/SpoqaHanSansNeo-Regular.woff2') format('woff2'),
+      url('/assets/fonts/SpoqaHanSansNeo-Regular.woff') format('woff');
+    font-display: fallback;
   }
 
-  html {
-    font-size: 10px;
-  }
   body {
-    font-family: 'Spoqa';
+    font-family: 'Spoqa', 'sans-serif';
   }
   * {
     box-sizing: border-box;

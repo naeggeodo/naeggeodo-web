@@ -1,18 +1,7 @@
-import styled from 'styled-components';
-import TabMenu from '../components/main/TabMenu';
+import MainTemplate from '../components/main/MainTemplate';
 
 const Home: React.FC = () => {
-  return (
-    <>
-      <Container>
-        <TabMenu />
-      </Container>
-    </>
-  );
+  return <MainTemplate />;
 };
-
-const Container = styled.div`
-  height: 100vh;
-`;
 
 export default Home;

@@ -1,18 +1,14 @@
-import Document, {
-  Html,
-  Head,
-  Main,
-  NextScript,
-  DocumentContext,
-} from 'next/document';
+import { RenderPageResult } from 'next/dist/shared/lib/utils';
+import Document, { Head, Html, Main, NextScript } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
 
-export default class CustomDocument extends Document {
-  static async getInitialProps(ctx: DocumentContext) {
+export default class MyDocument extends Document {
+  static async getInitialProps(ctx) {
     const sheet = new ServerStyleSheet();
     const originalRenderPage = ctx.renderPage;
+
     try {
-      ctx.renderPage = () =>
+      ctx.renderPage = (): RenderPageResult | Promise<RenderPageResult> =>
         originalRenderPage({
           enhanceApp: (App) => (props) =>
             sheet.collectStyles(<App {...props} />),
@@ -38,6 +34,7 @@ export default class CustomDocument extends Document {
       <Html>
         <Head></Head>
         <body>
+          <div id='webviewPortal'></div>
           <Main />
           <NextScript />
         </body>

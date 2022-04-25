@@ -1,19 +1,25 @@
-import styled from 'styled-components';
 import Image from 'next/image';
-import Applelogo from '../../assets/icons/applelogo.svg';
+import styled from 'styled-components';
 
 const AppleLoginBtn = () => {
   return (
-    <Wrap>
-      <Image src={Applelogo} alt='apple logo' />
-      <Span>애플 계정으로 로그인</Span>
-    </Wrap>
+    <Button>
+      <Image
+        src='/assets/images/applelogo.svg'
+        alt='apple logo'
+        width={14}
+        height={16}
+      />
+      <span>애플 계정으로 로그인</span>
+    </Button>
   );
 };
 
 export default AppleLoginBtn;
-const Wrap = styled.div`
+const Button = styled.button`
   width: 100%;
+  border: none;
+  outline: none;
   border-radius: 10px;
   height: 28%;
   display: flex;
@@ -21,11 +27,8 @@ const Wrap = styled.div`
   justify-content: center;
   background: #000;
   color: #fff;
-  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
   font-size: 17px;
   cursor: pointer;
   margin-bottom: 10px;
-`;
-const Span = styled.span`
-  margin-left: 6px;
+  gap: 6px;
 `;

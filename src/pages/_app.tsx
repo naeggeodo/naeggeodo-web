@@ -1,6 +1,12 @@
-import { AppProps } from 'next/app';
 import GlobalStyle from '../styles/GlobalStyle';
-const app = ({ Component, pageProps }: AppProps) => {
+import { wrapper } from '../modules';
+import initMockApi from '../mocks';
+
+if (process.env.NEXT_PUBLIC_API_MOCKING === 'enabled') {
+  initMockApi();
+}
+
+const app = ({ Component, pageProps }) => {
   return (
     <>
       <GlobalStyle />
@@ -9,4 +15,4 @@ const app = ({ Component, pageProps }: AppProps) => {
   );
 };
 
-export default app;
+export default wrapper.withRedux(app);

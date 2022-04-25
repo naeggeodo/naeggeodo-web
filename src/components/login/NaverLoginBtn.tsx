@@ -1,19 +1,37 @@
 import styled from 'styled-components';
-import Image from 'next/image';
 import palette from '../../styles/palette';
-import Naverlogo from '../../assets/icons/naverlogo.svg';
+import Image from 'next/image';
+import { useRef } from 'react';
+
 const NaverLoginBtn = () => {
+  const naverRef = useRef(null);
+
+  const handleClick = () => {
+    naverRef.current.children[0].click();
+  };
+
   return (
-    <Wrap>
-      <Image src={Naverlogo} alt='naver logo' />
-      <Span>네이버 계정으로 로그인</Span>
-    </Wrap>
+    <>
+      <div ref={naverRef} id='naverIdLogin' style={{ display: 'none' }}></div>
+      <Button onClick={handleClick}>
+        <Image
+          src='/assets/images/naverlogo.svg'
+          alt='naver logo'
+          width={14}
+          height={14}
+        />
+        <span>네이버 계정으로 로그인</span>
+      </Button>
+    </>
   );
 };
 
 export default NaverLoginBtn;
-const Wrap = styled.div`
+
+const Button = styled.button`
   width: 100%;
+  border: none;
+  outline: none;
   border-radius: 10px;
   height: 28%;
   color: #fff;
@@ -21,11 +39,8 @@ const Wrap = styled.div`
   align-items: center;
   justify-content: center;
   background: ${palette.naverGreen};
-  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
   cursor: pointer;
   font-size: 17px;
   margin-bottom: 10px;
-`;
-const Span = styled.span`
-  margin-left: 6px;
+  gap: 6px;
 `;
