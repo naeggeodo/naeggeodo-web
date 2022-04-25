@@ -21,7 +21,7 @@ export type ChattingRoomInfoResponsePayload = {
 
 export type PreviousChattingItemRequest = {
   chattingRoomId: number;
-  chattingId: number;
+  userId: number;
 };
 
 export type PreviousChattingItemResponse = {

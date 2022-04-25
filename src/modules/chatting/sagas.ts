@@ -18,7 +18,6 @@ function* getChattingRoomInfoGenerator(
     ChattingService.asyncGetChattingRoomInfo,
     action.payload.chattingRoomId,
   );
-
   yield put(getCurrentChatRoomAsyncActions.success(data));
 }
 
@@ -28,7 +27,7 @@ function* getPreviousChattingListGenerator(
   const { data }: { data: PreviousChattingListResponse } = yield call(
     ChattingService.asyncGetPreviousChattingList,
     action.payload.chattingRoomId,
-    action.payload.chattingId,
+    action.payload.userId,
   );
 
   yield put(getPreviousChattingListActions.success(data));

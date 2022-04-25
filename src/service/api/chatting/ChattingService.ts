@@ -4,7 +4,6 @@ export default class ChattingService {
   static async asyncGetChattingRoomInfo(chattingRoomId: number) {
     try {
       const res = await ApiService.getApi(`/chat/rooms/${chattingRoomId}`);
-
       return res;
     } catch (err) {
       console.log(err);
@@ -13,11 +12,11 @@ export default class ChattingService {
 
   static async asyncGetPreviousChattingList(
     chattingRoomId: number,
-    chattingId: number,
+    userId: number,
   ) {
     try {
       return await ApiService.getApi(
-        `/chat/messages/${chattingRoomId}/${chattingId}`,
+        `/chat/messages/${chattingRoomId}/${userId}`,
       );
     } catch (err) {
       console.log(err);

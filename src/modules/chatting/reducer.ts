@@ -9,13 +9,13 @@ import {
 import { createReducer } from 'typesafe-actions';
 
 type ChattingRoomState = {
-  currentChat: ChattingRoomInfoResponsePayload | null;
-  previousChatting: PreviousChattingListResponse | [];
+  chatRoomInfo: ChattingRoomInfoResponsePayload | null;
+  previousChatting: PreviousChattingListResponse;
 };
 
 const initialChattingRoomState: ChattingRoomState = {
-  currentChat: null,
-  previousChatting: [],
+  chatRoomInfo: null,
+  previousChatting: { messages: [] },
 };
 
 export const chattingRoomState = createReducer<ChattingRoomState>(
@@ -23,7 +23,7 @@ export const chattingRoomState = createReducer<ChattingRoomState>(
   {
     [GET_CURRENT_CHATROOM_INFO_SUCCESS]: (state, action) => ({
       ...state,
-      currentChat: action.payload,
+      chatRoomInfo: action.payload,
     }),
     [GET_PREVIOUS_CHATTING_LIST_SUCCESS]: (state, action) => ({
       ...state,

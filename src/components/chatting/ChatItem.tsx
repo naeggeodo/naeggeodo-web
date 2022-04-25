@@ -1,14 +1,20 @@
 import moment from 'moment';
 import Image from 'next/image';
 import styled from 'styled-components';
-import { ChatItemType } from '../../modules/chatting/types';
+import { PreviousChattingItemResponse } from '../../modules/chatting/types';
 import palette from '../../styles/palette';
 
-const ChatItem = ({ v, date }: { v: ChatItemType; date: string }) => {
+const ChatItem = ({
+  message,
+  date,
+}: {
+  message: PreviousChattingItemResponse;
+  date: string;
+}) => {
   return (
     <Wrap>
       <StyledImage src='/buger.png' width={35} height={35} layout='fixed' />
-      <Content>{v.contents}</Content>
+      <Content>{message.contents}</Content>
       <Time>
         {moment().format('YYYYMMDD') === moment(date).format('YYYYMMDD') &&
         moment(date).format('a') === 'am'
