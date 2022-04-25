@@ -13,6 +13,6 @@ export default {
   ],
 } as ComponentMeta<typeof SearchPostCode>;
 
-export const SearchPostCodeStory = () => <SearchPostCode />;
+// export const SearchPostCodeStory = () => <SearchPostCode />;
 
-SearchPostCodeStory.storyName = '우편 번호 검색';
+// SearchPostCodeStory.storyName = '우편 번호 검색';
