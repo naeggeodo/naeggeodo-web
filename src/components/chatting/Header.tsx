@@ -20,7 +20,11 @@ const Header = () => {
           width={14}
           height={24}
         />
-        <StyledImage src='/buger.png' width={44} height={44} />
+        <StyledImage
+          src='/assets/images/hamburger.svg'
+          width={44}
+          height={44}
+        />
         <Div>
           <Info name='title'>{chatRoomInfo.title}</Info>
           <Info name='info'>인원2명/{chatRoomInfo.maxCount}명</Info>

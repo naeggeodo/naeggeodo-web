@@ -1,18 +1,34 @@
+import { CompatClient } from '@stomp/stompjs';
 import Image from 'next/image';
 import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import { useChat } from '../../hooks/useChat';
 import { useSlideMessage } from '../../hooks/useSlideMessage';
 import palette from '../../styles/palette';
 
-const QuickMessageComp = () => {
+const QuickMessageComp = ({ stompClient }: { stompClient: CompatClient }) => {
+  const { onSendMessage } = useChat();
+  const { slideEvent, slideDown } = useSlideMessage();
   const target = useRef<HTMLDivElement>(null);
   const slideBar = useRef<HTMLDivElement>(null);
-  const { slideEvent } = useSlideMessage();
 
   useEffect(() => {
     slideEvent(slideBar, target);
   }, []);
 
+  const sendMessage = (
+    e: React.MouseEvent<HTMLParagraphElement, MouseEvent>,
+  ) => {
+    const clickTarget = e.target as HTMLParagraphElement;
+    const data = {
+      chatMain_id: 1,
+      sender: 1,
+      contents: clickTarget.innerHTML,
+      type: 'TEXT',
+    };
+    onSendMessage(stompClient, data);
+    slideDown(target);
+  };
   return (
     <Wrap ref={target}>
       <Div ref={slideBar}>
@@ -23,9 +39,13 @@ const QuickMessageComp = () => {
           height={3}
         />
       </Div>
-      <Item>안녕하세요. 지금 주문 가능하신가요?</Item>
-      <Item>백석고등학교 정문 앞에서 만나고 싶습니다.</Item>
-      <Item>잠시 메뉴를 고르겠습니다. 2분만 기다려주세요!</Item>
+      <Item onClick={sendMessage}>안녕하세요. 지금 주문 가능하신가요?</Item>
+      <Item onClick={sendMessage}>
+        백석고등학교 정문 앞에서 만나고 싶습니다.
+      </Item>
+      <Item onClick={sendMessage}>
+        잠시 메뉴를 고르겠습니다. 2분만 기다려주세요!
+      </Item>
       <EditBtn>
         <p>편집하기</p>
         <Image

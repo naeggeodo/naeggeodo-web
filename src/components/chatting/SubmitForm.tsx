@@ -2,30 +2,42 @@ import { CompatClient } from '@stomp/stompjs';
 import Image from 'next/image';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { PreviousChattingItemResponse } from '../../modules/chatting/types';
 
 import { useChat } from '../../hooks/useChat';
 
-const SubmitForm = ({
-  stompClient,
-}: {
-  stompClient: CompatClient;
-  setMessageList: React.Dispatch<
-    React.SetStateAction<PreviousChattingItemResponse[]>
-  >;
-}) => {
+const SubmitForm = ({ stompClient }: { stompClient: CompatClient }) => {
   const { onSendMessage } = useChat();
   const [message, setMessage] = useState('');
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!message) return;
     const data = {
       chatMain_id: 1,
       sender: 1,
       contents: message,
       type: 'TEXT',
     };
-    onSendMessage(stompClient, data, setMessage);
+
+    onSendMessage(stompClient, data);
+    setMessage('');
+  };
+  const onImgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const reader = new FileReader();
+    // if (!e.target.files || !e.target.files[0]) return;
+    const imgFile = e.target.files[0];
+    console.log('이미지', imgFile);
+    reader.onload = function () {
+      const result = reader.result;
+      const data = {
+        chatMain_id: 1,
+        sender: 1,
+        contents: result as string,
+        type: 'IMAGE',
+      };
+      onSendMessage(stompClient, data);
+    };
+    reader.readAsDataURL(imgFile);
   };
   return (
     <Wrap>
@@ -38,7 +50,12 @@ const SubmitForm = ({
             height={24}
           />
         </ImgAddLabel>
-        <ImgAddBtn type='file' accept='image/*' id='image' />
+        <ImgAddInput
+          type='file'
+          accept='image/*'
+          id='image'
+          onChange={onImgChange}
+        />
         <Input
           type='text'
           value={message}
@@ -86,7 +103,7 @@ const Input = styled.input`
 const ImgAddLabel = styled.label`
   cursor: pointer;
 `;
-const ImgAddBtn = styled.input`
+const ImgAddInput = styled.input`
   display: none;
 `;
 const Button = styled.button`

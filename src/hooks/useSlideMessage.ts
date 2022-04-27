@@ -49,7 +49,12 @@ export function useSlideMessage() {
     };
   };
 
+  const slideDown = (target: MutableRefObject<HTMLDivElement>) => {
+    target.current.style.height = '30px';
+  };
+
   return {
     slideEvent,
+    slideDown,
   };
 }
