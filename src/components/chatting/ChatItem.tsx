@@ -13,8 +13,23 @@ const ChatItem = ({
 }) => {
   return (
     <Wrap>
-      <StyledImage src='/buger.png' width={35} height={35} layout='fixed' />
-      <Content>{message.contents}</Content>
+      <StyledImage
+        src='/assets/images/hamburger.svg'
+        width={35}
+        height={35}
+        layout='fixed'
+      />
+      {message.contents.includes('data:image/') ? (
+        <StyledImg
+          src={message.contents}
+          alt='kakao logo'
+          width={400}
+          height={300}
+        />
+      ) : (
+        <Content>{message.contents}</Content>
+      )}
+
       <Time>
         {moment().format('YYYYMMDD') === moment(date).format('YYYYMMDD') &&
         moment(date).format('a') === 'am'
@@ -44,13 +59,18 @@ const Content = styled.p`
   background: ${palette.mainOrange};
   font-size: 15px;
   border-radius: 10px 10px 10px 0px;
-  align-items: flex-start;
   padding: 6px 10px;
-  line-height: 22.5px;
-  max-width: 80%;
+  line-height: 1.2em;
   color: #fff;
+  max-width: 70%;
+  word-wrap: break-word;
 `;
 const Time = styled.p`
   color: ${palette.DarkGray};
   font-size: 12px;
+`;
+const StyledImg = styled(Image)`
+  border-radius: 10px;
+  border: 1px solid red;
+  overflow: hidden;
 `;

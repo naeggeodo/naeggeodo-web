@@ -1,5 +1,6 @@
 import moment from 'moment';
 import styled from 'styled-components';
+import Image from 'next/image';
 import { PreviousChattingItemResponse } from '../../modules/chatting/types';
 import palette from '../../styles/palette';
 
@@ -20,7 +21,16 @@ const MyChatItem = ({
         {moment().format('YYYYMMDD') !== moment(date).format('YYYYMMDD') &&
           moment(date).format('MM/DD')}
       </Time>
-      <Content>{message.contents}</Content>
+      {message.contents.includes('data:image/') ? (
+        <StyledImg
+          src={message.contents}
+          alt='kakao logo'
+          width={400}
+          height={300}
+        />
+      ) : (
+        <Content>{message.contents}</Content>
+      )}
     </Wrap>
   );
 };
@@ -42,8 +52,13 @@ const Content = styled.p`
   background: #fff;
   font-size: 15px;
   border-radius: 10px 10px 0px 10px;
-  align-items: flex-start;
   padding: 6px 10px;
   line-height: 1.2em;
-  max-width: 80%;
+  max-width: 70%;
+  word-wrap: break-word;
+`;
+const StyledImg = styled(Image)`
+  border-radius: 10px;
+  border: 1px solid red;
+  overflow: hidden;
 `;

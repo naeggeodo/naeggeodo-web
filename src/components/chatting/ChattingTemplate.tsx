@@ -76,8 +76,8 @@ const ChattingTemplate = () => {
             }
           })}
       </Content>
-      <QuickMessageComp />
-      <SubmitForm stompClient={stompClient} setMessageList={setMessageList} />
+      <QuickMessageComp stompClient={stompClient} />
+      <SubmitForm stompClient={stompClient} />
     </Wrap>
   );
 };

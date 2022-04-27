@@ -24,12 +24,11 @@ export function useChat() {
   const onSendMessage = (
     stompClient: CompatClient,
     data: PreviousChattingItemResponse,
-    setMessage: React.Dispatch<React.SetStateAction<string>>,
   ) => {
     if (stompClient && data) {
+      console.log(data.contents);
       stompClient.send('/app/chat/send', {}, JSON.stringify(data));
     }
-    setMessage('');
   };
 
   const disconnect = (stompClient: CompatClient) => {
