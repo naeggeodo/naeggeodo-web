@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import Header from '../chatting/Header';
-import GoInfoBtn from '../chatting/GoInfoBtn';
-import SubmitForm from '../chatting/SubmitForm';
-import ChatItem from '../chatting/ChatItem';
-import QuickMessageComp from '../chatting/QuickMessageComp';
-import MyChatItem from '../chatting/MyChatItem';
-import { PreviousChattingItemResponse } from '../../modules/chatting/types';
-
-import { useChat } from '../../hooks/useChat';
 import { Stomp } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
+
+import Header from '../chatting/Header';
+import GoInfoBtn from '../chatting/GoInfoBtn';
+import SubmitForm from '../chatting/SubmitForm';
+import ChatItem from '../chatting/ChatItem';
+import MyChatItem from '../chatting/MyChatItem';
+import QuickMessageComp from '../chatting/QuickMessageComp';
+import { PreviousChattingItemResponse } from '../../modules/chatting/types';
+import { useChat } from '../../hooks/useChat';
 import { RootState } from '../../modules';
 
 const ChattingTemplate = () => {
@@ -76,7 +76,7 @@ const ChattingTemplate = () => {
             }
           })}
       </Content>
-      <QuickMessageComp stompClient={stompClient} />
+      {/* <QuickMessageComp stompClient={stompClient} /> */}
       <SubmitForm stompClient={stompClient} />
     </Wrap>
   );
@@ -90,11 +90,13 @@ const Wrap = styled.div`
   background: #f2f2f8;
   overflow: hidden;
 `;
+
 const Div = styled.div`
   width: 100%;
   height: 10%;
   padding: 10px 0 18px;
 `;
+
 const Content = styled.div`
   width: 100%;
   margin: 0 auto;

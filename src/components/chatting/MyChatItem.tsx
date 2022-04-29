@@ -1,8 +1,9 @@
-import moment from 'moment';
 import styled from 'styled-components';
 import Image from 'next/image';
-import { PreviousChattingItemResponse } from '../../modules/chatting/types';
 import palette from '../../styles/palette';
+import DateFormatter from '../../utils/DateFormatter';
+
+import { PreviousChattingItemResponse } from '../../modules/chatting/types';
 
 const MyChatItem = ({
   message,
@@ -11,15 +12,13 @@ const MyChatItem = ({
   message: PreviousChattingItemResponse;
   date: string;
 }) => {
+  const ChatDate = new DateFormatter(date);
+
   return (
     <Wrap>
       <Time>
-        {moment().format('YYYYMMDD') === moment(date).format('YYYYMMDD') &&
-        moment(date).format('a') === 'am'
-          ? moment(date).format('오전 h:mm')
-          : moment(date).format('오후 h:mm')}
-        {moment().format('YYYYMMDD') !== moment(date).format('YYYYMMDD') &&
-          moment(date).format('MM/DD')}
+        <span>{ChatDate.formatDate()}</span>
+        <span>{ChatDate.formatTime()}</span>
       </Time>
       {message.contents.includes('data:image/') ? (
         <StyledImg
@@ -35,30 +34,43 @@ const MyChatItem = ({
   );
 };
 
-export default MyChatItem;
 const Wrap = styled.div`
   display: flex;
-  gap: 5px;
   justify-content: end;
   align-items: flex-end;
-  margin-right: 10px;
+  gap: 5px;
+
   width: 100%;
+
+  margin-right: 0.625rem;
 `;
+
 const Time = styled.p`
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  font-size: 0.75rem;
   color: ${palette.DarkGray};
-  font-size: 12px;
 `;
+
 const Content = styled.p`
-  background: #fff;
-  font-size: 15px;
+  font-size: 0.9375rem;
+
+  background-color: #fff;
   border-radius: 10px 10px 0px 10px;
   padding: 6px 10px;
+
   line-height: 1.2em;
+
   max-width: 70%;
   word-wrap: break-word;
 `;
+
 const StyledImg = styled(Image)`
   border-radius: 10px;
   border: 1px solid red;
   overflow: hidden;
 `;
+
+export default MyChatItem;
