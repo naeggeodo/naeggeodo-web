@@ -1,4 +1,3 @@
-import moment from 'moment';
 import Image from 'next/image';
 import styled from 'styled-components';
 import { PreviousChattingItemResponse } from '../../modules/chatting/types';
@@ -31,12 +30,12 @@ const ChatItem = ({
       )}
 
       <Time>
-        {moment().format('YYYYMMDD') === moment(date).format('YYYYMMDD') &&
+        {/* {moment().format('YYYYMMDD') === moment(date).format('YYYYMMDD') &&
         moment(date).format('a') === 'am'
           ? moment(date).format('오전 h:mm')
           : moment(date).format('오후 h:mm')}
         {moment().format('YYYYMMDD') !== moment(date).format('YYYYMMDD') &&
-          moment(date).format('MM/DD')}
+          moment(date).format('MM/DD')} */}
       </Time>
     </Wrap>
   );

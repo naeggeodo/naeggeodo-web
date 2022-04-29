@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Stomp } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
-import moment from 'moment';
 import { useSelector } from 'react-redux';
 
 import Header from '../chatting/Header';
@@ -63,15 +62,17 @@ const ChattingTemplate = () => {
             if (message.sender === 1) {
               // 내 아이디랑 같으면
               return (
-                <MyChatItem
-                  key={i}
-                  message={message}
-                  date={moment().format()}
-                />
+                // <MyChatItem
+                //   key={i}
+                //   message={message}
+                //   date={moment().format()}
+                // />
+                <></>
               );
             } else {
               return (
-                <ChatItem key={i} message={message} date={moment().format()} />
+                <></>
+                // <ChatItem key={i} message={message} date={moment().format()} />
               );
             }
           })}
