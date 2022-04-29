@@ -26,8 +26,6 @@ const NaverLoginBtn = () => {
   );
 };
 
-export default NaverLoginBtn;
-
 const Button = styled.button`
   width: 100%;
   border: none;
@@ -44,3 +42,5 @@ const Button = styled.button`
   margin-bottom: 10px;
   gap: 6px;
 `;
+
+export default NaverLoginBtn;

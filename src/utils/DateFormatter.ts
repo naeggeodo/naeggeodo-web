@@ -13,6 +13,28 @@ export default class DateFormatter {
     this.minute = +this.stringDate.split('T')[1].split(':').slice(0, 2)[1];
   }
 
+  static getNowDate() {
+    let result: string;
+
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const hour = date.getHours();
+    const minutes = date.getMinutes();
+    const seconds = date.getSeconds();
+
+    result = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(
+      2,
+      '0',
+    )}T${String(hour).padStart(2, '0')}:${String(minutes).padStart(
+      2,
+      '0',
+    )}:${String(seconds).padStart(2, '0')}`;
+
+    return result;
+  }
+
   formatDate() {
     return this.date.split('-').slice(1).join('/');
   }
@@ -21,8 +43,7 @@ export default class DateFormatter {
     let ampm: AMPM;
     let result: string;
 
-    let min =
-      this.minute < 10 ? String(this.minute).padStart(2, '0') : this.minute;
+    let min = String(this.minute).padStart(2, '0');
 
     if (this.hour >= 12 && this.hour <= 24) {
       ampm = '오후';

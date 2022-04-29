@@ -65,6 +65,7 @@ const P = styled.p`
 `;
 const Div = styled.div<StyledProps>`
   width: 100%;
+
   ${(props) =>
     props.name === 'header' &&
     css`

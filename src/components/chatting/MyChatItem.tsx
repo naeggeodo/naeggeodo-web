@@ -10,15 +10,16 @@ const MyChatItem = ({
   date,
 }: {
   message: PreviousChattingItemResponse;
-  date: string;
+  date?: string;
 }) => {
-  const ChatDate = new DateFormatter(date);
+  console.log(date);
+  const chatDate = new DateFormatter(date);
 
   return (
     <Wrap>
       <Time>
-        <span>{ChatDate.formatDate()}</span>
-        <span>{ChatDate.formatTime()}</span>
+        <span>{chatDate.formatDate()}</span>
+        <span>{chatDate.formatTime()}</span>
       </Time>
       {message.contents.includes('data:image/') ? (
         <StyledImg

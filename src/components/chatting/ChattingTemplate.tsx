@@ -13,18 +13,19 @@ import QuickMessageComp from '../chatting/QuickMessageComp';
 import { PreviousChattingItemResponse } from '../../modules/chatting/types';
 import { useChat } from '../../hooks/useChat';
 import { RootState } from '../../modules';
+import DateFormatter from '../../utils/DateFormatter';
 
 const ChattingTemplate = () => {
   const [messageList, setMessageList] = useState<
     PreviousChattingItemResponse[]
   >([]);
-
   const { previousChatting } = useSelector(
     (state: RootState) => state.chattingRoomState,
   );
 
   const socket = new SockJS(`${process.env.NEXT_PUBLIC_API_URL}/chat`);
   const stompClient = Stomp.over(socket);
+
   const { connect, disconnect } = useChat();
 
   useEffect(() => {
@@ -62,17 +63,19 @@ const ChattingTemplate = () => {
             if (message.sender === 1) {
               // 내 아이디랑 같으면
               return (
-                // <MyChatItem
-                //   key={i}
-                //   message={message}
-                //   date={moment().format()}
-                // />
-                <></>
+                <MyChatItem
+                  key={i}
+                  message={message}
+                  date={DateFormatter.getNowDate()}
+                />
               );
             } else {
               return (
-                <></>
-                // <ChatItem key={i} message={message} date={moment().format()} />
+                <ChatItem
+                  key={i}
+                  message={message}
+                  date={DateFormatter.getNowDate()}
+                />
               );
             }
           })}
@@ -83,30 +86,37 @@ const ChattingTemplate = () => {
   );
 };
 
-export default ChattingTemplate;
-
 const Wrap = styled.div`
   width: 100vw;
   height: 100vh;
+
   background: #f2f2f8;
+
   overflow: hidden;
 `;
 
 const Div = styled.div`
   width: 100%;
   height: 10%;
+
   padding: 10px 0 18px;
 `;
 
 const Content = styled.div`
-  width: 100%;
-  margin: 0 auto;
-  height: 72%;
-  padding-bottom: 30px;
-  position: relative;
   display: flex;
   flex-direction: column;
   gap: 15px;
+
+  position: relative;
+
+  width: 100%;
+  height: 72%;
+
+  margin: 0 auto;
+  padding-bottom: 30px;
+
   overflow-y: auto;
   overflow-x: hidden;
 `;
+
+export default ChattingTemplate;
