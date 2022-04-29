@@ -27,20 +27,24 @@ const NaverLoginBtn = () => {
 };
 
 const Button = styled.button`
-  width: 100%;
-  border: none;
-  outline: none;
-  border-radius: 10px;
-  height: 28%;
-  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: ${palette.naverGreen};
-  cursor: pointer;
-  font-size: 17px;
-  margin-bottom: 10px;
   gap: 6px;
+
+  width: 100%;
+  height: 28%;
+
+  font-size: 1.0625rem;
+  color: #fff;
+  background-color: ${palette.naverGreen};
+
+  margin-bottom: 10px;
+
+  cursor: pointer;
+  border-radius: 10px;
+  border: none;
+  outline: none;
 `;
 
 export default NaverLoginBtn;

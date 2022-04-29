@@ -22,6 +22,7 @@ const SubmitForm = ({ stompClient }: { stompClient: CompatClient }) => {
     onSendMessage(stompClient, data);
     setMessage('');
   };
+
   const onImgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const reader = new FileReader();
     // if (!e.target.files || !e.target.files[0]) return;
@@ -39,6 +40,7 @@ const SubmitForm = ({ stompClient }: { stompClient: CompatClient }) => {
     };
     reader.readAsDataURL(imgFile);
   };
+
   return (
     <Wrap>
       <ContentWrap onSubmit={onSubmit}>
@@ -76,39 +78,49 @@ const SubmitForm = ({ stompClient }: { stompClient: CompatClient }) => {
   );
 };
 
-export default SubmitForm;
 const Wrap = styled.div`
   background: #fff;
   width: 100%;
   height: 8%;
 `;
+
 const ContentWrap = styled.form`
   display: flex;
+  justify-content: center;
   align-items: center;
+  gap: 3%;
+
   width: 90%;
   height: 100%;
+
   margin: 0 auto;
-  justify-content: center;
-  gap: 3%;
 `;
+
 const Input = styled.input`
-  background: #f2f2f8;
-  outline: none;
-  border: none;
-  border-radius: 10px;
   width: 90%;
   height: 70%;
+
+  border-radius: 10px;
+
+  background-color: #f2f2f8;
+
   padding: 0 10px;
+
+  border: none;
+  outline: none;
 `;
+
 const ImgAddLabel = styled.label`
   cursor: pointer;
 `;
+
 const ImgAddInput = styled.input`
   display: none;
 `;
+
 const Button = styled.button`
-  outline: none;
-  cursor: pointer;
-  background: #fff;
-  border: none;
+  all: unset;
+  background-color: #fff;
 `;
+
+export default SubmitForm;

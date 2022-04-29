@@ -44,46 +44,55 @@ const ChatRoomItem = ({
 
 const Container = styled.div`
   display: flex;
-  gap: 10px;
   align-items: center;
+  gap: 10px;
+
   width: 100%;
+
   padding: 20px 14px;
+
   background-color: #ffffff;
+
   border-bottom: 1px solid ${palette.bgGray};
 `;
 
 const StyledImage = styled(Image)`
-  border-radius: 10px;
   border: 1px solid ${palette.LineGray};
+  border-radius: 10px;
 `;
 
 const FlexRight = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
+
   width: 100%;
 `;
 
 const Title = styled.p`
-  font-size: 15px;
+  font-size: 0.9375rem;
   color: ${palette.black};
 `;
 
 const NumberOfPeople = styled.p`
+  font-size: 0.75rem;
   color: ${palette.DarkGray};
-  font-size: 12px;
 `;
 
 const RegisteredTime = styled.p`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: ${palette.DarkGray};
-  background-color: ${palette.LightGray};
-  font-size: 12px;
+
   min-width: 40px;
-  padding: 0 4px;
   height: 20px;
+
+  font-size: 0.75rem;
+  color: ${palette.DarkGray};
+
+  background-color: ${palette.LightGray};
+
+  padding: 0 4px;
   border-radius: 3px;
 `;
 
@@ -91,17 +100,19 @@ const TimeOrderLinkContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   width: 100%;
 `;
 
 const StyledLink = styled.a`
   display: flex;
   align-items: center;
-  cursor: pointer;
   gap: 4px;
 
+  cursor: pointer;
+
   & > p {
-    font-size: 12px;
+    font-size: 0.75rem;
     color: ${palette.black};
   }
 `;

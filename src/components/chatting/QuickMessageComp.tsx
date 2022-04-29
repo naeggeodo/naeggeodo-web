@@ -59,45 +59,59 @@ const QuickMessageComp = ({ stompClient }: { stompClient: CompatClient }) => {
   );
 };
 
-export default QuickMessageComp;
 const Wrap = styled.div`
-  width: 100%;
-  max-height: 200px;
-  background: #fff;
-  overflow: hidden;
   position: fixed;
   bottom: 8%;
+
+  width: 100%;
+  max-height: 200px;
+
+  background-color: #fff;
+
+  border-bottom: 1px solid ${palette.LineGray};
   border-radius: 20px 20px 0px 0px;
+
   padding: 0 6% 14px;
+
+  overflow: hidden;
   touch-action: none;
+
   & > img {
     display: block;
     margin: 0 auto;
   }
-  border-bottom: 1px solid ${palette.LineGray};
 `;
+
 const Div = styled.div`
-  padding-top: 10px;
-  padding-bottom: 22px;
+  padding: 10px 0 22px;
+
   text-align: center;
   cursor: grab;
   touch-action: none;
 `;
+
 const Item = styled.p`
-  font-size: 15px;
+  font-size: 0.9375rem;
   line-height: 20px;
   margin-bottom: 22px;
   cursor: pointer;
 `;
+
 const EditBtn = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 3px;
+
   color: #ef6212;
+  background-color: transparent;
+
+  font-size: 0.75rem;
+
+  padding: 0;
+
+  cursor: pointer;
   outline: none;
   border: none;
-  font-size: 12px;
-  background: transparent;
-  cursor: pointer;
-  display: flex;
-  gap: 3px;
-  align-items: center;
-  padding: 0;
 `;
+
+export default QuickMessageComp;

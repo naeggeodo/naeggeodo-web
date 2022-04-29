@@ -3,6 +3,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { RootState } from '../../modules';
+import palette from '../../styles/palette';
 type StyledProps = {
   name: 'title' | 'info';
 };
@@ -34,41 +35,52 @@ const Header = () => {
   );
 };
 
-export default Header;
 const Wrap = styled.div`
-  background: #191919;
-  height: 10%;
   width: 100%;
+  height: 10%;
+
+  background-color: ${palette.black};
 `;
+
 const ContentWrap = styled.div`
   display: flex;
   align-items: center;
+  gap: 10px;
+
   width: 90%;
   height: 100%;
+
   margin: 0 auto;
-  gap: 10px;
 `;
+
 const StyledImage = styled(Image)`
   display: inline-block;
+
   border-radius: 10px;
-  background: #fff;
+  background-color: #fff;
 `;
+
 const Div = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
 `;
+
 const Info = styled.p<StyledProps>`
   color: #fff;
   line-height: 20px;
+
   ${(props) =>
     props.name === 'title' &&
     css`
-      font-size: 15px;
+      font-size: 0.9375rem;
     `}
+
   ${(props) =>
     props.name === 'info' &&
     css`
-      font-size: 12px;
+      font-size: 0.75rem;
     `}
 `;
+
+export default Header;

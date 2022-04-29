@@ -20,17 +20,22 @@ const TabMenu = () => {
 };
 
 const Container = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-  height: 55px;
-  background-color: #ffffff;
-  box-shadow: 0px -0.5px 0px #e0e0e0;
-  backdrop-filter: blur(20px);
-  border-radius: 20px 20px 0px 0px;
-  border-top: 1px solid ${palette.LightGray};
   position: fixed;
   bottom: 0;
+
+  display: flex;
+  justify-content: space-evenly;
+
   width: 100%;
+  height: 55px;
+
+  background-color: #ffffff;
+
+  backdrop-filter: blur(20px);
+  box-shadow: 0px -0.5px 0px #e0e0e0;
+
+  border-radius: 20px 20px 0px 0px;
+  border-top: 1px solid ${palette.LightGray};
 `;
 
 export default TabMenu;

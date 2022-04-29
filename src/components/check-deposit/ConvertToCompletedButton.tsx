@@ -18,20 +18,25 @@ const ConvertToCompletedButton = () => {
 
 const Button = styled.button`
   display: flex;
-  width: 100%;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
-  background-color: ${palette.black};
-  border: none;
-  outline: none;
-  border-radius: 10px;
-  font-size: 17px;
+
+  width: 100%;
   max-height: 70px;
   min-height: 50px;
   min-width: 172px;
+
+  border-radius: 10px;
+
+  font-size: 1.0625rem;
   color: #ffffff;
+  background-color: ${palette.black};
+
   margin-top: 30px;
+
+  border: none;
+  cursor: pointer;
+  outline: none;
 `;
 
 const CompletedButton = styled(Button)`

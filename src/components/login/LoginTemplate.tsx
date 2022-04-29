@@ -37,32 +37,35 @@ const LoginTemplate = () => {
   );
 };
 
-export default LoginTemplate;
-
 const Wrap = styled.div`
   width: 100vw;
   height: 100vh;
-  background: #fff;
+  background-color: #fff;
 `;
+
 const ContentWrap = styled.div`
   width: 90%;
   height: 100%;
+
   margin: 0 auto;
   padding-top: 10px;
 `;
 
 const Title = styled.h2`
-  font-size: 26px;
   font-family: 'SpoqaBold';
+  font-size: 1.625rem;
+  color: ${palette.black};
 
   line-height: 1.4em;
-  color: ${palette.black};
 `;
+
 const P = styled.p`
+  font-size: 1.0625rem;
   color: ${palette.black};
-  font-size: 17px;
+
   margin-top: 30px;
 `;
+
 const Div = styled.div<StyledProps>`
   width: 100%;
 
@@ -71,30 +74,41 @@ const Div = styled.div<StyledProps>`
     css`
       height: 10%;
     `};
+
   ${(props) =>
     props.name === 'content' &&
     css`
       height: 60%;
     `};
+
   ${(props) =>
     props.name === 'buttons' &&
     css`
-      border-top: 1px solid ${palette.DarkGray};
-      padding-top: 26px;
       position: relative;
       height: 30%;
+
+      border-top: 1px solid ${palette.DarkGray};
+      padding-top: 26px;
+
       &::before {
         content: '간편 로그인';
-        width: 100px;
-        height: 12px;
+
         display: inline-block;
-        text-align: center;
-        background: #fff;
         position: absolute;
         top: -6px;
         left: 50%;
-        font-size: 12px;
+
+        width: 100px;
+        height: 12px;
+
+        text-align: center;
+        background-color: #fff;
+
+        font-size: 0.75rem;
+
         transform: translateX(-50%);
       }
     `};
 `;
+
+export default LoginTemplate;

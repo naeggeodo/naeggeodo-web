@@ -41,27 +41,32 @@ const ChatItem = ({
 };
 
 const Wrap = styled.div`
-  width: 100%;
   display: flex;
-  margin-left: 10px;
-  gap: 5px;
   align-items: flex-end;
+  gap: 5px;
+
+  width: 100%;
+
+  margin-left: 10px;
 `;
 
 const StyledImage = styled(Image)`
-  background: ${palette.DarkGray};
+  background-color: ${palette.DarkGray};
   border-radius: 10px 10px 0px 10px;
   object-fit: cover;
 `;
 
 const Content = styled.p`
-  background: ${palette.mainOrange};
-  font-size: 15px;
-  border-radius: 10px 10px 10px 0px;
-  padding: 6px 10px;
-  line-height: 1.2em;
-  color: #fff;
   max-width: 70%;
+
+  padding: 6px 10px;
+
+  font-size: 0.9375rem;
+  color: #fff;
+  background-color: ${palette.mainOrange};
+  line-height: 1.2em;
+
+  border-radius: 10px 10px 10px 0px;
   word-wrap: break-word;
 `;
 
@@ -71,7 +76,7 @@ const Time = styled.p`
   gap: 4px;
 
   color: ${palette.DarkGray};
-  font-size: 12px;
+  font-size: 0.75rem;
 `;
 
 const StyledImg = styled(Image)`
