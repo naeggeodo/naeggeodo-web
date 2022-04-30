@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Stomp } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
-import { useSelector } from 'react-redux';
 
 import Header from '../chatting/Header';
 import GoInfoBtn from '../chatting/GoInfoBtn';
@@ -10,18 +9,21 @@ import SubmitForm from '../chatting/SubmitForm';
 import ChatItem from '../chatting/ChatItem';
 import MyChatItem from '../chatting/MyChatItem';
 import QuickMessageComp from '../chatting/QuickMessageComp';
-import { PreviousChattingItemResponse } from '../../modules/chatting/types';
+import {
+  PreviousChattingItemResponse,
+  PreviousChattingListResponse,
+} from '../../modules/chatting/types';
 import { useChat } from '../../hooks/useChat';
-import { RootState } from '../../modules';
 import DateFormatter from '../../utils/DateFormatter';
 
-const ChattingTemplate = () => {
+const ChattingTemplate = ({
+  previousChatting,
+}: {
+  previousChatting: PreviousChattingListResponse;
+}) => {
   const [messageList, setMessageList] = useState<
     PreviousChattingItemResponse[]
   >([]);
-  const { previousChatting } = useSelector(
-    (state: RootState) => state.chattingRoomState,
-  );
 
   const socket = new SockJS(`${process.env.NEXT_PUBLIC_API_URL}/chat`);
   const stompClient = Stomp.over(socket);
@@ -45,18 +47,16 @@ const ChattingTemplate = () => {
         {previousChatting.messages &&
           previousChatting.messages.length > 0 &&
           previousChatting.messages.map((message, i) => {
-            if (message.user_id === 1) {
-              // 1은 내 아이디
-              // 내 아이디랑 같으면
+            if (message.user_id === 1)
               return (
                 <MyChatItem key={i} message={message} date={message.regDate} />
               );
-            } else {
+            else
               return (
                 <ChatItem key={i} message={message} date={message.regDate} />
               );
-            }
           })}
+
         {messageList &&
           messageList.length > 0 &&
           messageList.map((message, i) => {

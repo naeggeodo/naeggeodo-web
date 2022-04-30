@@ -12,7 +12,6 @@ const MyChatItem = ({
   message: PreviousChattingItemResponse;
   date?: string;
 }) => {
-  console.log(date);
   const chatDate = new DateFormatter(date);
 
   return (
