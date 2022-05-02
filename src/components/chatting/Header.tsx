@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import Image from 'next/image';
 import styled, { css } from 'styled-components';
 import { RootState } from '../../modules';
-
+import palette from '../../styles/palette';
 type StyledProps = {
   name: 'title' | 'info';
 };
@@ -37,27 +37,28 @@ const Header = () => {
 };
 
 const Wrap = styled.div`
-  height: 10%;
   width: 100%;
+  height: 10%;
 
-  background: #191919;
+  background-color: ${palette.black};
 `;
 
 const ContentWrap = styled.div`
-  width: 90%;
-  height: 100%;
-
   display: flex;
   align-items: center;
   gap: 10px;
+
+  width: 90%;
+  height: 100%;
 
   margin: 0 auto;
 `;
 
 const StyledImage = styled(Image)`
   display: inline-block;
+
   border-radius: 10px;
-  background: #fff;
+  background-color: #fff;
 `;
 
 const Div = styled.div`
@@ -69,11 +70,13 @@ const Div = styled.div`
 const Info = styled.p<StyledProps>`
   color: #fff;
   line-height: 20px;
+
   ${(props) =>
     props.name === 'title' &&
     css`
       font-size: 0.9375rem;
     `}
+
   ${(props) =>
     props.name === 'info' &&
     css`

@@ -40,7 +40,7 @@ const LoginTemplate = () => {
 const Wrap = styled.div`
   width: 100vw;
   height: 100vh;
-  background: #fff;
+  background-color: #fff;
 `;
 
 const ContentWrap = styled.div`
@@ -52,48 +52,59 @@ const ContentWrap = styled.div`
 `;
 
 const Title = styled.h2`
-  font-size: 1.625rem;
   font-family: 'SpoqaBold';
-  line-height: 1.4em;
+  font-size: 1.625rem;
   color: ${palette.black};
+
+  line-height: 1.4em;
 `;
 
 const P = styled.p`
-  color: ${palette.black};
   font-size: 1.0625rem;
+  color: ${palette.black};
   margin-top: 30px;
 `;
 
 const Div = styled.div<StyledProps>`
   width: 100%;
+
   ${(props) =>
     props.name === 'header' &&
     css`
       height: 10%;
     `};
+
   ${(props) =>
     props.name === 'content' &&
     css`
       height: 60%;
     `};
+
   ${(props) =>
     props.name === 'buttons' &&
     css`
       position: relative;
       height: 30%;
+
       border-top: 1px solid ${palette.DarkGray};
       padding-top: 26px;
+
       &::before {
         content: '간편 로그인';
-        width: 100px;
-        height: 12px;
+
+        display: inline-block;
         position: absolute;
         top: -6px;
         left: 50%;
-        display: inline-block;
+
+        width: 100px;
+        height: 12px;
+
         text-align: center;
-        background: #fff;
+        background-color: #fff;
+
         font-size: 0.75rem;
+
         transform: translateX(-50%);
       }
     `};

@@ -11,19 +11,23 @@ const Button = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${palette.mainOrange};
+
+  font-size: 1.0625rem;
   color: #ffffff;
-  font-size: 17px;
-  border: none;
-  outline: none;
+  background-color: ${palette.mainOrange};
+
   border-radius: 10px;
-  max-width: 100px;
-  min-width: 80px;
+
   width: 10%;
   height: 52px;
+  max-width: 100px;
+  min-width: 80px;
+
+  border: none;
+  outline: none;
 
   @media ${responsive.compact} {
-    font-size: 15px;
+    font-size: 0.9375rem;
   }
 `;
 

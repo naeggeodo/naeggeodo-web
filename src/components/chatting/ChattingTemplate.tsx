@@ -2,19 +2,16 @@ import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Stomp } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
-import moment from 'moment';
-import { useSelector } from 'react-redux';
 import Header from '../chatting/Header';
 import GoInfoBtn from '../chatting/GoInfoBtn';
 import SubmitForm from '../chatting/SubmitForm';
 import ChatItem from '../chatting/ChatItem';
-import QuickMessageComp from '../chatting/QuickMessageComp';
 import MyChatItem from '../chatting/MyChatItem';
 import { PreviousChattingItemResponse } from '../../modules/chatting/types';
 import { useChat } from '../../hooks/useChat';
-import { RootState } from '../../modules';
+import DateFormatter from '../../utils/DateFormatter';
 
-const ChattingTemplate = () => {
+const ChattingTemplate = ({ previousChatting }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const chatListDivRef = useRef<HTMLDivElement>(null);
 
@@ -23,10 +20,6 @@ const ChattingTemplate = () => {
   const [messageList, setMessageList] = useState<
     PreviousChattingItemResponse[]
   >([]);
-
-  const { previousChatting } = useSelector(
-    (state: RootState) => state.chattingRoomState,
-  );
 
   const socket = new SockJS(`${process.env.NEXT_PUBLIC_API_URL}/chat`);
   const stompClient = Stomp.over(socket);
@@ -52,18 +45,16 @@ const ChattingTemplate = () => {
         {previousChatting.messages &&
           previousChatting.messages.length > 0 &&
           previousChatting.messages.map((message, i) => {
-            if (message.user_id === 1) {
-              // 1은 내 아이디
-              // 내 아이디랑 같으면
+            if (message.user_id === 1)
               return (
                 <MyChatItem key={i} message={message} date={message.regDate} />
               );
-            } else {
+            else
               return (
                 <ChatItem key={i} message={message} date={message.regDate} />
               );
-            }
           })}
+
         {messageList &&
           messageList.length > 0 &&
           messageList.map((message, i) => {
@@ -73,18 +64,22 @@ const ChattingTemplate = () => {
                 <MyChatItem
                   key={i}
                   message={message}
-                  date={moment().format()}
+                  date={DateFormatter.getNowDate()}
                 />
               );
             } else {
               return (
-                <ChatItem key={i} message={message} date={moment().format()} />
+                <ChatItem
+                  key={i}
+                  message={message}
+                  date={DateFormatter.getNowDate()}
+                />
               );
             }
           })}
         <Scroll ref={scrollRef} />
       </Content>
-      <QuickMessageComp stompClient={stompClient} />
+      {/* <QuickMessageComp stompClient={stompClient} /> */}
       <SubmitForm stompClient={stompClient} />
     </Wrap>
   );
@@ -95,6 +90,7 @@ const Wrap = styled.div`
   height: 100vh;
 
   background: #f2f2f8;
+
   overflow: hidden;
 `;
 
@@ -106,16 +102,18 @@ const Div = styled.div`
 `;
 
 const Content = styled.div`
-  width: 100%;
-  height: 72%;
-
   display: flex;
   flex-direction: column;
   gap: 15px;
 
   position: relative;
+
+  width: 100%;
+  height: 72%;
+
   margin: 0 auto;
   padding-bottom: 30px;
+
   overflow-y: auto;
   overflow-x: hidden;
   -ms-overflow-style: none;
@@ -124,8 +122,6 @@ const Content = styled.div`
   }
 `;
 
-const Scroll = styled.div`
-  /* border: 1px solid red; */
-`;
+const Scroll = styled.div``;
 
 export default ChattingTemplate;

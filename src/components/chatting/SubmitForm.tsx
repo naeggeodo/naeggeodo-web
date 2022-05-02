@@ -84,13 +84,13 @@ const Wrap = styled.div`
 `;
 
 const ContentWrap = styled.form`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3%;
+
   width: 90%;
   height: 100%;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 3%;
 
   margin: 0 auto;
 `;
@@ -99,11 +99,14 @@ const Input = styled.input`
   width: 90%;
   height: 70%;
 
-  background: #f2f2f8;
-  outline: none;
-  border: none;
   border-radius: 10px;
+
+  background-color: #f2f2f8;
+
   padding: 0 10px;
+
+  border: none;
+  outline: none;
 `;
 
 const ImgAddLabel = styled.label`
@@ -115,10 +118,8 @@ const ImgAddInput = styled.input`
 `;
 
 const Button = styled.button`
-  outline: none;
-  cursor: pointer;
-  background: #fff;
-  border: none;
+  all: unset;
+  background-color: #fff;
 `;
 
 export default SubmitForm;

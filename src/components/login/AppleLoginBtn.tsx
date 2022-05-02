@@ -16,22 +16,24 @@ const AppleLoginBtn = () => {
 };
 
 const Button = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+
   width: 100%;
   height: 28%;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
+  font-size: 1.0625rem;
+  color: #fff;
+  background-color: #000;
 
+  margin-bottom: 10px;
+
+  border-radius: 10px;
   border: none;
   outline: none;
-  border-radius: 10px;
-  background: #000;
-  color: #fff;
-  font-size: 1.0625rem;
   cursor: pointer;
-  margin-bottom: 10px;
 `;
 
 export default AppleLoginBtn;

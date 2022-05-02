@@ -19,11 +19,16 @@ const CategoryMenuSlide = ({ categories }: { categories: string[] }) => {
 const Container = styled.div`
   display: flex;
   position: relative;
+
   width: 100%;
-  font-size: 17px;
-  border-bottom: 1px solid ${palette.LineGray};
-  overflow: hidden;
+
+  font-size: 1.0625rem;
+
   background-color: #ffffff;
+
+  border-bottom: 1px solid ${palette.LineGray};
+
+  overflow: hidden;
 
   p {
     white-space: nowrap;
@@ -34,9 +39,12 @@ const Container = styled.div`
 const Track = styled.div`
   display: flex;
   gap: 20px;
+
   width: 100%;
-  touch-action: none;
+
   padding: 15px 15px 15px 30px;
+
+  touch-action: none;
 `;
 
 export default CategoryMenuSlide;

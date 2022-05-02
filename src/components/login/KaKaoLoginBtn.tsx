@@ -17,22 +17,24 @@ const KaKaoLoginBtn = () => {
 };
 
 const Button = styled.button`
-  width: 100%;
-  height: 28%;
-
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
 
-  border: none;
-  border-radius: 10px;
-  outline: none;
-  color: #000;
-  background: ${palette.kakaoYellow};
+  width: 100%;
+  height: 28%;
+
   font-size: 1.0625rem;
-  cursor: pointer;
+  color: #000;
+  background-color: ${palette.kakaoYellow};
+
   margin-bottom: 10px;
+
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  outline: none;
 `;
 
 export default KaKaoLoginBtn;

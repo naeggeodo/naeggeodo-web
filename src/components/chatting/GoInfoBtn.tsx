@@ -23,17 +23,23 @@ const Button = styled.button`
   align-items: center;
   justify-content: space-between;
 
-  text-align: left;
-  font-size: 0.75rem;
-  border: none;
-  border-radius: 5px;
-  background: #fff;
+  width: 88%;
+  height: 100%;
+
   padding: 10px 20px;
   margin: 0 auto;
+
+  border-radius: 5px;
+
+  background-color: #fff;
   box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.06);
-  box-sizing: border-box;
+
+  font-size: 0.75rem;
+
+  text-align: left;
   cursor: pointer;
   outline: none;
+  border: none;
 `;
 
 export default GoInfoBtn;

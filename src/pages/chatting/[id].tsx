@@ -6,9 +6,14 @@ import {
   getCurrentChatRoomAsyncActions,
   getPreviousChattingListActions,
 } from '../../modules/chatting/actions';
+import { PreviousChattingListResponse } from '../../modules/chatting/types';
 
-const chatting = () => {
-  return <ChattingTemplate />;
+const chatting = ({
+  previousChatting,
+}: {
+  previousChatting: PreviousChattingListResponse;
+}) => {
+  return <ChattingTemplate previousChatting={previousChatting} />;
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(
@@ -30,7 +35,9 @@ export const getServerSideProps = wrapper.getServerSideProps(
     await store.sagaTask.toPromise();
 
     return {
-      props: {},
+      props: {
+        previousChatting: store.getState().chattingRoomState.previousChatting,
+      },
     };
   },
 );
