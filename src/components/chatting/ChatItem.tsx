@@ -42,35 +42,43 @@ const ChatItem = ({
   );
 };
 
-export default ChatItem;
 const Wrap = styled.div`
   width: 100%;
+
   display: flex;
-  margin-left: 10px;
   gap: 5px;
   align-items: flex-end;
+
+  margin-left: 10px;
 `;
+
 const StyledImage = styled(Image)`
   background: ${palette.DarkGray};
   border-radius: 10px 10px 0px 10px;
   object-fit: cover;
 `;
+
 const Content = styled.p`
+  max-width: 70%;
+  line-height: 1.2em;
+
+  font-size: 0.9375rem;
+  color: #fff;
   background: ${palette.mainOrange};
-  font-size: 15px;
+  word-wrap: break-word;
   border-radius: 10px 10px 10px 0px;
   padding: 6px 10px;
-  line-height: 1.2em;
-  color: #fff;
-  max-width: 70%;
-  word-wrap: break-word;
 `;
+
 const Time = styled.p`
+  font-size: 0.75rem;
   color: ${palette.DarkGray};
-  font-size: 12px;
 `;
+
 const StyledImg = styled(Image)`
   border-radius: 10px;
   border: 1px solid red;
   overflow: hidden;
 `;
+
+export default ChatItem;

@@ -15,23 +15,25 @@ const GoInfoBtn = () => {
   );
 };
 
-export default GoInfoBtn;
-
 const Button = styled.button`
+  width: 88%;
+  height: 100%;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
-  outline: none;
+
+  text-align: left;
+  font-size: 0.75rem;
   border: none;
+  border-radius: 5px;
   background: #fff;
   padding: 10px 20px;
-  width: 88%;
-  height: 100%;
-  border-radius: 5px;
+  margin: 0 auto;
   box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.06);
-  text-align: left;
   box-sizing: border-box;
   cursor: pointer;
-  margin: 0 auto;
-  font-size: 12px;
+  outline: none;
 `;
+
+export default GoInfoBtn;

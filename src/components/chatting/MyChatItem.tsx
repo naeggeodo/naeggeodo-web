@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import { PreviousChattingItemResponse } from '../../modules/chatting/types';
 import palette from '../../styles/palette';
-
 const MyChatItem = ({
   message,
   date,
@@ -35,30 +34,37 @@ const MyChatItem = ({
   );
 };
 
-export default MyChatItem;
 const Wrap = styled.div`
+  width: 100%;
+
   display: flex;
-  gap: 5px;
   justify-content: end;
   align-items: flex-end;
+  gap: 5px;
+
   margin-right: 10px;
-  width: 100%;
 `;
+
 const Time = styled.p`
   color: ${palette.DarkGray};
-  font-size: 12px;
+  font-size: 0.75rem;
 `;
+
 const Content = styled.p`
+  max-width: 70%;
+  line-height: 1.2em;
+
   background: #fff;
-  font-size: 15px;
+  font-size: 0.9375rem;
   border-radius: 10px 10px 0px 10px;
   padding: 6px 10px;
-  line-height: 1.2em;
-  max-width: 70%;
   word-wrap: break-word;
 `;
+
 const StyledImg = styled(Image)`
   border-radius: 10px;
   border: 1px solid red;
   overflow: hidden;
 `;
+
+export default MyChatItem;

@@ -1,9 +1,9 @@
 import styled, { css } from 'styled-components';
+import Image from 'next/image';
 import AppleLoginBtn from '../login/AppleLoginBtn';
 import KaKaoLoginBtn from '../login/KaKaoLoginBtn';
 import NaverLoginBtn from '../login/NaverLoginBtn';
 import palette from '../../styles/palette';
-import Image from 'next/image';
 
 type StyledProps = {
   name: 'header' | 'content' | 'buttons';
@@ -37,32 +37,33 @@ const LoginTemplate = () => {
   );
 };
 
-export default LoginTemplate;
-
 const Wrap = styled.div`
   width: 100vw;
   height: 100vh;
   background: #fff;
 `;
+
 const ContentWrap = styled.div`
   width: 90%;
   height: 100%;
+
   margin: 0 auto;
   padding-top: 10px;
 `;
 
 const Title = styled.h2`
-  font-size: 26px;
+  font-size: 1.625rem;
   font-family: 'SpoqaBold';
-
   line-height: 1.4em;
   color: ${palette.black};
 `;
+
 const P = styled.p`
   color: ${palette.black};
-  font-size: 17px;
+  font-size: 1.0625rem;
   margin-top: 30px;
 `;
+
 const Div = styled.div<StyledProps>`
   width: 100%;
   ${(props) =>
@@ -78,22 +79,24 @@ const Div = styled.div<StyledProps>`
   ${(props) =>
     props.name === 'buttons' &&
     css`
-      border-top: 1px solid ${palette.DarkGray};
-      padding-top: 26px;
       position: relative;
       height: 30%;
+      border-top: 1px solid ${palette.DarkGray};
+      padding-top: 26px;
       &::before {
         content: '간편 로그인';
         width: 100px;
         height: 12px;
-        display: inline-block;
-        text-align: center;
-        background: #fff;
         position: absolute;
         top: -6px;
         left: 50%;
-        font-size: 12px;
+        display: inline-block;
+        text-align: center;
+        background: #fff;
+        font-size: 0.75rem;
         transform: translateX(-50%);
       }
     `};
 `;
+
+export default LoginTemplate;

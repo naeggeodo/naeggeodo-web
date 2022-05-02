@@ -1,16 +1,17 @@
-import { CompatClient } from '@stomp/stompjs';
-import Image from 'next/image';
 import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import { CompatClient } from '@stomp/stompjs';
+import Image from 'next/image';
 import { useChat } from '../../hooks/useChat';
 import { useSlideMessage } from '../../hooks/useSlideMessage';
 import palette from '../../styles/palette';
 
 const QuickMessageComp = ({ stompClient }: { stompClient: CompatClient }) => {
-  const { onSendMessage } = useChat();
-  const { slideEvent, slideDown } = useSlideMessage();
   const target = useRef<HTMLDivElement>(null);
   const slideBar = useRef<HTMLDivElement>(null);
+
+  const { onSendMessage } = useChat();
+  const { slideEvent, slideDown } = useSlideMessage();
 
   useEffect(() => {
     slideEvent(slideBar, target);
@@ -59,14 +60,14 @@ const QuickMessageComp = ({ stompClient }: { stompClient: CompatClient }) => {
   );
 };
 
-export default QuickMessageComp;
 const Wrap = styled.div`
   width: 100%;
   max-height: 200px;
-  background: #fff;
-  overflow: hidden;
+
   position: fixed;
   bottom: 8%;
+  background: #fff;
+  overflow: hidden;
   border-radius: 20px 20px 0px 0px;
   padding: 0 6% 14px;
   touch-action: none;
@@ -76,6 +77,7 @@ const Wrap = styled.div`
   }
   border-bottom: 1px solid ${palette.LineGray};
 `;
+
 const Div = styled.div`
   padding-top: 10px;
   padding-bottom: 22px;
@@ -83,21 +85,26 @@ const Div = styled.div`
   cursor: grab;
   touch-action: none;
 `;
+
 const Item = styled.p`
-  font-size: 15px;
+  font-size: 0.9375rem;
   line-height: 20px;
   margin-bottom: 22px;
   cursor: pointer;
 `;
+
 const EditBtn = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 3px;
+
   color: #ef6212;
   outline: none;
   border: none;
-  font-size: 12px;
+  font-size: 0.75rem;
   background: transparent;
   cursor: pointer;
-  display: flex;
-  gap: 3px;
-  align-items: center;
   padding: 0;
 `;
+
+export default QuickMessageComp;

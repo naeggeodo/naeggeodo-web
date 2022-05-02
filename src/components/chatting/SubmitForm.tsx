@@ -1,8 +1,7 @@
-import { CompatClient } from '@stomp/stompjs';
-import Image from 'next/image';
 import { useState } from 'react';
 import styled from 'styled-components';
-
+import { CompatClient } from '@stomp/stompjs';
+import Image from 'next/image';
 import { useChat } from '../../hooks/useChat';
 
 const SubmitForm = ({ stompClient }: { stompClient: CompatClient }) => {
@@ -18,10 +17,10 @@ const SubmitForm = ({ stompClient }: { stompClient: CompatClient }) => {
       contents: message,
       type: 'TEXT',
     };
-
     onSendMessage(stompClient, data);
     setMessage('');
   };
+
   const onImgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const reader = new FileReader();
     // if (!e.target.files || !e.target.files[0]) return;
@@ -39,6 +38,7 @@ const SubmitForm = ({ stompClient }: { stompClient: CompatClient }) => {
     };
     reader.readAsDataURL(imgFile);
   };
+
   return (
     <Wrap>
       <ContentWrap onSubmit={onSubmit}>
@@ -76,39 +76,49 @@ const SubmitForm = ({ stompClient }: { stompClient: CompatClient }) => {
   );
 };
 
-export default SubmitForm;
 const Wrap = styled.div`
-  background: #fff;
   width: 100%;
   height: 8%;
+
+  background: #fff;
 `;
+
 const ContentWrap = styled.form`
-  display: flex;
-  align-items: center;
   width: 90%;
   height: 100%;
-  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
   justify-content: center;
   gap: 3%;
+
+  margin: 0 auto;
 `;
+
 const Input = styled.input`
+  width: 90%;
+  height: 70%;
+
   background: #f2f2f8;
   outline: none;
   border: none;
   border-radius: 10px;
-  width: 90%;
-  height: 70%;
   padding: 0 10px;
 `;
+
 const ImgAddLabel = styled.label`
   cursor: pointer;
 `;
+
 const ImgAddInput = styled.input`
   display: none;
 `;
+
 const Button = styled.button`
   outline: none;
   cursor: pointer;
   background: #fff;
   border: none;
 `;
+
+export default SubmitForm;

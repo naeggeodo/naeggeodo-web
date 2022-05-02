@@ -15,20 +15,23 @@ const AppleLoginBtn = () => {
   );
 };
 
-export default AppleLoginBtn;
 const Button = styled.button`
   width: 100%;
-  border: none;
-  outline: none;
-  border-radius: 10px;
   height: 28%;
+
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 6px;
+
+  border: none;
+  outline: none;
+  border-radius: 10px;
   background: #000;
   color: #fff;
-  font-size: 17px;
+  font-size: 1.0625rem;
   cursor: pointer;
   margin-bottom: 10px;
-  gap: 6px;
 `;
+
+export default AppleLoginBtn;
