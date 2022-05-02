@@ -41,4 +41,5 @@ export const getServerSideProps = wrapper.getServerSideProps(
     };
   },
 );
+
 export default chatting;
