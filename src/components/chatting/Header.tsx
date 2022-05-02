@@ -1,11 +1,13 @@
-import Image from 'next/image';
 import React from 'react';
 import { useSelector } from 'react-redux';
+import Image from 'next/image';
 import styled, { css } from 'styled-components';
 import { RootState } from '../../modules';
+
 type StyledProps = {
   name: 'title' | 'info';
 };
+
 const Header = () => {
   const { chatRoomInfo } = useSelector(
     (state: RootState) => state.chattingRoomState,
@@ -34,41 +36,49 @@ const Header = () => {
   );
 };
 
-export default Header;
 const Wrap = styled.div`
-  background: #191919;
   height: 10%;
   width: 100%;
+
+  background: #191919;
 `;
+
 const ContentWrap = styled.div`
-  display: flex;
-  align-items: center;
   width: 90%;
   height: 100%;
-  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
   gap: 10px;
+
+  margin: 0 auto;
 `;
+
 const StyledImage = styled(Image)`
   display: inline-block;
   border-radius: 10px;
   background: #fff;
 `;
+
 const Div = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
 `;
+
 const Info = styled.p<StyledProps>`
   color: #fff;
   line-height: 20px;
   ${(props) =>
     props.name === 'title' &&
     css`
-      font-size: 15px;
+      font-size: 0.9375rem;
     `}
   ${(props) =>
     props.name === 'info' &&
     css`
-      font-size: 12px;
+      font-size: 0.75rem;
     `}
 `;
+
+export default Header;
