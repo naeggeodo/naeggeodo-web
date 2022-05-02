@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import palette from '../../styles/palette';
 import Image from 'next/image';
+import palette from '../../styles/palette';
 
 const KaKaoLoginBtn = () => {
   return (

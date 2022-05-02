@@ -1,26 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Stomp } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
-
 import Header from '../chatting/Header';
 import GoInfoBtn from '../chatting/GoInfoBtn';
 import SubmitForm from '../chatting/SubmitForm';
 import ChatItem from '../chatting/ChatItem';
 import MyChatItem from '../chatting/MyChatItem';
-import QuickMessageComp from '../chatting/QuickMessageComp';
-import {
-  PreviousChattingItemResponse,
-  PreviousChattingListResponse,
-} from '../../modules/chatting/types';
+import { PreviousChattingItemResponse } from '../../modules/chatting/types';
 import { useChat } from '../../hooks/useChat';
 import DateFormatter from '../../utils/DateFormatter';
 
-const ChattingTemplate = ({
-  previousChatting,
-}: {
-  previousChatting: PreviousChattingListResponse;
-}) => {
+const ChattingTemplate = ({ previousChatting }) => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const chatListDivRef = useRef<HTMLDivElement>(null);
+
+  const { connect, disconnect } = useChat();
+
   const [messageList, setMessageList] = useState<
     PreviousChattingItemResponse[]
   >([]);
@@ -28,12 +24,14 @@ const ChattingTemplate = ({
   const socket = new SockJS(`${process.env.NEXT_PUBLIC_API_URL}/chat`);
   const stompClient = Stomp.over(socket);
 
-  const { connect, disconnect } = useChat();
-
   useEffect(() => {
     if (!stompClient.connected) {
       connect(stompClient, 1, setMessageList); // 1은 채팅방 아이디
     }
+    chatListDivRef.current.scroll({
+      top: scrollRef.current.offsetTop,
+      behavior: 'smooth',
+    });
     return () => disconnect(stompClient);
   }, [stompClient, messageList]);
 
@@ -43,7 +41,7 @@ const ChattingTemplate = ({
       <Div>
         <GoInfoBtn />
       </Div>
-      <Content>
+      <Content ref={chatListDivRef}>
         {previousChatting.messages &&
           previousChatting.messages.length > 0 &&
           previousChatting.messages.map((message, i) => {
@@ -79,6 +77,7 @@ const ChattingTemplate = ({
               );
             }
           })}
+        <Scroll ref={scrollRef} />
       </Content>
       {/* <QuickMessageComp stompClient={stompClient} /> */}
       <SubmitForm stompClient={stompClient} />
@@ -117,6 +116,12 @@ const Content = styled.div`
 
   overflow-y: auto;
   overflow-x: hidden;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
+
+const Scroll = styled.div``;
 
 export default ChattingTemplate;

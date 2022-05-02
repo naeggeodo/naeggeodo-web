@@ -1,8 +1,7 @@
-import { CompatClient } from '@stomp/stompjs';
-import Image from 'next/image';
 import { useState } from 'react';
 import styled from 'styled-components';
-
+import { CompatClient } from '@stomp/stompjs';
+import Image from 'next/image';
 import { useChat } from '../../hooks/useChat';
 
 const SubmitForm = ({ stompClient }: { stompClient: CompatClient }) => {
@@ -18,7 +17,6 @@ const SubmitForm = ({ stompClient }: { stompClient: CompatClient }) => {
       contents: message,
       type: 'TEXT',
     };
-
     onSendMessage(stompClient, data);
     setMessage('');
   };
@@ -79,9 +77,10 @@ const SubmitForm = ({ stompClient }: { stompClient: CompatClient }) => {
 };
 
 const Wrap = styled.div`
-  background: #fff;
   width: 100%;
   height: 8%;
+
+  background: #fff;
 `;
 
 const ContentWrap = styled.form`

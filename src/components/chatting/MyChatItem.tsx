@@ -35,14 +35,14 @@ const MyChatItem = ({
 };
 
 const Wrap = styled.div`
+  width: 100%;
+
   display: flex;
   justify-content: end;
   align-items: flex-end;
   gap: 5px;
 
-  width: 100%;
-
-  margin-right: 0.625rem;
+  margin-right: 10px;
 `;
 
 const Time = styled.p`

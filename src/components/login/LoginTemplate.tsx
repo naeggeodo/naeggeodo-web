@@ -1,9 +1,9 @@
 import styled, { css } from 'styled-components';
+import Image from 'next/image';
 import AppleLoginBtn from '../login/AppleLoginBtn';
 import KaKaoLoginBtn from '../login/KaKaoLoginBtn';
 import NaverLoginBtn from '../login/NaverLoginBtn';
 import palette from '../../styles/palette';
-import Image from 'next/image';
 
 type StyledProps = {
   name: 'header' | 'content' | 'buttons';
@@ -62,7 +62,6 @@ const Title = styled.h2`
 const P = styled.p`
   font-size: 1.0625rem;
   color: ${palette.black};
-
   margin-top: 30px;
 `;
 

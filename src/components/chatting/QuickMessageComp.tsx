@@ -1,16 +1,17 @@
-import { CompatClient } from '@stomp/stompjs';
-import Image from 'next/image';
 import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import { CompatClient } from '@stomp/stompjs';
+import Image from 'next/image';
 import { useChat } from '../../hooks/useChat';
 import { useSlideMessage } from '../../hooks/useSlideMessage';
 import palette from '../../styles/palette';
 
 const QuickMessageComp = ({ stompClient }: { stompClient: CompatClient }) => {
-  const { onSendMessage } = useChat();
-  const { slideEvent, slideDown } = useSlideMessage();
   const target = useRef<HTMLDivElement>(null);
   const slideBar = useRef<HTMLDivElement>(null);
+
+  const { onSendMessage } = useChat();
+  const { slideEvent, slideDown } = useSlideMessage();
 
   useEffect(() => {
     slideEvent(slideBar, target);

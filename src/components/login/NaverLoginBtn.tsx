@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-import palette from '../../styles/palette';
 import Image from 'next/image';
 import { useRef } from 'react';
+import styled from 'styled-components';
+import palette from '../../styles/palette';
 
 const NaverLoginBtn = () => {
   const naverRef = useRef(null);

@@ -68,6 +68,8 @@ const Content = styled.p`
 
   border-radius: 10px 10px 10px 0px;
   word-wrap: break-word;
+  border-radius: 10px 10px 10px 0px;
+  padding: 6px 10px;
 `;
 
 const Time = styled.p`
