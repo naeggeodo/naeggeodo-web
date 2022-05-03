@@ -6,30 +6,35 @@ export const tabDatas: TabItem[] = [
     title: '홈',
     altText: '홈버튼',
     image: '/assets/images/homeblack.svg',
+    link: '/',
   },
   {
     id: 2,
     title: '검색',
     altText: '검색버튼',
     image: '/assets/images/searchgray.svg',
+    link: '/search',
   },
   {
     id: 3,
     title: '내꺼도 생성',
     altText: '추가하기 버튼',
     image: '/assets/images/plusgray.svg',
+    link: '/create',
   },
   {
     id: 4,
     title: '내꺼도',
     altText: '채팅방 버튼',
     image: '/assets/images/chatgray.svg',
+    link: '/naggeotalk',
   },
   {
     id: 5,
     title: '전체',
     altText: '더보기 버튼',
     image: '/assets/images/moregray.svg',
+    link: '/more',
   },
 ];
 
