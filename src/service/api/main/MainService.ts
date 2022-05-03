@@ -1,15 +1,19 @@
-import { AxiosResponse } from 'axios';
 import { ApiService } from '..';
 
 export default class MainService {
   static async asyncGetCategories() {
-    return ApiService.getApi('/categories');
+    try {
+      return ApiService.getApi('/categories');
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   static async asyncGetChatRooms() {
-    const response: AxiosResponse = await ApiService.getApi(
-      '/chat/rooms?buildingcode=서울',
-    );
-    return response;
+    try {
+      return ApiService.getApi(encodeURI('/chat/rooms?buildingcode=서울'));
+    } catch (err) {
+      console.log(err);
+    }
   }
 }

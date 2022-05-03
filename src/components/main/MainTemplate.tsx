@@ -6,14 +6,18 @@ import ChatRoomItem from './ChatRoomItem';
 import TabMenu from './TabMenu';
 import SearchPostCode from './SearchPostCode';
 
-import { chatListMockData } from './data';
 import PostCodeWebView from './PostCodeWebView';
-import { CategoriesResponse } from '../../modules/main/types';
+import {
+  CategoriesResponse,
+  ChatRoomItemResponse,
+} from '../../modules/main/types';
 
 const MainTemplate = ({
   foodCategories,
+  chatRooms,
 }: {
   foodCategories: CategoriesResponse[];
+  chatRooms: ChatRoomItemResponse[];
 }) => {
   const [webViewIsOpen, setWebViewIsOpen] = useState(false);
 
@@ -29,14 +33,14 @@ const MainTemplate = ({
       <SearchPostCode openWebView={openWebView} />
       <CategoryMenuSlide foodCategories={foodCategories} />
       <StyledUl>
-        {chatListMockData.map((item) => (
+        {chatRooms.map((item) => (
           <ChatRoomItem
             key={item.id}
-            title={item.title + item.id}
-            chattingUrl={item.chattingUrl}
-            total={item.total}
-            numOfPeople={item.numOfPeople}
-            registerTime={item.registerTime}
+            title={item.title}
+            link={item.link}
+            maxCount={item.maxCount}
+            currentCount={item.currentCount}
+            createDate={item.createDate}
           />
         ))}
       </StyledUl>

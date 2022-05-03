@@ -20,9 +20,7 @@ function* getFoodCategoriesGenerator(
 function* getChatRoomsListGenerator(
   actions: ReturnType<typeof getChatRoomsListActions.request>,
 ) {
-  const { data }: { data: ChatRoomItemResponse[] } = yield call(
-    MainService.asyncGetChatRooms,
-  );
+  const { data } = yield call(MainService.asyncGetChatRooms);
   console.log(data, 'eddy');
   yield put(getChatRoomsListActions.success(data));
 }
