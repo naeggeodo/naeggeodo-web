@@ -16,6 +16,8 @@ const CategoryMenuSlide = ({
 
   const convertEngCategoryToKor = (category: Category) => {
     switch (category) {
+      case 'ALL':
+        return '전체';
       case 'CHICKEN':
         return '치킨';
       case 'CHINESE':
@@ -24,7 +26,7 @@ const CategoryMenuSlide = ({
         return '디저트';
       case 'FASTFOOD':
         return '패스트푸드';
-      case 'GRILLED MEAT':
+      case 'GRILLED_MEAT':
         return '구이/고기';
       case 'JAPANESE':
         return '일식';
@@ -32,7 +34,7 @@ const CategoryMenuSlide = ({
         return '한식';
       case 'PIZZA':
         return '피자';
-      case 'PORK FEET':
+      case 'PORK_FEET':
         return '족발';
       case 'SNACKS':
         return '분식';
@@ -55,16 +57,18 @@ const CategoryMenuSlide = ({
               passHref
               href={{
                 pathname: '/',
-                query: {
-                  category: lowerCaseItem,
-                  buildingcode: 1234,
-                },
+                query:
+                  lowerCaseItem === 'all'
+                    ? { buildingcode: 1234 }
+                    : { category: lowerCaseItem, buildingcode: 1234 },
               }}
               key={item.idx}>
               <StyledLink
                 style={{
                   color:
-                    router.query.category === lowerCaseItem
+                    !router.query.category && lowerCaseItem === 'all'
+                      ? `${palette.mainOrange}`
+                      : router.query.category === lowerCaseItem
                       ? `${palette.mainOrange}`
                       : `${palette.black}`,
                 }}>

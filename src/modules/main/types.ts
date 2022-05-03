@@ -1,4 +1,5 @@
 export type Category =
+  | 'ALL'
   | 'CHICKEN'
   | 'JAPANESE'
   | 'CHINESE'
@@ -7,8 +8,8 @@ export type Category =
   | 'STEW'
   | 'PIZZA'
   | 'WESTERN'
-  | 'GRILLED MEAT'
-  | 'PORK FEET'
+  | 'GRILLED_MEAT'
+  | 'PORK_FEET'
   | 'DESSERT'
   | 'FASTFOOD'
   | 'HAMBURGER';
