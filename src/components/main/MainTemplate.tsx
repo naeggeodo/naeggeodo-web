@@ -6,7 +6,7 @@ import ChatRoomItem from './ChatRoomItem';
 import TabMenu from './TabMenu';
 import SearchPostCode from './SearchPostCode';
 
-import { categoryMockData, chatListMockData } from './data';
+import { chatListMockData } from './data';
 import PostCodeWebView from './PostCodeWebView';
 import { CategoriesResponse } from '../../modules/main/types';
 

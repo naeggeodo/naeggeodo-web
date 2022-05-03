@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { END } from 'redux-saga';
 import MainTemplate from '../components/main/MainTemplate';
 import { wrapper } from '../modules';

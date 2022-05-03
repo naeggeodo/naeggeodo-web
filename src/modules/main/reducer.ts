@@ -15,7 +15,7 @@ export const mainPageState = createReducer<MainPageState>(
   {
     [GET_FOOD_CATEGORIES_SUCCESS]: (state, action) => ({
       ...state,
-      categories: action.payload.category,
+      categories: action.payload.categories,
     }),
   },
 );
