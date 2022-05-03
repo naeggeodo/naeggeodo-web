@@ -13,6 +13,7 @@ const TabMenu = () => {
           image={tab.image}
           title={tab.title}
           altText={tab.altText}
+          link={tab.link}
         />
       ))}
     </Container>
