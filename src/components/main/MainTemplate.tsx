@@ -8,8 +8,13 @@ import SearchPostCode from './SearchPostCode';
 
 import { categoryMockData, chatListMockData } from './data';
 import PostCodeWebView from './PostCodeWebView';
+import { CategoriesResponse } from '../../modules/main/types';
 
-const MainTemplate = () => {
+const MainTemplate = ({
+  foodCategories,
+}: {
+  foodCategories: CategoriesResponse[];
+}) => {
   const [webViewIsOpen, setWebViewIsOpen] = useState(false);
 
   const openWebView = () => {
@@ -22,7 +27,7 @@ const MainTemplate = () => {
   return (
     <Container>
       <SearchPostCode openWebView={openWebView} />
-      <CategoryMenuSlide categories={categoryMockData} />
+      <CategoryMenuSlide foodCategories={foodCategories} />
       <StyledUl>
         {chatListMockData.map((item) => (
           <ChatRoomItem

@@ -1,4 +1,4 @@
-type Category =
+export type Category =
   | 'CHICKEN'
   | 'JAPANESE'
   | 'CHINESE'
@@ -10,7 +10,8 @@ type Category =
   | 'GRILLED MEAT'
   | 'PORK FEET'
   | 'DESSERT'
-  | 'FASTFOOD';
+  | 'FASTFOOD'
+  | 'HAMBURGER';
 
 export interface CategoriesResponse {
   idx: number;

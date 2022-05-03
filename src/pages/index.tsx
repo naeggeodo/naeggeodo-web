@@ -1,29 +1,25 @@
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { END } from 'redux-saga';
 import MainTemplate from '../components/main/MainTemplate';
 import { wrapper } from '../modules';
 import { getFoodCategoriesActions } from '../modules/main/actions';
+import { CategoriesResponse } from '../modules/main/types';
 
-const Home: React.FC = () => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getFoodCategoriesActions.request({}));
-  }, [dispatch]);
-
-  return <MainTemplate />;
+const Home = ({ foodCategories }: { foodCategories: CategoriesResponse[] }) => {
+  return <MainTemplate foodCategories={foodCategories} />;
 };
 
-// export const getServerSideProps = wrapper.getServerSideProps(
-//   (store) => async (context) => {
-//     store.dispatch(getFoodCategoriesActions.request());
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) => async (context) => {
+    store.dispatch(getFoodCategoriesActions.request());
 
-//     store.dispatch(END);
-//     await store.sagaTask.toPromise();
+    store.dispatch(END);
+    await store.sagaTask.toPromise();
 
-//     return {
-//       props: {},
-//     };
-//   },
-// );
+    return {
+      props: {
+        foodCategories: store.getState().mainPageState.categories,
+      },
+    };
+  },
+);
 export default Home;

@@ -18,4 +18,4 @@ export const getFoodCategoriesActions = createAsyncAction(
   GET_FOOD_CATEGORIES_REQUEST,
   GET_FOOD_CATEGORIES_SUCCESS,
   GET_FOOD_CATEGORIES_FAILURE,
-)<{}, CategoriesResponse[], AxiosError>();
+)<void, CategoriesResponse[], AxiosError>();
