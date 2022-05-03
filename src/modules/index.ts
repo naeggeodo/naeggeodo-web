@@ -8,7 +8,7 @@ import { mainPageState } from './main/reducer';
 import { chattingRoomState } from './chatting/reducer';
 import { postCodeState } from './search-post-code/reducer';
 import { getChattingRoomInfoSaga } from './chatting/sagas';
-import { getFoodCategoriesSaga } from './main/sagas';
+import { getMainPageInfoSaga } from './main/sagas';
 
 //** RootReducer */
 export const rootReducer = combineReducers({
@@ -19,7 +19,7 @@ export const rootReducer = combineReducers({
 
 //** RootSaga */
 export function* rootSaga() {
-  yield all([fork(getChattingRoomInfoSaga), fork(getFoodCategoriesSaga)]);
+  yield all([fork(getChattingRoomInfoSaga), fork(getMainPageInfoSaga)]);
 }
 
 //** Hydrate */
