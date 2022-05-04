@@ -4,6 +4,7 @@ import Image from 'next/image';
 import styled, { css } from 'styled-components';
 import { RootState } from '../../modules';
 import palette from '../../styles/palette';
+
 type StyledProps = {
   name: 'title' | 'info';
 };

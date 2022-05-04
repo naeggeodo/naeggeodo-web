@@ -25,7 +25,6 @@ const SubmitForm = ({ stompClient }: { stompClient: CompatClient }) => {
     const reader = new FileReader();
     // if (!e.target.files || !e.target.files[0]) return;
     const imgFile = e.target.files[0];
-    console.log('이미지', imgFile);
     reader.onload = function () {
       const result = reader.result;
       const data = {
@@ -56,11 +55,17 @@ const SubmitForm = ({ stompClient }: { stompClient: CompatClient }) => {
           id='image'
           onChange={onImgChange}
         />
-        <Input
-          type='text'
+        {/* <TextField
           value={message}
           onChange={(e) => {
             setMessage(e.target.value);
+          }}
+        /> */}
+        <TextField
+          contentEditable='true'
+          onChange={(e) => {
+            console.log(e.target);
+            // setMessage(e.target.innerHTML);
           }}
         />
         <Button>
@@ -79,7 +84,6 @@ const SubmitForm = ({ stompClient }: { stompClient: CompatClient }) => {
 const Wrap = styled.div`
   width: 100%;
   height: 8%;
-
   background: #fff;
 `;
 
@@ -95,18 +99,43 @@ const ContentWrap = styled.form`
   margin: 0 auto;
 `;
 
-const Input = styled.input`
+// const TextField = styled.textarea`
+//   width: 90%;
+
+//   font-size: 0.9375rem;
+//   resize: none;
+
+//   border: none;
+//   border-radius: 10px;
+//   background-color: #f2f2f8;
+//   padding: 10px 10px;
+//   outline: none;
+
+//   overflow-y: auto;
+//   -ms-overflow-style: none;
+//   &::-webkit-scrollbar {
+//     display: none;
+//   }
+// `;
+
+const TextField = styled.div`
   width: 90%;
-  height: 70%;
+  max-height: 70%;
 
-  border-radius: 10px;
-
-  background-color: #f2f2f8;
-
-  padding: 0 10px;
+  font-size: 0.9375rem;
+  resize: none;
 
   border: none;
+  border-radius: 10px;
+  background-color: #f2f2f8;
+  padding: 10px 10px;
   outline: none;
+
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const ImgAddLabel = styled.label`
