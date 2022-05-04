@@ -1,20 +1,22 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { CompatClient } from '@stomp/stompjs';
 import Image from 'next/image';
 import { useChat } from '../../hooks/useChat';
 
 const SubmitForm = ({ stompClient }: { stompClient: CompatClient }) => {
+  const textFieldRef = useRef<HTMLInputElement>(null);
   const { onSendMessage } = useChat();
   const [message, setMessage] = useState('');
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!message) return;
+    if (!textFieldRef.current) return;
     const data = {
       chatMain_id: 1,
       sender: 1,
-      contents: message,
+      contents: textFieldRef.current.innerHTML,
       type: 'TEXT',
     };
     onSendMessage(stompClient, data);
@@ -23,7 +25,6 @@ const SubmitForm = ({ stompClient }: { stompClient: CompatClient }) => {
 
   const onImgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const reader = new FileReader();
-    // if (!e.target.files || !e.target.files[0]) return;
     const imgFile = e.target.files[0];
     reader.onload = function () {
       const result = reader.result;
@@ -55,19 +56,7 @@ const SubmitForm = ({ stompClient }: { stompClient: CompatClient }) => {
           id='image'
           onChange={onImgChange}
         />
-        {/* <TextField
-          value={message}
-          onChange={(e) => {
-            setMessage(e.target.value);
-          }}
-        /> */}
-        <TextField
-          contentEditable='true'
-          onChange={(e) => {
-            console.log(e.target);
-            // setMessage(e.target.innerHTML);
-          }}
-        />
+        <TextField contentEditable='true' ref={textFieldRef} />
         <Button>
           <Image
             src='/assets/images/submitbtn.svg'
@@ -98,25 +87,6 @@ const ContentWrap = styled.form`
 
   margin: 0 auto;
 `;
-
-// const TextField = styled.textarea`
-//   width: 90%;
-
-//   font-size: 0.9375rem;
-//   resize: none;
-
-//   border: none;
-//   border-radius: 10px;
-//   background-color: #f2f2f8;
-//   padding: 10px 10px;
-//   outline: none;
-
-//   overflow-y: auto;
-//   -ms-overflow-style: none;
-//   &::-webkit-scrollbar {
-//     display: none;
-//   }
-// `;
 
 const TextField = styled.div`
   width: 90%;

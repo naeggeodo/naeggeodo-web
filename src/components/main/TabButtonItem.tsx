@@ -16,7 +16,13 @@ const TabButtonItem: React.FC<TabItem> = (props) => {
     <Link href={props.link} passHref>
       <TabButton active={router.pathname === props.link ? true : false}>
         <div>
-          <Image src={props.image} alt={props.altText} width={20} height={20} />
+          <Image
+            src={props.image}
+            alt={props.altText}
+            width={20}
+            height={20}
+            style={router.pathname === props.link && { filter: 'invert(1)' }}
+          />
           {props.title}
         </div>
       </TabButton>
