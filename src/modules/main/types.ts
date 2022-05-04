@@ -18,3 +18,21 @@ export interface CategoriesResponse {
   idx: number;
   category: Category;
 }
+
+export interface ChatRoomItemResponse {
+  address: string | null;
+  endDate: string | null;
+  buildingCode: string;
+  link: string | null;
+  title: string;
+  maxCount: number;
+  user_id: string;
+  imgPath: string;
+  currentCount: number;
+  id: number;
+  state: 'CREATE' | 'PROGRESS' | 'END' | 'FULL';
+  place: string;
+  category: Category;
+  idx: number;
+  createDate: string;
+}

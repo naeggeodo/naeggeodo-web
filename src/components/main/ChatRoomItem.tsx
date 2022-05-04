@@ -3,30 +3,35 @@ import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
 import palette from '../../styles/palette';
+import TimeCalculator from '../../utils/TimeCalculator';
 import { ChatRoomItemProps } from './types';
 
 const ChatRoomItem = ({
   title,
-  total,
-  numOfPeople,
-  registerTime,
-  chattingUrl,
+  maxCount,
+  createDate,
+  currentCount,
+  link,
 }: ChatRoomItemProps) => {
+  const timeCalculator = new TimeCalculator(createDate);
+
   return (
     <Container>
       <StyledImage src='/assets/images/pizza.svg' width={70} height={70} />
       <FlexRight>
         <Title>{title}</Title>
         <NumberOfPeople>
-          인원 {numOfPeople}명 / {total}명
+          인원 {currentCount}명 / {maxCount}명
         </NumberOfPeople>
 
         <TimeOrderLinkContainer>
-          <RegisteredTime>{registerTime}분 전</RegisteredTime>
+          <RegisteredTime>
+            {timeCalculator.calculateCreateMinute()}
+          </RegisteredTime>
           <div>
-            <Link href={chattingUrl} passHref>
+            <Link href='/' passHref>
               <StyledLink>
-                <p>함께 주문하기</p>
+                <span>함께 주문하기</span>
                 <Image
                   src='/assets/images/arrowright.svg'
                   alt='더보기 화살표'
@@ -109,9 +114,10 @@ const StyledLink = styled.a`
   align-items: center;
   gap: 4px;
 
+  text-decoration: none;
   cursor: pointer;
 
-  & > p {
+  & > span {
     font-size: 0.75rem;
     color: ${palette.black};
   }
