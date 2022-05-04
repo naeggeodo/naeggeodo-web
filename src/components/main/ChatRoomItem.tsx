@@ -3,6 +3,7 @@ import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
 import palette from '../../styles/palette';
+import TimeCalculator from '../../utils/TimeCalculator';
 import { ChatRoomItemProps } from './types';
 
 const ChatRoomItem = ({
@@ -12,6 +13,8 @@ const ChatRoomItem = ({
   currentCount,
   link,
 }: ChatRoomItemProps) => {
+  const timeCalculator = new TimeCalculator(createDate);
+
   return (
     <Container>
       <StyledImage src='/assets/images/pizza.svg' width={70} height={70} />
@@ -22,7 +25,9 @@ const ChatRoomItem = ({
         </NumberOfPeople>
 
         <TimeOrderLinkContainer>
-          <RegisteredTime>{createDate}분 전</RegisteredTime>
+          <RegisteredTime>
+            {timeCalculator.calculateCreateMinute()}
+          </RegisteredTime>
           <div>
             <Link href='/' passHref>
               <StyledLink>

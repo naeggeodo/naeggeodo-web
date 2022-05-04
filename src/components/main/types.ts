@@ -17,6 +17,6 @@ export type ChatRoomItemProps = {
   title: string;
   maxCount: number;
   currentCount: number;
-  createDate: Date;
+  createDate: string;
   link: string;
 };

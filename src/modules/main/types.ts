@@ -21,7 +21,7 @@ export interface CategoriesResponse {
 
 export interface ChatRoomItemResponse {
   address: string | null;
-  endDate: Date | null;
+  endDate: string | null;
   buildingCode: string;
   link: string | null;
   title: string;
@@ -34,5 +34,5 @@ export interface ChatRoomItemResponse {
   place: string;
   category: Category;
   idx: number;
-  createDate: Date;
+  createDate: string;
 }

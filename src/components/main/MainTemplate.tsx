@@ -28,6 +28,7 @@ const MainTemplate = ({
   const closeWebView = () => {
     setWebViewIsOpen(false);
   };
+
   return (
     <Container>
       <SearchPostCode openWebView={openWebView} />
