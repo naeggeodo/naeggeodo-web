@@ -5,7 +5,7 @@ export const tabDatas: TabItem[] = [
     id: 1,
     title: '홈',
     altText: '홈버튼',
-    image: '/assets/images/homeblack.svg',
+    image: '/assets/images/homegray.svg',
     link: '/',
   },
   {
