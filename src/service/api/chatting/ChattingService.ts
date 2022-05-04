@@ -3,7 +3,7 @@ import { ApiService } from '..';
 export default class ChattingService {
   static async asyncGetChattingRoomInfo(chattingRoomId: string) {
     try {
-      return await ApiService.getApi(`/chat/rooms/${chattingRoomId}`);
+      return ApiService.getApi(`/chat/rooms/${chattingRoomId}`);
     } catch (err) {
       console.log(err);
     }
