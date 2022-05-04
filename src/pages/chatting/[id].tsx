@@ -7,36 +7,47 @@ import {
   getPreviousChattingListActions,
 } from '../../modules/chatting/actions';
 import { PreviousChattingListResponse } from '../../modules/chatting/types';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
-const chatting = ({
-  previousChatting,
-}: {
-  previousChatting: PreviousChattingListResponse;
+const chatting = ({}: // previousChatting,
+{
+  // previousChatting: PreviousChattingListResponse;
 }) => {
-  return <ChattingTemplate previousChatting={previousChatting} />;
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(
+      getPreviousChattingListActions.request({
+        chattingRoomId: '1',
+        userId: '1',
+      }),
+    );
+  }, []);
+
+  return <ChattingTemplate />;
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
-    store.dispatch(
-      getCurrentChatRoomAsyncActions.request({
-        chattingRoomId: Number(context.params.id),
-      }),
-    );
+    // store.dispatch(
+    //   getCurrentChatRoomAsyncActions.request({
+    //     chattingRoomId: String(context.params.id),
+    //   }),
+    // );
 
-    store.dispatch(
-      getPreviousChattingListActions.request({
-        chattingRoomId: Number(context.params.id),
-        userId: 1,
-      }),
-    );
+    // store.dispatch(
+    //   getPreviousChattingListActions.request({
+    //     chattingRoomId: String(context.params.id),
+    //     userId: '1',
+    //   }),
+    // );
 
     store.dispatch(END);
     await store.sagaTask.toPromise();
 
     return {
       props: {
-        previousChatting: store.getState().chattingRoomState.previousChatting,
+        // previousChatting: store.getState().chattingRoomState.previousChatting,
       },
     };
   },

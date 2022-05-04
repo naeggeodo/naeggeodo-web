@@ -11,7 +11,7 @@ import { PreviousChattingItemResponse } from '../../modules/chatting/types';
 import { useChat } from '../../hooks/useChat';
 import DateFormatter from '../../utils/DateFormatter';
 
-const ChattingTemplate = ({ previousChatting }) => {
+const ChattingTemplate = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const chatListDivRef = useRef<HTMLDivElement>(null);
 
@@ -37,12 +37,12 @@ const ChattingTemplate = ({ previousChatting }) => {
 
   return (
     <Wrap>
-      <Header />
+      {/* <Header /> */}
       <Div>
         <GoInfoBtn />
       </Div>
       <Content ref={chatListDivRef}>
-        {previousChatting.messages &&
+        {/* {previousChatting.messages &&
           previousChatting.messages.length > 0 &&
           previousChatting.messages.map((message, i) => {
             if (message.user_id === 1)
@@ -76,7 +76,7 @@ const ChattingTemplate = ({ previousChatting }) => {
                 />
               );
             }
-          })}
+          })} */}
         <Scroll ref={scrollRef} />
       </Content>
       {/* <QuickMessageComp stompClient={stompClient} /> */}
