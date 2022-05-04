@@ -7,29 +7,22 @@ import {
   getPreviousChattingListActions,
 } from '../../modules/chatting/actions';
 import { PreviousChattingListResponse } from '../../modules/chatting/types';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 
 const chatting = ({
   previousChatting,
 }: {
   previousChatting: PreviousChattingListResponse;
 }) => {
-  const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(getCurrentChatRoomAsyncActions.request({ chattingRoomId: '1' }));
-  // }, []);
-
   return <ChattingTemplate previousChatting={previousChatting} />;
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
-    // store.dispatch(
-    //   getCurrentChatRoomAsyncActions.request({
-    //     chattingRoomId: String(context.params.id),
-    //   }),
-    // );
+    store.dispatch(
+      getCurrentChatRoomAsyncActions.request({
+        chattingRoomId: String(context.params.id),
+      }),
+    );
 
     store.dispatch(
       getPreviousChattingListActions.request({

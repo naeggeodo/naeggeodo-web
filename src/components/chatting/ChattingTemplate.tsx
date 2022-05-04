@@ -37,7 +37,7 @@ const ChattingTemplate = ({ previousChatting }) => {
 
   return (
     <Wrap>
-      {/* <Header /> */}
+      <Header />
       <Div>
         <GoInfoBtn />
       </Div>
@@ -55,7 +55,7 @@ const ChattingTemplate = ({ previousChatting }) => {
               );
           })}
 
-        {/* {messageList &&
+        {messageList &&
           messageList.length > 0 &&
           messageList.map((message, i) => {
             if (message.sender === 1) {
@@ -76,7 +76,7 @@ const ChattingTemplate = ({ previousChatting }) => {
                 />
               );
             }
-          })} */}
+          })}
         <Scroll ref={scrollRef} />
       </Content>
       {/* <QuickMessageComp stompClient={stompClient} /> */}
