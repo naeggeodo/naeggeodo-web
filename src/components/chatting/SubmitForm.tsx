@@ -1,18 +1,15 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import styled from 'styled-components';
 import { CompatClient } from '@stomp/stompjs';
 import Image from 'next/image';
 import { useChat } from '../../hooks/useChat';
 
 const SubmitForm = ({ stompClient }: { stompClient: CompatClient }) => {
-  const textFieldRef = useRef<HTMLInputElement>(null);
+  const textFieldRef = useRef<HTMLDivElement>(null);
   const { onSendMessage } = useChat();
-  const [message, setMessage] = useState('');
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!message) return;
-    if (!textFieldRef.current) return;
     const data = {
       chatMain_id: 1,
       sender: 1,
@@ -20,7 +17,7 @@ const SubmitForm = ({ stompClient }: { stompClient: CompatClient }) => {
       type: 'TEXT',
     };
     onSendMessage(stompClient, data);
-    setMessage('');
+    textFieldRef.current.innerHTML = '';
   };
 
   const onImgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
