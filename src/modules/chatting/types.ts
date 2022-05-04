@@ -1,5 +1,5 @@
 export type ChattingRoomInfoRequestPayload = {
-  chattingRoomId: number;
+  chattingRoomId: string;
 };
 
 export type ChattingRoomInfoResponsePayload = {
@@ -20,8 +20,8 @@ export type ChattingRoomInfoResponsePayload = {
 };
 
 export type PreviousChattingItemRequest = {
-  chattingRoomId: number;
-  userId: number;
+  chattingRoomId: string;
+  userId: string;
 };
 
 export type PreviousChattingItemResponse = {

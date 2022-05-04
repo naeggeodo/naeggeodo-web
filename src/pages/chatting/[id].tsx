@@ -20,14 +20,14 @@ export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
     store.dispatch(
       getCurrentChatRoomAsyncActions.request({
-        chattingRoomId: Number(context.params.id),
+        chattingRoomId: String(context.params.id),
       }),
     );
 
     store.dispatch(
       getPreviousChattingListActions.request({
-        chattingRoomId: Number(context.params.id),
-        userId: 1,
+        chattingRoomId: String(context.params.id),
+        userId: '1',
       }),
     );
 
