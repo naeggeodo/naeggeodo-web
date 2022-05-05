@@ -27,6 +27,13 @@ export const GET_PREVIOUS_CHATTING_LIST_SUCCESS =
 export const GET_PREVIOUS_CHATTING_LIST_FAILURE =
   namespace + 'GET_PREVIOUS_CHATTING_LIST_FAILURE';
 
+export const GET_QUICK_MESSAGE_LIST_REQUEST =
+  namespace + 'GET_QUICK_MESSAGE_LIST_REQUEST';
+export const GET_QUICK_MESSAGE_LIST_SUCCESS =
+  namespace + 'GET_QUICK_MESSAGE_LIST_SUCCESS';
+export const GET_QUICK_MESSAGE_LIST_FAILURE =
+  namespace + 'GET_QUICK_MESSAGE_LIST_FAILURE';
+
 // action creators
 export const getCurrentChatRoomAsyncActions = createAsyncAction(
   GET_CURRENT_CHATROOM_INFO_REQUEST,
@@ -43,3 +50,9 @@ export const getPreviousChattingListActions = createAsyncAction(
   GET_PREVIOUS_CHATTING_LIST_SUCCESS,
   GET_PREVIOUS_CHATTING_LIST_FAILURE,
 )<PreviousChattingItemRequest, PreviousChattingListResponse, AxiosError>();
+
+// export const getQuickMessageList = createAsyncAction(
+//   GET_QUICK_MESSAGE_LIST_REQUEST,
+//   GET_QUICK_MESSAGE_LIST_SUCCESS,
+//   GET_QUICK_MESSAGE_LIST_FAILURE,
+// )<UserId, >();

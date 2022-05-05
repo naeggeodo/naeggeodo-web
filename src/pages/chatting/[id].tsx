@@ -7,6 +7,7 @@ import {
   getPreviousChattingListActions,
 } from '../../modules/chatting/actions';
 import { PreviousChattingListResponse } from '../../modules/chatting/types';
+import axios from 'axios';
 
 const chatting = ({
   previousChatting,
@@ -30,6 +31,8 @@ export const getServerSideProps = wrapper.getServerSideProps(
         userId: '1',
       }),
     );
+
+    axios.get('chat/user/1/quick-chatting').then((res) => res.data);
 
     store.dispatch(END);
     await store.sagaTask.toPromise();

@@ -38,3 +38,7 @@ export type PreviousChattingItemResponse = {
 export type PreviousChattingListResponse = {
   messages: PreviousChattingItemResponse[];
 };
+
+export type UserId = {
+  user_id: number;
+};
