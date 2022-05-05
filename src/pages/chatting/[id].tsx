@@ -5,9 +5,9 @@ import ChattingTemplate from '../../components/chatting/ChattingTemplate';
 import {
   getCurrentChatRoomAsyncActions,
   getPreviousChattingListActions,
+  getQuickChattingListActions,
 } from '../../modules/chatting/actions';
 import { PreviousChattingListResponse } from '../../modules/chatting/types';
-import axios from 'axios';
 
 const chatting = ({
   previousChatting,
@@ -32,7 +32,11 @@ export const getServerSideProps = wrapper.getServerSideProps(
       }),
     );
 
-    axios.get('chat/user/1/quick-chatting').then((res) => res.data);
+    store.dispatch(
+      getQuickChattingListActions.request({
+        userId: '1',
+      }),
+    );
 
     store.dispatch(END);
     await store.sagaTask.toPromise();

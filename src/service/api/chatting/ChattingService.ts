@@ -21,4 +21,12 @@ export default class ChattingService {
       console.log(err);
     }
   }
+
+  static async asyncGetQuickChattingList(userId: string) {
+    try {
+      return await ApiService.getApi(`/chat/user/${userId}/quick-chatting`);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 }

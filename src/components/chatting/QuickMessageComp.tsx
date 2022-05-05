@@ -5,6 +5,8 @@ import Image from 'next/image';
 import { useChat } from '../../hooks/useChat';
 import { useSlideMessage } from '../../hooks/useSlideMessage';
 import palette from '../../styles/palette';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../modules';
 
 const QuickMessageComp = ({ stompClient }: { stompClient: CompatClient }) => {
   const target = useRef<HTMLDivElement>(null);
@@ -12,6 +14,11 @@ const QuickMessageComp = ({ stompClient }: { stompClient: CompatClient }) => {
 
   const { onSendMessage } = useChat();
   const { slideEvent, slideDown } = useSlideMessage();
+
+  const { quickChatList } = useSelector(
+    (state: RootState) => state.chattingRoomState,
+  );
+  const { quickChat } = quickChatList;
 
   useEffect(() => {
     slideEvent(slideBar, target);
@@ -40,13 +47,12 @@ const QuickMessageComp = ({ stompClient }: { stompClient: CompatClient }) => {
           height={3}
         />
       </Div>
-      <Item onClick={sendMessage}>안녕하세요. 지금 주문 가능하신가요?</Item>
-      <Item onClick={sendMessage}>
-        백석고등학교 정문 앞에서 만나고 싶습니다.
-      </Item>
-      <Item onClick={sendMessage}>
-        잠시 메뉴를 고르겠습니다. 2분만 기다려주세요!
-      </Item>
+      {quickChat &&
+        quickChat.map((v) => (
+          <Item key={v.idx} onClick={sendMessage}>
+            {v.msg}
+          </Item>
+        ))}
       <EditBtn>
         <p>편집하기</p>
         <Image
@@ -63,18 +69,15 @@ const QuickMessageComp = ({ stompClient }: { stompClient: CompatClient }) => {
 const Wrap = styled.div`
   position: fixed;
   bottom: 8%;
-
+  /* height: 293px; */
   width: 100%;
-  max-height: 200px;
-
   background-color: #fff;
 
   border-bottom: 1px solid ${palette.LineGray};
   border-radius: 20px 20px 0px 0px;
-
+  overflow: hidden;
   padding: 0 6% 14px;
 
-  overflow: hidden;
   touch-action: none;
 
   & > img {

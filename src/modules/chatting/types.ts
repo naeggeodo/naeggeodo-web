@@ -40,5 +40,15 @@ export type PreviousChattingListResponse = {
 };
 
 export type UserId = {
-  user_id: number;
+  userId: string;
+};
+
+type QuickChatting = {
+  msg: string;
+  idx: number;
+};
+
+export type QuickChattingListResponse = {
+  quickChat: QuickChatting[];
+  user_id: string;
 };

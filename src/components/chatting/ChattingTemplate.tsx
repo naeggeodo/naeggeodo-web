@@ -10,6 +10,7 @@ import MyChatItem from '../chatting/MyChatItem';
 import { PreviousChattingItemResponse } from '../../modules/chatting/types';
 import { useChat } from '../../hooks/useChat';
 import DateFormatter from '../../utils/DateFormatter';
+import QuickMessageComp from './QuickMessageComp';
 
 const ChattingTemplate = ({ previousChatting }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -79,7 +80,7 @@ const ChattingTemplate = ({ previousChatting }) => {
           })}
         <Scroll ref={scrollRef} />
       </Content>
-      {/* <QuickMessageComp stompClient={stompClient} /> */}
+      <QuickMessageComp stompClient={stompClient} />
       <SubmitForm stompClient={stompClient} />
     </Wrap>
   );

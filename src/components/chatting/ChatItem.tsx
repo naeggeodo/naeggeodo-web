@@ -21,16 +21,17 @@ const ChatItem = ({
         height={35}
         layout='fixed'
       />
-      {message.contents.includes('data:image/') ? (
+      {/* {message.contents.includes('data:image/') ? (
         <StyledImg
           src={message.contents}
-          alt='kakao logo'
+          alt='image'
           width={400}
           height={300}
         />
       ) : (
         <Content>{message.contents}</Content>
-      )}
+      )} */}
+      <Content>{message.contents}</Content>
 
       <Time>
         <span>{chatDate.formatDate()}</span>
