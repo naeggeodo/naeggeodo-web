@@ -1,23 +1,24 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { CompatClient } from '@stomp/stompjs';
 import Image from 'next/image';
 import { useChat } from '../../hooks/useChat';
 
 const SubmitForm = ({ stompClient }: { stompClient: CompatClient }) => {
-  const textFieldRef = useRef<HTMLDivElement>(null);
+  const [message, setMessage] = useState('');
   const { onSendMessage } = useChat();
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!message) return;
     const data = {
       chatMain_id: 1,
       sender: 1,
-      contents: textFieldRef.current.innerHTML,
+      contents: message,
       type: 'TEXT',
     };
     onSendMessage(stompClient, data);
-    textFieldRef.current.innerHTML = '';
+    setMessage('');
   };
 
   const onImgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,7 +54,10 @@ const SubmitForm = ({ stompClient }: { stompClient: CompatClient }) => {
           id='image'
           onChange={onImgChange}
         />
-        <TextField contentEditable='true' ref={textFieldRef} />
+        <TextField
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+        />
         <Button>
           <Image
             src='/assets/images/submitbtn.svg'
@@ -85,7 +89,7 @@ const ContentWrap = styled.form`
   margin: 0 auto;
 `;
 
-const TextField = styled.div`
+const TextField = styled.textarea`
   width: 90%;
   max-height: 70%;
 

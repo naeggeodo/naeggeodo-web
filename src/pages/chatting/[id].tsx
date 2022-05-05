@@ -5,6 +5,7 @@ import ChattingTemplate from '../../components/chatting/ChattingTemplate';
 import {
   getCurrentChatRoomAsyncActions,
   getPreviousChattingListActions,
+  getQuickChattingListActions,
 } from '../../modules/chatting/actions';
 import { PreviousChattingListResponse } from '../../modules/chatting/types';
 
@@ -27,6 +28,12 @@ export const getServerSideProps = wrapper.getServerSideProps(
     store.dispatch(
       getPreviousChattingListActions.request({
         chattingRoomId: String(context.params.id),
+        userId: '1',
+      }),
+    );
+
+    store.dispatch(
+      getQuickChattingListActions.request({
         userId: '1',
       }),
     );

@@ -38,3 +38,17 @@ export type PreviousChattingItemResponse = {
 export type PreviousChattingListResponse = {
   messages: PreviousChattingItemResponse[];
 };
+
+export type UserId = {
+  userId: string;
+};
+
+type QuickChatting = {
+  msg: string;
+  idx: number;
+};
+
+export type QuickChattingListResponse = {
+  quickChat: QuickChatting[];
+  user_id: string;
+};
