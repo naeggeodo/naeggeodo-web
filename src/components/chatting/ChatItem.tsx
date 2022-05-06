@@ -64,13 +64,15 @@ const Content = styled.p`
 
   font-size: 0.9375rem;
   color: #fff;
-  background-color: ${palette.mainOrange};
   line-height: 1.2em;
+  background-color: ${palette.mainOrange};
 
   border-radius: 10px 10px 10px 0px;
-  word-wrap: break-word;
   border-radius: 10px 10px 10px 0px;
-  padding: 6px 10px;
+
+  white-space: pre;
+
+  word-wrap: break-word;
 `;
 
 const Time = styled.p`

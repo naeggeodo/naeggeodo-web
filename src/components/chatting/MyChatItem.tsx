@@ -63,6 +63,8 @@ const Content = styled.p`
 
   line-height: 1.2em;
 
+  white-space: pre;
+
   max-width: 70%;
   word-wrap: break-word;
 `;
