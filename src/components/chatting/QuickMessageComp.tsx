@@ -69,7 +69,6 @@ const QuickMessageComp = ({ stompClient }: { stompClient: CompatClient }) => {
 const Wrap = styled.div`
   position: fixed;
   bottom: 8%;
-  /* height: 293px; */
   width: 100%;
   background-color: #fff;
 

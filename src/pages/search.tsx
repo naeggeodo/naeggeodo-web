@@ -1,12 +1,7 @@
-import React from 'react';
-import TabMenu from '../components/main/TabMenu';
+import SearchTemplate from '../components/search/SearchTemplate';
 
 const search = () => {
-  return (
-    <div>
-      <TabMenu />
-    </div>
-  );
+  return <SearchTemplate />;
 };
 
 export default search;
