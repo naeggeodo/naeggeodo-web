@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios';
-import { createAsyncAction } from 'typesafe-actions';
+import { createAction, createAsyncAction } from 'typesafe-actions';
 import {
   ChattingRoomInfoRequestPayload,
   ChattingRoomInfoResponsePayload,
@@ -38,6 +38,9 @@ export const GET_QUICK_MESSAGE_LIST_SUCCESS =
 export const GET_QUICK_MESSAGE_LIST_FAILURE =
   namespace + 'GET_QUICK_MESSAGE_LIST_FAILURE';
 
+export const SET_CHATTING_CREATE_TAB_MENU =
+  namespace + 'SET_CHATTING_CREATE_TAB_MENU';
+
 // action creators
 export const getCurrentChatRoomAsyncActions = createAsyncAction(
   GET_CURRENT_CHATROOM_INFO_REQUEST,
@@ -60,3 +63,7 @@ export const getQuickChattingListActions = createAsyncAction(
   GET_QUICK_MESSAGE_LIST_SUCCESS,
   GET_QUICK_MESSAGE_LIST_FAILURE,
 )<UserId, QuickChattingListResponse, AxiosError>();
+
+export const setChattingCreateTabMenu = createAction(
+  SET_CHATTING_CREATE_TAB_MENU,
+)<string>();

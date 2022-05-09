@@ -109,7 +109,7 @@ const Name = styled.span`
 
 const InfoBox = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 
   margin-top: 16px;
   padding: 24px;
