@@ -1,16 +1,7 @@
-import React, { ChangeEvent, useCallback, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
-import { RootState } from '../../modules';
-import {
-  minusMaxCount,
-  plusMaxCount,
-  typeStoreLink,
-  typeStoreName,
-} from '../../modules/create/actions';
-
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import palette from '../../styles/palette';
+
 import CreateTabMenu from './CreateTabMenu';
 import { useCreateNaeggeotalk } from '../../hooks/useCreateNaeggeotalk';
 
@@ -24,6 +15,9 @@ const CreateForm = () => {
     dispatchMinusMaxCount,
     dispatchPlusMaxCount,
   } = useCreateNaeggeotalk();
+
+  const urlRegex = /(http(s)?:\/\/)([a-z0-9\w]+\.*)+[a-z0-9]{2,4}/gi;
+  const [isUrl, setIsUrl] = useState<boolean>(false);
 
   return (
     <Container>
@@ -47,8 +41,12 @@ const CreateForm = () => {
             <Input
               type='text'
               value={storeLink}
-              onChange={dispatchChangeStoreLink}
+              onChange={(e) => {
+                dispatchChangeStoreLink(e);
+                setIsUrl(urlRegex.test(storeLink));
+              }}
             />
+            {isUrl && <button>링크이동</button>}
           </Item>
           <Item>
             <Title>태그</Title>
