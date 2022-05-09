@@ -4,7 +4,6 @@ import TabMenu from '../main/TabMenu';
 import CreateInit from './CreateInit';
 import { useDispatch } from 'react-redux';
 import { setChattingCreateTabMenu } from '../../modules/chatting/actions';
-import CreateForm from './CreateForm';
 
 const CreateTemplate = () => {
   const dispatch = useDispatch();
@@ -16,8 +15,7 @@ const CreateTemplate = () => {
   return (
     <>
       <Wrap>
-        <CreateForm />
-        {/* <CreateInit /> */}
+        <CreateInit />
       </Wrap>
       <TabMenu />
     </>
@@ -26,12 +24,10 @@ const CreateTemplate = () => {
 
 const Wrap = styled.div`
   width: 90%;
-  height: 84vh;
-  border: 1px solid red;
+  height: 86vh;
 
   position: relative;
 
-  padding-bottom: 40px;
   margin: 0 auto;
   margin-top: 20px;
 `;

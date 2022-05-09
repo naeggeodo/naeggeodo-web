@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import palette from '../../styles/palette';
@@ -8,6 +9,7 @@ type StyledType = {
 
 const CreateInit = () => {
   const [selectVal, setSelectVal] = useState('');
+  const router = useRouter();
   const buttonValue = [
     '1시간 이내',
     '최대한 빨리',
@@ -24,7 +26,10 @@ const CreateInit = () => {
         {buttonValue.map((v, i) => (
           <Button
             key={i}
-            onClick={() => setSelectVal(v)}
+            onClick={() => {
+              setSelectVal(v);
+              router.push('/create/directinput');
+            }}
             active={selectVal === v ? true : false}>
             {v}
           </Button>

@@ -17,14 +17,14 @@ export const tabDatas: TabItem[] = [
   },
   {
     id: 3,
-    title: '내꺼도 생성',
+    title: '내꺼톡 생성',
     altText: '추가하기 버튼',
     image: '/assets/images/plusgray.svg',
-    link: '/chatting/create',
+    link: '/create',
   },
   {
     id: 4,
-    title: '내꺼도',
+    title: '내꺼톡',
     altText: '채팅방 버튼',
     image: '/assets/images/chatgray.svg',
     link: '/naeggeotalk',

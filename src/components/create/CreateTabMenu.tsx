@@ -21,7 +21,7 @@ const CreateTabMenu = () => {
     const target = e.target as HTMLButtonElement;
     dispatch(setChattingCreateTabMenu(target.innerText));
     if (target.innerText === '새로입력') {
-      router.push('/chatting/create');
+      router.push('/create/directinput');
     }
     if (target.innerText === '주문목록') {
       router.push('/naeggeotalk');
