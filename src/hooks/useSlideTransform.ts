@@ -44,12 +44,12 @@ export function useSlideTransform(): ReturnType {
     slideRef.current.addEventListener('pointerleave', gestureFinish);
     slideRef.current.addEventListener('pointerup', gestureFinish);
 
-    return () => {
-      slideRef.current.removeEventListener('pointerdown', gestureStart);
-      slideRef.current.removeEventListener('pointermove', gestureMove);
-      slideRef.current.removeEventListener('pointerleave', gestureFinish);
-      slideRef.current.removeEventListener('pointerup', gestureFinish);
-    };
+    // return () => {
+    //   slideRef.current.removeEventListener('pointerdown', gestureStart);
+    //   slideRef.current.removeEventListener('pointermove', gestureMove);
+    //   slideRef.current.removeEventListener('pointerleave', gestureFinish);
+    //   slideRef.current.removeEventListener('pointerup', gestureFinish);
+    // };
   }, []);
 
   return {
