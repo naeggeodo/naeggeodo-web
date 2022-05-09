@@ -82,9 +82,10 @@ const SearchHistoryList = styled.div`
 `;
 const SearchHistoryItem = styled.span`
   display: inline-block;
-  padding: 10px;
+
   background: #f5f5f5;
   margin: 5px;
+  padding: 10px;
   border-radius: 5px;
   font-size: 0.9375rem;
 `;
