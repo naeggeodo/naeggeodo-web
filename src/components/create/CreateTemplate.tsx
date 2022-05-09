@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import TabMenu from '../main/TabMenu';
 import CreateInit from './CreateInit';
-import CreateForm from './CreateForm';
 import { useDispatch } from 'react-redux';
 import { setChattingCreateTabMenu } from '../../modules/chatting/actions';
+import CreateForm from './CreateForm';
 
 const CreateTemplate = () => {
   const dispatch = useDispatch();

@@ -24,7 +24,7 @@ const CreateTabMenu = () => {
       router.push('/chatting/create');
     }
     if (target.innerText === '주문목록') {
-      router.push('/orderlist');
+      router.push('/naeggeotalk');
     }
   };
 

@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import styled from 'styled-components';
 
-const OrderItem = ({ data }: any) => {
+const NaeggeotalkListItem = ({ data }: any) => {
   return (
     <Wrap>
       <Image src='/assets/images/hamburger.svg' width={44} height={44} />
@@ -45,4 +45,4 @@ const Populate = styled.span`
   color: #696969;
 `;
 
-export default OrderItem;
+export default NaeggeotalkListItem;

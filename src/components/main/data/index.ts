@@ -27,7 +27,7 @@ export const tabDatas: TabItem[] = [
     title: '내꺼도',
     altText: '채팅방 버튼',
     image: '/assets/images/chatgray.svg',
-    link: '/orderlist',
+    link: '/naeggeotalk',
   },
   {
     id: 5,

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import CreateTemplate from '../../components/chatting/CreateTemplate';
+import CreateTemplate from '../../components/create/CreateTemplate';
 import { setChattingCreateTabMenu } from '../../modules/chatting/actions';
 
 const create = () => {

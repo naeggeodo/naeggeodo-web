@@ -2,11 +2,11 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { setChattingCreateTabMenu } from '../../modules/chatting/actions';
-import CreateTabMenu from '../chatting/CreateTabMenu';
+import CreateTabMenu from '../create/CreateTabMenu';
 import TabMenu from '../main/TabMenu';
-import OrderItem from './OrderItem';
+import NaeggeotalkListItem from './NaeggeotalkListItem';
 
-const OrderListTemplate = () => {
+const NaeggeotalkTemplate = () => {
   const dispatch = useDispatch();
 
   const listData = [
@@ -28,7 +28,7 @@ const OrderListTemplate = () => {
         <CreateTabMenu />
         <Content>
           {listData.map((v, i) => (
-            <OrderItem key={i} data={v} />
+            <NaeggeotalkListItem key={i} data={v} />
           ))}
         </Content>
       </Wrap>
@@ -50,4 +50,4 @@ const Content = styled.div`
   margin-top: 19.5px;
 `;
 
-export default OrderListTemplate;
+export default NaeggeotalkTemplate;
