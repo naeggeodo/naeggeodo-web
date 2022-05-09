@@ -1,15 +1,30 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useCallback, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { RootState } from '../../modules';
+import {
+  minusMaxCount,
+  plusMaxCount,
+  typeStoreLink,
+  typeStoreName,
+} from '../../modules/create/actions';
+
 import styled from 'styled-components';
 import palette from '../../styles/palette';
 import CreateTabMenu from './CreateTabMenu';
+import { useCreateNaeggeotalk } from '../../hooks/useCreateNaeggeotalk';
 
 const CreateForm = () => {
-  const [inputVal, setInputVal] = useState({
-    title: '',
-    link: 'http://',
-    tag: '',
-    population: 1,
-  });
+  const {
+    storeLink,
+    storeName,
+    maxCount,
+    dispatchChangeStoreName,
+    dispatchChangeStoreLink,
+    dispatchMinusMaxCount,
+    dispatchPlusMaxCount,
+  } = useCreateNaeggeotalk();
+
   return (
     <Container>
       <div>
@@ -22,13 +37,18 @@ const CreateForm = () => {
             </TitleWrapper>
             <Input
               type='text'
-              value={inputVal.title}
+              onChange={dispatchChangeStoreName}
+              value={storeName}
               placeholder='가게이름을 입력해주세요.'
             />
           </Item>
           <Item>
             <Title>가게 링크</Title>
-            <Input type='text' value={inputVal.link} />
+            <Input
+              type='text'
+              value={storeLink}
+              onChange={dispatchChangeStoreLink}
+            />
           </Item>
           <Item>
             <Title>태그</Title>
@@ -41,15 +61,33 @@ const CreateForm = () => {
             </TitleWrapper>
 
             <CounterContainer>
-              <PlusMinusButton>-</PlusMinusButton>
-              <div>1</div>
-              <PlusMinusButton>+</PlusMinusButton>
+              <PlusMinusButton
+                style={
+                  maxCount <= 5 && maxCount > 1
+                    ? { color: `${palette.black}` }
+                    : { color: `${palette.TextGray}` }
+                }
+                onClick={dispatchMinusMaxCount}>
+                -
+              </PlusMinusButton>
+              <div>{maxCount}</div>
+              <PlusMinusButton
+                style={
+                  maxCount < 5 && maxCount >= 1
+                    ? { color: `${palette.black}` }
+                    : { color: `${palette.TextGray}` }
+                }
+                onClick={dispatchPlusMaxCount}>
+                +
+              </PlusMinusButton>
             </CounterContainer>
           </ChatRoomContainer>
         </Content>
       </div>
 
-      <CreateButton>내꺼톡 생성하기</CreateButton>
+      <CreateButton disabled={storeName.length < 2}>
+        내꺼톡 생성하기
+      </CreateButton>
     </Container>
   );
 };
@@ -101,22 +139,6 @@ const Input = styled.input`
   border: none;
 `;
 
-const CreateButton = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-weight: 500;
-  font-size: 1.0625rem;
-  height: 52px;
-
-  color: #ffffff;
-
-  background-color: ${palette.LineGray};
-  border-radius: 10px;
-  cursor: pointer;
-`;
-
 const Desc = styled.p`
   font-weight: 500;
   font-size: 0.9375rem;
@@ -135,6 +157,10 @@ const CounterContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 20px;
+
+  font-weight: 500;
+  font-size: 1.25rem;
+  color: ${palette.black};
 `;
 
 const PlusMinusButton = styled.button`
@@ -146,11 +172,34 @@ const PlusMinusButton = styled.button`
   height: 36px;
 
   color: ${palette.TextGray};
-  font-weight: 400;
-  font-size: 0.9375rem;
 
   background-color: ${palette.LightGray2};
   border-radius: 5px;
+`;
+
+const CreateButton = styled.button`
+  all: unset;
+  height: 52px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  font-weight: 500;
+  font-size: 1.0625rem;
+  color: #ffffff;
+
+  border-radius: 10px;
+  background-color: ${palette.black};
+
+  transition: 0.5s;
+  cursor: pointer;
+
+  &:disabled {
+    background-color: ${palette.LineGray};
+    cursor: not-allowed;
+  }
 `;
 
 export default CreateForm;

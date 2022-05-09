@@ -1,21 +1,26 @@
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { RootState } from '../../modules';
+import { selectOrderTime } from '../../modules/create/actions';
 import palette from '../../styles/palette';
 
 type StyledType = {
   active: boolean;
 };
 
+const buttonValue = [
+  '1시간 이내',
+  '최대한 빨리',
+  '상관없음 (인원이 모집되는대로)',
+  '선택하지 않음',
+];
+
 const CreateInit = () => {
-  const [selectVal, setSelectVal] = useState('');
   const router = useRouter();
-  const buttonValue = [
-    '1시간 이내',
-    '최대한 빨리',
-    '상관없음 (인원이 모집되는대로)',
-    '선택하지 않음',
-  ];
+  const dispatch = useDispatch();
+  const { orderTime } = useSelector((state: RootState) => state.createStates);
 
   return (
     <>
@@ -23,15 +28,15 @@ const CreateInit = () => {
       <Title>주문하실건가요?</Title>
       <Content>
         <CustomButton>직접입력</CustomButton>
-        {buttonValue.map((v, i) => (
+        {buttonValue.map((item, i) => (
           <Button
             key={i}
             onClick={() => {
-              setSelectVal(v);
+              dispatch(selectOrderTime(item));
               router.push('/create/directinput');
             }}
-            active={selectVal === v ? true : false}>
-            {v}
+            active={orderTime === item ? true : false}>
+            {item}
           </Button>
         ))}
       </Content>
@@ -57,23 +62,29 @@ const Content = styled.div`
 `;
 
 const CustomButton = styled.button`
-  border: none;
-  outline: none;
-  background: #fff;
-  color: ${palette.DarkGray};
   margin-bottom: 10px;
+
+  background-color: #fff;
+  color: ${palette.DarkGray};
+
   text-align: right;
+  outline: none;
+  border: none;
 `;
 
 const Button = styled.button<StyledType>`
   padding: 15px;
-  border: none;
-  border-radius: 10px;
+
   font-size: 0.9375rem;
   font-family: 'SpoqaBold';
-  outline: none;
   color: ${(props) => (props.active ? '#EF6212' : '#000')};
-  background: ${(props) => (props.active ? '#FDEFE7' : '#f5f5f5')};
+
+  background-color: ${(props) => (props.active ? '#FDEFE7' : '#f5f5f5')};
+
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  outline: none;
 `;
 
 export default CreateInit;
