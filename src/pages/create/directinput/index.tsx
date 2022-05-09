@@ -16,12 +16,10 @@ const DirectInput = () => {
 
 const Container = styled.div`
   width: 90%;
-  height: 84vh;
-  border: 1px solid red;
+  height: 86vh;
 
   position: relative;
 
-  padding-bottom: 40px;
   margin: 0 auto;
   margin-top: 20px;
 `;
