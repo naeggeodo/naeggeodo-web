@@ -2,14 +2,14 @@ import { createReducer } from 'typesafe-actions';
 import {
   MINUS_MAX_COUNT,
   PLUS_MAX_COUNT,
-  SELECT_ORDER_TIME,
+  SELECT_ORDER_TYPE,
   TYPE_STORE_LINK,
   TYPE_STORE_NAME,
 } from './actions';
 import { CreateStates } from './types';
 
 const initialCreateStates: CreateStates = {
-  orderTime: '',
+  orderType: '',
   storeName: '',
   storeLink: 'http://',
   tags: [
@@ -23,9 +23,9 @@ const initialCreateStates: CreateStates = {
 };
 
 export const createStates = createReducer<CreateStates>(initialCreateStates, {
-  [SELECT_ORDER_TIME]: (state, action) => ({
+  [SELECT_ORDER_TYPE]: (state, action) => ({
     ...state,
-    orderTime: action.payload,
+    orderType: action.payload,
   }),
   [TYPE_STORE_NAME]: (state, action) => ({
     ...state,

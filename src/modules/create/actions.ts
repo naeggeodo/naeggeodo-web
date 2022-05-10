@@ -2,14 +2,14 @@ import { createAction } from 'typesafe-actions';
 
 const namespace = 'create/';
 
-export const SELECT_ORDER_TIME = namespace + 'SELECT_ORDER_TIME';
+export const SELECT_ORDER_TYPE = namespace + 'SELECT_ORDER_TYPE';
 export const TYPE_STORE_NAME = namespace + 'TYPE_STORE_NAME';
 export const TYPE_STORE_LINK = namespace + 'TYPE_STORE_LINK';
 export const PLUS_MAX_COUNT = namespace + 'PLUS_MAX_COUNT';
 export const MINUS_MAX_COUNT = namespace + 'MINUS_MAX_COUNT';
 
-export const selectOrderTime = createAction(
-  SELECT_ORDER_TIME,
+export const selectOrderType = createAction(
+  SELECT_ORDER_TYPE,
   (data) => data,
 )();
 

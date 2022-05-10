@@ -1,5 +1,5 @@
 export interface CreateStates {
-  orderTime:
+  orderType:
     | '1시간 이내'
     | '최대한 빨리'
     | '상관없음 (인원이 모집되는대로)'

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { RootState } from '../../modules';
-import { selectOrderTime } from '../../modules/create/actions';
+import { selectOrderType } from '../../modules/create/actions';
 import palette from '../../styles/palette';
 
 type StyledType = {
@@ -20,7 +20,7 @@ const buttonValue = [
 const CreateInit = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const { orderTime } = useSelector((state: RootState) => state.createStates);
+  const { orderType } = useSelector((state: RootState) => state.createStates);
 
   return (
     <>
@@ -32,10 +32,10 @@ const CreateInit = () => {
           <Button
             key={i}
             onClick={() => {
-              dispatch(selectOrderTime(item));
+              dispatch(selectOrderType(item));
               router.push('/create/directinput');
             }}
-            active={orderTime === item ? true : false}>
+            active={orderType === item ? true : false}>
             {item}
           </Button>
         ))}
