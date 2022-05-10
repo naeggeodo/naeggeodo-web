@@ -63,7 +63,3 @@ export const getQuickChattingListActions = createAsyncAction(
   GET_QUICK_MESSAGE_LIST_SUCCESS,
   GET_QUICK_MESSAGE_LIST_FAILURE,
 )<UserId, QuickChattingListResponse, AxiosError>();
-
-export const setChattingCreateTabMenu = createAction(
-  SET_CHATTING_CREATE_TAB_MENU,
-)<string>();

@@ -1,43 +1,31 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
-import { RootState } from '../../modules';
-import { setChattingCreateTabMenu } from '../../modules/chatting/actions';
+import palette from '../../styles/palette';
 
 type StyledType = {
   active: boolean;
 };
 
 const CreateTabMenu = () => {
-  const dispatch = useDispatch();
   const router = useRouter();
 
-  const { chattingCreateTab } = useSelector(
-    (state: RootState) => state.chattingRoomState,
-  );
-
-  const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const target = e.target as HTMLButtonElement;
-    dispatch(setChattingCreateTabMenu(target.innerText));
-    if (target.innerText === '새로입력') {
-      router.push('/create/directinput');
-    }
-    if (target.innerText === '주문목록') {
+  const onClick = () => {
+    if (router.pathname === '/create/directinput') {
       router.push('/naeggeotalk');
+    } else if (router.pathname === '/naeggeotalk') {
+      router.push('/create/directinput');
     }
   };
 
   return (
     <Wrap>
       <Button
-        active={chattingCreateTab === '새로입력' ? true : false}
+        active={router.pathname === '/create/directinput'}
         onClick={onClick}>
         새로입력
       </Button>
-      <Button
-        active={chattingCreateTab === '주문목록' ? true : false}
-        onClick={onClick}>
+      <Button active={router.pathname === '/naeggeotalk'} onClick={onClick}>
         주문목록
       </Button>
     </Wrap>
@@ -52,14 +40,22 @@ const Wrap = styled.div`
 `;
 
 const Button = styled.button<StyledType>`
+  all: unset;
+
+  font-family: 'SpoqaBold';
+  font-size: 1.125rem;
+  color: ${(props) =>
+    props.active ? `${palette.mainOrange}` : `${palette.TextGray}`};
+
   border: none;
+  border-bottom: ${(props) =>
+    props.active ? `3px solid ${palette.mainOrange}` : '3px solid transparent'};
+
+  padding-bottom: 14.5px;
+
   background: none;
   outline: none;
-  font-size: 1.125rem;
-  font-family: 'SpoqaBold';
-  color: ${(props) => (props.active ? '#EF6212' : '#C4C4C4')};
-  border-bottom: ${(props) =>
-    props.active ? '3px solid #EF6212' : '3px solid transparent'}; ;
+  cursor: pointer;
 `;
 
 export default CreateTabMenu;

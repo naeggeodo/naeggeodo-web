@@ -1,14 +1,9 @@
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { setChattingCreateTabMenu } from '../../modules/chatting/actions';
 import CreateTabMenu from '../create/CreateTabMenu';
 import TabMenu from '../main/TabMenu';
 import NaeggeotalkListItem from './NaeggeotalkListItem';
 
 const NaeggeotalkTemplate = () => {
-  const dispatch = useDispatch();
-
   const listData = [
     { title: '버거킹 백석 이마트점', date: '하루 전', populate: '1/2명' },
     { title: '교촌치킨 백석역점', date: '4월 30일', populate: '1/3명' },
@@ -17,10 +12,6 @@ const NaeggeotalkTemplate = () => {
     { title: '버거킹 백석 이마트점', date: '하루 전', populate: '1/2명' },
     { title: '버거킹 백석 이마트점', date: '하루 전', populate: '1/2명' },
   ];
-
-  useEffect(() => {
-    dispatch(setChattingCreateTabMenu('주문목록'));
-  }, []);
 
   return (
     <>
