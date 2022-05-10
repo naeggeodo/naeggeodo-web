@@ -1,10 +1,11 @@
-import { ChangeEvent, FormEvent, useCallback, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../modules';
 import {
   addTag,
   minusMaxCount,
   plusMaxCount,
+  removeTag,
   typeStoreLink,
   typeStoreName,
 } from '../modules/create/actions';
@@ -58,6 +59,15 @@ export function useCreateNaeggeotalk() {
     [dispatch, tagText],
   );
 
+  const dispatchRemoveTag = useCallback<
+    (e: React.MouseEvent<HTMLButtonElement>) => void
+  >(
+    (e) => {
+      dispatch(removeTag(+e.currentTarget.dataset.id));
+    },
+    [dispatch],
+  );
+
   return {
     storeName,
     storeLink,
@@ -67,6 +77,7 @@ export function useCreateNaeggeotalk() {
     setTagText,
     dispatch,
     dispatchChangeStoreName,
+    dispatchRemoveTag,
     dispatchChangeStoreLink,
     dispatchPlusMaxCount,
     dispatchMinusMaxCount,

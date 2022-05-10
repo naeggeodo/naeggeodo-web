@@ -4,7 +4,6 @@ import palette from '../../styles/palette';
 
 import CreateTabMenu from './CreateTabMenu';
 import { useCreateNaeggeotalk } from '../../hooks/useCreateNaeggeotalk';
-import { removeTag } from '../../modules/create/actions';
 
 interface MoveLinkProps {
   isUrl: boolean;
@@ -20,6 +19,7 @@ const CreateForm = () => {
     tagText,
     setTagText,
     dispatchAddTag,
+    dispatchRemoveTag,
     dispatchChangeStoreName,
     dispatchChangeStoreLink,
     dispatchMinusMaxCount,
@@ -78,9 +78,7 @@ const CreateForm = () => {
                 <TagButton
                   key={i}
                   data-id={i}
-                  onClick={(e) => {
-                    dispatch(removeTag(+e.currentTarget.dataset.id));
-                  }}>
+                  onClick={(e) => dispatchRemoveTag(e)}>
                   <span>{tag}</span>
                   <img src='/assets/images/buttonclose.svg' alt='닫기 버튼' />
                 </TagButton>
