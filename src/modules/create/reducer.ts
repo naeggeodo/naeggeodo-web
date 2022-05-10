@@ -3,6 +3,7 @@ import {
   ADD_TAG,
   MINUS_MAX_COUNT,
   PLUS_MAX_COUNT,
+  REMOVE_TAG,
   SELECT_ORDER_TYPE,
   TYPE_STORE_LINK,
   TYPE_STORE_NAME,
@@ -39,6 +40,10 @@ export const createStates = createReducer<CreateStates>(initialCreateStates, {
       };
     }
   },
+  [REMOVE_TAG]: (state, action) => ({
+    ...state,
+    tags: state.tags.filter((_, index) => index !== action.payload),
+  }),
 
   [PLUS_MAX_COUNT]: (state, _) => {
     if (state.maxCount >= 5) {
