@@ -15,6 +15,9 @@ const CreateForm = () => {
     storeName,
     tags,
     maxCount,
+    tagText,
+    setTagText,
+    dispatchAddTag,
     dispatchChangeStoreName,
     dispatchChangeStoreLink,
     dispatchMinusMaxCount,
@@ -61,10 +64,16 @@ const CreateForm = () => {
               <Title>태그</Title>
               <SmallText>ex. 음식명, 카테고리명</SmallText>
             </TagTitle>
-            <Input placeholder='태그 작성 후 spacebar를 입력하세요.' />
+            <form onSubmit={(e) => dispatchAddTag(e)}>
+              <Input
+                value={tagText}
+                onChange={(e) => setTagText(e.target.value)}
+                placeholder='태그 작성 후 Enter를 입력하세요.'
+              />
+            </form>
             <TagContainer>
               {tags.map((tag, i) => (
-                <TagButton>
+                <TagButton key={i}>
                   <span>{tag}</span>
                   <img src='/assets/images/buttonclose.svg' alt='닫기 버튼' />
                 </TagButton>

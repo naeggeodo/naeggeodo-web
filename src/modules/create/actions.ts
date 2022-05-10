@@ -7,6 +7,7 @@ export const TYPE_STORE_NAME = namespace + 'TYPE_STORE_NAME';
 export const TYPE_STORE_LINK = namespace + 'TYPE_STORE_LINK';
 export const PLUS_MAX_COUNT = namespace + 'PLUS_MAX_COUNT';
 export const MINUS_MAX_COUNT = namespace + 'MINUS_MAX_COUNT';
+export const ADD_TAG = namespace + 'ADD_TAG';
 
 export const selectOrderType = createAction(
   SELECT_ORDER_TYPE,
@@ -18,3 +19,4 @@ export const typeStoreLink = createAction(TYPE_STORE_LINK, (data) => data)();
 
 export const plusMaxCount = createAction(PLUS_MAX_COUNT, () => ({}))();
 export const minusMaxCount = createAction(MINUS_MAX_COUNT, () => ({}))();
+export const addTag = createAction(ADD_TAG, (keyword) => keyword)();

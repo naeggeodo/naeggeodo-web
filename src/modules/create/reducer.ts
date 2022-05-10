@@ -1,5 +1,6 @@
 import { createReducer } from 'typesafe-actions';
 import {
+  ADD_TAG,
   MINUS_MAX_COUNT,
   PLUS_MAX_COUNT,
   SELECT_ORDER_TYPE,
@@ -12,13 +13,7 @@ const initialCreateStates: CreateStates = {
   orderType: '',
   storeName: '',
   storeLink: 'http://',
-  tags: [
-    '떡볶이',
-    '햄버거123123123123',
-    '벅거꺼거',
-    '버거걱',
-    '버버버버버버버버버버버버버버버버버버버버버버버버버버버버',
-  ],
+  tags: [],
   maxCount: 1,
 };
 
@@ -35,6 +30,16 @@ export const createStates = createReducer<CreateStates>(initialCreateStates, {
     ...state,
     storeLink: action.payload,
   }),
+  [ADD_TAG]: (state, action) => {
+    if (state.tags.length >= 5) return state;
+    else {
+      return {
+        ...state,
+        tags: [...state.tags, action.payload],
+      };
+    }
+  },
+
   [PLUS_MAX_COUNT]: (state, _) => {
     if (state.maxCount >= 5) {
       return state;

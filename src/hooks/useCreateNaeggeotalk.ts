@@ -1,7 +1,8 @@
-import { ChangeEvent, useCallback } from 'react';
+import { ChangeEvent, FormEvent, useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../modules';
 import {
+  addTag,
   minusMaxCount,
   plusMaxCount,
   typeStoreLink,
@@ -10,6 +11,9 @@ import {
 
 export function useCreateNaeggeotalk() {
   const dispatch = useDispatch();
+
+  const [tagText, setTagText] = useState('');
+
   const { storeName, storeLink, maxCount, tags } = useSelector(
     (state: RootState) => state.createStates,
   );
@@ -42,14 +46,30 @@ export function useCreateNaeggeotalk() {
     [dispatch],
   );
 
+  const dispatchAddTag = useCallback<(e: FormEvent<HTMLFormElement>) => void>(
+    (e) => {
+      e.preventDefault();
+      if (tagText === '') return;
+      else {
+        dispatch(addTag(tagText));
+        setTagText('');
+      }
+    },
+    [dispatch, tagText],
+  );
+
   return {
     storeName,
     storeLink,
     maxCount,
     tags,
+    tagText,
+    setTagText,
+    dispatch,
     dispatchChangeStoreName,
     dispatchChangeStoreLink,
     dispatchPlusMaxCount,
     dispatchMinusMaxCount,
+    dispatchAddTag,
   };
 }
