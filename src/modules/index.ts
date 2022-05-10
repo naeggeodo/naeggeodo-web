@@ -9,12 +9,14 @@ import { chattingRoomState } from './chatting/reducer';
 import { postCodeState } from './search-post-code/reducer';
 import { getChattingRoomInfoSaga } from './chatting/sagas';
 import { getMainPageInfoSaga } from './main/sagas';
+import { createStates } from './create/reducer';
 
 //** RootReducer */
 export const rootReducer = combineReducers({
   chattingRoomState,
   postCodeState,
   mainPageState,
+  createStates,
 });
 
 //** RootSaga */

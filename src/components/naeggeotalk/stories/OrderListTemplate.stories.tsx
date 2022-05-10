@@ -1,11 +1,11 @@
 import { ComponentMeta } from '@storybook/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '../../../modules';
-import OrderListTemplate from '../OrderListTemplate';
+import NaeggeotalkTemplate from '../NaeggeotalkTemplate';
 
 export default {
-  title: 'orderlist/페이지',
-  component: OrderListTemplate,
+  title: 'naeggeotalk/페이지',
+  component: NaeggeotalkTemplate,
   decorators: [
     (Story) => (
       <Provider store={configureStore()}>
@@ -21,8 +21,8 @@ export default {
       </Provider>
     ),
   ],
-} as ComponentMeta<typeof OrderListTemplate>;
+} as ComponentMeta<typeof NaeggeotalkTemplate>;
 
-export const OrderlistTab = () => <OrderListTemplate />;
+export const NaeggeotalkStory = () => <NaeggeotalkTemplate />;
 
-OrderlistTab.storyName = '내꺼도 주문내역 탭 페이지';
+NaeggeotalkStory.storyName = '내꺼토ㄱ 주문내역 탭 페이지';

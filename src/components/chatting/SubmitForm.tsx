@@ -22,19 +22,21 @@ const SubmitForm = ({ stompClient }: { stompClient: CompatClient }) => {
   };
 
   const onImgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const reader = new FileReader();
+    const fileReader = new FileReader();
     const imgFile = e.target.files[0];
-    reader.onload = function () {
-      const result = reader.result;
+
+    fileReader.readAsDataURL(imgFile);
+    fileReader.onload = (e) => {
+      const result = e.target.result;
+
       const data = {
         chatMain_id: 1,
         sender: 1,
         contents: result as string,
-        type: 'IMAGE',
+        type: 'TEXT',
       };
       onSendMessage(stompClient, data);
     };
-    reader.readAsDataURL(imgFile);
   };
 
   return (

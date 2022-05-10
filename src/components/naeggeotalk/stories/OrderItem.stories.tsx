@@ -1,8 +1,8 @@
 import { ComponentMeta } from '@storybook/react';
-import OrderItem from '../OrderItem';
+import OrderItem from '../NaeggeotalkListItem';
 
 export default {
-  title: 'orderlist/컴포넌트',
+  title: 'naeggeotalk/컴포넌트',
   component: OrderItem,
   decorators: [
     (Story) => (
@@ -19,6 +19,6 @@ export default {
   ],
 } as ComponentMeta<typeof OrderItem>;
 
-export const OrderlistTabItem = () => <OrderItem />;
+export const NaeggeotalkListItemStory = () => <OrderItem />;
 
-OrderlistTabItem.storyName = '내꺼도 주문내역 아이템';
+NaeggeotalkListItemStory.storyName = '내꺼도 주문내역 아이템';

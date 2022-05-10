@@ -85,7 +85,7 @@ const ChattingTemplate = ({ previousChatting }) => {
           })}
         <Scroll ref={scrollRef} />
       </Content>
-      {/* <QuickMessageComp stompClient={stompClient} /> */}
+      {/* <QuickMessageComp stompClient={stompClient.current} /> */}
       <SubmitForm stompClient={stompClient.current} />
     </Wrap>
   );
