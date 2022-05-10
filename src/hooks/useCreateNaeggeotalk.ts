@@ -10,7 +10,7 @@ import {
 
 export function useCreateNaeggeotalk() {
   const dispatch = useDispatch();
-  const { storeName, storeLink, maxCount } = useSelector(
+  const { storeName, storeLink, maxCount, tags } = useSelector(
     (state: RootState) => state.createStates,
   );
 
@@ -46,6 +46,7 @@ export function useCreateNaeggeotalk() {
     storeName,
     storeLink,
     maxCount,
+    tags,
     dispatchChangeStoreName,
     dispatchChangeStoreLink,
     dispatchPlusMaxCount,

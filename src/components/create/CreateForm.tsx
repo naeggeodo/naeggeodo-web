@@ -1,14 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import React, { useState } from 'react';
+import styled, { css } from 'styled-components';
 import palette from '../../styles/palette';
 
 import CreateTabMenu from './CreateTabMenu';
 import { useCreateNaeggeotalk } from '../../hooks/useCreateNaeggeotalk';
 
+interface MoveLinkProps {
+  isUrl: boolean;
+}
+
 const CreateForm = () => {
   const {
     storeLink,
     storeName,
+    tags,
     maxCount,
     dispatchChangeStoreName,
     dispatchChangeStoreLink,
@@ -33,23 +38,38 @@ const CreateForm = () => {
               type='text'
               onChange={dispatchChangeStoreName}
               value={storeName}
-              placeholder='가게이름을 입력해주세요.'
+              placeholder='가게 이름을 입력해주세요.'
             />
           </Item>
           <Item>
             <Title>가게 링크</Title>
-            <Input
-              type='text'
-              value={storeLink}
-              onChange={(e) => {
-                dispatchChangeStoreLink(e);
-                setIsUrl(urlRegex.test(storeLink));
-              }}
-            />
-            {isUrl && <button>링크이동</button>}
+            <InputWrapper>
+              <Input
+                type='text'
+                placeholder='가게 링크를 입력해주세요'
+                value={storeLink}
+                onChange={(e) => {
+                  setIsUrl(urlRegex.test(storeLink));
+                  dispatchChangeStoreLink(e);
+                }}
+              />
+              <MoveLinkButton isUrl={isUrl}>링크이동</MoveLinkButton>
+            </InputWrapper>
           </Item>
           <Item>
-            <Title>태그</Title>
+            <TagTitle>
+              <Title>태그</Title>
+              <SmallText>ex. 음식명, 카테고리명</SmallText>
+            </TagTitle>
+            <Input placeholder='태그 작성 후 spacebar를 입력하세요.' />
+            <TagContainer>
+              {tags.map((tag, i) => (
+                <TagButton>
+                  <span>{tag}</span>
+                  <img src='/assets/images/buttonclose.svg' alt='닫기 버튼' />
+                </TagButton>
+              ))}
+            </TagContainer>
           </Item>
 
           <ChatRoomContainer>
@@ -132,9 +152,15 @@ const Input = styled.input`
   line-height: 16px;
   font-size: 0.9375rem;
   color: ${palette.DarkGray};
+  width: 80%;
 
   outline: none;
   border: none;
+`;
+
+const InputWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
 
 const Desc = styled.p`
@@ -142,6 +168,51 @@ const Desc = styled.p`
   font-size: 0.9375rem;
 
   color: ${palette.DarkGray};
+`;
+
+const TagTitle = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
+
+const TagContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+`;
+
+const TagButton = styled.button`
+  all: unset;
+
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  font-weight: 500;
+  font-size: 0.75rem;
+
+  display: flex;
+  align-items: center;
+
+  color: #191919;
+
+  padding: 4px 10px;
+
+  background-color: ${palette.LightGray2};
+  border-radius: 5px;
+
+  cursor: pointer;
+`;
+
+const SmallText = styled.p`
+  display: flex;
+  align-items: center;
+
+  font-weight: 500;
+  font-size: 0.75rem;
+  color: ${palette.black};
 `;
 
 const ChatRoomContainer = styled(Item)`
@@ -198,6 +269,36 @@ const CreateButton = styled.button`
     background-color: ${palette.LineGray};
     cursor: not-allowed;
   }
+`;
+
+const MoveLinkButton = styled.button<MoveLinkProps>`
+  all: unset;
+  display: flex;
+  justify-content: center;
+
+  visibility: hidden;
+  opacity: 0;
+  width: 63px;
+
+  padding: 4px 0;
+
+  font-weight: 500;
+  font-size: 0.75rem;
+  color: ${palette.mainOrange};
+
+  background-color: ${palette.LightGray2};
+  border-radius: 5px;
+
+  cursor: pointer;
+  transition: 1s;
+
+  ${(props) =>
+    props.isUrl &&
+    css`
+      display: flex;
+      visibility: visible;
+      opacity: 1;
+    `}
 `;
 
 export default CreateForm;

@@ -12,7 +12,13 @@ const initialCreateStates: CreateStates = {
   orderTime: '',
   storeName: '',
   storeLink: 'http://',
-  tags: [],
+  tags: [
+    '떡볶이',
+    '햄버거123123123123',
+    '벅거꺼거',
+    '버거걱',
+    '버버버버버버버버버버버버버버버버버버버버버버버버버버버버',
+  ],
   maxCount: 1,
 };
 
