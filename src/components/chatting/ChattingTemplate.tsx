@@ -13,6 +13,7 @@ import { PreviousChattingItemResponse } from '../../modules/chatting/types';
 import { useChat } from '../../hooks/useChat';
 import DateFormatter from '../../utils/DateFormatter';
 import QuickMessageComp from './QuickMessageComp';
+import ChatDrawer from './ChatDrawer';
 
 const ChattingTemplate = ({ previousChatting }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -87,6 +88,7 @@ const ChattingTemplate = ({ previousChatting }) => {
       </Content>
       {/* <QuickMessageComp stompClient={stompClient.current} /> */}
       <SubmitForm stompClient={stompClient.current} />
+      <ChatDrawer />
     </Wrap>
   );
 };
