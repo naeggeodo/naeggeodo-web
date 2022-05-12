@@ -1,6 +1,9 @@
 import '@storybook/addon-console';
 import GlobalStyle from '../src/styles/GlobalStyle';
 import * as NextImage from 'next/image';
+import { initialize, mswDecorator } from 'msw-storybook-addon';
+
+initialize();
 
 const OriginalNextImage = NextImage.default;
 
@@ -10,6 +13,7 @@ Object.defineProperty(NextImage, 'default', {
 });
 
 export const decorators = [
+  mswDecorator,
   (Story) => (
     <>
       <GlobalStyle />
