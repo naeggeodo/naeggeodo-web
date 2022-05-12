@@ -25,8 +25,6 @@ const NaeggeotalkListItem = ({ data }: any) => {
 };
 
 const Container = styled.div<StyledType>`
-  /* width: 100vw; */
-  /* border: 1px solid blue; */
   border-bottom: 1px solid #f2f2f8;
   background: ${(props) => (props.active ? ' #f2f2f8;' : '#fff')};
 `;
@@ -35,6 +33,9 @@ const Content = styled.div`
   display: flex;
   justify-content: space-between;
 
+  width: 90%;
+
+  margin: 0 auto;
   padding: 20px 0;
 `;
 

@@ -23,7 +23,7 @@ const CreateInit = () => {
   const { orderType } = useSelector((state: RootState) => state.createStates);
 
   return (
-    <>
+    <Wrap>
       <Title>언제 음식을</Title>
       <Title>주문하실건가요?</Title>
       <Content>
@@ -40,9 +40,18 @@ const CreateInit = () => {
           </Button>
         ))}
       </Content>
-    </>
+    </Wrap>
   );
 };
+
+const Wrap = styled.div`
+  width: 90%;
+  height: 100%;
+
+  position: relative;
+
+  margin: 0 auto;
+`;
 
 const Title = styled.h3`
   font-family: 'SpoqaBold';

@@ -7,8 +7,8 @@ import NaeggeotalkListItem from './NaeggeotalkListItem';
 const NaeggeotalkTemplate = () => {
   const listData = [
     { title: '버거킹 백석 이마트점', date: '하루 전', populate: '1/2명' },
-    // { title: '교촌치킨 백석역점', date: '4월 30일', populate: '1/3명' },
-    // { title: '버거킹 백석 이마트점', date: '하루 전', populate: '1/2명' },
+    { title: '교촌치킨 백석역점', date: '4월 30일', populate: '1/3명' },
+    { title: '버거킹 백석 이마트점', date: '하루 전', populate: '1/2명' },
   ];
 
   return (
@@ -28,7 +28,7 @@ const NaeggeotalkTemplate = () => {
 };
 
 const Container = styled.div`
-  width: 90%;
+  width: 100%;
   min-height: 86vh;
 
   margin: 0 auto;
