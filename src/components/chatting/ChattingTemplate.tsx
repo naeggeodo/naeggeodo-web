@@ -26,6 +26,7 @@ const ChattingTemplate = ({ previousChatting }) => {
   const [messageList, setMessageList] = useState<
     PreviousChattingItemResponse[]
   >([]);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   socketRef.current = new SockJS(`${process.env.NEXT_PUBLIC_API_URL}/chat`);
   stompClient.current = Stomp.over(socketRef.current);
@@ -45,7 +46,7 @@ const ChattingTemplate = ({ previousChatting }) => {
 
   return (
     <Wrap>
-      <Header />
+      <Header setDrawerOpen={setDrawerOpen} />
       <Div>
         <GoInfoBtn />
       </Div>
@@ -88,7 +89,7 @@ const ChattingTemplate = ({ previousChatting }) => {
       </Content>
       {/* <QuickMessageComp stompClient={stompClient.current} /> */}
       <SubmitForm stompClient={stompClient.current} />
-      <ChatDrawer />
+      <ChatDrawer drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />
     </Wrap>
   );
 };
