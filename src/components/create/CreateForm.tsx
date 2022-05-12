@@ -4,6 +4,8 @@ import palette from '../../styles/palette';
 
 import CreateTabMenu from './CreateTabMenu';
 import { useCreateNaeggeotalk } from '../../hooks/useCreateNaeggeotalk';
+import Image from 'next/image';
+import CreateButton from './CreateButton';
 
 interface MoveLinkProps {
   isUrl: boolean;
@@ -80,7 +82,12 @@ const CreateForm = () => {
                   data-id={i}
                   onClick={(e) => dispatchRemoveTag(e)}>
                   <span>{tag}</span>
-                  <img src='/assets/images/buttonclose.svg' alt='닫기 버튼' />
+                  <Image
+                    src='/assets/images/buttonclose.svg'
+                    width={12}
+                    height={12}
+                    alt='닫기 버튼'
+                  />
                 </TagButton>
               ))}
             </TagContainer>
@@ -117,9 +124,7 @@ const CreateForm = () => {
         </Content>
       </div>
 
-      <CreateButton disabled={storeName.length < 2}>
-        내꺼톡 생성하기
-      </CreateButton>
+      <CreateButton storeName={storeName} />
     </Container>
   );
 };
@@ -128,7 +133,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
   height: 100%;
 `;
 
@@ -260,30 +264,30 @@ const PlusMinusButton = styled.button`
   border-radius: 5px;
 `;
 
-const CreateButton = styled.button`
-  all: unset;
-  height: 52px;
+// const CreateButton = styled.button`
+//   all: unset;
+//   height: 52px;
 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
 
-  font-weight: 500;
-  font-size: 1.0625rem;
-  color: #ffffff;
+//   font-weight: 500;
+//   font-size: 1.0625rem;
+//   color: #ffffff;
 
-  border-radius: 10px;
-  background-color: ${palette.black};
+//   border-radius: 10px;
+//   background-color: ${palette.black};
 
-  transition: 0.5s;
-  cursor: pointer;
+//   transition: 0.5s;
+//   cursor: pointer;
 
-  &:disabled {
-    background-color: ${palette.LineGray};
-    cursor: not-allowed;
-  }
-`;
+//   &:disabled {
+//     background-color: ${palette.LineGray};
+//     cursor: not-allowed;
+//   }
+// `;
 
 const MoveLinkButton = styled.button<MoveLinkProps>`
   all: unset;
