@@ -15,12 +15,10 @@ const CreateTemplate = () => {
 };
 
 const Wrap = styled.div`
-  width: 90%;
   height: 86vh;
 
   position: relative;
 
-  margin: 0 auto;
   margin-top: 20px;
 `;
 

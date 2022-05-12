@@ -8,15 +8,14 @@ const CreateButton = ({ storeName }: { storeName: string }) => {
 const Button = styled.button`
   all: unset;
   height: 52px;
-  width: 100%;
+  width: 90%;
 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  text-align: center;
 
   position: absolute;
+  left: 50%;
   bottom: 0;
+  transform: translateX(-50%);
 
   font-weight: 500;
   font-size: 1.0625rem;

@@ -33,10 +33,12 @@ const CreateTabMenu = () => {
 };
 
 const Wrap = styled.div`
-  width: 100%;
+  width: 90%;
 
   display: flex;
   gap: 20px;
+
+  margin: 0 auto;
 `;
 
 const Button = styled.button<StyledType>`
