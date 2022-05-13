@@ -25,4 +25,4 @@ export default {
 
 export const NaeggeotalkStory = () => <NaeggeotalkTemplate />;
 
-NaeggeotalkStory.storyName = '내꺼토ㄱ 주문내역 탭 페이지';
+NaeggeotalkStory.storyName = '내꺼톡 주문내역 탭 페이지';
