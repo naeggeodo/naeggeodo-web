@@ -1,6 +1,4 @@
 import { ComponentMeta } from '@storybook/react';
-import { rest } from 'msw';
-import { worker } from '../../../mocks/browser';
 import NaeggeotalkListItem from '../NaeggeotalkListItem';
 
 export default {
@@ -19,21 +17,16 @@ export default {
       </div>
     ),
   ],
-  // parameters: {
-  //   data: {
-  //     title: '버거킹 백석 이마트점',
-  //     date: '하루 전',
-  //     populate: '1/2명',
-  //   },
-  // },
 } as ComponentMeta<typeof NaeggeotalkListItem>;
 
-export const NaeggeotalkListItemStory = () => <NaeggeotalkListItem />;
+const NaeggeotalkListItemStory = (args) => <NaeggeotalkListItem {...args} />;
+export const NaeggeotalkListItemStory1 = NaeggeotalkListItemStory.bind({});
+NaeggeotalkListItemStory1.args = {
+  data: {
+    title: '버거킹 백석 이마트점',
+    date: '하루 전',
+    populate: '1/2명',
+  },
+};
 
 NaeggeotalkListItemStory.storyName = '내꺼도 주문내역 아이템';
-
-// NaeggeotalkListItemStory.parameters = {
-//   title: '버거킹 백석 이마트점',
-//   date: '하루 전',
-//   populate: '1/2명',
-// };

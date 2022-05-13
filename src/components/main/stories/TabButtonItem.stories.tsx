@@ -3,6 +3,20 @@ import TabButtonItem from '../TabButtonItem';
 export default {
   title: 'main/컴포넌트',
   component: TabButtonItem,
+  decorators: [
+    (Story) => (
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: '100vw',
+          height: '100vh',
+        }}>
+        <Story />
+      </div>
+    ),
+  ],
   parameters: {
     layout: 'fullscreen',
     nextRouter: {
