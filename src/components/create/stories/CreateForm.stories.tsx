@@ -13,6 +13,7 @@ export default {
       </Provider>
     ),
   ],
+  layout: 'fullscreen',
 } as ComponentMeta<typeof CreateForm>;
 
 export const CreateFormStory = () => <CreateForm />;

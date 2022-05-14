@@ -1,6 +1,10 @@
 import { ComponentMeta } from '@storybook/react';
 import CreateButton from '../CreateButton';
 
+type Args = {
+  storeName: string;
+};
+
 export default {
   title: 'create/컴포넌트',
   component: CreateButton,
@@ -11,7 +15,6 @@ export default {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          height: '100vh',
         }}>
         <Story />
       </div>
@@ -19,7 +22,11 @@ export default {
   ],
 } as ComponentMeta<typeof CreateButton>;
 
-const CreateButtonStory = (args) => <CreateButton {...args} />;
+const Template = (args: Args) => <CreateButton {...args} />;
+export const CreateButtonStory = Template.bind({});
+CreateButtonStory.args = {
+  storeName: '',
+};
 
 export const CreateBtn = CreateButtonStory.bind({});
 

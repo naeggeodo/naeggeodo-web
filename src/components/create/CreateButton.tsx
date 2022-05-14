@@ -12,11 +12,6 @@ const Button = styled.button`
 
   text-align: center;
 
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  transform: translateX(-50%);
-
   font-weight: 500;
   font-size: 1.0625rem;
   color: #ffffff;
