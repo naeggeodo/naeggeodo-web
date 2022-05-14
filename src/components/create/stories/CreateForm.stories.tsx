@@ -10,9 +10,7 @@ export default {
   decorators: [
     (Story) => (
       <Provider store={configureStore()}>
-        <div>
-          <Story />
-        </div>
+        <Story />
       </Provider>
     ),
   ],
@@ -21,11 +19,6 @@ export default {
   },
 } as ComponentMeta<typeof CreateForm>;
 
-export const CreateFormStory = () => (
-  <>
-    <CreateForm />
-    <TabMenu />
-  </>
-);
+export const CreateFormStory = () => <CreateForm />;
 
 CreateFormStory.storyName = '내꺼톡 생성 폼';

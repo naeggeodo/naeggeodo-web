@@ -4,19 +4,10 @@ import MoreTemplate from '../MoreTemplate';
 export default {
   title: 'more/페이지',
   component: MoreTemplate,
-  decorators: [
-    (Story) => (
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '100vh',
-        }}>
-        <Story />
-      </div>
-    ),
-  ],
+  decorators: [(Story) => <Story />],
+  parameters: {
+    layout: 'fullscreen',
+  },
 } as ComponentMeta<typeof MoreTemplate>;
 
 export const MoreTabTemplate = () => <MoreTemplate />;

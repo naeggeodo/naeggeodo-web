@@ -1,7 +1,6 @@
 import { ComponentMeta } from '@storybook/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '../../../modules';
-import TabMenu from '../../main/TabMenu';
 import CreateInit from '../CreateInit';
 
 export default {
@@ -19,11 +18,6 @@ export default {
   },
 } as ComponentMeta<typeof CreateInit>;
 
-export const CreateInitStory = () => (
-  <>
-    <CreateInit />
-    <TabMenu />
-  </>
-);
+export const CreateInitStory = () => <CreateInit />;
 
 CreateInitStory.storyName = '내꺼톡 생성 주문시간선택';

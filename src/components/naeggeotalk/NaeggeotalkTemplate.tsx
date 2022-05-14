@@ -20,7 +20,10 @@ const NaeggeotalkTemplate = () => {
             <NaeggeotalkListItem key={i} data={v} />
           ))}
         </Content>
-        <CreateButton storeName={'sample'} />
+
+        <ButtonWrapper>
+          <CreateButton storeName={'sample'} />
+        </ButtonWrapper>
       </Container>
       <TabMenu />
     </>
@@ -30,6 +33,7 @@ const NaeggeotalkTemplate = () => {
 const Container = styled.div`
   width: 100%;
   min-height: 86vh;
+  background-color: #fff;
 
   margin: 0 auto;
   margin-top: 20px;
@@ -41,6 +45,11 @@ const Container = styled.div`
 const Content = styled.div`
   margin-top: 19.5px;
   padding-bottom: 52px;
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 export default NaeggeotalkTemplate;
