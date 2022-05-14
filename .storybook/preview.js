@@ -2,8 +2,10 @@ import '@storybook/addon-console';
 import GlobalStyle from '../src/styles/GlobalStyle';
 import * as NextImage from 'next/image';
 import { initialize, mswDecorator } from 'msw-storybook-addon';
+import { configureStore } from '../src/modules';
 
 import { RouterContext } from 'next/dist/shared/lib/router-context';
+import { Provider } from 'react-redux';
 
 initialize({
   onUnhandledRequest: 'bypass',
