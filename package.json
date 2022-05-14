@@ -10,7 +10,7 @@
     "build": "next build",
     "start": "next start",
     "test": "jest --watchAll",
-    "sb": "start-storybook -p 6006 -s ./public",
+    "sb": "start-storybook -p 6006 -s public",
     "opt": "ANALYZE=true yarn build",
     "build-storybook": "build-storybook -s public",
     "chromatic": "npx chromatic --project-token=f23de09fc34e"
