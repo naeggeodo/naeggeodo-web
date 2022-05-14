@@ -1,45 +1,39 @@
-import Image from 'next/image';
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
+import palette from '../../styles/palette';
 
 const GoInfoBtn = () => {
-  return (
-    <Button>
-      <span>가게정보 보러가기</span>
-      <Image
-        src='/assets/images/nextbtn.svg'
-        alt='icon'
-        width={11}
-        height={16}
-      />
-    </Button>
-  );
+  const router = useRouter();
+  const onClick = () => {
+    router.push('/check-deposit');
+  };
+
+  return <Button onClick={onClick}>돈을 받으셨나요?</Button>;
 };
 
 const Button = styled.button`
-  width: 88%;
-  height: 100%;
+  width: 100%;
 
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  width: 88%;
-  height: 100%;
-
-  padding: 10px 20px;
-  margin: 0 auto;
-
-  border-radius: 5px;
+  padding: 13px;
+  margin-bottom: 30px;
 
   background-color: #fff;
-  box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.06);
+  color: ${palette.mainOrange};
 
-  font-size: 0.75rem;
+  font-size: 1.0625rem;
 
-  text-align: left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   cursor: pointer;
   outline: none;
   border: none;
+
+  &:active {
+    background-color: ${palette.mainOrange};
+    color: #fff;
+  }
 `;
 
 export default GoInfoBtn;

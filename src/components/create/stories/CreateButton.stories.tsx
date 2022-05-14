@@ -19,6 +19,12 @@ export default {
   ],
 } as ComponentMeta<typeof CreateButton>;
 
-export const CreateButtonStory = () => <CreateButton />;
+const CreateButtonStory = (args) => <CreateButton {...args} />;
 
-CreateButtonStory.storyName = '내꺼톡 생성 버튼';
+export const CreateBtn = CreateButtonStory.bind({});
+
+CreateBtn.args = {
+  storeName: 'asf',
+};
+
+CreateBtn.storyName = '내꺼톡 생성 버튼';
