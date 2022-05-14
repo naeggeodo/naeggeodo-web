@@ -134,6 +134,7 @@ const CreateForm = () => {
 
 const Wrap = styled.div`
   width: 100%;
+  padding: 46px 0;
   background-color: #fff;
 `;
 
@@ -143,7 +144,7 @@ const Container = styled.div`
   justify-content: space-between;
 
   width: 90%;
-  height: 100%;
+  height: 100vh;
 
   margin: 0 auto;
 `;
@@ -310,6 +311,7 @@ const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 100px;
+  padding-bottom: 20px;
 `;
 
 export default CreateForm;

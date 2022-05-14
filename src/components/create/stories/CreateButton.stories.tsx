@@ -28,10 +28,8 @@ CreateButtonStory.args = {
   storeName: '',
 };
 
-export const CreateBtn = CreateButtonStory.bind({});
-
-CreateBtn.args = {
-  storeName: 'asf',
+CreateButtonStory.args = {
+  storeName: '교촌치킨',
 };
 
-CreateBtn.storyName = '내꺼톡 생성 버튼';
+CreateButtonStory.storyName = '내꺼톡 생성 버튼';

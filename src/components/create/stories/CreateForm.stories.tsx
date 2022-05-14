@@ -1,6 +1,7 @@
 import { ComponentMeta } from '@storybook/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '../../../modules';
+import TabMenu from '../../main/TabMenu';
 import CreateForm from '../CreateForm';
 
 export default {
@@ -9,13 +10,22 @@ export default {
   decorators: [
     (Story) => (
       <Provider store={configureStore()}>
-        <Story />
+        <div>
+          <Story />
+        </div>
       </Provider>
     ),
   ],
-  layout: 'fullscreen',
+  parameters: {
+    layout: 'fullscreen',
+  },
 } as ComponentMeta<typeof CreateForm>;
 
-export const CreateFormStory = () => <CreateForm />;
+export const CreateFormStory = () => (
+  <>
+    <CreateForm />
+    <TabMenu />
+  </>
+);
 
 CreateFormStory.storyName = '내꺼톡 생성 폼';
