@@ -24,8 +24,10 @@ const CreateInit = () => {
 
   return (
     <Wrap>
-      <Title>언제 음식을</Title>
-      <Title>주문하실건가요?</Title>
+      <div>
+        <Title>언제 음식을</Title>
+        <Title>주문하실건가요?</Title>
+      </div>
       <Content>
         <CustomButton>직접입력</CustomButton>
         {buttonValue.map((item, i) => (
@@ -45,8 +47,13 @@ const CreateInit = () => {
 };
 
 const Wrap = styled.div`
-  width: 90%;
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+  background-color: #fff;
+
+  padding: 46px 30px 83px;
 
   position: relative;
 
@@ -55,6 +62,7 @@ const Wrap = styled.div`
 
 const Title = styled.h3`
   font-family: 'SpoqaBold';
+  padding: 0 6px;
   line-height: 36.4px;
   font-size: 1.625rem;
 `;
@@ -64,10 +72,8 @@ const Content = styled.div`
 
   display: flex;
   flex-direction: column;
-  gap: 10px;
 
-  position: absolute;
-  bottom: 0;
+  gap: 10px;
 `;
 
 const CustomButton = styled.button`

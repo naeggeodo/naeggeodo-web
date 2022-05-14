@@ -11,7 +11,7 @@ const MoreTemplate = () => {
   return (
     <>
       <Wrap>
-        <Section>
+        <FirstSection>
           <Title>안녕하세요,</Title>
           <Title>
             <Name>조재연</Name>
@@ -27,9 +27,10 @@ const MoreTemplate = () => {
               <P active={true}>3건</P>
             </InfoDiv>
           </InfoBox>
-          <Bar />
-        </Section>
-        <Section>
+        </FirstSection>
+        <Bar />
+
+        <SecondSection>
           <SectionTitle>고객센터</SectionTitle>
           <MenuItem>
             <Image
@@ -58,8 +59,8 @@ const MoreTemplate = () => {
             />
             신고내역 확인
           </MenuItem>
-        </Section>
-        <Section>
+        </SecondSection>
+        <ThirdSection>
           <SectionTitle>이용약관</SectionTitle>
           <MenuItem>
             <Image
@@ -79,7 +80,7 @@ const MoreTemplate = () => {
             />
             개인정보 처리방침
           </MenuItem>
-        </Section>
+        </ThirdSection>
       </Wrap>
       <TabMenu />
     </>
@@ -87,20 +88,38 @@ const MoreTemplate = () => {
 };
 
 const Wrap = styled.div`
-  width: 90%;
-  padding-bottom: 40px;
-
-  margin: 0 auto;
-  margin-top: 20px;
+  width: 100%;
+  height: 100vh;
+  background-color: #fff;
+  padding: 30px 0 83px;
 `;
 
-const Section = styled.div`
-  margin-bottom: 30px;
+const FirstSection = styled.div`
+  padding: 0 24px;
+`;
+
+const SecondSection = styled.div`
+  margin-top: 30px;
+  padding: 0 24px;
+`;
+
+const ThirdSection = styled.div`
+  margin-top: 30px;
+  padding: 0 24px;
+`;
+
+const Bar = styled.div`
+  height: 8px;
+  margin-top: 20px;
+
+  background-color: ${palette.LightGray2};
+  opacity: 0.5;
 `;
 
 const Title = styled.p`
   font-size: 1.5rem;
   line-height: 30px;
+  padding: 0 6px;
 `;
 
 const Name = styled.span`
@@ -143,17 +162,9 @@ const P = styled.p<StyledType>`
     font-family: 'SpoqaBold';`};
 `;
 
-const Bar = styled.div`
-  width: 100%;
-  height: 8px;
-
-  margin-top: 20px;
-  background: #f5f5f5;
-  opacity: 0.5;
-`;
-
 const SectionTitle = styled.h3`
-  color: #c4c4c4;
+  color: ${palette.TextGray};
+  font-family: 'SpoqaBold';
   font-size: 0.9375rem;
 `;
 
@@ -162,12 +173,13 @@ const MenuItem = styled.button`
   gap: 12px;
   width: 100%;
   padding: 15px;
+  font-size: 0.9375rem;
+  background-color: #fff;
+
+  text-align: left;
   border: none;
   outline: none;
   cursor: pointer;
-  font-size: 0.9375rem;
-  background: #fff;
-  text-align: left;
 `;
 
 export default MoreTemplate;

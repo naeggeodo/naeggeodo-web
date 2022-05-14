@@ -6,9 +6,7 @@ import CreateInit from './CreateInit';
 const CreateTemplate = () => {
   return (
     <>
-      <Wrap>
-        <CreateInit />
-      </Wrap>
+      <CreateInit />
       <TabMenu />
     </>
   );

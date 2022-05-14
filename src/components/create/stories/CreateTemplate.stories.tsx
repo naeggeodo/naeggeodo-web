@@ -13,6 +13,9 @@ export default {
       </Provider>
     ),
   ],
+  parameters: {
+    layout: 'fullscreen',
+  },
 } as ComponentMeta<typeof CreateTemplate>;
 
 export const CreateTemplateStory = () => <CreateTemplate />;

@@ -124,7 +124,9 @@ const CreateForm = () => {
             </ChatRoomContainer>
           </Content>
         </div>
-        <CreateButton storeName={storeName} />
+        <ButtonWrapper>
+          <CreateButton storeName={storeName} />
+        </ButtonWrapper>
       </Container>
     </Wrap>
   );
@@ -132,6 +134,8 @@ const CreateForm = () => {
 
 const Wrap = styled.div`
   width: 100%;
+  padding: 46px 0 83px;
+  background-color: #fff;
 `;
 
 const Container = styled.div`
@@ -140,7 +144,7 @@ const Container = styled.div`
   justify-content: space-between;
 
   width: 90%;
-  height: 100%;
+  height: 100vh;
 
   margin: 0 auto;
 `;
@@ -301,6 +305,13 @@ const MoveLinkButton = styled.button<MoveLinkProps>`
       visibility: visible;
       opacity: 1;
     `}
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
+  padding-bottom: 20px;
 `;
 
 export default CreateForm;

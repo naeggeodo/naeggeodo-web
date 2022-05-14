@@ -49,6 +49,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  background-color: #fff;
 
   width: 100%;
   height: 100vh;

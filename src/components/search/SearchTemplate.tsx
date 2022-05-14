@@ -42,11 +42,11 @@ const SearchTemplate = () => {
 };
 
 const Wrap = styled.div`
-  width: 90%;
+  width: 100%;
+  height: 100vh;
+  background-color: #fff;
 
-  padding-bottom: 40px;
-  margin: 0 auto;
-  margin-top: 20px;
+  padding: 30px 24px 83px;
 `;
 
 const SearchForm = styled.form`

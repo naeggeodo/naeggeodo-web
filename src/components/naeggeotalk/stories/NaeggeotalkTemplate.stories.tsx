@@ -9,18 +9,13 @@ export default {
   decorators: [
     (Story) => (
       <Provider store={configureStore()}>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '100vh',
-          }}>
-          <Story />
-        </div>
+        <Story />
       </Provider>
     ),
   ],
+  parameters: {
+    layout: 'fullscreen',
+  },
 } as ComponentMeta<typeof NaeggeotalkTemplate>;
 
 export const NaeggeotalkStory = () => <NaeggeotalkTemplate />;
