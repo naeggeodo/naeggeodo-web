@@ -134,7 +134,7 @@ const CreateForm = () => {
 
 const Wrap = styled.div`
   width: 100%;
-  padding: 46px 0;
+  padding: 46px 0 83px;
   background-color: #fff;
 `;
 
