@@ -1,4 +1,6 @@
 import { ComponentMeta } from '@storybook/react';
+import { Provider } from 'react-redux';
+import { configureStore } from '../../../modules';
 import Header from '../Header';
 
 export default {
@@ -6,9 +8,11 @@ export default {
   component: Header,
   decorators: [
     (Story) => (
-      <div style={{ height: '100vh', width: '100vw' }}>
-        <Story />
-      </div>
+      <Provider store={configureStore()}>
+        <div style={{ height: '100vh', width: '100vw' }}>
+          <Story />
+        </div>
+      </Provider>
     ),
   ],
   parameters: {
@@ -16,5 +20,9 @@ export default {
   },
 } as ComponentMeta<typeof Header>;
 
-// export const HeaderComp = () => <Header />;
-// HeaderComp.storyName = '채팅방 헤더';
+const HeaderStory = (args) => <Header {...args} />;
+export const HeaderComp = HeaderStory.bind({});
+
+HeaderComp.args = {};
+
+HeaderComp.storyName = '채팅방 헤더';
