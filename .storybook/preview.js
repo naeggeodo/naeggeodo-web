@@ -1,6 +1,11 @@
 import '@storybook/addon-console';
 import GlobalStyle from '../src/styles/GlobalStyle';
 import * as NextImage from 'next/image';
+import { initialize, mswDecorator } from 'msw-storybook-addon';
+
+import { RouterContext } from 'next/dist/shared/lib/router-context';
+
+initialize();
 
 const OriginalNextImage = NextImage.default;
 
@@ -10,6 +15,7 @@ Object.defineProperty(NextImage, 'default', {
 });
 
 export const decorators = [
+  mswDecorator,
   (Story) => (
     <>
       <GlobalStyle />
@@ -71,5 +77,8 @@ export const parameters = {
   },
   viewport: {
     viewports: customViewports,
+  },
+  nextRouter: {
+    Provider: RouterContext.Provider,
   },
 };

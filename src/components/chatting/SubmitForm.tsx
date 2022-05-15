@@ -1,32 +1,44 @@
+import { useRef, useState } from 'react';
+import styled from 'styled-components';
 import { CompatClient } from '@stomp/stompjs';
 import Image from 'next/image';
-import { useState } from 'react';
-import styled from 'styled-components';
-import { PreviousChattingItemResponse } from '../../modules/chatting/types';
-
 import { useChat } from '../../hooks/useChat';
 
-const SubmitForm = ({
-  stompClient,
-}: {
-  stompClient: CompatClient;
-  setMessageList: React.Dispatch<
-    React.SetStateAction<PreviousChattingItemResponse[]>
-  >;
-}) => {
-  const { onSendMessage } = useChat();
+const SubmitForm = ({ stompClient }: { stompClient: CompatClient }) => {
   const [message, setMessage] = useState('');
+  const { onSendMessage } = useChat();
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!message) return;
     const data = {
       chatMain_id: 1,
       sender: 1,
       contents: message,
       type: 'TEXT',
     };
-    onSendMessage(stompClient, data, setMessage);
+    onSendMessage(stompClient, data);
+    setMessage('');
   };
+
+  const onImgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const fileReader = new FileReader();
+    const imgFile = e.target.files[0];
+
+    fileReader.readAsDataURL(imgFile);
+    fileReader.onload = (e) => {
+      const result = e.target.result;
+
+      const data = {
+        chatMain_id: 1,
+        sender: 1,
+        contents: result as string,
+        type: 'TEXT',
+      };
+      onSendMessage(stompClient, data);
+    };
+  };
+
   return (
     <Wrap>
       <ContentWrap onSubmit={onSubmit}>
@@ -38,13 +50,15 @@ const SubmitForm = ({
             height={24}
           />
         </ImgAddLabel>
-        <ImgAddBtn type='file' accept='image/*' id='image' />
-        <Input
-          type='text'
+        <ImgAddInput
+          type='file'
+          accept='image/*'
+          id='image'
+          onChange={onImgChange}
+        />
+        <TextField
           value={message}
-          onChange={(e) => {
-            setMessage(e.target.value);
-          }}
+          onChange={(e) => setMessage(e.target.value)}
         />
         <Button>
           <Image
@@ -59,39 +73,55 @@ const SubmitForm = ({
   );
 };
 
-export default SubmitForm;
 const Wrap = styled.div`
-  background: #fff;
   width: 100%;
   height: 8%;
+  background: #fff;
 `;
+
 const ContentWrap = styled.form`
   display: flex;
+  justify-content: center;
   align-items: center;
+  gap: 3%;
+
   width: 90%;
   height: 100%;
+
   margin: 0 auto;
-  justify-content: center;
-  gap: 3%;
 `;
-const Input = styled.input`
-  background: #f2f2f8;
-  outline: none;
+
+const TextField = styled.textarea`
+  width: 90%;
+  max-height: 70%;
+
+  font-size: 0.9375rem;
+  resize: none;
+
   border: none;
   border-radius: 10px;
-  width: 90%;
-  height: 70%;
-  padding: 0 10px;
+  background-color: #f2f2f8;
+  padding: 10px 10px;
+  outline: none;
+
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
+
 const ImgAddLabel = styled.label`
   cursor: pointer;
 `;
-const ImgAddBtn = styled.input`
+
+const ImgAddInput = styled.input`
   display: none;
 `;
+
 const Button = styled.button`
-  outline: none;
-  cursor: pointer;
-  background: #fff;
-  border: none;
+  all: unset;
+  background-color: #fff;
 `;
+
+export default SubmitForm;

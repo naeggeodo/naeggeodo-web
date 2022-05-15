@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import palette from '../../styles/palette';
 import Image from 'next/image';
+import palette from '../../styles/palette';
 
 const KaKaoLoginBtn = () => {
   return (
@@ -16,21 +16,25 @@ const KaKaoLoginBtn = () => {
   );
 };
 
-export default KaKaoLoginBtn;
 const Button = styled.button`
-  width: 100%;
-  border: none;
-  outline: none;
-  border-radius: 10px;
-  height: 28%;
-  color: #000;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: ${palette.kakaoYellow};
-  font-size: 17px;
-  margin-bottom: 6px;
-  cursor: pointer;
-  margin-bottom: 10px;
   gap: 6px;
+
+  width: 100%;
+  height: 28%;
+
+  font-size: 1.0625rem;
+  color: #000;
+  background-color: ${palette.kakaoYellow};
+
+  margin-bottom: 10px;
+
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  outline: none;
 `;
+
+export default KaKaoLoginBtn;

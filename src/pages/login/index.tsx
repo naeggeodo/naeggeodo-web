@@ -1,5 +1,5 @@
 import Script from 'next/script';
-import LoginTemplate from '../components/login/LoginTemplate';
+import LoginTemplate from '../../components/login/LoginTemplate';
 
 const login = () => {
   return (

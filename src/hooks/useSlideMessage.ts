@@ -7,23 +7,28 @@ export function useSlideMessage() {
   ) => {
     let initialY = 0;
     let currentY = 0;
+    const targetHeight = target.current.offsetHeight;
+
     const grabDown = (e: PointerEvent | MouseEvent) => {
       initialY = e.pageY;
     };
+
     const grabMove = (e: PointerEvent | MouseEvent) => {
       if (initialY <= 0) return;
       currentY = e.pageY;
       if (currentY > initialY) {
-        target.current.style.height = `${200 - (currentY - initialY)}px`;
-        if (currentY - initialY > 50) {
+        target.current.style.height = `${
+          targetHeight - (currentY - initialY)
+        }px`;
+        if (currentY - initialY > 100) {
           target.current.style.height = '30px';
           initialY = 0;
           currentY = 0;
         }
       } else {
         target.current.style.height = `${30 + (initialY - currentY)}px`;
-        if (initialY - currentY > 50) {
-          target.current.style.height = '200px';
+        if (initialY - currentY > 100) {
+          target.current.style.height = `${targetHeight}px`;
           initialY = 0;
           currentY = 0;
         }
@@ -49,7 +54,12 @@ export function useSlideMessage() {
     };
   };
 
+  const slideDown = (target: MutableRefObject<HTMLDivElement>) => {
+    target.current.style.height = '30px';
+  };
+
   return {
     slideEvent,
+    slideDown,
   };
 }

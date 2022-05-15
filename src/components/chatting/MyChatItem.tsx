@@ -1,49 +1,78 @@
-import moment from 'moment';
 import styled from 'styled-components';
-import { PreviousChattingItemResponse } from '../../modules/chatting/types';
+import Image from 'next/image';
 import palette from '../../styles/palette';
+import DateFormatter from '../../utils/DateFormatter';
+
+import { PreviousChattingItemResponse } from '../../modules/chatting/types';
 
 const MyChatItem = ({
   message,
   date,
 }: {
   message: PreviousChattingItemResponse;
-  date: string;
+  date?: string;
 }) => {
+  const chatDate = new DateFormatter(date);
+
   return (
     <Wrap>
       <Time>
-        {moment().format('YYYYMMDD') === moment(date).format('YYYYMMDD') &&
-        moment(date).format('a') === 'am'
-          ? moment(date).format('오전 h:mm')
-          : moment(date).format('오후 h:mm')}
-        {moment().format('YYYYMMDD') !== moment(date).format('YYYYMMDD') &&
-          moment(date).format('MM/DD')}
+        <span>{chatDate.formatDate()}</span>
+        <span>{chatDate.formatTime()}</span>
       </Time>
-      <Content>{message.contents}</Content>
+      {message.contents.includes('data:image/') ? (
+        <StyledImg
+          src={message.contents}
+          alt='kakao logo'
+          width={400}
+          height={300}
+        />
+      ) : (
+        <Content>{message.contents}</Content>
+      )}
     </Wrap>
   );
 };
 
-export default MyChatItem;
 const Wrap = styled.div`
+  width: 100%;
+
   display: flex;
-  gap: 5px;
   justify-content: end;
   align-items: flex-end;
+  gap: 5px;
+
   margin-right: 10px;
-  width: 100%;
 `;
+
 const Time = styled.p`
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  font-size: 0.75rem;
   color: ${palette.DarkGray};
-  font-size: 12px;
 `;
+
 const Content = styled.p`
-  background: #fff;
-  font-size: 15px;
+  font-size: 0.9375rem;
+
+  background-color: #fff;
   border-radius: 10px 10px 0px 10px;
-  align-items: flex-start;
   padding: 6px 10px;
+
   line-height: 1.2em;
-  max-width: 80%;
+
+  white-space: pre;
+
+  max-width: 70%;
+  word-wrap: break-word;
 `;
+
+const StyledImg = styled(Image)`
+  border-radius: 10px;
+  border: 1px solid red;
+  overflow: hidden;
+`;
+
+export default MyChatItem;

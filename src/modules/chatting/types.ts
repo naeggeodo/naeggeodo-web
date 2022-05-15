@@ -1,5 +1,5 @@
 export type ChattingRoomInfoRequestPayload = {
-  chattingRoomId: number;
+  chattingRoomId: string;
 };
 
 export type ChattingRoomInfoResponsePayload = {
@@ -20,8 +20,8 @@ export type ChattingRoomInfoResponsePayload = {
 };
 
 export type PreviousChattingItemRequest = {
-  chattingRoomId: number;
-  userId: number;
+  chattingRoomId: string;
+  userId: string;
 };
 
 export type PreviousChattingItemResponse = {
@@ -37,4 +37,18 @@ export type PreviousChattingItemResponse = {
 
 export type PreviousChattingListResponse = {
   messages: PreviousChattingItemResponse[];
+};
+
+export type UserId = {
+  userId: string;
+};
+
+type QuickChatting = {
+  msg: string;
+  idx: number;
+};
+
+export type QuickChattingListResponse = {
+  quickChat: QuickChatting[];
+  user_id: string;
 };

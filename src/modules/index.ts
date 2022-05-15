@@ -4,19 +4,24 @@ import { combineReducers, applyMiddleware, createStore } from 'redux';
 import { all, fork } from 'redux-saga/effects';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
+import { mainPageState } from './main/reducer';
 import { chattingRoomState } from './chatting/reducer';
 import { postCodeState } from './search-post-code/reducer';
 import { getChattingRoomInfoSaga } from './chatting/sagas';
+import { getMainPageInfoSaga } from './main/sagas';
+import { createStates } from './create/reducer';
 
 //** RootReducer */
 export const rootReducer = combineReducers({
   chattingRoomState,
   postCodeState,
+  mainPageState,
+  createStates,
 });
 
 //** RootSaga */
 export function* rootSaga() {
-  yield all([fork(getChattingRoomInfoSaga)]);
+  yield all([fork(getChattingRoomInfoSaga), fork(getMainPageInfoSaga)]);
 }
 
 //** Hydrate */

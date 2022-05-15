@@ -17,4 +17,4 @@ export default {
 } as ComponentMeta<typeof GoInfoBtn>;
 
 export const GoInfo = () => <GoInfoBtn />;
-GoInfo.storyName = '가게 정보 보러가기 버튼';
+GoInfo.storyName = '돈을받으셨나요 버튼';

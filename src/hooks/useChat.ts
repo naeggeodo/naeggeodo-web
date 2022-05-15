@@ -9,7 +9,7 @@ export function useChat() {
       React.SetStateAction<PreviousChattingItemResponse[]>
     >,
   ) => {
-    stompClient.connect({ chatMain_id: '1', sender: '1' }, () => {
+    stompClient.connect({ chatMain_id: '1', sender: '2' }, () => {
       stompClient.subscribe(
         `/topic/${roomId}`,
         (data) => {
@@ -24,12 +24,10 @@ export function useChat() {
   const onSendMessage = (
     stompClient: CompatClient,
     data: PreviousChattingItemResponse,
-    setMessage: React.Dispatch<React.SetStateAction<string>>,
   ) => {
     if (stompClient && data) {
       stompClient.send('/app/chat/send', {}, JSON.stringify(data));
     }
-    setMessage('');
   };
 
   const disconnect = (stompClient: CompatClient) => {

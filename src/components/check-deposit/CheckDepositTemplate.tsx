@@ -49,13 +49,17 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100vh;
+  background-color: #fff;
+
   width: 100%;
-  font-size: 17px;
+  height: 100vh;
+
+  font-size: 1.0625rem;
+
   padding: 20px 30px;
 
   @media ${responsive.compact} {
-    font-size: 15px;
+    font-size: 0.9375rem;
   }
 `;
 
@@ -66,9 +70,10 @@ const TitleContainer = styled.div`
 `;
 
 const Title = styled.p`
-  font-size: 26px;
-  color: ${palette.black};
   font-family: 'SpoqaBold';
+  font-size: 1.625rem;
+  color: ${palette.black};
+
   letter-spacing: 0.35px;
 `;
 
@@ -87,8 +92,8 @@ const DepositYetUsers = styled(DepositUserList)`
 `;
 
 const SmallTitle = styled.p`
-  font-size: 12px;
   font-weight: 500;
+  font-size: 0.75rem;
   color: ${palette.DarkGray};
   text-align: center;
 `;
