@@ -12,7 +12,6 @@ export default {
 
 const Template = (args) => <NaeggeotalkListItem {...args} />;
 export const NaeggeotalkListItemStory = Template.bind({});
-
 NaeggeotalkListItemStory.args = {
   data: {
     title: '버거킹 백석 이마트점',
