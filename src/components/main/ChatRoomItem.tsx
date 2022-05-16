@@ -2,9 +2,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
+import { ChatRoomItemProps } from '../../modules/main/types';
 import palette from '../../styles/palette';
 import TimeCalculator from '../../utils/TimeCalculator';
-import { ChatRoomItemProps } from './types';
 
 const ChatRoomItem = ({
   title,
