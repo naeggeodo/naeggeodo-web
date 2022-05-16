@@ -12,20 +12,23 @@ const LoginTemplate = () => {
   return (
     <Container>
       <ContentWrap>
-        <StyledWrapper name='header'>
-          <Image
-            src='/assets/images/prevbtn.svg'
-            alt='prev button'
-            width={14}
-            height={24}
-          />
-        </StyledWrapper>
-        <StyledWrapper name='content'>
-          <Title>로그인하여</Title>
-          <Title>내꺼도의 모든 서비스를</Title>
-          <Title>이용하세요.</Title>
-          <P>우리동네 배달비 반값 플랫폼</P>
-        </StyledWrapper>
+        <TextWrapper>
+          <StyledWrapper name='header'>
+            <Image
+              src='/assets/images/prevbtn.svg'
+              alt='prev button'
+              width={14}
+              height={24}
+            />
+          </StyledWrapper>
+
+          <StyledWrapper name='content'>
+            <Title>로그인하여</Title>
+            <Title>내꺼도의 모든 서비스를</Title>
+            <Title>이용하세요.</Title>
+            <P>우리동네 배달비 반값 플랫폼</P>
+          </StyledWrapper>
+        </TextWrapper>
 
         <StyledWrapper name='buttons'>
           <KaKaoLoginBtn />
