@@ -28,8 +28,6 @@ const Button = styled.button`
   color: #fff;
   background-color: #000;
 
-  margin-bottom: 10px;
-
   border-radius: 10px;
   border: none;
   outline: none;

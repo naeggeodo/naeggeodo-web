@@ -11,33 +11,33 @@ type StyledProps = {
 
 const LoginTemplate = () => {
   return (
-    <Wrap>
+    <Container>
       <ContentWrap>
-        <Div name='header'>
+        <StyledWrapper name='header'>
           <Image
             src='/assets/images/prevbtn.svg'
             alt='prev button'
             width={14}
             height={24}
           />
-        </Div>
-        <Div name='content'>
+        </StyledWrapper>
+        <StyledWrapper name='content'>
           <Title>로그인하여</Title>
           <Title>내꺼도의 모든 서비스를</Title>
           <Title>이용하세요.</Title>
           <P>우리동네 배달비 반값 플랫폼</P>
-        </Div>
-        <Div name='buttons'>
+        </StyledWrapper>
+        <StyledWrapper name='buttons'>
           <KaKaoLoginBtn />
           <NaverLoginBtn />
           <AppleLoginBtn />
-        </Div>
+        </StyledWrapper>
       </ContentWrap>
-    </Wrap>
+    </Container>
   );
 };
 
-const Wrap = styled.div`
+const Container = styled.div`
   width: 100vw;
   height: 100vh;
   background-color: #fff;
@@ -65,7 +65,7 @@ const P = styled.p`
   margin-top: 30px;
 `;
 
-const Div = styled.div<StyledProps>`
+const StyledWrapper = styled.div<StyledProps>`
   width: 100%;
 
   ${(props) =>
@@ -83,11 +83,13 @@ const Div = styled.div<StyledProps>`
   ${(props) =>
     props.name === 'buttons' &&
     css`
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
       position: relative;
-      height: 30%;
 
       border-top: 1px solid ${palette.DarkGray};
-      padding-top: 26px;
 
       &::before {
         content: '간편 로그인';
