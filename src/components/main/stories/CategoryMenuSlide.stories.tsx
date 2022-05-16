@@ -1,27 +1,19 @@
 import CategoryMenuSlide from '../CategoryMenuSlide';
 import { ComponentMeta } from '@storybook/react';
-import { categoryMockData } from '../data';
+import { mockFoodCategories } from '../data';
 
 export default {
   title: 'main/컴포넌트',
   component: CategoryMenuSlide,
-  decorators: [
-    (Story) => (
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '100vh',
-        }}>
-        <Story />
-      </div>
-    ),
-  ],
+  decorators: [(Story) => <Story />],
 } as ComponentMeta<typeof CategoryMenuSlide>;
 
-export const CategoryMenu = () => (
-  <CategoryMenuSlide categories={categoryMockData} />
-);
+const Template = (args) => <CategoryMenuSlide {...args} />;
 
-CategoryMenu.storyName = '카테고리 메뉴 슬라이드';
+export const CategoryMenuStory = Template.bind({});
+
+CategoryMenuStory.args = {
+  foodCategories: mockFoodCategories,
+};
+
+CategoryMenuStory.storyName = '카테고리 메뉴 슬라이드';
