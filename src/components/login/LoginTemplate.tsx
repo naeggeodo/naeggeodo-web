@@ -26,6 +26,7 @@ const LoginTemplate = () => {
           <Title>이용하세요.</Title>
           <P>우리동네 배달비 반값 플랫폼</P>
         </StyledWrapper>
+
         <StyledWrapper name='buttons'>
           <KaKaoLoginBtn />
           <NaverLoginBtn />
@@ -91,11 +92,13 @@ const StyledWrapper = styled.div<StyledProps>`
   ${(props) =>
     props.name === 'buttons' &&
     css`
+      position: relative;
+
       display: flex;
       flex-direction: column;
       gap: 10px;
 
-      position: relative;
+      padding-top: 20px;
 
       border-top: 1px solid ${palette.DarkGray};
 
