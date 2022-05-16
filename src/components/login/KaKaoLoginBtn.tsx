@@ -19,16 +19,25 @@ const KaKaoLoginBtn = () => {
   );
 };
 
-const KaKaoLoginButton = styled.div`
+const KaKaoLoginButton = styled.span`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
 
   height: 52px;
   border-radius: 10px;
 
   background-color: ${palette.kakaoYellow};
+
+  cursor: pointer;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+
+  & > span {
+    font-size: 1.0625rem;
+  }
 `;
 
 export default KaKaoLoginBtn;
