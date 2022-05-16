@@ -4,13 +4,10 @@ import NaeggeotalkListItem from '../NaeggeotalkListItem';
 export default {
   title: 'naeggeotalk/컴포넌트',
   component: NaeggeotalkListItem,
-  decorators: [
-    (Story) => (
-      <div style={{}}>
-        <Story />
-      </div>
-    ),
-  ],
+  decorators: [(Story) => <Story />],
+  parameters: {
+    layout: 'fullscreen',
+  },
 } as ComponentMeta<typeof NaeggeotalkListItem>;
 
 const Template = (args) => <NaeggeotalkListItem {...args} />;
