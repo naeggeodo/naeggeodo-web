@@ -5,10 +5,8 @@ const KaKaoInfo = () => {
   const router = useRouter();
 
   useEffect(() => {
-    console.log('eddy');
+    console.log(router);
   }, []);
-
-  return <div>123</div>;
 };
 
 export default KaKaoInfo;
