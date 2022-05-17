@@ -34,7 +34,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
     store.dispatch(
       getQuickChattingListActions.request({
-        userId: '1',
+        userId: String(context.params.id),
       }),
     );
 
