@@ -33,8 +33,8 @@ const Header = ({ setDrawerOpen }: PropsType) => {
           height={44}
         />
         <Div>
-          <Info name='title'>{chatRoomInfo.title}</Info>
-          <Info name='info'>인원2명/{chatRoomInfo.maxCount}명</Info>
+          <Info name='title'>{chatRoomInfo?.title}</Info>
+          <Info name='info'>인원2명/{chatRoomInfo?.maxCount}명</Info>
         </Div>
         <HambergurButton
           onClick={() => {

@@ -4,8 +4,10 @@ import palette from '../../styles/palette';
 
 const GoInfoBtn = () => {
   const router = useRouter();
+  const chattingRoomId = router.query.id;
+
   const onClick = () => {
-    router.push('/check-deposit');
+    router.push(`/check-deposit/${chattingRoomId}`);
   };
 
   return <Button onClick={onClick}>돈을 받으셨나요?</Button>;

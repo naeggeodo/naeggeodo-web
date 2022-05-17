@@ -32,7 +32,6 @@ const ChattingTemplate = ({ previousChatting }) => {
   stompClient.current = Stomp.over(socketRef.current);
 
   useEffect(() => {
-    console.log(previousChatting);
     chatListDivRef.current.scroll({
       top: scrollRef.current.offsetTop,
       behavior: 'smooth',
@@ -47,7 +46,7 @@ const ChattingTemplate = ({ previousChatting }) => {
 
   return (
     <Wrap>
-      {/* <Header setDrawerOpen={setDrawerOpen} /> */}
+      <Header setDrawerOpen={setDrawerOpen} />
       <GoInfoBtn />
       <Content ref={chatListDivRef}>
         {previousChatting.messages &&

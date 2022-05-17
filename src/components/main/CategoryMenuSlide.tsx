@@ -50,7 +50,7 @@ const CategoryMenuSlide = ({
   return (
     <Container ref={slideRef}>
       <Track>
-        {foodCategories.map((item) => {
+        {foodCategories?.map((item) => {
           const lowerCaseItem = item.category.toLowerCase();
           return (
             <Link

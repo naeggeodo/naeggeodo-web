@@ -5,7 +5,9 @@ import { initialize, mswDecorator } from 'msw-storybook-addon';
 
 import { RouterContext } from 'next/dist/shared/lib/router-context';
 
-initialize();
+initialize({
+  onUnhandledRequest: 'bypass',
+});
 
 const OriginalNextImage = NextImage.default;
 
