@@ -5,7 +5,7 @@ import palette from '../../styles/palette';
 
 const NaverLoginBtn = () => {
   return (
-    <Link href='/'>
+    <Link href={`${process.env.NEXT_PUBLIC_API_URL}/login/OAuth/naver`}>
       <NaverLoginButton>
         <Image
           src='/assets/images/naverlogo.svg'
