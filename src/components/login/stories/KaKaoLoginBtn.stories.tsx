@@ -14,4 +14,5 @@ export default {
 } as ComponentMeta<typeof KaKaoLoginBtn>;
 
 export const KaKaoLogin = () => <KaKaoLoginBtn />;
+
 KaKaoLogin.storyName = '카카오 로그인 버튼';

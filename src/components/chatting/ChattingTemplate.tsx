@@ -47,7 +47,7 @@ const ChattingTemplate = ({ previousChatting }) => {
 
   return (
     <Wrap>
-      {/* <Header setDrawerOpen={setDrawerOpen} /> */}
+      <Header setDrawerOpen={setDrawerOpen} />
       <GoInfoBtn />
       <Content ref={chatListDivRef}>
         {previousChatting.messages &&

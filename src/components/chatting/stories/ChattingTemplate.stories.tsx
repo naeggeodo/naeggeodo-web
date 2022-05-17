@@ -1,5 +1,4 @@
 import { ComponentMeta } from '@storybook/react';
-import { rest } from 'msw';
 import { Provider } from 'react-redux';
 import { configureStore } from '../../../modules';
 import ChattingTemplate from '../ChattingTemplate';
@@ -20,8 +19,8 @@ export default {
 } as ComponentMeta<typeof ChattingTemplate>;
 
 const ChattingPageStory = (args) => <ChattingTemplate {...args} />;
-
 export const ChattingPage = ChattingPageStory.bind({});
+
 ChattingPage.args = {
   previousChatting: {
     messages: [
@@ -32,7 +31,7 @@ ChattingPage.args = {
         chatMain_id: 1,
         regDate: '2022-05-13T15:52:52',
         sender: 2,
-        contents: 'asdfas',
+        contents: '교촌치킨 먹고싶어요',
         type: 'TEXT',
       },
     ],

@@ -11,4 +11,5 @@ export default {
 } as ComponentMeta<typeof SearchTemplate>;
 
 export const SearchTabTemplate = () => <SearchTemplate />;
+
 SearchTabTemplate.storyName = '검색 탭 페이지';

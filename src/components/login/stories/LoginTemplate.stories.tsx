@@ -10,4 +10,5 @@ export default {
 } as ComponentMeta<typeof LoginTemplate>;
 
 export const LoginPage = () => <LoginTemplate />;
+
 LoginPage.storyName = '로그인 페이지';
