@@ -29,4 +29,12 @@ export default class ChattingService {
       console.log(err);
     }
   }
+
+  static async asyncGetCurrentChatUserList(chattingRoomId: string) {
+    try {
+      return await ApiService.getApi(`/chat/rooms/${chattingRoomId}/users`);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 }

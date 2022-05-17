@@ -1,11 +1,12 @@
 import Image from 'next/image';
 import React from 'react';
-
 import styled from 'styled-components';
+
+import { CurrentChatUser } from '../../modules/chatting/types';
 import palette from '../../styles/palette';
 import CompleteDepositButton from './CompleteDepositButton';
 
-const CheckDepositItem = ({ userNickName }: { userNickName: string }) => {
+const CheckDepositItem = ({ user }: { user: CurrentChatUser }) => {
   return (
     <Container>
       <div style={{ height: '52px' }}>
@@ -17,8 +18,8 @@ const CheckDepositItem = ({ userNickName }: { userNickName: string }) => {
           objectFit='contain'
         />
       </div>
-      <NickNameWrapper>{userNickName}</NickNameWrapper>
-      <CompleteDepositButton />
+      <NickNameWrapper>{user.user_id}</NickNameWrapper>
+      <CompleteDepositButton user={user} />
     </Container>
   );
 };
