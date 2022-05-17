@@ -31,13 +31,14 @@ const QuickMessageComp = ({ stompClient }: { stompClient: CompatClient }) => {
     const clickTarget = e.target as HTMLParagraphElement;
     const data = {
       chatMain_id: 1,
-      sender: 1,
+      sender: 2,
       contents: clickTarget.innerHTML,
       type: 'TEXT',
     };
     onSendMessage(stompClient, data);
     slideDown(target);
   };
+
   return (
     <Wrap ref={target}>
       <Div ref={slideBar}>
@@ -69,7 +70,7 @@ const QuickMessageComp = ({ stompClient }: { stompClient: CompatClient }) => {
 
 const Wrap = styled.div`
   position: fixed;
-  bottom: 8%;
+  bottom: 6%;
   width: 100%;
   background-color: #fff;
 

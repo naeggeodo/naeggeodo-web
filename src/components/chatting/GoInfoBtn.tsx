@@ -17,7 +17,7 @@ const Button = styled.button`
   width: 100%;
 
   padding: 13px;
-  margin-bottom: 30px;
+  margin-bottom: 0px;
 
   background-color: #fff;
   color: ${palette.mainOrange};
