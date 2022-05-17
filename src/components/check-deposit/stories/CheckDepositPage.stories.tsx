@@ -10,10 +10,10 @@ export default {
   decorators: [(Story) => <Story />],
 } as ComponentMeta<typeof CheckDeposit>;
 
-const Template = (args) => <CheckDeposit {...args} />;
+// const Template = (args) => <CheckDeposit {...args} />;
 
-export const CheckDepositPage = Template.bind({});
+// export const CheckDepositPage = Template.bind({});
 
-CheckDepositPage.args = {};
+// CheckDepositPage.args = {};
 
-CheckDepositPage.storyName = '돈을 받으셨나요 페이지';
+// CheckDepositPage.storyName = '돈을 받으셨나요 페이지';
