@@ -15,7 +15,7 @@ import DateFormatter from '../../utils/DateFormatter';
 import QuickMessageComp from './QuickMessageComp';
 import ChatDrawer from './ChatDrawer';
 
-const ChattingTemplate = ({ previousChatting }) => {
+const ChattingTemplate = ({ previousChatting }: { previousChatting: any }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const chatListDivRef = useRef<HTMLDivElement>(null);
   const socketRef = useRef(null);
@@ -51,7 +51,7 @@ const ChattingTemplate = ({ previousChatting }) => {
       <Content ref={chatListDivRef}>
         {previousChatting.messages &&
           previousChatting.messages.length > 0 &&
-          previousChatting.messages.map((message, i) => {
+          previousChatting.messages.map((message: any, i: any) => {
             if (message.user_id === 1)
               return (
                 <MyChatItem key={i} message={message} date={message.regDate} />
