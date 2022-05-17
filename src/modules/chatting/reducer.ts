@@ -1,11 +1,13 @@
 import {
   GET_CURRENT_CHATROOM_INFO_SUCCESS,
+  GET_CURRENT_CHAT_USER_LIST_SUCCESS,
   GET_PREVIOUS_CHATTING_LIST_SUCCESS,
   GET_QUICK_MESSAGE_LIST_SUCCESS,
-  SET_CHATTING_CREATE_TAB_MENU,
+  // SET_CHATTING_CREATE_TAB_MENU,
 } from './actions';
 import {
   ChattingRoomInfoResponsePayload,
+  CurrentChatUserListResponse,
   PreviousChattingListResponse,
   QuickChattingListResponse,
 } from './types';
@@ -15,14 +17,14 @@ type ChattingRoomState = {
   chatRoomInfo: ChattingRoomInfoResponsePayload | null;
   previousChatting: PreviousChattingListResponse;
   quickChatList: QuickChattingListResponse | null;
-  chattingCreateTab: string | null;
+  currentChatUserList: CurrentChatUserListResponse | null;
 };
 
 const initialChattingRoomState: ChattingRoomState = {
   chatRoomInfo: null,
   previousChatting: { messages: [] },
   quickChatList: null,
-  chattingCreateTab: null,
+  currentChatUserList: null,
 };
 
 export const chattingRoomState = createReducer<ChattingRoomState>(
@@ -40,9 +42,9 @@ export const chattingRoomState = createReducer<ChattingRoomState>(
       ...state,
       quickChatList: action.payload,
     }),
-    [SET_CHATTING_CREATE_TAB_MENU]: (state, action) => ({
+    [GET_CURRENT_CHAT_USER_LIST_SUCCESS]: (state, action) => ({
       ...state,
-      chattingCreateTab: action.payload,
+      currentChatUserList: action.payload,
     }),
   },
 );

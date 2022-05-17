@@ -1,5 +1,5 @@
 import { ComponentMeta } from '@storybook/react';
-import CheckDeposit from '../../../pages/check-deposit';
+import CheckDeposit from '../../../pages/check-deposit/[id]';
 
 export default {
   title: 'check-deposit/페이지',

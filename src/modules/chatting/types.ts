@@ -52,3 +52,11 @@ export type QuickChattingListResponse = {
   quickChat: QuickChatting[];
   user_id: string;
 };
+
+export type CurrentChatUser = {
+  user_id: string;
+  idx: number;
+  remittanceState: 'N' | 'Y';
+};
+
+export type CurrentChatUserListResponse = { users: CurrentChatUser[] };

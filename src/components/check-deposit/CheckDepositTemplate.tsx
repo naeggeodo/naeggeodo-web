@@ -1,14 +1,38 @@
 import Image from 'next/image';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import palette from '../../styles/palette';
 import responsive from '../../styles/responsive';
-
+import { RootState } from '../../modules';
 import CheckDepositItem from './CheckDepositItem';
 import ConvertToCompletedButton from './ConvertToCompletedButton';
+import { CurrentChatUser } from '../../modules/chatting/types';
 
 const CheckDepositTemplate = () => {
+  const { currentChatUserList } = useSelector(
+    (state: RootState) => state.chattingRoomState,
+  );
+
+  const { users } = currentChatUserList;
+
+  const [depositYetUsers, setDepositYetUsers] = useState<CurrentChatUser[]>([]);
+  const [depositUsers, setDepositUsers] = useState<CurrentChatUser[]>([]);
+
+  useEffect(() => {
+    if (!users) return;
+    setDepositYetUsers([]);
+    setDepositUsers([]);
+    for (let i = 0; i < users.length; i++) {
+      if (users[i].remittanceState === 'N') {
+        setDepositYetUsers((prev) => prev.concat(users[i]));
+      } else {
+        setDepositUsers((prev) => prev.concat(users[i]));
+      }
+    }
+  }, [currentChatUserList]);
+
   return (
     <Container>
       <TitleContainer>
@@ -29,15 +53,23 @@ const CheckDepositTemplate = () => {
 
       <div>
         <DepositUserList>
-          <SmallTitle>아직 못받았어요.</SmallTitle>
-          <CheckDepositItem userNickName='신길동 호랑이' />
-          <CheckDepositItem userNickName='신길동 호랑이' />
+          {depositYetUsers.length > 0 && (
+            <SmallTitle>아직 못받았어요.</SmallTitle>
+          )}
+          {depositYetUsers.length > 0 &&
+            depositYetUsers.map((v) => (
+              <CheckDepositItem key={v.idx} user={v} />
+            ))}
         </DepositUserList>
-
         <DepositYetUsers>
-          <SmallTitle>돈을 보낸 멤버들</SmallTitle>
-          <CheckDepositItem userNickName='신길동 호랑이' />
-          <CheckDepositItem userNickName='신길동 호랑이' />
+          <SmallTitle>
+            {depositYetUsers.length === 0 && '모두에게 돈을 받았어요'}
+            {depositYetUsers.length > 0 &&
+              depositUsers.length > 0 &&
+              '돈을 보낸 멤버들'}
+          </SmallTitle>
+          {depositUsers.length > 0 &&
+            depositUsers.map((v) => <CheckDepositItem key={v.idx} user={v} />)}
         </DepositYetUsers>
         <ConvertToCompletedButton />
       </div>

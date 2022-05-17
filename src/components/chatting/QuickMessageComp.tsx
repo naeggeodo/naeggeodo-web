@@ -1,11 +1,12 @@
 import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { CompatClient } from '@stomp/stompjs';
+import { useSelector } from 'react-redux';
 import Image from 'next/image';
+
 import { useChat } from '../../hooks/useChat';
 import { useSlideMessage } from '../../hooks/useSlideMessage';
 import palette from '../../styles/palette';
-import { useSelector } from 'react-redux';
 import { RootState } from '../../modules';
 
 const QuickMessageComp = ({ stompClient }: { stompClient: CompatClient }) => {
