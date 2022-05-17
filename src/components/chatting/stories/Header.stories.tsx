@@ -3,13 +3,17 @@ import { Provider } from 'react-redux';
 import { configureStore } from '../../../modules';
 import Header from '../Header';
 
+type Args = {
+  setDrawerOpen: null;
+};
+
 export default {
   title: 'chatting/컴포넌트',
   component: Header,
   decorators: [
     (Story) => (
       <Provider store={configureStore()}>
-        <div style={{ height: '100vh', width: '100vw' }}>
+        <div style={{ margin: '20px' }}>
           <Story />
         </div>
       </Provider>
@@ -20,9 +24,6 @@ export default {
   },
 } as ComponentMeta<typeof Header>;
 
-const HeaderStory = (args) => <Header {...args} />;
-export const HeaderComp = HeaderStory.bind({});
+export const HeaderStory = (args: Args) => <Header {...args} />;
 
-HeaderComp.args = {};
-
-HeaderComp.storyName = '채팅방 헤더';
+HeaderStory.storyName = '채팅방 헤더';
