@@ -2,7 +2,6 @@ import Image from 'next/image';
 import styled from 'styled-components';
 
 type StyledType = {
-  first?: boolean;
   isMe?: boolean;
   drawerOpen?: boolean;
 };
@@ -42,23 +41,22 @@ const ChatDrawer = ({ setDrawerOpen, drawerOpen }: PropsType) => {
               height={55}
               alt='이미지'
               objectFit='contain'
-              first={true}
             />
-            <StyledImage
+            <Image
               src='/assets/images/pizzabg.svg'
               width={55}
               height={55}
               alt='이미지'
               objectFit='contain'
             />
-            <StyledImage
+            <Image
               src='/assets/images/pizzabg.svg'
               width={55}
               height={55}
               alt='이미지'
               objectFit='contain'
             />
-            <StyledImage
+            <Image
               src='/assets/images/pizzabg.svg'
               width={55}
               height={55}
@@ -175,8 +173,8 @@ const ImageList = styled.div`
   overflow-y: hidden;
 `;
 
-const StyledImage = styled(Image)<StyledType>`
-  ${(props) => props.first && 'border-radius: 5px 0px 0px 5px'};
+const StyledImage = styled(Image)`
+  border-radius: 5px 0px 0px 5px;
 `;
 
 const MemberItem = styled.div`

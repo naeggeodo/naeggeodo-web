@@ -13,7 +13,7 @@ const SubmitForm = ({ stompClient }: { stompClient: CompatClient }) => {
     if (!message) return;
     const data = {
       chatMain_id: 1,
-      sender: 1,
+      sender: 2,
       contents: message,
       type: 'TEXT',
     };
@@ -75,7 +75,7 @@ const SubmitForm = ({ stompClient }: { stompClient: CompatClient }) => {
 
 const Wrap = styled.div`
   width: 100%;
-  height: 8%;
+  height: 6%;
   background: #fff;
 `;
 
