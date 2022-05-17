@@ -24,6 +24,7 @@ export default {
 
 const Template = (args: Args) => <CreateButton {...args} />;
 export const CreateButtonStory = Template.bind({});
+
 CreateButtonStory.args = {
   storeName: '',
 };

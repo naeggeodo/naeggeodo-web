@@ -14,4 +14,5 @@ export default {
 } as ComponentMeta<typeof NaverLoginBtn>;
 
 export const NaverLogin = () => <NaverLoginBtn />;
+
 NaverLogin.storyName = '네이버 로그인 버튼';

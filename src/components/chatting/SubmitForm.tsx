@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import { CompatClient } from '@stomp/stompjs';
 import Image from 'next/image';
