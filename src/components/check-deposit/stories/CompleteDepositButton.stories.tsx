@@ -26,12 +26,12 @@ export default {
   ],
 } as ComponentMeta<typeof CheckDepositItem>;
 
-const Template = (args: Props) => <CheckDepositItem {...args} />;
+// const Template = (args: Props) => <CheckDepositItem {...args} />;
 
-export const CompleteButton = Template.bind({});
+// export const CompleteButton = Template.bind({});
 
-CompleteButton.args = {
-  userNickName: '신길동 호랑이',
-};
+// CompleteButton.args = {
+//   userNickName: '신길동 호랑이',
+// };
 
-CompleteButton.storyName = '수령 완료 버튼';
+// CompleteButton.storyName = '수령 완료 버튼';
