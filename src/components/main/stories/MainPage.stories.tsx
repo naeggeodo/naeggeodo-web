@@ -19,12 +19,6 @@ export default {
   ],
 };
 
-const Template = (args) => <Home {...args} />;
+// export const Main = () => <Home />;
 
-export const MainStory = Template.bind({});
-MainStory.args = {
-  foodCategories: mockFoodCategories,
-  chatRooms: chatListMockData,
-};
-
-MainStory.storyName = '메인페이지';
+// Main.storyName = '메인페이지';

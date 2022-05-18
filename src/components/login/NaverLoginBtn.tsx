@@ -1,19 +1,12 @@
 import Image from 'next/image';
-import { useRef } from 'react';
+import Link from 'next/link';
 import styled from 'styled-components';
 import palette from '../../styles/palette';
 
 const NaverLoginBtn = () => {
-  const naverRef = useRef(null);
-
-  const handleClick = () => {
-    naverRef.current.children[0].click();
-  };
-
   return (
-    <>
-      <div ref={naverRef} id='naverIdLogin' style={{ display: 'none' }}></div>
-      <Button onClick={handleClick}>
+    <Link href={`${process.env.NEXT_PUBLIC_API_URL}/login/OAuth/naver`}>
+      <NaverLoginButton>
         <Image
           src='/assets/images/naverlogo.svg'
           alt='naver logo'
@@ -21,30 +14,31 @@ const NaverLoginBtn = () => {
           height={14}
         />
         <span>네이버 계정으로 로그인</span>
-      </Button>
-    </>
+      </NaverLoginButton>
+    </Link>
   );
 };
 
-const Button = styled.button`
+const NaverLoginButton = styled.span`
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
 
-  width: 100%;
-  height: 28%;
+  height: 52px;
 
   font-size: 1.0625rem;
   color: #fff;
   background-color: ${palette.naverGreen};
 
-  margin-bottom: 10px;
-
   cursor: pointer;
   border-radius: 10px;
   border: none;
   outline: none;
+
+  & > span {
+    font-size: 1.0625rem;
+  }
 `;
 
 export default NaverLoginBtn;
