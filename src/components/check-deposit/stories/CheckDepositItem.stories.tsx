@@ -1,7 +1,7 @@
 import { ComponentMeta } from '@storybook/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '../../../modules';
-import CompleteDepositButton from '../CompleteDepositButton';
+import CheckDepositItem from '../CheckDepositItem';
 
 type Args = {
   user: {
@@ -13,7 +13,7 @@ type Args = {
 
 export default {
   title: 'check-deposit/컴포넌트',
-  component: CompleteDepositButton,
+  component: CheckDepositItem,
   parameters: {
     layout: 'fullscreen',
   },
@@ -32,14 +32,18 @@ export default {
       </Provider>
     ),
   ],
-} as ComponentMeta<typeof CompleteDepositButton>;
+} as ComponentMeta<typeof CheckDepositItem>;
 
-// const Template = (args: Props) => <CheckDepositItem {...args} />;
+const CheckDepositItemStory = (args: Args) => <CheckDepositItem {...args} />;
 
-// export const CompleteButton = Template.bind({});
+export const CheckDepositItemComp = CheckDepositItemStory.bind({});
 
-// CompleteButton.args = {
-//   userNickName: '신길동 호랑이',
-// };
+CheckDepositItemComp.args = {
+  user: {
+    user_id: '신길동 호랑이',
+    idx: 1,
+    remittanceState: 'N',
+  },
+};
 
-// CompleteButton.storyName = '수령 완료 버튼';
+CheckDepositItemComp.storyName = '수령 페이지 아이템';

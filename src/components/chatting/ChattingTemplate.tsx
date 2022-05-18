@@ -9,7 +9,10 @@ import SubmitForm from '../chatting/SubmitForm';
 import ChatItem from '../chatting/ChatItem';
 import MyChatItem from '../chatting/MyChatItem';
 
-import { PreviousChattingItemResponse } from '../../modules/chatting/types';
+import {
+  PreviousChattingItemResponse,
+  PreviousChattingListResponse,
+} from '../../modules/chatting/types';
 import { useChat } from '../../hooks/useChat';
 import DateFormatter from '../../utils/DateFormatter';
 import QuickMessageComp from './QuickMessageComp';
@@ -36,11 +39,9 @@ const ChattingTemplate = ({ previousChatting }: { previousChatting: any }) => {
       top: scrollRef.current.offsetTop,
       behavior: 'smooth',
     });
-
     if (!stompClient.current.connected) {
       connect(stompClient.current, 1, setMessageList); // 1은 채팅방 아이디
     }
-
     return () => disconnect(stompClient.current);
   }, [messageList]);
 
@@ -85,7 +86,7 @@ const ChattingTemplate = ({ previousChatting }: { previousChatting: any }) => {
           })}
         <Scroll ref={scrollRef} />
       </Content>
-      {/* <QuickMessageComp stompClient={stompClient.current} /> */}
+      <QuickMessageComp stompClient={stompClient.current} />
       <SubmitForm stompClient={stompClient.current} />
       <ChatDrawer drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />
     </Wrap>
@@ -96,8 +97,11 @@ const Wrap = styled.div`
   width: 100vw;
   height: 100vh;
 
-  background: #f2f2f8;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
+  background: #f2f2f8;
   overflow: hidden;
 `;
 
@@ -109,9 +113,9 @@ const Content = styled.div`
   position: relative;
 
   width: 100%;
-  height: 72%;
+  height: 100%;
+  margin-top: 10px;
 
-  margin: 0 auto;
   padding-bottom: 30px;
 
   overflow-y: auto;

@@ -9,8 +9,10 @@ import { RootState } from '../../modules';
 import CheckDepositItem from './CheckDepositItem';
 import ConvertToCompletedButton from './ConvertToCompletedButton';
 import { CurrentChatUser } from '../../modules/chatting/types';
+import { useRouter } from 'next/router';
 
 const CheckDepositTemplate = () => {
+  const router = useRouter();
   const { currentChatUserList } = useSelector(
     (state: RootState) => state.chattingRoomState,
   );
@@ -36,12 +38,17 @@ const CheckDepositTemplate = () => {
   return (
     <Container>
       <TitleContainer>
-        <Image
-          src='/assets/images/prevbtn.svg'
-          width={11}
-          height={24}
-          layout='fixed'
-        />
+        <PrevButton
+          onClick={() => {
+            router.push(`/chatting/${router.query.id}`);
+          }}>
+          <Image
+            src='/assets/images/prevbtn.svg'
+            width={11}
+            height={24}
+            layout='fixed'
+          />
+        </PrevButton>
         <Title>돈을 받으셨나요?</Title>
         <p style={{ lineHeight: 1.5 }}>
           수정완료 버튼을 누르면
@@ -99,6 +106,14 @@ const TitleContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 15px;
+`;
+
+const PrevButton = styled.button`
+  width: 40px;
+  text-align: left;
+  border: none;
+  outline: none;
+  background: #fff;
 `;
 
 const Title = styled.p`
