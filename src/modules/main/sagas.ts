@@ -6,7 +6,7 @@ import {
   GET_CHAT_ROOMS_LIST_REQUEST,
   GET_FOOD_CATEGORIES_REQUEST,
 } from './actions';
-import { CategoriesResponse, ChatRoomItemResponse } from './types';
+import { CategoriesResponse } from './types';
 
 function* getFoodCategoriesGenerator(
   action: ReturnType<typeof getFoodCategoriesActions.request>,
@@ -18,7 +18,7 @@ function* getFoodCategoriesGenerator(
 }
 
 function* getChatRoomsListGenerator(
-  actions: ReturnType<typeof getChatRoomsListActions.request>,
+  action: ReturnType<typeof getChatRoomsListActions.request>,
 ) {
   const { data } = yield call(MainService.asyncGetChatRooms);
   console.log(data, 'eddy');

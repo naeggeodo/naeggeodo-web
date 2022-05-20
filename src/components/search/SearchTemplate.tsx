@@ -1,21 +1,11 @@
 import Image from 'next/image';
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import TabMenu from '../../components/main/TabMenu';
+import { SearchTagListResponse } from '../../modules/search/types';
 import palette from '../../styles/palette';
 
-const SearchTemplate = () => {
-  const searchHistoryList = [
-    '떡볶이',
-    '닭발',
-    '교촌치킨',
-    '허니콤보',
-    '불닭치킨',
-    'GS25',
-    '무료배달',
-    '테이크아웃',
-    '파리바게트',
-  ];
-
+const SearchTemplate = ({ tags }: SearchTagListResponse) => {
   return (
     <>
       <Wrap>
@@ -31,9 +21,10 @@ const SearchTemplate = () => {
           <Input type='text' placeholder='검색어를 입력해주세요' />
         </SearchForm>
         <SearchHistoryList>
-          {searchHistoryList.map((v, i) => (
-            <SearchHistoryItem key={i}>{v}</SearchHistoryItem>
-          ))}
+          {tags &&
+            tags.map((v, i) => (
+              <SearchHistoryItem key={i}>{v.msg}</SearchHistoryItem>
+            ))}
         </SearchHistoryList>
       </Wrap>
       <TabMenu />

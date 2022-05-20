@@ -10,6 +10,8 @@ import { postCodeState } from './search-post-code/reducer';
 import { getChattingRoomInfoSaga } from './chatting/sagas';
 import { getMainPageInfoSaga } from './main/sagas';
 import { createStates } from './create/reducer';
+import { searchPageState } from './search/reducer';
+import { getSearchPageInfoSaga } from './search/sagas';
 
 //** RootReducer */
 export const rootReducer = combineReducers({
@@ -17,11 +19,16 @@ export const rootReducer = combineReducers({
   postCodeState,
   mainPageState,
   createStates,
+  searchPageState,
 });
 
 //** RootSaga */
 export function* rootSaga() {
-  yield all([fork(getChattingRoomInfoSaga), fork(getMainPageInfoSaga)]);
+  yield all([
+    fork(getChattingRoomInfoSaga),
+    fork(getMainPageInfoSaga),
+    fork(getSearchPageInfoSaga),
+  ]);
 }
 
 //** Hydrate */
