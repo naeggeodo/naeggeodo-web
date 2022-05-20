@@ -23,7 +23,7 @@ const MyChatItem = ({
       {message.contents.includes('data:image/') ? (
         <StyledImg
           src={message.contents}
-          alt='kakao logo'
+          alt='채팅 이미지'
           width={400}
           height={300}
         />
@@ -41,6 +41,7 @@ const Wrap = styled.div`
   justify-content: end;
   align-items: flex-end;
   gap: 5px;
+  flex-wrap: wrap;
 
   margin-right: 10px;
 `;
@@ -55,18 +56,17 @@ const Time = styled.p`
 `;
 
 const Content = styled.p`
-  font-size: 0.9375rem;
+  max-width: 70%;
 
-  background-color: #fff;
-  border-radius: 10px 10px 0px 10px;
+  display: flex;
+  flex-wrap: wrap;
+
   padding: 6px 10px;
 
+  font-size: 0.9375rem;
   line-height: 1.2em;
-
-  white-space: pre;
-
-  max-width: 70%;
-  word-wrap: break-word;
+  background-color: #fff;
+  border-radius: 10px 10px 0px 10px;
 `;
 
 const StyledImg = styled(Image)`

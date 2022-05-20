@@ -11,14 +11,14 @@ import {
   CurrentChatUserListResponse,
 } from '../../modules/chatting/types';
 import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../modules';
 
-const CheckDepositTemplate = ({
-  currentChatUserList,
-}: {
-  currentChatUserList: CurrentChatUserListResponse;
-}) => {
+const CheckDepositTemplate = () => {
   const router = useRouter();
-
+  const { currentChatUserList } = useSelector(
+    (state: RootState) => state.chattingRoomState,
+  );
   const { users } = currentChatUserList;
 
   const [depositYetUsers, setDepositYetUsers] = useState<CurrentChatUser[]>([]);

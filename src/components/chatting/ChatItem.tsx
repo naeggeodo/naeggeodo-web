@@ -21,17 +21,16 @@ const ChatItem = ({
         height={35}
         layout='fixed'
       />
-      {/* {message?.contents?.includes('data:image/') ? (
+      {message.contents.includes('data:image/') ? (
         <StyledImg
           src={message.contents}
-          alt='image'
+          alt='채팅 이미지'
           width={400}
-          height={300}
+          height={400}
         />
       ) : (
         <Content>{message.contents}</Content>
-      )} */}
-      <Content>{message.contents}</Content>
+      )}
 
       <Time>
         <span>{chatDate.formatDate()}</span>
@@ -45,6 +44,7 @@ const Wrap = styled.div`
   display: flex;
   align-items: flex-end;
   gap: 5px;
+  flex-wrap: wrap;
 
   width: 100%;
 
@@ -60,19 +60,16 @@ const StyledImage = styled(Image)`
 const Content = styled.p`
   max-width: 70%;
 
+  display: flex;
+  flex-wrap: wrap;
+
   padding: 6px 10px;
 
   font-size: 0.9375rem;
-  color: #fff;
   line-height: 1.2em;
+  color: #fff;
   background-color: ${palette.mainOrange};
-
   border-radius: 10px 10px 10px 0px;
-  border-radius: 10px 10px 10px 0px;
-
-  white-space: pre;
-
-  word-wrap: break-word;
 `;
 
 const Time = styled.p`
