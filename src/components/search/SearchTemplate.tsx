@@ -5,6 +5,10 @@ import { SearchTagListResponse } from '../../modules/search/types';
 import palette from '../../styles/palette';
 
 const SearchTemplate = ({ tags }: SearchTagListResponse) => {
+  const onTagClick = () => {
+    console.log('클릭');
+  };
+
   return (
     <>
       <Wrap>
@@ -22,7 +26,9 @@ const SearchTemplate = ({ tags }: SearchTagListResponse) => {
         <SearchHistoryList>
           {tags &&
             tags.map((v, i) => (
-              <SearchHistoryItem key={i}>{v.msg}</SearchHistoryItem>
+              <SearchHistoryItem key={i} onClick={onTagClick}>
+                {v.msg}
+              </SearchHistoryItem>
             ))}
         </SearchHistoryList>
       </Wrap>

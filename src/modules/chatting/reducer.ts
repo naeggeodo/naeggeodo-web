@@ -3,7 +3,6 @@ import {
   GET_CURRENT_CHAT_USER_LIST_SUCCESS,
   GET_PREVIOUS_CHATTING_LIST_SUCCESS,
   GET_QUICK_MESSAGE_LIST_SUCCESS,
-  // SET_CHATTING_CREATE_TAB_MENU,
 } from './actions';
 import {
   ChattingRoomInfoResponsePayload,
