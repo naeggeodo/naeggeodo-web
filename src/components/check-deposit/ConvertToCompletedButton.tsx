@@ -1,12 +1,18 @@
+import { useRouter } from 'next/router';
 import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
+import { useDeposit } from '../../hooks/useDeposit';
 import palette from '../../styles/palette';
 
 const ConvertToCompletedButton = () => {
+  const { convertToComplete } = useDeposit();
+  const router = useRouter();
+
   const [isCompleted, setIsCompleted] = useState<boolean>(false);
 
   const handleCompleted = useCallback(() => {
     setIsCompleted(true);
+    convertToComplete(router.query.id as string);
   }, [isCompleted]);
 
   return !isCompleted ? (

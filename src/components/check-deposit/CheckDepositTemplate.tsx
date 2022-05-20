@@ -1,22 +1,24 @@
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import palette from '../../styles/palette';
 import responsive from '../../styles/responsive';
-import { RootState } from '../../modules';
 import CheckDepositItem from './CheckDepositItem';
 import ConvertToCompletedButton from './ConvertToCompletedButton';
-import { CurrentChatUser } from '../../modules/chatting/types';
+import {
+  CurrentChatUser,
+  CurrentChatUserListResponse,
+} from '../../modules/chatting/types';
 import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../modules';
 
 const CheckDepositTemplate = () => {
   const router = useRouter();
   const { currentChatUserList } = useSelector(
     (state: RootState) => state.chattingRoomState,
   );
-
   const { users } = currentChatUserList;
 
   const [depositYetUsers, setDepositYetUsers] = useState<CurrentChatUser[]>([]);

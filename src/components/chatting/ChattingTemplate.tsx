@@ -17,12 +17,20 @@ import { useChat } from '../../hooks/useChat';
 import DateFormatter from '../../utils/DateFormatter';
 import QuickMessageComp from './QuickMessageComp';
 import ChatDrawer from './ChatDrawer';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../modules';
 
-const ChattingTemplate = ({ previousChatting }: { previousChatting: any }) => {
+const ChattingTemplate = ({
+  previousChatting,
+}: {
+  previousChatting: PreviousChattingListResponse;
+}) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const chatListDivRef = useRef<HTMLDivElement>(null);
-  const socketRef = useRef(null);
-  const stompClient = useRef<CompatClient>(null);
+
+  const { chatRoomInfo } = useSelector(
+    (state: RootState) => state.chattingRoomState,
+  );
 
   const { connect, disconnect } = useChat();
 
@@ -31,28 +39,28 @@ const ChattingTemplate = ({ previousChatting }: { previousChatting: any }) => {
   >([]);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-  socketRef.current = new SockJS(`${process.env.NEXT_PUBLIC_API_URL}/chat`);
-  stompClient.current = Stomp.over(socketRef.current);
+  const socket = new SockJS(`${process.env.NEXT_PUBLIC_API_URL}/chat`);
+  const stompClient = Stomp.over(socket);
 
   useEffect(() => {
     chatListDivRef.current.scroll({
       top: scrollRef.current.offsetTop,
       behavior: 'smooth',
     });
-    if (!stompClient.current.connected) {
-      connect(stompClient.current, 1, setMessageList); // 1은 채팅방 아이디
+    if (!stompClient.connected) {
+      connect(stompClient, 1, setMessageList); // 1은 채팅방 아이디
     }
-    return () => disconnect(stompClient.current);
+    return () => disconnect(stompClient);
   }, [messageList]);
 
   return (
     <Wrap>
       <Header setDrawerOpen={setDrawerOpen} />
-      <GoInfoBtn />
+      {chatRoomInfo.state !== 'END' && <GoInfoBtn />}
       <Content ref={chatListDivRef}>
         {previousChatting.messages &&
           previousChatting.messages.length > 0 &&
-          previousChatting.messages.map((message: any, i: any) => {
+          previousChatting.messages.map((message, i) => {
             if (message.user_id === 1)
               return (
                 <MyChatItem key={i} message={message} date={message.regDate} />
@@ -86,8 +94,8 @@ const ChattingTemplate = ({ previousChatting }: { previousChatting: any }) => {
           })}
         <Scroll ref={scrollRef} />
       </Content>
-      <QuickMessageComp stompClient={stompClient.current} />
-      <SubmitForm stompClient={stompClient.current} />
+      <QuickMessageComp stompClient={stompClient} />
+      <SubmitForm stompClient={stompClient} />
       <ChatDrawer drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />
     </Wrap>
   );

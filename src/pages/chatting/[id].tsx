@@ -8,8 +8,6 @@ import {
   getQuickChattingListActions,
 } from '../../modules/chatting/actions';
 import { PreviousChattingListResponse } from '../../modules/chatting/types';
-import { useEffect } from 'react';
-import axios from 'axios';
 
 const chatting = ({
   previousChatting,
