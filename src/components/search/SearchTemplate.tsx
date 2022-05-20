@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import { useEffect } from 'react';
 import styled from 'styled-components';
 import TabMenu from '../../components/main/TabMenu';
 import { SearchTagListResponse } from '../../modules/search/types';
