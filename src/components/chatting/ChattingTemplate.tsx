@@ -17,6 +17,8 @@ import { useChat } from '../../hooks/useChat';
 import DateFormatter from '../../utils/DateFormatter';
 import QuickMessageComp from './QuickMessageComp';
 import ChatDrawer from './ChatDrawer';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../modules';
 
 const ChattingTemplate = ({
   previousChatting,
@@ -25,6 +27,10 @@ const ChattingTemplate = ({
 }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const chatListDivRef = useRef<HTMLDivElement>(null);
+
+  const { chatRoomInfo } = useSelector(
+    (state: RootState) => state.chattingRoomState,
+  );
 
   const { connect, disconnect } = useChat();
 
@@ -50,7 +56,7 @@ const ChattingTemplate = ({
   return (
     <Wrap>
       <Header setDrawerOpen={setDrawerOpen} />
-      <GoInfoBtn />
+      {chatRoomInfo.state !== 'END' && <GoInfoBtn />}
       <Content ref={chatListDivRef}>
         {previousChatting.messages &&
           previousChatting.messages.length > 0 &&
