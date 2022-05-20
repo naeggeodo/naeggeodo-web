@@ -55,10 +55,7 @@ export default class MyDocument extends Document {
             property='og:url'
             content='http://www.naeggeodo.com:8080/create'
           />
-          <meta
-            property='og:image'
-            content='/public/assets/images/hamburger.svg'
-          />
+          <meta property='og:image' content='/assets/images/hamburger.svg' />
         </Head>
         <body>
           <div id='webviewPortal'></div>
