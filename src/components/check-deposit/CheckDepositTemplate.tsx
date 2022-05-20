@@ -16,6 +16,7 @@ import { RootState } from '../../modules';
 
 const CheckDepositTemplate = () => {
   const router = useRouter();
+
   const { currentChatUserList } = useSelector(
     (state: RootState) => state.chattingRoomState,
   );

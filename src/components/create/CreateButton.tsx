@@ -8,7 +8,7 @@ const CreateButton = ({ storeName }: { storeName: string }) => {
 const Button = styled.button`
   all: unset;
   height: 52px;
-  width: 90%;
+  width: 100%;
 
   text-align: center;
 

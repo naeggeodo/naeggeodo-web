@@ -5,7 +5,8 @@ type StyledType = {
   active?: boolean;
 };
 
-const NaeggeotalkListItem = ({ data }: any) => {
+type PropsType = { title: string; date: string; populate: string };
+const NaeggeotalkListItem = ({ data }: { data: PropsType }) => {
   return (
     <Container active={true}>
       <Content>

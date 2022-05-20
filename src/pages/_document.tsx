@@ -36,7 +36,7 @@ export default class MyDocument extends Document {
           <meta charSet='UTF-8' />
           <meta property='og:title' content='내꺼 배달비 반띵하러 가기 🛵' />
           <meta name='Keywords' content='내꺼도' />
-          <meta http-equiv='X-UA-Compatible' content='IE-edge' />
+          <meta httpEquiv='X-UA-Compatible' content='IE-edge' />
           <meta
             name='viewport'
             content='width=device-width, initial-scale=1.0'

@@ -4,6 +4,7 @@ import Image from 'next/image';
 import styled, { css } from 'styled-components';
 import { RootState } from '../../modules';
 import palette from '../../styles/palette';
+import { useRouter } from 'next/router';
 
 type StyledType = {
   name: 'title' | 'info';
@@ -14,6 +15,8 @@ type PropsType = {
 };
 
 const Header = ({ setDrawerOpen }: PropsType) => {
+  const router = useRouter();
+
   const { chatRoomInfo } = useSelector(
     (state: RootState) => state.chattingRoomState,
   );
@@ -21,12 +24,17 @@ const Header = ({ setDrawerOpen }: PropsType) => {
   return (
     <Wrap>
       <ContentWrap>
-        <Image
-          src='/assets/images/prevbtn.svg'
-          alt='prev button'
-          width={14}
-          height={24}
-        />
+        <PrevButton
+          onClick={() => {
+            router.push('/');
+          }}>
+          <Image
+            src='/assets/images/prevbtn.svg'
+            alt='prev button'
+            width={14}
+            height={24}
+          />
+        </PrevButton>
         <StyledImage
           src='/assets/images/hamburger.svg'
           width={44}
@@ -70,6 +78,13 @@ const ContentWrap = styled.div`
   height: 100%;
 
   margin: 0 auto;
+`;
+
+const PrevButton = styled.button`
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 0;
 `;
 
 const StyledImage = styled(Image)`
