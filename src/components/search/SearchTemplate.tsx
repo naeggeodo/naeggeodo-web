@@ -87,7 +87,7 @@ const Wrap = styled.div`
   height: 100vh;
   background-color: #fff;
 
-  padding: 30px 24px 83px;
+  padding: 35px 24px 83px;
 `;
 
 const SearchForm = styled.form`

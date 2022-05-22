@@ -144,13 +144,12 @@ const Container = styled.div`
   justify-content: space-between;
 
   width: 90%;
-  height: 100vh;
-
   margin: 0 auto;
 `;
 
 const Content = styled.div`
   margin-top: 19.5px;
+  min-height: 70vh;
 `;
 
 const Item = styled.div`

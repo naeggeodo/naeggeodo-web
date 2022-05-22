@@ -32,13 +32,13 @@ const NaeggeotalkTemplate = () => {
 const Container = styled.div`
   width: 100%;
   padding: 46px 0 83px;
-  min-height: 86vh;
   background-color: #fff;
 `;
 
 const Content = styled.div`
   margin-top: 19.5px;
   padding-bottom: 52px;
+  min-height: 70vh;
 `;
 
 const ButtonWrapper = styled.div`
