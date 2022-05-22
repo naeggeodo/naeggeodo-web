@@ -21,7 +21,6 @@ function* getChatRoomsListGenerator(
   action: ReturnType<typeof getChatRoomsListActions.request>,
 ) {
   const { data } = yield call(MainService.asyncGetChatRooms);
-  console.log(data, 'eddy');
   yield put(getChatRoomsListActions.success(data));
 }
 

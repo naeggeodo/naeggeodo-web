@@ -1,14 +1,16 @@
-import { useRouter } from 'next/router';
+import axios from 'axios';
 import React, { useEffect } from 'react';
+import { ApiService } from '../../../../service/api';
 
-const KaKaoInfo = () => {
-  const router = useRouter();
-
+const index = () => {
   useEffect(() => {
-    console.log('eddy');
+    (async () => {
+      const res = await ApiService.getApi('/login/OAuth/kakao');
+      console.log(res);
+    })();
   }, []);
 
-  return <div>123</div>;
+  return <div>카카오로그인</div>;
 };
 
-export default KaKaoInfo;
+export default index;
