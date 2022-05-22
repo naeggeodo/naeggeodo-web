@@ -23,7 +23,6 @@
     "@types/sockjs-client": "^1.5.1",
     "@types/stompjs": "^2.3.5",
     "axios": "^0.26.0",
-    "msw": "^0.39.2",
     "next": "^12.1.0",
     "next-images": "^1.8.4",
     "next-redux-wrapper": "^7.0.5",
@@ -69,7 +68,6 @@
     "eslint-plugin-testing-library": "^5.2.0",
     "file-loader": "^6.2.0",
     "jest": "^27.5.1",
-    "msw-storybook-addon": "^1.6.3",
     "next-compose-plugins": "^2.2.1",
     "redux-devtools-extension": "^2.13.9",
     "storybook-addon-next": "^1.6.2",
@@ -77,8 +75,5 @@
     "storybook-dark-mode": "^1.0.9",
     "typescript": "^4.6.2",
     "url-loader": "^4.1.1"
-  },
-  "msw": {
-    "workerDirectory": "public"
   }
 }
