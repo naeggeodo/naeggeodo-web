@@ -1,18 +1,41 @@
 import Image from 'next/image';
+import { FormEvent, PointerEvent, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import TabMenu from '../../components/main/TabMenu';
+
+import { RootState } from '../../modules';
+import {
+  getResultByInputActions,
+  getResultByTagActions,
+} from '../../modules/search/actions';
 import { SearchTagListResponse } from '../../modules/search/types';
 import palette from '../../styles/palette';
+import ChatRoomItem from '../main/ChatRoomItem';
 
 const SearchTemplate = ({ tags }: SearchTagListResponse) => {
-  const onTagClick = () => {
-    console.log('클릭');
+  const dispatch = useDispatch();
+
+  const [keyWord, setKeyWord] = useState('');
+
+  const { searchResultList } = useSelector(
+    (state: RootState) => state.searchPageState,
+  );
+
+  const onSearchClick = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch(getResultByInputActions.request(keyWord));
+  };
+
+  const onTagClick = (e: PointerEvent<HTMLSpanElement>) => {
+    const target = e.target as HTMLSpanElement;
+    dispatch(getResultByTagActions.request(target.innerText));
   };
 
   return (
     <>
       <Wrap>
-        <SearchForm>
+        <SearchForm onSubmit={onSearchClick}>
           <Button>
             <Image
               src='/assets/images/searchgray.svg'
@@ -21,16 +44,38 @@ const SearchTemplate = ({ tags }: SearchTagListResponse) => {
               height={21}
             />
           </Button>
-          <Input type='text' placeholder='검색어를 입력해주세요' />
+          <Input
+            type='text'
+            value={keyWord}
+            placeholder='검색어를 입력해주세요'
+            onChange={(e) => {
+              setKeyWord(e.target.value);
+            }}
+          />
         </SearchForm>
-        <SearchHistoryList>
-          {tags &&
-            tags.map((v, i) => (
-              <SearchHistoryItem key={i} onClick={onTagClick}>
-                {v.msg}
-              </SearchHistoryItem>
+        {searchResultList ? (
+          <ResultList>
+            {searchResultList.chatRoom.map((v, i) => (
+              <ChatRoomItem
+                key={i}
+                title={v.title}
+                link={v.link}
+                maxCount={v.maxCount}
+                createDate={v.createDate}
+                currentCount={v.currentCount}
+              />
             ))}
-        </SearchHistoryList>
+          </ResultList>
+        ) : (
+          <SearchTagList>
+            {tags &&
+              tags.map((v, i) => (
+                <SearchTag key={i} onPointerDown={onTagClick}>
+                  {v.msg}
+                </SearchTag>
+              ))}
+          </SearchTagList>
+        )}
       </Wrap>
       <TabMenu />
     </>
@@ -72,11 +117,12 @@ const Button = styled.button`
   border: none;
 `;
 
-const SearchHistoryList = styled.div`
+const SearchTagList = styled.div`
   width: 100%;
   margin-bottom: 20px;
 `;
-const SearchHistoryItem = styled.span`
+
+const SearchTag = styled.span`
   display: inline-block;
 
   background: #f5f5f5;
@@ -85,5 +131,7 @@ const SearchHistoryItem = styled.span`
   border-radius: 5px;
   font-size: 0.9375rem;
 `;
+
+const ResultList = styled.div``;
 
 export default SearchTemplate;
