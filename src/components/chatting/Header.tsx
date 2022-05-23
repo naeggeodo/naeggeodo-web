@@ -22,7 +22,7 @@ const Header = ({ setDrawerOpen }: PropsType) => {
   );
 
   return (
-    <Wrap>
+    <Container>
       <ContentWrap>
         <PrevButton
           onClick={() => {
@@ -56,11 +56,11 @@ const Header = ({ setDrawerOpen }: PropsType) => {
           />
         </HambergurButton>
       </ContentWrap>
-    </Wrap>
+    </Container>
   );
 };
 
-const Wrap = styled.div`
+const Container = styled.div`
   width: 100%;
   height: 10%;
 
