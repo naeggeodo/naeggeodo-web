@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios';
-import { createAction, createAsyncAction } from 'typesafe-actions';
+import { createAsyncAction } from 'typesafe-actions';
 import {
   ChattingRoomInfoRequestPayload,
   ChattingRoomInfoResponsePayload,
@@ -41,8 +41,10 @@ export const GET_QUICK_MESSAGE_LIST_FAILURE =
 
 export const GET_CURRENT_CHAT_USER_LIST_REQUEST =
   namespace + 'GET_CURRENT_CHAT_USER_LIST_REQUEST';
+
 export const GET_CURRENT_CHAT_USER_LIST_SUCCESS =
   namespace + 'GET_CURRENT_CHAT_USER_LIST_SUCCESS';
+
 export const GET_CURRENT_CHAT_USER_LIST_FAILURE =
   namespace + 'GET_CURRENT_CHAT_USER_LIST_FAILURE';
 

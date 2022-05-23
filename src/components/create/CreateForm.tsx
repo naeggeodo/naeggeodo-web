@@ -144,13 +144,12 @@ const Container = styled.div`
   justify-content: space-between;
 
   width: 90%;
-  height: 100vh;
-
   margin: 0 auto;
 `;
 
 const Content = styled.div`
   margin-top: 19.5px;
+  min-height: 70vh;
 `;
 
 const Item = styled.div`
@@ -310,7 +309,6 @@ const MoveLinkButton = styled.button<MoveLinkProps>`
 const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 100px;
   padding-bottom: 20px;
 `;
 

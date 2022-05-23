@@ -11,7 +11,6 @@ const ChatRoomItem = ({
   maxCount,
   createDate,
   currentCount,
-  link,
 }: ChatRoomItemProps) => {
   const timeCalculator = new TimeCalculator(createDate);
 
