@@ -5,6 +5,7 @@ import Portal from '../common/Portal';
 import { Address } from 'react-daum-postcode';
 import { useDispatch } from 'react-redux';
 import { saveAddresWithBuildingCode } from '../../modules/search-post-code/actions';
+import palette from '../../styles/palette';
 
 const PostCodeWebView = ({ closeWebView }: { closeWebView: () => void }) => {
   const dispatch = useDispatch();
@@ -34,8 +35,8 @@ const PostCodeWebView = ({ closeWebView }: { closeWebView: () => void }) => {
         <DaumPostcode
           style={{ height: '100%', width: '100%' }}
           onComplete={handleComplete}
-          onClose={closeWebView}
-        />
+          onClose={closeWebView}></DaumPostcode>
+        <CloseButton onClick={closeWebView}>닫기</CloseButton>
       </WebViewContainer>
     </Portal>
   );
@@ -43,10 +44,8 @@ const PostCodeWebView = ({ closeWebView }: { closeWebView: () => void }) => {
 
 const Background = styled.div`
   position: fixed;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
+  width: 100vw;
+  height: 100vh;
 
   background-color: #000000;
   opacity: 0.7;
@@ -67,6 +66,24 @@ const WebViewContainer = styled.div`
   z-index: 2;
 
   transform: translate(-50%, -50%);
+`;
+
+const CloseButton = styled.button`
+  all: unset;
+  position: absolute;
+  right: 5%;
+  bottom: 2%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: ${palette.mainOrange};
+  color: #ffffff;
+
+  padding: 8px;
+  border-radius: 10px;
+  cursor: pointer;
 `;
 
 export default PostCodeWebView;
