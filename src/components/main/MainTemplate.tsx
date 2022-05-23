@@ -11,6 +11,7 @@ import {
   CategoriesResponse,
   ChatRoomItemResponse,
 } from '../../modules/main/types';
+import LoginModalTemplate from '../login/LoginModalTemplate';
 
 const MainTemplate = ({
   foodCategories,
@@ -29,6 +30,12 @@ const MainTemplate = ({
     setWebViewIsOpen(false);
   };
 
+  const [login, setLogin] = useState(false);
+
+  const openLogin = () => {
+    setLogin(!login);
+  };
+
   return (
     <Container>
       <SearchPostCode openWebView={openWebView} />
@@ -45,8 +52,11 @@ const MainTemplate = ({
           />
         ))}
       </StyledUl>
-      {webViewIsOpen && <PostCodeWebView closeWebView={closeWebView} />}
       <TabMenu />
+      {webViewIsOpen && <PostCodeWebView closeWebView={closeWebView} />}
+      {login && <LoginModalTemplate />}
+
+      <button onClick={openLogin}>로그인</button>
     </Container>
   );
 };
