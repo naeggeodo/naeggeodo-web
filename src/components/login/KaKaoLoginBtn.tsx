@@ -9,7 +9,8 @@ const KaKaoLoginBtn = () => {
 
   return (
     <Link
-      href={`https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`}>
+      href={`${process.env.NEXT_PUBLIC_API_URL}/login/OAuth/kakao`}
+      passHref>
       <KaKaoLoginButton>
         <Image
           src='/assets/images/kakaologo.svg'
@@ -23,7 +24,7 @@ const KaKaoLoginBtn = () => {
   );
 };
 
-const KaKaoLoginButton = styled.span`
+const KaKaoLoginButton = styled.a`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -38,6 +39,8 @@ const KaKaoLoginButton = styled.span`
   border-radius: 10px;
   border: none;
   outline: none;
+  color: #000;
+  text-decoration: none;
 
   & > span {
     font-size: 1.0625rem;

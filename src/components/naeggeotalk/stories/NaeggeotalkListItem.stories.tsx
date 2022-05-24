@@ -17,7 +17,6 @@ NaeggeotalkListItemStory.args = {
   data: {
     title: '버거킹 백석 이마트점',
     date: '하루 전',
-    populate: '1/2명',
   },
 };
 

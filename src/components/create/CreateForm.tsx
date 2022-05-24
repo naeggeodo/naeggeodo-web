@@ -134,22 +134,25 @@ const CreateForm = () => {
 
 const Wrap = styled.div`
   width: 100%;
+
   padding: 46px 0 83px;
   background-color: #fff;
 `;
 
 const Container = styled.div`
+  width: 90%;
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
-  width: 90%;
   margin: 0 auto;
 `;
 
 const Content = styled.div`
-  margin-top: 19.5px;
   min-height: 70vh;
+
+  margin-top: 19.5px;
 `;
 
 const Item = styled.div`
