@@ -5,7 +5,7 @@ type StyledType = {
   active?: boolean;
 };
 
-type PropsType = { title: string; date: string; populate: string };
+type PropsType = { title: string; date: string };
 const NaeggeotalkListItem = ({ data }: { data: PropsType }) => {
   return (
     <Container active={true}>
@@ -15,7 +15,6 @@ const NaeggeotalkListItem = ({ data }: { data: PropsType }) => {
           <div>
             <Title>{data.title}</Title>
             <Date>{data.date}</Date>
-            <Populate>{data.populate}</Populate>
           </div>
         </div>
         {/* <Image src='/assets/images/yellowstar.svg' width={18} height={24} /> */}
@@ -53,11 +52,6 @@ const Date = styled.span`
   padding: 2px 5px;
   margin-right: 5px;
   border-radius: 3px;
-`;
-
-const Populate = styled.span`
-  font-size: 0.75rem;
-  color: #696969;
 `;
 
 export default NaeggeotalkListItem;

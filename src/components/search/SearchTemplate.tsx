@@ -1,9 +1,9 @@
 import Image from 'next/image';
-import { FormEvent, PointerEvent, useState } from 'react';
+import { FormEvent, PointerEvent, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import TabMenu from '../../components/main/TabMenu';
 
+import TabMenu from '../../components/main/TabMenu';
 import { RootState } from '../../modules';
 import {
   getResultByInputActions,
@@ -12,15 +12,53 @@ import {
 import { SearchTagListResponse } from '../../modules/search/types';
 import palette from '../../styles/palette';
 import ChatRoomItem from '../main/ChatRoomItem';
+import { SearchResult } from '../../modules/search/types';
 
 const SearchTemplate = ({ tags }: SearchTagListResponse) => {
   const dispatch = useDispatch();
 
-  const [keyWord, setKeyWord] = useState('');
+  const target = useRef<HTMLDivElement>(null);
 
   const { searchResultList } = useSelector(
     (state: RootState) => state.searchPageState,
   );
+
+  const limit = 5;
+
+  const [keyWord, setKeyWord] = useState('');
+  const [skip, setSkip] = useState(0);
+  const [dataList, setDataList] = useState<SearchResult[]>([]);
+
+  useEffect(() => {
+    if (searchResultList) {
+      const observer = new IntersectionObserver(callback, { threshold: 0.8 });
+      observer.observe(target.current);
+
+      return () => {
+        observer && observer.disconnect();
+      };
+    }
+  }, [searchResultList]);
+
+  useEffect(() => {
+    if (searchResultList && skip <= searchResultList.chatRoom.length) {
+      const arr = [];
+      for (let i = skip; i < searchResultList.chatRoom.length; i++) {
+        if (arr.length > limit) break;
+        arr.push(searchResultList.chatRoom[i]);
+      }
+      console.log(arr);
+      setDataList((prev) => prev.concat(arr));
+    }
+  }, [skip, searchResultList]);
+
+  const callback = async ([entry], observer: IntersectionObserver) => {
+    if (entry.isIntersecting) {
+      observer.unobserve(entry.target);
+      setSkip((prev) => prev + limit + 1);
+      observer.observe(entry.target);
+    }
+  };
 
   const onSearchClick = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -53,9 +91,9 @@ const SearchTemplate = ({ tags }: SearchTagListResponse) => {
             }}
           />
         </SearchForm>
-        {searchResultList ? (
+        {dataList.length > 0 ? (
           <ResultList>
-            {searchResultList.chatRoom.map((v, i) => (
+            {dataList.map((v, i) => (
               <ChatRoomItem
                 key={i}
                 title={v.title}
@@ -76,6 +114,7 @@ const SearchTemplate = ({ tags }: SearchTagListResponse) => {
               ))}
           </SearchTagList>
         )}
+        <Target ref={target}></Target>
       </Wrap>
       <TabMenu />
     </>
@@ -133,5 +172,10 @@ const SearchTag = styled.span`
 `;
 
 const ResultList = styled.div``;
+
+const Target = styled.div`
+  width: 100%;
+  height: 100px;
+`;
 
 export default SearchTemplate;

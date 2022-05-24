@@ -1,11 +1,14 @@
-import axios from 'axios';
+import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import { ApiService } from '../../../../service/api';
 
 const index = () => {
+  const router = useRouter();
+
   useEffect(() => {
     (async () => {
-      const res = await ApiService.getApi('/login/OAuth/kakao');
+      const code = router.asPath;
+      const res = await ApiService.getApi(`${code}`);
       console.log(res);
     })();
   }, []);

@@ -7,7 +7,7 @@ export type SearchTagListResponse = {
   tags: Tag[];
 };
 
-type SearchResult = {
+export type SearchResult = {
   buildingCode: string;
   link: string;
   title: string;
