@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 const KaKaoLoginBtn = () => {
   const CLIENT_ID = '97fb8027ff91de67e7c7bad120325b18';
-  const REDIRECT_URI = 'http://localhost:8080/oauth/getInfo/kakao';
+  const REDIRECT_URI = 'http://localhost:8080/login/OAuth/kakao';
 
   return (
     <Link
