@@ -1,109 +1,139 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import { CompatClient, Stomp } from '@stomp/stompjs';
+import SockJS from 'sockjs-client';
+
 import Header from '../chatting/Header';
 import GoInfoBtn from '../chatting/GoInfoBtn';
 import SubmitForm from '../chatting/SubmitForm';
 import ChatItem from '../chatting/ChatItem';
-import QuickMessageComp from '../chatting/QuickMessageComp';
 import MyChatItem from '../chatting/MyChatItem';
-import { PreviousChattingItemResponse } from '../../modules/chatting/types';
 
+import {
+  PreviousChattingItemResponse,
+  PreviousChattingListResponse,
+} from '../../modules/chatting/types';
 import { useChat } from '../../hooks/useChat';
-import { Stomp } from '@stomp/stompjs';
-import SockJS from 'sockjs-client';
-import moment from 'moment';
+import DateFormatter from '../../utils/DateFormatter';
+import QuickMessageComp from './QuickMessageComp';
+import ChatDrawer from './ChatDrawer';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../modules';
 
-const ChattingTemplate = () => {
-  const [messageList, setMessageList] = useState<
-    PreviousChattingItemResponse[]
-  >([]);
+const ChattingTemplate = ({
+  previousChatting,
+}: {
+  previousChatting: PreviousChattingListResponse;
+}) => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const chatListDivRef = useRef<HTMLDivElement>(null);
 
-  const { previousChatting } = useSelector(
+  const { chatRoomInfo } = useSelector(
     (state: RootState) => state.chattingRoomState,
   );
 
-  const socket = new SockJS(`${process.env.NEXT_PUBLIC_API_URL}/chat`);
-  const stompClient = Stomp.over(socket);
   const { connect, disconnect } = useChat();
 
+  const [messageList, setMessageList] = useState<
+    PreviousChattingItemResponse[]
+  >([]);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const socket = new SockJS(`${process.env.NEXT_PUBLIC_API_URL}/chat`);
+  const stompClient = Stomp.over(socket);
+
   useEffect(() => {
+    chatListDivRef.current.scroll({
+      top: scrollRef.current.offsetTop,
+      behavior: 'smooth',
+    });
     if (!stompClient.connected) {
       connect(stompClient, 1, setMessageList); // 1은 채팅방 아이디
     }
     return () => disconnect(stompClient);
-  }, [stompClient, messageList]);
+  }, [messageList]);
 
   return (
     <Wrap>
-      <Header />
-      <Div>
-        <GoInfoBtn />
-      </Div>
-      <Content>
+      <Header setDrawerOpen={setDrawerOpen} />
+      {chatRoomInfo.state !== 'END' && <GoInfoBtn />}
+      <Content ref={chatListDivRef}>
         {previousChatting.messages &&
           previousChatting.messages.length > 0 &&
           previousChatting.messages.map((message, i) => {
-            if (message.user_id === 1) {
-              // 1은 내 아이디
-              // 내 아이디랑 같으면
+            if (message.user_id === 1)
               return (
                 <MyChatItem key={i} message={message} date={message.regDate} />
               );
-            } else {
+            else
               return (
                 <ChatItem key={i} message={message} date={message.regDate} />
               );
-            }
           })}
+
         {messageList &&
           messageList.length > 0 &&
           messageList.map((message, i) => {
             if (message.sender === 1) {
-              // 내 아이디랑 같으면
               return (
                 <MyChatItem
                   key={i}
                   message={message}
-                  date={moment().format()}
+                  date={DateFormatter.getNowDate()}
                 />
               );
             } else {
               return (
-                <ChatItem key={i} message={message} date={moment().format()} />
+                <ChatItem
+                  key={i}
+                  message={message}
+                  date={DateFormatter.getNowDate()}
+                />
               );
             }
           })}
+        <Scroll ref={scrollRef} />
       </Content>
-      <QuickMessageComp />
-      <SubmitForm stompClient={stompClient} setMessageList={setMessageList} />
+      <QuickMessageComp stompClient={stompClient} />
+      <SubmitForm stompClient={stompClient} />
+      <ChatDrawer drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />
     </Wrap>
   );
 };
 
-export default ChattingTemplate;
-
 const Wrap = styled.div`
   width: 100vw;
   height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
   background: #f2f2f8;
   overflow: hidden;
 `;
-const Div = styled.div`
-  width: 100%;
-  height: 10%;
-  padding: 10px 0 18px;
-`;
+
 const Content = styled.div`
-  width: 100%;
-  margin: 0 auto;
-  height: 72%;
-  padding-bottom: 30px;
-  position: relative;
   display: flex;
   flex-direction: column;
   gap: 15px;
+
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+  margin-top: 10px;
+
+  padding-bottom: 30px;
+
   overflow-y: auto;
   overflow-x: hidden;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
+
+const Scroll = styled.div``;
+
+export default ChattingTemplate;

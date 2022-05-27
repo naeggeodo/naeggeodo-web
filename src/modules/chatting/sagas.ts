@@ -1,14 +1,20 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { call, put, take, takeLatest } from 'redux-saga/effects';
 import ChattingService from '../../service/api/chatting/ChattingService';
 import {
   getCurrentChatRoomAsyncActions,
+  getCurrentChatUserListActions,
   getPreviousChattingListActions,
+  getQuickChattingListActions,
   GET_CURRENT_CHATROOM_INFO_REQUEST,
+  GET_CURRENT_CHAT_USER_LIST_REQUEST,
   GET_PREVIOUS_CHATTING_LIST_REQUEST,
+  GET_QUICK_MESSAGE_LIST_REQUEST,
 } from './actions';
 import {
   ChattingRoomInfoResponsePayload,
+  CurrentChatUserListResponse,
   PreviousChattingListResponse,
+  QuickChattingListResponse,
 } from './types';
 
 function* getChattingRoomInfoGenerator(
@@ -29,8 +35,27 @@ function* getPreviousChattingListGenerator(
     action.payload.chattingRoomId,
     action.payload.userId,
   );
-
   yield put(getPreviousChattingListActions.success(data));
+}
+
+function* getQuickChattingListGenerator(
+  action: ReturnType<typeof getQuickChattingListActions.request>,
+) {
+  const { data }: { data: QuickChattingListResponse } = yield call(
+    ChattingService.asyncGetQuickChattingList,
+    action.payload.userId,
+  );
+  yield put(getQuickChattingListActions.success(data));
+}
+
+function* getCurrentChatUserListGenerator(
+  action: ReturnType<typeof getCurrentChatUserListActions.request>,
+) {
+  const { data }: { data: CurrentChatUserListResponse } = yield call(
+    ChattingService.asyncGetCurrentChatUserList,
+    action.payload.chattingRoomId,
+  );
+  yield put(getCurrentChatUserListActions.success(data));
 }
 
 export function* getChattingRoomInfoSaga() {
@@ -39,6 +64,11 @@ export function* getChattingRoomInfoSaga() {
     takeLatest(
       GET_PREVIOUS_CHATTING_LIST_REQUEST,
       getPreviousChattingListGenerator,
+    ),
+    takeLatest(GET_QUICK_MESSAGE_LIST_REQUEST, getQuickChattingListGenerator),
+    takeLatest(
+      GET_CURRENT_CHAT_USER_LIST_REQUEST,
+      getCurrentChatUserListGenerator,
     ),
   ];
 }

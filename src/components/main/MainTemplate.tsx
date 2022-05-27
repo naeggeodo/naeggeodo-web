@@ -6,10 +6,20 @@ import ChatRoomItem from './ChatRoomItem';
 import TabMenu from './TabMenu';
 import SearchPostCode from './SearchPostCode';
 
-import { categoryMockData, chatListMockData } from './data';
 import PostCodeWebView from './PostCodeWebView';
+import {
+  CategoriesResponse,
+  ChatRoomItemResponse,
+} from '../../modules/main/types';
+import LoginModalTemplate from '../login/LoginModalTemplate';
 
-const MainTemplate = () => {
+const MainTemplate = ({
+  foodCategories,
+  chatRooms,
+}: {
+  foodCategories: CategoriesResponse[];
+  chatRooms: ChatRoomItemResponse[];
+}) => {
   const [webViewIsOpen, setWebViewIsOpen] = useState(false);
 
   const openWebView = () => {
@@ -20,24 +30,33 @@ const MainTemplate = () => {
     setWebViewIsOpen(false);
   };
 
+  const [login, setLogin] = useState(false);
+
+  const openLogin = () => {
+    setLogin(!login);
+  };
+
   return (
     <Container>
       <SearchPostCode openWebView={openWebView} />
-      <CategoryMenuSlide categories={categoryMockData} />
+      <CategoryMenuSlide foodCategories={foodCategories} />
       <StyledUl>
-        {chatListMockData.map((item) => (
+        {chatRooms.map((item) => (
           <ChatRoomItem
             key={item.id}
-            title={item.title + item.id}
-            chattingUrl={item.chattingUrl}
-            total={item.total}
-            numOfPeople={item.numOfPeople}
-            registerTime={item.registerTime}
+            title={item.title}
+            link={item.link}
+            maxCount={item.maxCount}
+            currentCount={item.currentCount}
+            createDate={item.createDate}
           />
         ))}
       </StyledUl>
-      {webViewIsOpen && <PostCodeWebView closeWebView={closeWebView} />}
       <TabMenu />
+      {webViewIsOpen && <PostCodeWebView closeWebView={closeWebView} />}
+      {login && <LoginModalTemplate />}
+
+      <button onClick={openLogin}>로그인</button>
     </Container>
   );
 };

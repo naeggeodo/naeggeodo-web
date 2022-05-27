@@ -1,6 +1,10 @@
 import { ComponentMeta } from '@storybook/react';
 import SubmitForm from '../SubmitForm';
 
+type Args = {
+  stompClient: null;
+};
+
 export default {
   title: 'chatting/컴포넌트',
   component: SubmitForm,
@@ -16,5 +20,6 @@ export default {
   },
 } as ComponentMeta<typeof SubmitForm>;
 
-// export const SubmitFormComp = () => <SubmitForm />;
-// SubmitFormComp.storyName = '채팅 전송 인풋';
+export const SubmitFormStory = (args: Args) => <SubmitForm {...args} />;
+
+SubmitFormStory.storyName = '채팅 전송 인풋';

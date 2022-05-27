@@ -2,6 +2,8 @@ import '@storybook/addon-console';
 import GlobalStyle from '../src/styles/GlobalStyle';
 import * as NextImage from 'next/image';
 
+import { RouterContext } from 'next/dist/shared/lib/router-context';
+
 const OriginalNextImage = NextImage.default;
 
 Object.defineProperty(NextImage, 'default', {
@@ -71,5 +73,8 @@ export const parameters = {
   },
   viewport: {
     viewports: customViewports,
+  },
+  nextRouter: {
+    Provider: RouterContext.Provider,
   },
 };

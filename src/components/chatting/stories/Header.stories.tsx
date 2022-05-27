@@ -1,14 +1,22 @@
 import { ComponentMeta } from '@storybook/react';
+import { Provider } from 'react-redux';
+import { configureStore } from '../../../modules';
 import Header from '../Header';
+
+type Args = {
+  setDrawerOpen: null;
+};
 
 export default {
   title: 'chatting/컴포넌트',
   component: Header,
   decorators: [
     (Story) => (
-      <div style={{ height: '100vh', width: '100vw' }}>
-        <Story />
-      </div>
+      <Provider store={configureStore()}>
+        <div style={{ margin: '20px' }}>
+          <Story />
+        </div>
+      </Provider>
     ),
   ],
   parameters: {
@@ -16,5 +24,6 @@ export default {
   },
 } as ComponentMeta<typeof Header>;
 
-// export const HeaderComp = () => <Header />;
-// HeaderComp.storyName = '채팅방 헤더';
+export const HeaderStory = (args: Args) => <Header {...args} />;
+
+HeaderStory.storyName = '채팅방 헤더';
