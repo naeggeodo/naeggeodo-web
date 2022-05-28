@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { END } from 'redux-saga';
 import MainTemplate from '../components/main/MainTemplate';
-import { wrapper } from '../modules';
+import { RootState, wrapper } from '../modules';
 import {
   getAllChatRoomsListRequest,
   getChatRoomListWithCategoryRequest,
@@ -32,6 +32,9 @@ const Home = ({ foodCategories }: { foodCategories: CategoriesResponse[] }) => {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
+    const rootState: RootState = store.getState();
+    if (rootState.mainPageState.categories.length > 0) return;
+
     store.dispatch(getFoodCategoriesActions.request());
 
     store.dispatch(END);
