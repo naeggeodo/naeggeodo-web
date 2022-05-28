@@ -7,6 +7,7 @@ import palette from '../../styles/palette';
 import TimeCalculator from '../../utils/TimeCalculator';
 
 const ChatRoomItem = ({
+  id,
   title,
   maxCount,
   createDate,
@@ -28,7 +29,7 @@ const ChatRoomItem = ({
             {timeCalculator.calculateCreateMinute()}
           </RegisteredTime>
           <div>
-            <Link href='/' passHref>
+            <Link href={`/chatting/${id}`} passHref>
               <StyledLink>
                 <span>함께 주문하기</span>
                 <Image
@@ -58,6 +59,11 @@ const Container = styled.div`
   background-color: #ffffff;
 
   border-bottom: 1px solid ${palette.bgGray};
+  transition: 0.2s;
+
+  &:hover {
+    background-color: ${palette.bgGray};
+  }
 `;
 
 const StyledImage = styled(Image)`
@@ -122,4 +128,4 @@ const StyledLink = styled.a`
   }
 `;
 
-export default ChatRoomItem;
+export default React.memo(ChatRoomItem);

@@ -44,4 +44,5 @@ export type ChatRoomItemProps = {
   currentCount: number;
   createDate: string;
   link: string;
+  id: number;
 };

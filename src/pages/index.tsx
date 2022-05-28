@@ -23,7 +23,7 @@ const Home = ({
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
     store.dispatch(getFoodCategoriesActions.request());
-    // store.dispatch(getChatRoomsListActions.request());
+    store.dispatch(getChatRoomsListActions.request());
 
     store.dispatch(END);
     await store.sagaTask.toPromise();

@@ -11,9 +11,7 @@ export default class MainService {
 
   static async asyncGetChatRooms() {
     try {
-      return ApiService.getApi(
-        encodeURI('/chat-rooms?buildingcode=122352362341'),
-      );
+      return ApiService.getApi(encodeURI('/chat-rooms?buildingCode=서울'));
     } catch (err) {
       console.log(err);
     }
