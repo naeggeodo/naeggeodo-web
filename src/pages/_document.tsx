@@ -33,6 +33,7 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
+          <title>내꺼도</title>
           <meta charSet='UTF-8' />
           <meta property='og:title' content='내꺼 배달비 반띵하러 가기 🛵' />
           <meta name='Keywords' content='내꺼도' />

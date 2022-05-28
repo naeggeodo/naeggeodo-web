@@ -57,6 +57,7 @@ const SearchTemplate = ({ tags }: SearchTagListResponse) => {
           <ResultList>
             {searchResultList.chatRoom.map((v, i) => (
               <ChatRoomItem
+                id={v.id}
                 key={i}
                 title={v.title}
                 link={v.link}

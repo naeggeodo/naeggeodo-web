@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
 
 import CategoryMenuSlide from './CategoryMenuSlide';
@@ -21,20 +21,21 @@ const MainTemplate = ({
   chatRooms: ChatRoomItemResponse[];
 }) => {
   const [webViewIsOpen, setWebViewIsOpen] = useState(false);
-
-  const openWebView = () => {
-    setWebViewIsOpen(true);
-  };
-
-  const closeWebView = () => {
-    setWebViewIsOpen(false);
-  };
-
   const [login, setLogin] = useState(false);
 
-  const openLogin = () => {
+  const openWebView = useCallback(() => {
+    setWebViewIsOpen(true);
+  }, []);
+
+  const closeWebView = useCallback(() => {
+    setWebViewIsOpen(false);
+  }, []);
+
+  const openLogin = useCallback(() => {
     setLogin(!login);
-  };
+  }, []);
+
+  console.log(chatRooms);
 
   return (
     <Container>
@@ -43,6 +44,7 @@ const MainTemplate = ({
       <StyledUl>
         {chatRooms.map((item) => (
           <ChatRoomItem
+            id={item.id}
             key={item.id}
             title={item.title}
             link={item.link}
@@ -54,7 +56,7 @@ const MainTemplate = ({
       </StyledUl>
       <TabMenu />
       {webViewIsOpen && <PostCodeWebView closeWebView={closeWebView} />}
-      {login && <LoginModalTemplate />}
+      {/* {login && <LoginModalTemplate />} */}
 
       <button onClick={openLogin}>로그인</button>
     </Container>
@@ -71,4 +73,4 @@ const StyledUl = styled.ul`
   background-color: #ffffff;
 `;
 
-export default MainTemplate;
+export default React.memo(MainTemplate);
