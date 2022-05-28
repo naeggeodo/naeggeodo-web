@@ -14,6 +14,11 @@ export type Category =
   | 'FASTFOOD'
   | 'HAMBURGER';
 
+export interface ChatRoomRequestPayload {
+  buildingCode: string | string[];
+  category: Category | string[] | string;
+}
+
 export interface CategoriesResponse {
   idx: number;
   category: Category;

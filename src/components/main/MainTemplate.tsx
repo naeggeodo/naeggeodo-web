@@ -11,14 +11,11 @@ import {
   CategoriesResponse,
   ChatRoomItemResponse,
 } from '../../modules/main/types';
-import LoginModalTemplate from '../login/LoginModalTemplate';
 
 const MainTemplate = ({
   foodCategories,
-  chatRooms,
 }: {
   foodCategories: CategoriesResponse[];
-  chatRooms: ChatRoomItemResponse[];
 }) => {
   const [webViewIsOpen, setWebViewIsOpen] = useState(false);
   const [login, setLogin] = useState(false);
@@ -35,25 +32,28 @@ const MainTemplate = ({
     setLogin(!login);
   }, []);
 
-  console.log(chatRooms);
-
   return (
     <Container>
       <SearchPostCode openWebView={openWebView} />
       <CategoryMenuSlide foodCategories={foodCategories} />
-      <StyledUl>
-        {chatRooms.map((item) => (
-          <ChatRoomItem
-            id={item.id}
-            key={item.id}
-            title={item.title}
-            link={item.link}
-            maxCount={item.maxCount}
-            currentCount={item.currentCount}
-            createDate={item.createDate}
-          />
-        ))}
-      </StyledUl>
+      {/* {chatRooms.length === 0 ? (
+        <div>hello</div>
+      ) : (
+        <StyledUl>
+          {chatRooms.map((item) => (
+            <ChatRoomItem
+              id={item.id}
+              key={item.id}
+              title={item.title}
+              link={item.link}
+              maxCount={item.maxCount}
+              currentCount={item.currentCount}
+              createDate={item.createDate}
+            />
+          ))}
+        </StyledUl>
+      )} */}
+
       <TabMenu />
       {webViewIsOpen && <PostCodeWebView closeWebView={closeWebView} />}
       {/* {login && <LoginModalTemplate />} */}
