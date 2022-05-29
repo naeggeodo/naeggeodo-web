@@ -1,50 +1,83 @@
-import { NextRouter, useRouter } from 'next/router';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { END } from 'redux-saga';
-import MainTemplate from '../components/main/MainTemplate';
-import { RootState, wrapper } from '../modules';
-import {
-  getAllChatRoomsListRequest,
-  getChatRoomListWithCategoryRequest,
-  getFoodCategoriesActions,
-} from '../modules/main/actions';
-import { CategoriesResponse } from '../modules/main/types';
+import { useRouter } from 'next/router';
+import React from 'react';
+import styled from 'styled-components';
+import palette from '../styles/palette';
 
-const Home = ({ foodCategories }: { foodCategories: CategoriesResponse[] }) => {
-  const router: NextRouter = useRouter();
-  const dispatch = useDispatch();
+const index = () => {
+  const router = useRouter();
+  return (
+    <Container>
+      <Title>
+        우리동네
+        <br />
+        배달비 반값 플랫폼
+        <br />
+        <Strong>내꺼도</Strong> 같이 🍔
+      </Title>
 
-  useEffect(() => {
-    const { query } = router;
-    if (!query.buildingCode) return;
-    else if (query.buildingCode && !query.category) {
-      dispatch(getAllChatRoomsListRequest(query.buildingCode));
-    } else if (query.buildingCode && query.category) {
-      dispatch(
-        getChatRoomListWithCategoryRequest(query.buildingCode, query.category),
-      );
-    }
-  }, [router, dispatch]);
+      <Description>
+        지금 채팅방을 생성해서
+        <br />
+        같이먹을 사람을 모집해보세요
+      </Description>
 
-  return <MainTemplate foodCategories={foodCategories} />;
+      <StartContainer>
+        <div>
+          <button onClick={() => router.push('chatRooms')}>
+            지금 둘러보기
+          </button>
+        </div>
+        <DownLoad>
+          <p>다운 받기</p>
+          <ButtonContainer>
+            <button>ios 버전</button>
+            <button>android 버전</button>
+          </ButtonContainer>
+        </DownLoad>
+      </StartContainer>
+    </Container>
+  );
 };
 
-export const getServerSideProps = wrapper.getServerSideProps(
-  (store) => async (context) => {
-    const rootState: RootState = store.getState();
-    if (rootState.mainPageState.categories.length > 0) return;
+const Container = styled.div`
+  padding: 88px 30px 0;
+  height: 100vh;
+`;
 
-    store.dispatch(getFoodCategoriesActions.request());
+const Title = styled.h1`
+  font-family: 'SpoqaBold';
+  font-size: 1.625rem;
+  color: ${palette.black};
+  letter-spacing: 0.35px;
+  line-height: 1.3;
+`;
 
-    store.dispatch(END);
-    await store.sagaTask.toPromise();
+const Strong = styled.strong`
+  color: ${palette.mainOrange};
+`;
 
-    return {
-      props: {
-        foodCategories: store.getState().mainPageState.categories,
-      },
-    };
-  },
-);
-export default Home;
+const Description = styled.p`
+  line-height: 1.2;
+  color: ${palette.DarkGray};
+  margin-top: 30px;
+`;
+
+const StartContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 30px;
+`;
+
+const DownLoad = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  gap: 50px;
+`;
+
+export default index;
