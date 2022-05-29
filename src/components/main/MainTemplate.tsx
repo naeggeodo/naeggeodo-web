@@ -15,12 +15,14 @@ import { useRouter } from 'next/router';
 import { TOKEN_NAME } from '../../constant/Login';
 import LoginModal from '../login/LoginModalTemplate';
 import { openLoginModal } from '../../modules/login/actions';
+import { useCheckValidate } from '../../hooks/useCheckValidate';
 
 const MainTemplate = ({
   foodCategories,
 }: {
   foodCategories: CategoriesResponse[];
 }) => {
+  const { checkTokenAndRedirection } = useCheckValidate();
   const [webViewIsOpen, setWebViewIsOpen] = useState(false);
   const chatRooms = useSelector(
     (state: RootState) => state.mainPageState.chatRooms,
@@ -28,8 +30,6 @@ const MainTemplate = ({
   const isClicked = useSelector(
     (state: RootState) => state.KakaoLoginState.isClicked,
   );
-  const dispatch = useDispatch();
-  const router = useRouter();
 
   const openWebView = useCallback(() => {
     setWebViewIsOpen(true);
@@ -38,12 +38,6 @@ const MainTemplate = ({
   const closeWebView = useCallback(() => {
     setWebViewIsOpen(false);
   }, []);
-
-  const checkTokenAndRedirection = useCallback(() => {
-    if (!localStorage.getItem(TOKEN_NAME.ACCESS_TOKEN)) {
-      dispatch(openLoginModal());
-    }
-  }, [dispatch]);
 
   return (
     <Container>

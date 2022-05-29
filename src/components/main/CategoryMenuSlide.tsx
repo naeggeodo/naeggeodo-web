@@ -1,8 +1,12 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
+import { TOKEN_NAME } from '../../constant/Login';
+import { useCheckValidate } from '../../hooks/useCheckValidate';
+import { useLoadLib } from '../../hooks/useLoadLib';
 import { useSlideTransform } from '../../hooks/useSlideTransform';
+import { openLoginModal } from '../../modules/login/actions';
 import { CategoriesResponse, Category } from '../../modules/main/types';
 import palette from '../../styles/palette';
 
@@ -11,7 +15,7 @@ const CategoryMenuSlide = ({
 }: {
   foodCategories: CategoriesResponse[];
 }) => {
-  const router = useRouter();
+  const { router, dispatch } = useLoadLib();
   const { slideRef } = useSlideTransform();
 
   const convertEngCategoryToKor = (category: Category) => {
@@ -47,34 +51,33 @@ const CategoryMenuSlide = ({
     }
   };
 
+  const routeToCategory = useCallback(() => {
+    if (!localStorage.getItem(TOKEN_NAME.ACCESS_TOKEN)) {
+      dispatch(openLoginModal());
+    } else {
+      router.push(``);
+    }
+  }, [dispatch]);
+
   return (
     <Container ref={slideRef}>
       <Track>
         {foodCategories?.map((item) => {
           const lowerCaseItem = item.category.toLowerCase();
           return (
-            <Link
-              passHref
-              href={{
-                pathname: '/',
-                query:
-                  lowerCaseItem === 'all'
-                    ? { buildingCode: '서울' }
-                    : { category: lowerCaseItem, buildingCode: '서울' },
-              }}
-              key={item.idx}>
-              <StyledLink
-                style={{
-                  color:
-                    !router.query.category && lowerCaseItem === 'all'
-                      ? `${palette.mainOrange}`
-                      : router.query.category === lowerCaseItem
-                      ? `${palette.mainOrange}`
-                      : `${palette.black}`,
-                }}>
-                {convertEngCategoryToKor(item.category)}
-              </StyledLink>
-            </Link>
+            <LinkButton
+              key={item.category}
+              onClick={routeToCategory}
+              style={{
+                color:
+                  !router.query.category && lowerCaseItem === 'all'
+                    ? `${palette.mainOrange}`
+                    : router.query.category === lowerCaseItem
+                    ? `${palette.mainOrange}`
+                    : `${palette.black}`,
+              }}>
+              {convertEngCategoryToKor(item.category)}
+            </LinkButton>
           );
         })}
       </Track>
@@ -113,7 +116,9 @@ const Track = styled.div`
   touch-action: none;
 `;
 
-const StyledLink = styled.a`
+const LinkButton = styled.button`
+  all: unset;
+
   padding: 10px;
   font-size: 1.0625rem;
   color: ${palette.black};
