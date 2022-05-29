@@ -1,8 +1,20 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
+import { useLoadLib } from '../../hooks/useLoadLib';
+import { closeLoginModal } from '../../modules/login/actions';
 import palette from '../../styles/palette';
 
 const LoginModalBox = () => {
+  const { router, dispatch } = useLoadLib();
+
+  const moveLoginPage = useCallback(() => {
+    router.push('/login');
+  }, [router]);
+
+  const cancelLogin = useCallback(() => {
+    dispatch(closeLoginModal());
+  }, [dispatch]);
+
   return (
     <ModalContainer>
       <TitleWrapper>
@@ -11,8 +23,8 @@ const LoginModalBox = () => {
       </TitleWrapper>
 
       <ButtonContainer>
-        <CancelButton>취소</CancelButton>
-        <GoLogin>로그인하기</GoLogin>
+        <CancelButton onClick={cancelLogin}>취소</CancelButton>
+        <GoLogin onClick={moveLoginPage}>로그인하기</GoLogin>
       </ButtonContainer>
     </ModalContainer>
   );
@@ -68,6 +80,7 @@ const ButtonContainer = styled.div`
 
 const GoLogin = styled.button`
   all: unset;
+
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -86,6 +99,7 @@ const GoLogin = styled.button`
 
   display: flex;
   align-items: center;
+
   cursor: pointer;
 
   color: #ffffff;
@@ -102,6 +116,8 @@ const CancelButton = styled.button`
 
   background-color: ${palette.bgGray};
   border-radius: 10px;
+
+  cursor: pointer;
 `;
 
 export default LoginModalBox;

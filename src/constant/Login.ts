@@ -1,10 +1,11 @@
-export const NaverClient = {
-  naverClientId: process.env.NEXT_PUBLIC_NAVER_CLIENT_ID,
-  naverClientRedirectUri: process.env.NEXT_PUBLIC_NAVER_REDIRECT_URI,
-  naverClientSecret: process.env.NEXT_PUBLIC_NAVER_CLIENT_SECRET,
+export const SOCIAL_LOGIN = {
+  KAKAO_CLIENT_ID: process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID,
+  KAKAO_REDIRECT_URI: process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI,
+  NAVER_CLIENT_ID: process.env.NEXT_PUBLIC_NAVER_CLIENT_ID,
+  NAVER_REDIRECT_URI: process.env.NEXT_PUBLIC_NAVER_REDIRECT_URI,
 };
-export const KakaoClient = {
-  kakaoRestApiKey: process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY,
-  kakaoRedirectUrl: process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URL,
-  kakaoClientSecret: process.env.NEXT_PUBLIC_KAKAO_CLIENT_SECRET,
+
+export const TOKEN_NAME = {
+  ACCESS_TOKEN: 'ng_accessToken',
+  REFRESH_TOKEN: 'ng_refreshToken',
 };
