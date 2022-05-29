@@ -59,8 +59,8 @@ const CategoryMenuSlide = ({
                 pathname: '/',
                 query:
                   lowerCaseItem === 'all'
-                    ? { buildingcode: 1234 }
-                    : { category: lowerCaseItem, buildingcode: 1234 },
+                    ? { buildingCode: '서울' }
+                    : { category: lowerCaseItem, buildingCode: '서울' },
               }}
               key={item.idx}>
               <StyledLink

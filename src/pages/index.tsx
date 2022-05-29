@@ -1,29 +1,41 @@
+import { NextRouter, useRouter } from 'next/router';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { END } from 'redux-saga';
 import MainTemplate from '../components/main/MainTemplate';
-import { wrapper } from '../modules';
+import { RootState, wrapper } from '../modules';
 import {
-  getChatRoomsListActions,
+  getAllChatRoomsListRequest,
+  getChatRoomListWithCategoryRequest,
   getFoodCategoriesActions,
 } from '../modules/main/actions';
-import {
-  CategoriesResponse,
-  ChatRoomItemResponse,
-} from '../modules/main/types';
+import { CategoriesResponse } from '../modules/main/types';
 
-const Home = ({
-  foodCategories,
-  chatRooms,
-}: {
-  foodCategories: CategoriesResponse[];
-  chatRooms: ChatRoomItemResponse[];
-}) => {
-  return <MainTemplate chatRooms={chatRooms} foodCategories={foodCategories} />;
+const Home = ({ foodCategories }: { foodCategories: CategoriesResponse[] }) => {
+  const router: NextRouter = useRouter();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const { query } = router;
+    if (!query.buildingCode) return;
+    else if (query.buildingCode && !query.category) {
+      dispatch(getAllChatRoomsListRequest(query.buildingCode));
+    } else if (query.buildingCode && query.category) {
+      dispatch(
+        getChatRoomListWithCategoryRequest(query.buildingCode, query.category),
+      );
+    }
+  }, [router, dispatch]);
+
+  return <MainTemplate foodCategories={foodCategories} />;
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
+    const rootState: RootState = store.getState();
+    if (rootState.mainPageState.categories.length > 0) return;
+
     store.dispatch(getFoodCategoriesActions.request());
-    // store.dispatch(getChatRoomsListActions.request());
 
     store.dispatch(END);
     await store.sagaTask.toPromise();
@@ -31,7 +43,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
     return {
       props: {
         foodCategories: store.getState().mainPageState.categories,
-        chatRooms: store.getState().mainPageState.chatRooms,
       },
     };
   },

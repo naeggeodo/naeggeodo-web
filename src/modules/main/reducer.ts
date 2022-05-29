@@ -24,7 +24,7 @@ export const mainPageState = createReducer<MainPageState>(
     }),
     [GET_CHAT_ROOMS_LIST_SUCCESS]: (state, action) => ({
       ...state,
-      chatRooms: action.payload['chat-room'],
+      chatRooms: action.payload.chatRoom,
     }),
   },
 );
