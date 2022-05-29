@@ -9,7 +9,7 @@ const KaKaoLoginBtn = () => {
 
   return (
     <Link
-      href={`${process.env.NEXT_PUBLIC_API_URL}/login/OAuth/kakao`}
+      href={`https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`}
       passHref>
       <KaKaoLoginButton>
         <Image
