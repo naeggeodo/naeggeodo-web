@@ -7,14 +7,14 @@ import TabMenu from './TabMenu';
 import SearchPostCode from './SearchPostCode';
 
 import PostCodeWebView from './PostCodeWebView';
-import {
-  CategoriesResponse,
-  ChatRoomItemResponse,
-} from '../../modules/main/types';
-import { useSelector } from 'react-redux';
+import { CategoriesResponse } from '../../modules/main/types';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../modules';
 import palette from '../../styles/palette';
 import { useRouter } from 'next/router';
+import { TOKEN_NAME } from '../../constant/Login';
+import LoginModal from '../login/LoginModalTemplate';
+import { openLoginModal } from '../../modules/login/actions';
 
 const MainTemplate = ({
   foodCategories,
@@ -22,10 +22,13 @@ const MainTemplate = ({
   foodCategories: CategoriesResponse[];
 }) => {
   const [webViewIsOpen, setWebViewIsOpen] = useState(false);
-  const [login, setLogin] = useState(false);
   const chatRooms = useSelector(
     (state: RootState) => state.mainPageState.chatRooms,
   );
+  const isClicked = useSelector(
+    (state: RootState) => state.KakaoLoginState.isClicked,
+  );
+  const dispatch = useDispatch();
   const router = useRouter();
 
   const openWebView = useCallback(() => {
@@ -36,9 +39,11 @@ const MainTemplate = ({
     setWebViewIsOpen(false);
   }, []);
 
-  const openLogin = useCallback(() => {
-    setLogin(!login);
-  }, []);
+  const checkTokenAndRedirection = useCallback(() => {
+    if (!localStorage.getItem(TOKEN_NAME.ACCESS_TOKEN)) {
+      dispatch(openLoginModal());
+    }
+  }, [dispatch]);
 
   return (
     <Container>
@@ -48,7 +53,7 @@ const MainTemplate = ({
         <NoItemStyle>
           <CreateButtonContainer>
             <NoItemText>지금 직접 채팅방을 생성해보세요 🍟</NoItemText>
-            <CreateButton onClick={() => router.push('create')}>
+            <CreateButton onClick={checkTokenAndRedirection}>
               채팅방 생성하러가기
             </CreateButton>
           </CreateButtonContainer>
@@ -70,10 +75,8 @@ const MainTemplate = ({
       )}
 
       <TabMenu />
+      {isClicked && <LoginModal />}
       {webViewIsOpen && <PostCodeWebView closeWebView={closeWebView} />}
-      {/* {login && <LoginModalTemplate />} */}
-
-      {/* <button onClick={openLogin}>로그인</button> */}
     </Container>
   );
 };

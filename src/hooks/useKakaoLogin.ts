@@ -16,7 +16,7 @@ export function useKakaoLogin() {
     (() => {
       dispatch(getKakaoTokenRequest(code));
     })();
-  }, [dispatch]);
+  }, [dispatch, router]);
 
   return { router, isLoading };
 }

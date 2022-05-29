@@ -24,6 +24,7 @@ function* KakaoLoginGenerator(action: getkakaoTokenRequestAction) {
 
     yield put(getKakaoTokenSuccess(response.data));
     yield put(endLoading());
+    location.href = '/';
   } catch (error) {
     console.log(error);
   }

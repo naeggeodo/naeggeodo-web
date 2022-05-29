@@ -1,5 +1,11 @@
 import { createReducer } from 'typesafe-actions';
-import { END_LOADING, GET_KAKAO_TOKEN_SUCCESS, START_LOADING } from './actions';
+import {
+  CLOSE_LOGIN_MODAL,
+  END_LOADING,
+  GET_KAKAO_TOKEN_SUCCESS,
+  OPEN_LOGIN_MODAL,
+  START_LOADING,
+} from './actions';
 import { KakaoLoginResponse } from './types';
 
 const initialState: KakaoLoginResponse = {
@@ -12,6 +18,7 @@ const initialState: KakaoLoginResponse = {
     authority: '',
   },
   isLoading: false,
+  isClicked: false,
 };
 
 export const KakaoLoginState = createReducer<KakaoLoginResponse>(initialState, {
@@ -34,5 +41,13 @@ export const KakaoLoginState = createReducer<KakaoLoginResponse>(initialState, {
   [END_LOADING]: (state, action) => ({
     ...state,
     isLoading: false,
+  }),
+  [OPEN_LOGIN_MODAL]: (state, action) => ({
+    ...state,
+    isClicked: true,
+  }),
+  [CLOSE_LOGIN_MODAL]: (state, action) => ({
+    ...state,
+    isClicked: false,
   }),
 });
