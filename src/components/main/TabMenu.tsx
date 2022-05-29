@@ -9,7 +9,7 @@ const TabMenu = () => {
     <Container>
       {tabDatas.map((tab) => (
         <TabButtonItem
-          key={tab.id}
+          key={tab.title}
           image={tab.image}
           title={tab.title}
           altText={tab.altText}

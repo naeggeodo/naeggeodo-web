@@ -7,7 +7,7 @@ export const tabDatas: TabItem[] = [
     title: '홈',
     altText: '홈버튼',
     image: '/assets/images/homegray.svg',
-    link: '/',
+    link: '/chatRooms',
   },
   {
     id: 2,
