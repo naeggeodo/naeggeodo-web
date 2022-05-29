@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../modules';
-import { endLoading, getKakaoTokenRequest } from '../modules/login/actions';
+import { getKakaoTokenRequest } from '../modules/login/actions';
 
 export function useKakaoLogin() {
   const router = useRouter();
@@ -18,5 +18,5 @@ export function useKakaoLogin() {
     })();
   }, [dispatch]);
 
-  return { isLoading };
+  return { router, isLoading };
 }
