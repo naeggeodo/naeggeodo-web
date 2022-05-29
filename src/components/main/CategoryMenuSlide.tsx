@@ -51,13 +51,29 @@ const CategoryMenuSlide = ({
     }
   };
 
-  const routeToCategory = useCallback(() => {
-    if (!localStorage.getItem(TOKEN_NAME.ACCESS_TOKEN)) {
-      dispatch(openLoginModal());
-    } else {
-      router.push(``);
-    }
-  }, [dispatch]);
+  const routeToCategory = useCallback(
+    (_, item: CategoriesResponse) => {
+      if (!localStorage.getItem(TOKEN_NAME.ACCESS_TOKEN)) {
+        dispatch(openLoginModal());
+      } else if (item.category === 'ALL') {
+        router.push({
+          pathname: '/chatRooms',
+          query: {
+            buildingCode: '서울',
+          },
+        });
+      } else {
+        router.push({
+          pathname: '/chatRooms',
+          query: {
+            buildingCode: '서울',
+            category: item.category.toLowerCase(),
+          },
+        });
+      }
+    },
+    [dispatch],
+  );
 
   return (
     <Container ref={slideRef}>
@@ -67,7 +83,7 @@ const CategoryMenuSlide = ({
           return (
             <LinkButton
               key={item.category}
-              onClick={routeToCategory}
+              onClick={(e) => routeToCategory(e, item)}
               style={{
                 color:
                   !router.query.category && lowerCaseItem === 'all'
