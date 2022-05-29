@@ -1,17 +1,19 @@
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
-import { ApiService } from '../../../../service/api';
+import { useDispatch } from 'react-redux';
+import { getKakaoTokenRequest } from '../../../../modules/login/actions';
+import { LoginService } from '../../../../service/api/login/LoginService';
 
 const kakao = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const code = router.asPath.split('=')[1];
 
   useEffect(() => {
-    (async () => {
-      const res = await ApiService.postApi(`/login/OAuth/kakao`, { code });
-      console.log(res);
+    (() => {
+      dispatch(getKakaoTokenRequest(code));
     })();
-  }, []);
+  }, [dispatch]);
 
   return (
     <div

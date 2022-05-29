@@ -1,13 +1,13 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import styled from 'styled-components';
-import { SocialLogin } from '../../constant/Login';
+import { SOCIAL_LOGIN } from '../../constant/Login';
 import palette from '../../styles/palette';
 
 const NaverLoginBtn = () => {
   return (
     <Link
-      href={`https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${SocialLogin.NAVER_CLIENT_ID}&state=STATE&redirect_uri=${SocialLogin.NAVER_REDIRECT_URI}`}>
+      href={`https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${SOCIAL_LOGIN.NAVER_CLIENT_ID}&state=STATE&redirect_uri=${SOCIAL_LOGIN.NAVER_REDIRECT_URI}`}>
       <NaverLoginButton>
         <Image
           src='/assets/images/naverlogo.svg'

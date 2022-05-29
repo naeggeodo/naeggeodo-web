@@ -2,12 +2,12 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import palette from '../../styles/palette';
 import Link from 'next/link';
-import { SocialLogin } from '../../constant/Login';
+import { SOCIAL_LOGIN } from '../../constant/Login';
 
 const KaKaoLoginBtn = () => {
   return (
     <Link
-      href={`https://kauth.kakao.com/oauth/authorize?client_id=${SocialLogin.KAKAO_CLIENT_ID}&redirect_uri=${SocialLogin.KAKAO_REDIRECT_URI}&response_type=code`}
+      href={`https://kauth.kakao.com/oauth/authorize?client_id=${SOCIAL_LOGIN.KAKAO_CLIENT_ID}&redirect_uri=${SOCIAL_LOGIN.KAKAO_REDIRECT_URI}&response_type=code`}
       passHref>
       <KaKaoLoginButton>
         <Image
