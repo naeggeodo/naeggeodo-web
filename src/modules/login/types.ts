@@ -15,4 +15,5 @@ export interface KakaoLoginResponse {
   refreshToken: string;
   type: 'Bearer' | string;
   user: UserInfo;
+  isLoading: boolean;
 }
