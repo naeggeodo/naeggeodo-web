@@ -1,9 +1,8 @@
-import axios from 'axios';
-import Router, { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import { ApiService } from '../../../../service/api';
 
-const index = () => {
+const kakao = () => {
   const router = useRouter();
   const code = router.asPath.split('=')[1];
 
@@ -26,4 +25,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default kakao;
