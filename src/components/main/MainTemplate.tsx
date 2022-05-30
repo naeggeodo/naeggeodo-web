@@ -13,28 +13,35 @@ import { RootState } from '../../modules';
 import palette from '../../styles/palette';
 import LoginModal from '../login/LoginModalTemplate';
 import { useCheckValidate } from '../../hooks/useCheckValidate';
+import {
+  closeSearchPostCode,
+  openSearchPostCode,
+} from '../../modules/modal/actions';
 
 const MainTemplate = ({
   foodCategories,
 }: {
   foodCategories: CategoriesResponse[];
 }) => {
+  const dispatch = useDispatch();
   const { checkTokenAndRedirection } = useCheckValidate();
-  const [webViewIsOpen, setWebViewIsOpen] = useState(false);
   const chatRooms = useSelector(
     (state: RootState) => state.mainPageState.chatRooms,
   );
   const loginModalIsClicked = useSelector(
     (state: RootState) => state.modalStates.loginModalIsClicked,
   );
+  const searchPostCodeIsOpen = useSelector(
+    (state: RootState) => state.modalStates.searchPostCodeIsOpen,
+  );
 
   const openWebView = useCallback(() => {
-    setWebViewIsOpen(true);
-  }, []);
+    dispatch(openSearchPostCode());
+  }, [dispatch]);
 
   const closeWebView = useCallback(() => {
-    setWebViewIsOpen(false);
-  }, []);
+    dispatch(closeSearchPostCode());
+  }, [dispatch]);
 
   return (
     <Container>
@@ -67,7 +74,7 @@ const MainTemplate = ({
 
       <TabMenu />
       {loginModalIsClicked && <LoginModal />}
-      {webViewIsOpen && <PostCodeWebView closeWebView={closeWebView} />}
+      {searchPostCodeIsOpen && <PostCodeWebView closeWebView={closeWebView} />}
     </Container>
   );
 };

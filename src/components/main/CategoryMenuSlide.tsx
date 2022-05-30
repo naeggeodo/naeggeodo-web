@@ -2,7 +2,6 @@ import Link from 'next/link';
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { TOKEN_NAME } from '../../constant/Login';
-import { useCheckValidate } from '../../hooks/useCheckValidate';
 import { useLoadLib } from '../../hooks/useLoadLib';
 import { useSlideTransform } from '../../hooks/useSlideTransform';
 import { CategoriesResponse, Category } from '../../modules/main/types';
