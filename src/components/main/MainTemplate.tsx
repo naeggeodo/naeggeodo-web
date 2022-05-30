@@ -15,9 +15,11 @@ import palette from '../../styles/palette';
 import { useCheckValidate } from '../../hooks/useCheckValidate';
 import {
   closeSearchPostCode,
+  openLoginModal,
   openSearchPostCode,
 } from '../../modules/modal/actions';
 import { getBuildingCodeRequest } from '../../modules/search-post-code/actions';
+import { TOKEN_NAME } from '../../constant/Login';
 
 const MainTemplate = ({
   foodCategories,
@@ -27,9 +29,11 @@ const MainTemplate = ({
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(
-      getBuildingCodeRequest(JSON.parse(localStorage.getItem('user')).id),
-    );
+    if (localStorage.getItem(TOKEN_NAME.ACCESS_TOKEN)) {
+      dispatch(
+        getBuildingCodeRequest(JSON.parse(localStorage.getItem('user')).id),
+      );
+    }
   }, [dispatch]);
 
   const { checkTokenAndRedirection } = useCheckValidate();
@@ -44,7 +48,9 @@ const MainTemplate = ({
   );
 
   const openWebView = useCallback(() => {
-    dispatch(openSearchPostCode());
+    if (!localStorage.getItem(TOKEN_NAME.ACCESS_TOKEN)) {
+      dispatch(openLoginModal());
+    } else dispatch(openSearchPostCode());
   }, [dispatch]);
 
   const closeWebView = useCallback(() => {

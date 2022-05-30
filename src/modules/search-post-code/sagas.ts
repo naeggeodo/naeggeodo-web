@@ -34,7 +34,6 @@ function* getUserAddressGenerator(action: GetBuildingCodeRequestAction) {
       SearchPostCodeService.asyncGetBuildingCode,
       action.payload.userId,
     );
-    console.log(response, 'eddy');
     yield put(getBuildingCodeSuccess(response.data));
   } catch (err) {
     console.log(err);

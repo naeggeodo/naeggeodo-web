@@ -32,7 +32,7 @@ const PostCodeWebView = ({ closeWebView }: { closeWebView: () => void }) => {
       fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
     }
 
-    console.log(data);
+    console.log(data.apartment);
 
     dispatch(patchBuildingCodeRequest(userId, addressInfo));
   };
