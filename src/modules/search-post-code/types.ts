@@ -1,10 +1,16 @@
 import { saveAddresWithBuildingCode } from './actions';
 
-export interface PostCodeResponse {
+export interface PatchBuildingCodeRequestData {
   address: string;
-  buildingName: string;
   buildingCode: string;
-  apartment: string;
+  zonecode: string;
+}
+
+export interface PatchBuildingCodeResponse {
+  address: string;
+  buildingCode: string;
+  id: string;
+  zonecode: string;
 }
 
 // action types

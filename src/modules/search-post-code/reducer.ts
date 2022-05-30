@@ -1,26 +1,26 @@
 import { createReducer } from 'typesafe-actions';
-import { SAVE_ADDRESS_WITH_BUILDING_CODE } from './actions';
-import { PostCodeResponse, SaveAddresWithBuildingCode } from './types';
+import {
+  PATCH_BUILDING_CODE_SUCCESS,
+  SAVE_ADDRESS_WITH_BUILDING_CODE,
+} from './actions';
+import { PatchBuildingCodeResponse, SaveAddresWithBuildingCode } from './types';
 
-const initialPostCodeState: PostCodeResponse = {
+const initialPostCodeState: PatchBuildingCodeResponse = {
   address: '',
-  buildingName: '',
   buildingCode: '',
-  apartment: '',
+  id: '',
+  zonecode: '',
 };
 
-export const postCodeState = createReducer<PostCodeResponse>(
+export const postCodeState = createReducer<PatchBuildingCodeResponse>(
   initialPostCodeState,
   {
-    [SAVE_ADDRESS_WITH_BUILDING_CODE]: (
-      state,
-      action: SaveAddresWithBuildingCode,
-    ) => ({
+    [PATCH_BUILDING_CODE_SUCCESS]: (state, action) => ({
       ...state,
       address: action.payload.address,
-      buildingName: action.payload.buildingName,
       buildingCode: action.payload.buildingCode,
-      apartment: action.payload.apartment,
+      id: action.payload.id,
+      zonecode: action.payload.zonecode,
     }),
   },
 );

@@ -15,6 +15,7 @@ import { getSearchPageInfoSaga } from './search/sagas';
 import { kakaoLoginSaga } from './login/sagas';
 import { kakaoLoginState } from './login/reducers';
 import { modalStates } from './modal/reducer';
+import { searchPostCodeSaga } from './search-post-code/sagas';
 
 //** RootReducer */
 export const rootReducer = combineReducers({
@@ -34,6 +35,7 @@ export function* rootSaga() {
     fork(getMainPageInfoSaga),
     fork(getSearchPageInfoSaga),
     fork(kakaoLoginSaga),
+    fork(searchPostCodeSaga),
   ]);
 }
 
