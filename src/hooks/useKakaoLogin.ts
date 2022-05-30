@@ -7,16 +7,14 @@ import { getKakaoTokenRequest } from '../modules/login/actions';
 export function useKakaoLogin() {
   const router = useRouter();
   const dispatch = useDispatch();
-  const code = useMemo(() => router.asPath.split('=')[1], [router]);
+  const code = router.asPath.split('=')[1];
   const isLoading = useSelector(
     (state: RootState) => state.KakaoLoginState.isLoading,
   );
 
   useEffect(() => {
-    (() => {
-      dispatch(getKakaoTokenRequest(code));
-    })();
-  }, [dispatch, router]);
+    dispatch(getKakaoTokenRequest(code));
+  }, [dispatch]);
 
   return { router, isLoading };
 }

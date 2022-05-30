@@ -15,7 +15,7 @@ export const CLOSE_LOGIN_MODAL = namespace + 'CLOSE_LOGIN_MODAL';
 
 export const getKakaoTokenRequest = createAction(
   GET_KAKAO_TOKEN_REQUEST,
-  (kakaoCode) => ({ kakaoCode }),
+  (kakaoCode) => kakaoCode,
 )();
 
 export const getKakaoTokenSuccess = createAction(

@@ -16,14 +16,16 @@ function* KakaoLoginGenerator(action: getkakaoTokenRequestAction) {
 
     const response: AxiosResponse<KakaoLoginResponse> = yield call(
       LoginService.asyncGetKakaoToken,
-      action.payload.kakaoCode,
+      action.payload,
     );
+    yield console.log(response);
 
     localStorage.setItem(TOKEN_NAME.ACCESS_TOKEN, response.data.accessToken);
     localStorage.setItem(TOKEN_NAME.REFRESH_TOKEN, response.data.refreshToken);
 
     yield put(getKakaoTokenSuccess(response.data));
     yield put(endLoading());
+
     location.href = '/';
   } catch (error) {
     console.log(error);
