@@ -71,7 +71,7 @@ const WebViewContainer = styled.div`
 const CloseButton = styled.button`
   all: unset;
   position: absolute;
-  right: 5%;
+  right: 2%;
   bottom: 2%;
 
   display: flex;

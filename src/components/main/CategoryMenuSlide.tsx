@@ -1,13 +1,12 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { TOKEN_NAME } from '../../constant/Login';
 import { useCheckValidate } from '../../hooks/useCheckValidate';
 import { useLoadLib } from '../../hooks/useLoadLib';
 import { useSlideTransform } from '../../hooks/useSlideTransform';
-import { openLoginModal } from '../../modules/login/actions';
 import { CategoriesResponse, Category } from '../../modules/main/types';
+import { openLoginModal } from '../../modules/modal/actions';
 import palette from '../../styles/palette';
 
 const CategoryMenuSlide = ({

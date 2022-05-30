@@ -22,6 +22,7 @@ function* KakaoLoginGenerator(action: getkakaoTokenRequestAction) {
 
     localStorage.setItem(TOKEN_NAME.ACCESS_TOKEN, response.data.accessToken);
     localStorage.setItem(TOKEN_NAME.REFRESH_TOKEN, response.data.refreshToken);
+    localStorage.setItem('user', JSON.stringify(response.data.user));
 
     yield put(getKakaoTokenSuccess(response.data));
     yield put(endLoading());

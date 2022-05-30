@@ -11,10 +11,7 @@ import { CategoriesResponse } from '../../modules/main/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../modules';
 import palette from '../../styles/palette';
-import { useRouter } from 'next/router';
-import { TOKEN_NAME } from '../../constant/Login';
 import LoginModal from '../login/LoginModalTemplate';
-import { openLoginModal } from '../../modules/login/actions';
 import { useCheckValidate } from '../../hooks/useCheckValidate';
 
 const MainTemplate = ({
@@ -27,8 +24,8 @@ const MainTemplate = ({
   const chatRooms = useSelector(
     (state: RootState) => state.mainPageState.chatRooms,
   );
-  const isClicked = useSelector(
-    (state: RootState) => state.KakaoLoginState.isClicked,
+  const loginModalIsClicked = useSelector(
+    (state: RootState) => state.modalStates.loginModalIsClicked,
   );
 
   const openWebView = useCallback(() => {
@@ -69,7 +66,7 @@ const MainTemplate = ({
       )}
 
       <TabMenu />
-      {isClicked && <LoginModal />}
+      {loginModalIsClicked && <LoginModal />}
       {webViewIsOpen && <PostCodeWebView closeWebView={closeWebView} />}
     </Container>
   );

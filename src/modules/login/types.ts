@@ -16,5 +16,4 @@ export interface KakaoLoginResponse {
   type: 'Bearer' | string;
   user: UserInfo;
   isLoading: boolean;
-  isClicked: boolean;
 }

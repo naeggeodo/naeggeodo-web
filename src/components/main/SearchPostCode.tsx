@@ -11,10 +11,10 @@ const SearchPostCode = ({ openWebView }: { openWebView: () => void }) => {
   );
 
   const checkIsApartment = () => {
-    if (!address) return '현재 본인의 위치를 입력해주세요.';
+    if (!address) return '현재 위치를 입력해주세요.';
     else if (address && apartment === 'Y') return address;
     else if (address && apartment === 'N')
-      return '아파트나 빌라 같은 공동주택만 선택 가능합니다.';
+      return '아파트나 빌라 같은 공동주택만 선택 가능합니다 다시 입력해주세요.';
   };
 
   return (
@@ -75,8 +75,7 @@ const FlexRow = styled.div`
 `;
 
 const AddressText = styled.p`
-  font-weight: 400;
-  font-size: 0.75rem;
+  font-size: 0.875rem;
 
   color: ${palette.black};
 `;
