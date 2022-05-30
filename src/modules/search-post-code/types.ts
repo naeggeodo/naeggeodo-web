@@ -1,5 +1,3 @@
-import { saveAddresWithBuildingCode } from './actions';
-
 export interface PatchBuildingCodeRequestData {
   address: string;
   buildingCode: string;
@@ -12,8 +10,3 @@ export interface PatchBuildingCodeResponse {
   id: string;
   zonecode: string;
 }
-
-// action types
-export type SaveAddresWithBuildingCode = ReturnType<
-  typeof saveAddresWithBuildingCode
->;

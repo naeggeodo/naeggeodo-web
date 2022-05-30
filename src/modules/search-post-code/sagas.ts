@@ -2,12 +2,19 @@ import { AxiosResponse } from 'axios';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { SearchPostCodeService } from '../../service/api/search-post-code/SearchPostCodeService';
 import {
+  GetBuildingCodeRequestAction,
+  getBuildingCodeSuccess,
+  GET_BUILDING_CODE_REQUEST,
+  PatchBuildingCodeRequestAction,
   patchBuildingCodeSuccess,
   PATCH_BUILDING_CODE_REQUEST,
 } from './actions';
-import { PatchBuildingCodeResponse } from './types';
+import {
+  PatchBuildingCodeRequestData,
+  PatchBuildingCodeResponse,
+} from './types';
 
-function* searchPostCodeGenerator(action) {
+function* searchPostCodeGenerator(action: PatchBuildingCodeRequestAction) {
   try {
     const response: AxiosResponse<PatchBuildingCodeResponse> = yield call(
       SearchPostCodeService.asyncPatchBuildingCode,
@@ -21,6 +28,22 @@ function* searchPostCodeGenerator(action) {
   }
 }
 
+function* getUserAddressGenerator(action: GetBuildingCodeRequestAction) {
+  try {
+    const response: AxiosResponse<PatchBuildingCodeRequestData> = yield call(
+      SearchPostCodeService.asyncGetBuildingCode,
+      action.payload.userId,
+    );
+    console.log(response, 'eddy');
+    yield put(getBuildingCodeSuccess(response.data));
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 export function* searchPostCodeSaga() {
-  yield takeLatest(PATCH_BUILDING_CODE_REQUEST, searchPostCodeGenerator);
+  yield* [
+    takeLatest(GET_BUILDING_CODE_REQUEST, getUserAddressGenerator),
+    takeLatest(PATCH_BUILDING_CODE_REQUEST, searchPostCodeGenerator),
+  ];
 }

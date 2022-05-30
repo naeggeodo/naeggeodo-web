@@ -4,10 +4,7 @@ import styled from 'styled-components';
 import Portal from '../common/Portal';
 import { Address } from 'react-daum-postcode';
 import { useDispatch } from 'react-redux';
-import {
-  patchBuildingCodeRequest,
-  saveAddresWithBuildingCode,
-} from '../../modules/search-post-code/actions';
+import { patchBuildingCodeRequest } from '../../modules/search-post-code/actions';
 import palette from '../../styles/palette';
 import { PatchBuildingCodeRequestData } from '../../modules/search-post-code/types';
 

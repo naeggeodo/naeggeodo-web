@@ -1,4 +1,3 @@
-import { Address } from 'react-daum-postcode';
 import { createAction } from 'typesafe-actions';
 
 const namespace = 'search-post-code/';
@@ -8,13 +7,10 @@ export const PATCH_BUILDING_CODE_REQUEST =
 export const PATCH_BUILDING_CODE_SUCCESS =
   namespace + 'PATCH_BUILDING_CODE_SUCCESS';
 
-export const SAVE_ADDRESS_WITH_BUILDING_CODE =
-  namespace + 'SAVE_ADDRESS_WITH_BUILDING_CODE';
-
-export const saveAddresWithBuildingCode = createAction(
-  SAVE_ADDRESS_WITH_BUILDING_CODE,
-  (data: Address) => data,
-)();
+export const GET_BUILDING_CODE_REQUEST =
+  namespace + 'GET_BUILDING_CODE_REQUEST';
+export const GET_BUILDING_CODE_SUCCESS =
+  namespace + 'GET_BUILDING_CODE_SUCCESS';
 
 export const patchBuildingCodeRequest = createAction(
   PATCH_BUILDING_CODE_REQUEST,
@@ -25,3 +21,21 @@ export const patchBuildingCodeSuccess = createAction(
   PATCH_BUILDING_CODE_SUCCESS,
   (response) => response,
 )();
+
+export const getBuildingCodeRequest = createAction(
+  GET_BUILDING_CODE_REQUEST,
+  (userId) => ({ userId }),
+)();
+
+export const getBuildingCodeSuccess = createAction(
+  GET_BUILDING_CODE_SUCCESS,
+  (response) => response,
+)();
+
+export type PatchBuildingCodeRequestAction = ReturnType<
+  typeof patchBuildingCodeRequest
+>;
+
+export type GetBuildingCodeRequestAction = ReturnType<
+  typeof getBuildingCodeRequest
+>;

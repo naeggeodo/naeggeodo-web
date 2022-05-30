@@ -1,9 +1,9 @@
 import { createReducer } from 'typesafe-actions';
 import {
+  GET_BUILDING_CODE_SUCCESS,
   PATCH_BUILDING_CODE_SUCCESS,
-  SAVE_ADDRESS_WITH_BUILDING_CODE,
 } from './actions';
-import { PatchBuildingCodeResponse, SaveAddresWithBuildingCode } from './types';
+import { PatchBuildingCodeResponse } from './types';
 
 const initialPostCodeState: PatchBuildingCodeResponse = {
   address: '',
@@ -20,6 +20,12 @@ export const postCodeState = createReducer<PatchBuildingCodeResponse>(
       address: action.payload.address,
       buildingCode: action.payload.buildingCode,
       id: action.payload.id,
+      zonecode: action.payload.zonecode,
+    }),
+    [GET_BUILDING_CODE_SUCCESS]: (state, action) => ({
+      ...state,
+      address: action.payload.address,
+      buildingCode: action.payload.buildingCode,
       zonecode: action.payload.zonecode,
     }),
   },

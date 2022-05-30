@@ -8,4 +8,8 @@ export class SearchPostCodeService {
   ) {
     return await ApiService.patchApi(`/user/${userId}/address`, data);
   }
+
+  static async asyncGetBuildingCode(userId: string) {
+    return await ApiService.getApi(`/user/${userId}/address`);
+  }
 }

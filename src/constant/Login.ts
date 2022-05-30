@@ -9,3 +9,8 @@ export const TOKEN_NAME = {
   ACCESS_TOKEN: 'ng_accessToken',
   REFRESH_TOKEN: 'ng_refreshToken',
 };
+
+export const USER = {
+  ADDRESS: 'address',
+  ID: 'id',
+};

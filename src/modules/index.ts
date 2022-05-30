@@ -16,6 +16,7 @@ import { kakaoLoginSaga } from './login/sagas';
 import { kakaoLoginState } from './login/reducers';
 import { modalStates } from './modal/reducer';
 import { searchPostCodeSaga } from './search-post-code/sagas';
+import { TOKEN_NAME } from '../constant/Login';
 
 //** RootReducer */
 export const rootReducer = combineReducers({

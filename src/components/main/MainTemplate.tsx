@@ -1,22 +1,23 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 
 import CategoryMenuSlide from './CategoryMenuSlide';
 import ChatRoomItem from './ChatRoomItem';
 import TabMenu from './TabMenu';
 import SearchPostCode from './SearchPostCode';
-
 import PostCodeWebView from './PostCodeWebView';
+import LoginModal from '../login/LoginModalTemplate';
+
 import { CategoriesResponse } from '../../modules/main/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../modules';
 import palette from '../../styles/palette';
-import LoginModal from '../login/LoginModalTemplate';
 import { useCheckValidate } from '../../hooks/useCheckValidate';
 import {
   closeSearchPostCode,
   openSearchPostCode,
 } from '../../modules/modal/actions';
+import { getBuildingCodeRequest } from '../../modules/search-post-code/actions';
 
 const MainTemplate = ({
   foodCategories,
@@ -24,6 +25,13 @@ const MainTemplate = ({
   foodCategories: CategoriesResponse[];
 }) => {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(
+      getBuildingCodeRequest(JSON.parse(localStorage.getItem('user')).id),
+    );
+  }, [dispatch]);
+
   const { checkTokenAndRedirection } = useCheckValidate();
   const chatRooms = useSelector(
     (state: RootState) => state.mainPageState.chatRooms,
