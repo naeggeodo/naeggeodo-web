@@ -1,43 +1,61 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 
 import CategoryMenuSlide from './CategoryMenuSlide';
 import ChatRoomItem from './ChatRoomItem';
 import TabMenu from './TabMenu';
 import SearchPostCode from './SearchPostCode';
-
 import PostCodeWebView from './PostCodeWebView';
+import LoginModal from '../login/LoginModalTemplate';
+
 import { CategoriesResponse } from '../../modules/main/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../modules';
 import palette from '../../styles/palette';
-import { useRouter } from 'next/router';
-import { TOKEN_NAME } from '../../constant/Login';
-import LoginModal from '../login/LoginModalTemplate';
-import { openLoginModal } from '../../modules/login/actions';
 import { useCheckValidate } from '../../hooks/useCheckValidate';
+import {
+  closeSearchPostCode,
+  openLoginModal,
+  openSearchPostCode,
+} from '../../modules/modal/actions';
+import { getBuildingCodeRequest } from '../../modules/search-post-code/actions';
+import { TOKEN_NAME } from '../../constant/Login';
 
 const MainTemplate = ({
   foodCategories,
 }: {
   foodCategories: CategoriesResponse[];
 }) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (localStorage.getItem(TOKEN_NAME.ACCESS_TOKEN)) {
+      dispatch(
+        getBuildingCodeRequest(JSON.parse(localStorage.getItem('user')).id),
+      );
+    }
+  }, [dispatch]);
+
   const { checkTokenAndRedirection } = useCheckValidate();
-  const [webViewIsOpen, setWebViewIsOpen] = useState(false);
   const chatRooms = useSelector(
     (state: RootState) => state.mainPageState.chatRooms,
   );
-  const isClicked = useSelector(
-    (state: RootState) => state.KakaoLoginState.isClicked,
+  const loginModalIsClicked = useSelector(
+    (state: RootState) => state.modalStates.loginModalIsClicked,
+  );
+  const searchPostCodeIsOpen = useSelector(
+    (state: RootState) => state.modalStates.searchPostCodeIsOpen,
   );
 
   const openWebView = useCallback(() => {
-    setWebViewIsOpen(true);
-  }, []);
+    if (!localStorage.getItem(TOKEN_NAME.ACCESS_TOKEN)) {
+      dispatch(openLoginModal());
+    } else dispatch(openSearchPostCode());
+  }, [dispatch]);
 
   const closeWebView = useCallback(() => {
-    setWebViewIsOpen(false);
-  }, []);
+    dispatch(closeSearchPostCode());
+  }, [dispatch]);
 
   return (
     <Container>
@@ -69,8 +87,8 @@ const MainTemplate = ({
       )}
 
       <TabMenu />
-      {isClicked && <LoginModal />}
-      {webViewIsOpen && <PostCodeWebView closeWebView={closeWebView} />}
+      {loginModalIsClicked && <LoginModal />}
+      {searchPostCodeIsOpen && <PostCodeWebView closeWebView={closeWebView} />}
     </Container>
   );
 };

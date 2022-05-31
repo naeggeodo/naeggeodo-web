@@ -6,9 +6,12 @@ export const axiosInstance = axios.create({
 
 export class ApiService {
   static getApi(uri: string) {
-    return axiosInstance.get(`${uri}`);
+    return axiosInstance.get(uri);
   }
   static postApi(uri: string, data?: unknown) {
-    return axiosInstance.post(`${uri}`, data);
+    return axiosInstance.post(uri, data);
+  }
+  static patchApi(uri: string, data: unknown) {
+    return axiosInstance.patch(uri, data);
   }
 }

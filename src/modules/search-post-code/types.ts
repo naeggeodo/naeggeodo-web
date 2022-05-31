@@ -1,13 +1,13 @@
-import { saveAddresWithBuildingCode } from './actions';
-
-export interface PostCodeResponse {
+export interface PatchBuildingCodeRequestData {
   address: string;
-  buildingName: string;
   buildingCode: string;
-  apartment: string;
+  zonecode: string;
 }
 
-// action types
-export type SaveAddresWithBuildingCode = ReturnType<
-  typeof saveAddresWithBuildingCode
->;
+export interface PatchBuildingCodeResponse {
+  address: string;
+  buildingCode: string;
+  id: string;
+  zonecode: string;
+  apartment: 'Y' | 'N' | string;
+}

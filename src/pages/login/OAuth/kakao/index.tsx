@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { TOKEN_NAME } from '../../../../constant/Login';

@@ -13,7 +13,10 @@ import { createStates } from './create/reducer';
 import { searchPageState } from './search/reducer';
 import { getSearchPageInfoSaga } from './search/sagas';
 import { kakaoLoginSaga } from './login/sagas';
-import { KakaoLoginState } from './login/reducers';
+import { kakaoLoginState } from './login/reducers';
+import { modalStates } from './modal/reducer';
+import { searchPostCodeSaga } from './search-post-code/sagas';
+import { TOKEN_NAME } from '../constant/Login';
 
 //** RootReducer */
 export const rootReducer = combineReducers({
@@ -22,7 +25,8 @@ export const rootReducer = combineReducers({
   mainPageState,
   createStates,
   searchPageState,
-  KakaoLoginState,
+  kakaoLoginState,
+  modalStates,
 });
 
 //** RootSaga */
@@ -32,6 +36,7 @@ export function* rootSaga() {
     fork(getMainPageInfoSaga),
     fork(getSearchPageInfoSaga),
     fork(kakaoLoginSaga),
+    fork(searchPostCodeSaga),
   ]);
 }
 
