@@ -1,12 +1,12 @@
-import Link from 'next/link';
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { TOKEN_NAME } from '../../constant/Login';
 import { useLoadLib } from '../../hooks/useLoadLib';
 import { useSlideTransform } from '../../hooks/useSlideTransform';
-import { CategoriesResponse, Category } from '../../modules/main/types';
+import { CategoriesResponse } from '../../modules/main/types';
 import { openLoginModal } from '../../modules/modal/actions';
 import palette from '../../styles/palette';
+import { convertEngCategoryToKor } from '../../utils/converEngCategoryToKor';
 
 const CategoryMenuSlide = ({
   foodCategories,
@@ -15,39 +15,6 @@ const CategoryMenuSlide = ({
 }) => {
   const { router, dispatch } = useLoadLib();
   const { slideRef } = useSlideTransform();
-
-  const convertEngCategoryToKor = (category: Category) => {
-    switch (category) {
-      case 'ALL':
-        return '전체';
-      case 'CHICKEN':
-        return '치킨';
-      case 'CHINESE':
-        return '중식';
-      case 'DESSERT':
-        return '디저트';
-      case 'FASTFOOD':
-        return '패스트푸드';
-      case 'GRILLED_MEAT':
-        return '구이/고기';
-      case 'JAPANESE':
-        return '일식';
-      case 'KOREAN':
-        return '한식';
-      case 'PIZZA':
-        return '피자';
-      case 'PORK_FEET':
-        return '족발';
-      case 'SNACKS':
-        return '분식';
-      case 'STEW':
-        return '찌개';
-      case 'WESTERN':
-        return '양식';
-      case 'HAMBURGER':
-        return '햄버거';
-    }
-  };
 
   const routeToCategory = useCallback(
     (_, item: CategoriesResponse) => {

@@ -4,6 +4,8 @@ import styled, { css } from 'styled-components';
 import { RootState } from '../../modules';
 import { getFoodCategoriesActions } from '../../modules/main/actions';
 import { CategoriesResponse } from '../../modules/main/types';
+import palette from '../../styles/palette';
+import { convertEngCategoryToKor } from '../../utils/converEngCategoryToKor';
 
 interface StyledProps {
   isOpen: boolean;
@@ -28,9 +30,23 @@ const SelectCategoryDrawer = ({ isOpen, setIsOpen }: PropsType) => {
 
   return (
     <Container isOpen={isOpen}>
-      <TitleContainer>
-        <p>카테고리를 선택해주세요</p>
-      </TitleContainer>
+      {isOpen && (
+        <React.Fragment>
+          <TitleContainer>
+            <p>카테고리를 선택해주세요</p>
+          </TitleContainer>
+          <CategoryContainer>
+            {categories.map((category) => (
+              <CategoryItem
+                data-value={category.category}
+                key={category.category}>
+                {convertEngCategoryToKor(category.category)}
+              </CategoryItem>
+            ))}
+            <CloseButton>선택완료</CloseButton>
+          </CategoryContainer>
+        </React.Fragment>
+      )}
     </Container>
   );
 };
@@ -39,7 +55,7 @@ const Container = styled.div<StyledProps>`
   position: absolute;
   right: 0;
 
-  width: ${(props) => (props.isOpen ? '70%' : '0%')};
+  width: ${(props) => (props.isOpen ? '70%' : 0)};
 
   ${(props) =>
     props.isOpen &&
@@ -53,7 +69,8 @@ const Container = styled.div<StyledProps>`
   height: 72vh;
   background-color: #ffffff;
 
-  padding: 10px 10px;
+  padding: 30px 10px;
+  overflow: scroll;
 
   transition: 0.5s;
 `;
@@ -67,4 +84,40 @@ const TitleContainer = styled.div`
   border-radius: 20px 0px 0px 0px;
 `;
 
-export default SelectCategoryDrawer;
+const CategoryContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  margin-top: 20px;
+`;
+
+const CloseButton = styled.button`
+  all: unset;
+
+  font-size: 1rem;
+  color: #ffffff;
+  text-align: center;
+
+  padding: 5px 15px;
+  margin-top: 10px;
+
+  border-radius: 5px;
+  background-color: ${palette.mainOrange};
+
+  cursor: pointer;
+`;
+
+const CategoryItem = styled.button`
+  all: unset;
+  text-align: center;
+
+  border-radius: 10px;
+  padding: 10px 0;
+
+  background-color: ${palette.bgGray};
+
+  cursor: pointer;
+`;
+
+export default React.memo(SelectCategoryDrawer);
