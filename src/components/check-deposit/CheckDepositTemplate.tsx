@@ -6,10 +6,7 @@ import palette from '../../styles/palette';
 import responsive from '../../styles/responsive';
 import CheckDepositItem from './CheckDepositItem';
 import ConvertToCompletedButton from './ConvertToCompletedButton';
-import {
-  CurrentChatUser,
-  CurrentChatUserListResponse,
-} from '../../modules/chatting/types';
+import { CurrentChatUser } from '../../modules/chatting/types';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../modules';
@@ -20,6 +17,7 @@ const CheckDepositTemplate = () => {
   const { currentChatUserList } = useSelector(
     (state: RootState) => state.chattingRoomState,
   );
+
   const { users } = currentChatUserList;
 
   const [depositYetUsers, setDepositYetUsers] = useState<CurrentChatUser[]>([]);
@@ -53,11 +51,11 @@ const CheckDepositTemplate = () => {
           />
         </PrevButton>
         <Title>돈을 받으셨나요?</Title>
-        <p style={{ lineHeight: 1.5 }}>
-          수정완료 버튼을 누르면
+        <P style={{ lineHeight: 1.5 }}>
+          버튼을 누르면
           <br />
           참여멤버의 안심번호를 확인할 수 있어요.
-        </p>
+        </P>
         <Notice>수령체크 후 미수령으로 전환이 어렵습니다.</Notice>
       </TitleContainer>
 
@@ -81,7 +79,7 @@ const CheckDepositTemplate = () => {
           {depositUsers.length > 0 &&
             depositUsers.map((v) => <CheckDepositItem key={v.idx} user={v} />)}
         </DepositYetUsers>
-        <ConvertToCompletedButton />
+        {depositUsers.length > 0 && <ConvertToCompletedButton />}
       </div>
     </Container>
   );
@@ -109,6 +107,13 @@ const TitleContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 15px;
+`;
+
+const P = styled.p`
+  &::before {
+    content: '수령완료 ';
+    color: ${palette.mainOrange};
+  }
 `;
 
 const PrevButton = styled.button`

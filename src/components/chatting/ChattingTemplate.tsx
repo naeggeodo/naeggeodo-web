@@ -39,8 +39,11 @@ const ChattingTemplate = ({
   >([]);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-  const socket = new SockJS(`${process.env.NEXT_PUBLIC_API_URL}/chat`);
-  const stompClient = Stomp.over(socket);
+  // const socket = new SockJS(`${process.env.NEXT_PUBLIC_API_URL}/chat`);
+  // const stompClient = Stomp.over(socket);
+  const stompClient = Stomp.over(
+    () => new SockJS(`${process.env.NEXT_PUBLIC_API_URL}/chat`),
+  );
 
   useEffect(() => {
     chatListDivRef.current.scroll({

@@ -19,7 +19,7 @@ const CheckDepositItem = ({ user }: { user: CurrentChatUser }) => {
         />
       </div>
       <NickNameWrapper>{user.user_id}</NickNameWrapper>
-      <CompleteDepositButton user={user} />
+      {user.remittanceState === 'N' && <CompleteDepositButton user={user} />}
     </Container>
   );
 };
@@ -46,7 +46,7 @@ const NickNameWrapper = styled.div`
   align-items: center;
 
   min-width: 115px;
-  width: 90%;
+  width: 100%;
   height: 52px;
 
   padding-left: 10px;
