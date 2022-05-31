@@ -29,6 +29,9 @@ const buttonValue: ButtonValue[] = [
 
 const CreateInit = () => {
   const { router, dispatch } = useLoadLib();
+  const currentOrderTimeType = useSelector(
+    (state: RootState) => state.createStates.orderTimeType,
+  );
 
   const dispatchSelectOrderTypeTime = useCallback<
     (e: React.MouseEvent<HTMLButtonElement>) => void
@@ -49,13 +52,12 @@ const CreateInit = () => {
         <Title>주문하실건가요?</Title>
       </div>
       <Content>
-        {/* <CustomButton>직접입력</CustomButton> */}
         {buttonValue.map((item, i) => (
           <Button
             onClick={dispatchSelectOrderTypeTime}
             data-value={item.value}
             key={i}
-            active>
+            active={currentOrderTimeType === item.value ? true : false}>
             {item.text}
           </Button>
         ))}
@@ -92,17 +94,6 @@ const Content = styled.div`
   flex-direction: column;
 
   gap: 10px;
-`;
-
-const CustomButton = styled.button`
-  margin-bottom: 10px;
-
-  background-color: #fff;
-  color: ${palette.DarkGray};
-
-  text-align: right;
-  outline: none;
-  border: none;
 `;
 
 const Button = styled.button<StyledType>`

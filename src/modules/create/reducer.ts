@@ -19,7 +19,7 @@ const initialCreateStates: CreateStates = {
   title: '',
   user_id: '',
   tags: [],
-  orderTimeType: 'ASAP',
+  orderTimeType: 'ONE_HOUR',
 };
 
 export const createStates = createReducer<CreateStates>(initialCreateStates, {
