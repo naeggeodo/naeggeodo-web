@@ -1,14 +1,13 @@
 import { useRouter } from 'next/router';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import { useDeposit } from '../../hooks/useDeposit';
 import palette from '../../styles/palette';
 import { RootState } from '../../modules';
+import CheckDepositService from '../../service/api/check-deposit/CheckDepositService';
 
 const ConvertToCompletedButton = () => {
-  const { convertToComplete } = useDeposit();
   const router = useRouter();
 
   const { chatRoomInfo } = useSelector(
@@ -21,7 +20,7 @@ const ConvertToCompletedButton = () => {
 
   const handleCompleted = useCallback(() => {
     setIsCompleted(true);
-    convertToComplete(router.query.id as string);
+    CheckDepositService.asyncConvertToComplete(router.query.id as string);
   }, [isCompleted]);
 
   return !isCompleted ? (

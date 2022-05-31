@@ -14,4 +14,7 @@ export class ApiService {
   static patchApi(uri: string, data: unknown) {
     return axiosInstance.patch(uri, data);
   }
+  static patchParamsApi(uri: string, data: unknown) {
+    return axiosInstance.patch(uri, {}, { params: data });
+  }
 }

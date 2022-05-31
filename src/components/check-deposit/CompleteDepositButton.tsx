@@ -2,19 +2,22 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { useDeposit } from '../../hooks/useDeposit';
+
 import { getCurrentChatUserListActions } from '../../modules/chatting/actions';
 import { CurrentChatUser } from '../../modules/chatting/types';
+import CheckDepositService from '../../service/api/check-deposit/CheckDepositService';
 import palette from '../../styles/palette';
 import responsive from '../../styles/responsive';
 
 const CompleteDepositButton = ({ user }: { user: CurrentChatUser }) => {
-  const { onDepositHandler } = useDeposit();
   const router = useRouter();
   const dispatch = useDispatch();
 
   const onClick = () => {
-    onDepositHandler(router.query.id as string, user.user_id).then(() => {
+    CheckDepositService.asyncDepositHandler(
+      router.query.id as string,
+      user.user_id,
+    ).then(() => {
       dispatch(
         getCurrentChatUserListActions.request({
           chattingRoomId: router.query.id as string,
