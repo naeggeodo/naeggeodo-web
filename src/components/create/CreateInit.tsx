@@ -5,8 +5,8 @@ import palette from '../../styles/palette';
 
 import { useLoadLib } from '../../hooks/useLoadLib';
 import { RootState } from '../../modules';
-import { selectOrderType } from '../../modules/create/actions';
-import { ButtonValue } from '../../modules/create/types';
+import { ButtonValue, OrderTimeType } from '../../modules/create/types';
+import { selectOrderTimeType } from '../../modules/create/actions';
 
 type StyledType = {
   active: boolean;
@@ -30,10 +30,14 @@ const buttonValue: ButtonValue[] = [
 const CreateInit = () => {
   const { router, dispatch } = useLoadLib();
 
-  const selectOrderTypeTime = useCallback(
+  const dispatchSelectOrderTypeTime = useCallback<
+    (e: React.MouseEvent<HTMLButtonElement>) => void
+  >(
     (e) => {
-      console.log(e.target);
-      // dispatch(selectOrderType())
+      const orderTimeType = e.currentTarget.getAttribute(
+        'data-value',
+      ) as OrderTimeType;
+      dispatch(selectOrderTimeType(orderTimeType));
     },
     [dispatch, router],
   );
@@ -45,14 +49,12 @@ const CreateInit = () => {
         <Title>주문하실건가요?</Title>
       </div>
       <Content>
-        <CustomButton>직접입력</CustomButton>
+        {/* <CustomButton>직접입력</CustomButton> */}
         {buttonValue.map((item, i) => (
           <Button
+            onClick={dispatchSelectOrderTypeTime}
+            data-value={item.value}
             key={i}
-            onClick={() => {
-              dispatch(selectOrderType(item));
-              router.push('/create/directinput');
-            }}
             active>
             {item.text}
           </Button>

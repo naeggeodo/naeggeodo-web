@@ -1,6 +1,6 @@
 import { Category } from '../main/types';
 
-type OrderTimeType = 'ONE_HOUR' | 'ASAP' | 'I_DONT_CARE';
+export type OrderTimeType = 'ONE_HOUR' | 'ASAP' | 'I_DONT_CARE';
 
 export interface CreateStates {
   addr: string; //주소

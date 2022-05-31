@@ -4,7 +4,8 @@ import {
   MINUS_MAX_COUNT,
   PLUS_MAX_COUNT,
   REMOVE_TAG,
-  SELECT_ORDER_TYPE,
+  SelectOrderTimeTypeAction,
+  SELECT_ORDER_TIME_TYPE,
   TYPE_STORE_LINK,
   TYPE_STORE_NAME,
 } from './actions';
@@ -22,10 +23,10 @@ const initialCreateStates: CreateStates = {
 };
 
 export const createStates = createReducer<CreateStates>(initialCreateStates, {
-  // [SELECT_ORDER_TYPE]: (state, action) => ({
-  //   ...state,
-  //   orderType: action.payload,
-  // }),
+  [SELECT_ORDER_TIME_TYPE]: (state, action: SelectOrderTimeTypeAction) => ({
+    ...state,
+    orderTimeType: action.payload.orderTimeType,
+  }),
   // [TYPE_STORE_NAME]: (state, action) => ({
   //   ...state,
   //   storeName: action.payload,
