@@ -170,6 +170,7 @@ const SearchTag = styled.span`
   padding: 10px;
   border-radius: 5px;
   font-size: 0.9375rem;
+  cursor: pointer;
 `;
 
 const ResultList = styled.div``;
