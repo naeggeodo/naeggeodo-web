@@ -7,12 +7,14 @@ import {
   PLUS_MAX_COUNT,
   REMOVE_TAG,
   SELECT_ORDER_TIME_TYPE,
+  SELECT_CATEGORY,
 } from './actions';
 import {
   CreateStates,
   InsertLinkAction,
   InsertTitleAction,
   SelectOrderTimeTypeAction,
+  SelectCategoryAction,
 } from './types';
 
 const initialCreateStates: CreateStates = {
@@ -38,6 +40,10 @@ export const createStates = createReducer<CreateStates>(initialCreateStates, {
   [INSERT_LINK]: (state, action: InsertLinkAction) => ({
     ...state,
     link: action.payload.link,
+  }),
+  [SELECT_CATEGORY]: (state, action: SelectCategoryAction) => ({
+    ...state,
+    category: action.payload.category,
   }),
   // [ADD_TAG]: (state, action) => {
   //   if (state.tags.length >= 5) return state;

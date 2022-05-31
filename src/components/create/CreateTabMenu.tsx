@@ -20,9 +20,7 @@ const CreateTabMenu = () => {
 
   return (
     <Wrap>
-      <Button
-        active={router.pathname === '/create/directinput'}
-        onClick={onClick}>
+      <Button active={router.pathname === '/create/details'} onClick={onClick}>
         새로입력
       </Button>
       <Button active={router.pathname === '/naeggeotalk'} onClick={onClick}>

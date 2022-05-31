@@ -9,6 +9,7 @@ import CreateButton from './CreateButton';
 import { useLoadLib } from '../../hooks/useLoadLib';
 import Link from 'next/link';
 import SelectCategoryDrawer from './SelectCategoryDrawer';
+import { convertEngCategoryToKor } from '../../utils/converEngCategoryToKor';
 
 interface MoveLinkProps {
   isUrl: boolean;
@@ -20,6 +21,7 @@ const CreateForm = () => {
   const {
     title,
     link,
+    category,
     tagText,
     setTagText,
     dispatchAddTag,
@@ -56,7 +58,9 @@ const CreateForm = () => {
               />
             </Item>
             <SelectCategory onClick={openCategoryList}>
-              <Title>카테고리 선택</Title>
+              <Title>
+                {convertEngCategoryToKor(category) || '카테고리 선택'}
+              </Title>
               <Image
                 src='/assets/images/arrowrightdarkgray.svg'
                 width={17}

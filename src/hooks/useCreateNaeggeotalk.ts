@@ -17,6 +17,9 @@ export function useCreateNaeggeotalk() {
 
   const title = useSelector((state: RootState) => state.createStates.title);
   const link = useSelector((state: RootState) => state.createStates.link);
+  const category = useSelector(
+    (state: RootState) => state.createStates.category,
+  );
 
   const dispatchInsertTitle = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -70,6 +73,7 @@ export function useCreateNaeggeotalk() {
   return {
     title,
     link,
+    category,
     // maxCount,
     // tags,
     tagText,
