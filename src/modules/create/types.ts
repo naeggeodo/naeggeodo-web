@@ -1,4 +1,10 @@
 import { Category } from '../main/types';
+import { insertLink, insertTitle, selectOrderTimeType } from './actions';
+
+// * Actions type
+export type SelectOrderTimeTypeAction = ReturnType<typeof selectOrderTimeType>;
+export type InsertTitleAction = ReturnType<typeof insertTitle>;
+export type InsertLinkAction = ReturnType<typeof insertLink>;
 
 export type OrderTimeType = 'ONE_HOUR' | 'ASAP' | 'I_DONT_CARE';
 

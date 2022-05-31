@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../modules';
 import {
   addTag,
+  insertLink,
+  insertTitle,
   minusMaxCount,
   plusMaxCount,
   removeTag,
-  typeStoreLink,
-  typeStoreName,
 } from '../modules/create/actions';
 
 export function useCreateNaeggeotalk() {
@@ -15,20 +15,19 @@ export function useCreateNaeggeotalk() {
 
   const [tagText, setTagText] = useState('');
 
-  const { storeName, storeLink, maxCount, tags } = useSelector(
-    (state: RootState) => state.createStates,
-  );
+  const title = useSelector((state: RootState) => state.createStates.title);
+  const link = useSelector((state: RootState) => state.createStates.link);
 
-  const dispatchChangeStoreName = useCallback(
+  const dispatchInsertTitle = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
-      dispatch(typeStoreName(e.target.value));
+      dispatch(insertTitle(e.target.value));
     },
     [dispatch],
   );
 
-  const dispatchChangeStoreLink = useCallback(
+  const dispatchInsertLink = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
-      dispatch(typeStoreLink(e.target.value));
+      dispatch(insertLink(e.target.value));
     },
     [dispatch],
   );
@@ -69,16 +68,16 @@ export function useCreateNaeggeotalk() {
   );
 
   return {
-    storeName,
-    storeLink,
-    maxCount,
-    tags,
+    title,
+    link,
+    // maxCount,
+    // tags,
     tagText,
     setTagText,
     dispatch,
-    dispatchChangeStoreName,
+    dispatchInsertTitle,
+    dispatchInsertLink,
     dispatchRemoveTag,
-    dispatchChangeStoreLink,
     dispatchPlusMaxCount,
     dispatchMinusMaxCount,
     dispatchAddTag,

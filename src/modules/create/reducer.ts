@@ -1,15 +1,19 @@
 import { createReducer } from 'typesafe-actions';
 import {
   ADD_TAG,
+  INSERT_TITLE,
+  INSERT_LINK,
   MINUS_MAX_COUNT,
   PLUS_MAX_COUNT,
   REMOVE_TAG,
-  SelectOrderTimeTypeAction,
   SELECT_ORDER_TIME_TYPE,
-  TYPE_STORE_LINK,
-  TYPE_STORE_NAME,
 } from './actions';
-import { CreateStates } from './types';
+import {
+  CreateStates,
+  InsertLinkAction,
+  InsertTitleAction,
+  SelectOrderTimeTypeAction,
+} from './types';
 
 const initialCreateStates: CreateStates = {
   addr: '',
@@ -27,14 +31,14 @@ export const createStates = createReducer<CreateStates>(initialCreateStates, {
     ...state,
     orderTimeType: action.payload.orderTimeType,
   }),
-  // [TYPE_STORE_NAME]: (state, action) => ({
-  //   ...state,
-  //   storeName: action.payload,
-  // }),
-  // [TYPE_STORE_LINK]: (state, action) => ({
-  //   ...state,
-  //   storeLink: action.payload,
-  // }),
+  [INSERT_TITLE]: (state, action: InsertTitleAction) => ({
+    ...state,
+    title: action.payload.title,
+  }),
+  [INSERT_LINK]: (state, action: InsertLinkAction) => ({
+    ...state,
+    link: action.payload.link,
+  }),
   // [ADD_TAG]: (state, action) => {
   //   if (state.tags.length >= 5) return state;
   //   else {

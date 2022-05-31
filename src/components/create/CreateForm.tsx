@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import styled, { css } from 'styled-components';
 import palette from '../../styles/palette';
 
@@ -6,30 +6,34 @@ import CreateTabMenu from './CreateTabMenu';
 import { useCreateNaeggeotalk } from '../../hooks/useCreateNaeggeotalk';
 import Image from 'next/image';
 import CreateButton from './CreateButton';
+import { useLoadLib } from '../../hooks/useLoadLib';
+import Link from 'next/link';
 
 interface MoveLinkProps {
   isUrl: boolean;
 }
 
 const CreateForm = () => {
+  const { router } = useLoadLib();
   const {
-    storeLink,
-    storeName,
-    tags,
-    maxCount,
-    dispatch,
+    title,
+    link,
     tagText,
     setTagText,
     dispatchAddTag,
     dispatchRemoveTag,
-    dispatchChangeStoreName,
-    dispatchChangeStoreLink,
+    dispatchInsertTitle,
+    dispatchInsertLink,
     dispatchMinusMaxCount,
     dispatchPlusMaxCount,
   } = useCreateNaeggeotalk();
 
   const urlRegex = /(http(s)?:\/\/)([a-z0-9\w]+\.*)+[a-z0-9]{2,4}/gi;
   const [isUrl, setIsUrl] = useState<boolean>(false);
+
+  const moveStoreLink = useCallback(() => {
+    router.push(`${link}`);
+  }, [router]);
 
   return (
     <Wrap>
@@ -44,8 +48,8 @@ const CreateForm = () => {
               </TitleWrapper>
               <Input
                 type='text'
-                onChange={dispatchChangeStoreName}
-                value={storeName}
+                onChange={dispatchInsertTitle}
+                value={title}
                 placeholder='가게 이름을 입력해주세요.'
               />
             </Item>
@@ -55,15 +59,23 @@ const CreateForm = () => {
                 <Input
                   type='text'
                   placeholder='가게 링크를 입력해주세요'
-                  value={storeLink}
+                  value={link}
                   onChange={(e) => {
-                    setIsUrl(urlRegex.test(storeLink));
-                    dispatchChangeStoreLink(e);
+                    setIsUrl(urlRegex.test(link));
+                    dispatchInsertLink(e);
                   }}
                 />
-                <MoveLinkButton isUrl={isUrl}>링크이동</MoveLinkButton>
+                <Link href={`${link}`} passHref>
+                  <MoveLinkButton
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    isUrl={isUrl}>
+                    링크이동
+                  </MoveLinkButton>
+                </Link>
               </InputWrapper>
             </Item>
+            {/*
             <Item>
               <TagTitle>
                 <Title>태그</Title>
@@ -121,11 +133,11 @@ const CreateForm = () => {
                   +
                 </PlusMinusButton>
               </CounterContainer>
-            </ChatRoomContainer>
+            </ChatRoomContainer> */}
           </Content>
         </div>
         <ButtonWrapper>
-          <CreateButton storeName={storeName} />
+          <CreateButton storeName={title} />
         </ButtonWrapper>
       </Container>
     </Wrap>
@@ -279,7 +291,7 @@ const PlusMinusButton = styled.button`
   border-radius: 5px;
 `;
 
-const MoveLinkButton = styled.button<MoveLinkProps>`
+const MoveLinkButton = styled.a<MoveLinkProps>`
   all: unset;
   display: flex;
   justify-content: center;
@@ -294,7 +306,7 @@ const MoveLinkButton = styled.button<MoveLinkProps>`
   font-size: 0.75rem;
   color: ${palette.mainOrange};
 
-  background-color: ${palette.LightGray2};
+  background-color: ${palette.LightGray};
   border-radius: 5px;
 
   cursor: pointer;

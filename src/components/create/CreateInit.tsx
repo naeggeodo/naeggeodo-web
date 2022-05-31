@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import palette from '../../styles/palette';
 
 import { useLoadLib } from '../../hooks/useLoadLib';
 import { RootState } from '../../modules';
@@ -41,6 +40,7 @@ const CreateInit = () => {
         'data-value',
       ) as OrderTimeType;
       dispatch(selectOrderTimeType(orderTimeType));
+      router.push('/create/directinput');
     },
     [dispatch, router],
   );

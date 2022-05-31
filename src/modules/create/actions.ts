@@ -4,8 +4,8 @@ import { OrderTimeType } from './types';
 const namespace = 'create/';
 
 export const SELECT_ORDER_TIME_TYPE = namespace + 'SELECT_ORDER_TIME_TYPE';
-export const TYPE_STORE_NAME = namespace + 'TYPE_STORE_NAME';
-export const TYPE_STORE_LINK = namespace + 'TYPE_STORE_LINK';
+export const INSERT_TITLE = namespace + 'INSERT_TITLE';
+export const INSERT_LINK = namespace + 'INSERT_LINK';
 export const PLUS_MAX_COUNT = namespace + 'PLUS_MAX_COUNT';
 export const MINUS_MAX_COUNT = namespace + 'MINUS_MAX_COUNT';
 export const ADD_TAG = namespace + 'ADD_TAG';
@@ -16,10 +16,13 @@ export const selectOrderTimeType = createAction(
   (orderTimeType: OrderTimeType) => ({ orderTimeType }),
 )();
 
-export type SelectOrderTimeTypeAction = ReturnType<typeof selectOrderTimeType>;
+export const insertTitle = createAction(INSERT_TITLE, (title: string) => ({
+  title,
+}))();
 
-export const typeStoreName = createAction(TYPE_STORE_NAME, (data) => data)();
-export const typeStoreLink = createAction(TYPE_STORE_LINK, (data) => data)();
+export const insertLink = createAction(INSERT_LINK, (link: string) => ({
+  link,
+}))();
 
 export const plusMaxCount = createAction(PLUS_MAX_COUNT, () => ({}))();
 export const minusMaxCount = createAction(MINUS_MAX_COUNT, () => ({}))();
