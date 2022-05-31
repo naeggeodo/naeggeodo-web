@@ -16,7 +16,8 @@ import { kakaoLoginSaga } from './login/sagas';
 import { kakaoLoginState } from './login/reducers';
 import { modalStates } from './modal/reducer';
 import { searchPostCodeSaga } from './search-post-code/sagas';
-import { TOKEN_NAME } from '../constant/Login';
+import { getNaeggeotalkSaga } from './naeggeotalk/sagas';
+import { naeggeotalkState } from './naeggeotalk/reducer';
 
 //** RootReducer */
 export const rootReducer = combineReducers({
@@ -27,6 +28,7 @@ export const rootReducer = combineReducers({
   searchPageState,
   kakaoLoginState,
   modalStates,
+  naeggeotalkState,
 });
 
 //** RootSaga */
@@ -37,6 +39,7 @@ export function* rootSaga() {
     fork(getSearchPageInfoSaga),
     fork(kakaoLoginSaga),
     fork(searchPostCodeSaga),
+    fork(getNaeggeotalkSaga),
   ]);
 }
 
