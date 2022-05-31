@@ -40,7 +40,7 @@ const CreateInit = () => {
         'data-value',
       ) as OrderTimeType;
       dispatch(selectOrderTimeType(orderTimeType));
-      router.push('/create/directinput');
+      router.push('/create/details');
     },
     [dispatch, router],
   );

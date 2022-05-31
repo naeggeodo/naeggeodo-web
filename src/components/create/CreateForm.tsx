@@ -8,12 +8,14 @@ import Image from 'next/image';
 import CreateButton from './CreateButton';
 import { useLoadLib } from '../../hooks/useLoadLib';
 import Link from 'next/link';
+import SelectCategoryDrawer from './SelectCategoryDrawer';
 
 interface MoveLinkProps {
   isUrl: boolean;
 }
 
 const CreateForm = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const { router } = useLoadLib();
   const {
     title,
@@ -31,9 +33,9 @@ const CreateForm = () => {
   const urlRegex = /(http(s)?:\/\/)([a-z0-9\w]+\.*)+[a-z0-9]{2,4}/gi;
   const [isUrl, setIsUrl] = useState<boolean>(false);
 
-  const moveStoreLink = useCallback(() => {
-    router.push(`${link}`);
-  }, [router]);
+  const openCategoryList = useCallback(() => {
+    setIsOpen(true);
+  }, [isOpen]);
 
   return (
     <Wrap>
@@ -53,6 +55,13 @@ const CreateForm = () => {
                 placeholder='가게 이름을 입력해주세요.'
               />
             </Item>
+            <SelectCategory onClick={openCategoryList}>
+              <Title>카테고리 선택</Title>
+              <Image
+                src='/assets/images/arrowrightdarkgray.svg'
+                width={17}
+                height={16}></Image>
+            </SelectCategory>
             <Item>
               <Title>가게 링크</Title>
               <InputWrapper>
@@ -136,6 +145,7 @@ const CreateForm = () => {
             </ChatRoomContainer> */}
           </Content>
         </div>
+        <SelectCategoryDrawer isOpen={isOpen} setIsOpen={setIsOpen} />
         <ButtonWrapper>
           <CreateButton storeName={title} />
         </ButtonWrapper>
@@ -173,7 +183,21 @@ const Item = styled.div`
   gap: 20px;
 
   padding: 20px 0;
-  border-bottom: 1px solid #f2f2f8;
+  border-bottom: 1px solid ${palette.bgGray};
+`;
+
+const SelectCategory = styled.button`
+  all: unset;
+
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0;
+
+  border-bottom: 1px solid ${palette.bgGray};
+
+  width: 100%;
+
+  cursor: pointer;
 `;
 
 const TitleWrapper = styled.div`
