@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import palette from '../../styles/palette';
@@ -6,20 +6,37 @@ import palette from '../../styles/palette';
 import { useLoadLib } from '../../hooks/useLoadLib';
 import { RootState } from '../../modules';
 import { selectOrderType } from '../../modules/create/actions';
+import { ButtonValue } from '../../modules/create/types';
 
 type StyledType = {
   active: boolean;
 };
 
-const buttonValue = [
-  '1시간 이내',
-  '최대한 빨리',
-  '상관없음 (인원이 모집되는대로)',
+const buttonValue: ButtonValue[] = [
+  {
+    text: '1시간 이내',
+    value: 'ONE_HOUR',
+  },
+  {
+    text: '최대한 빨리',
+    value: 'ASAP',
+  },
+  {
+    text: '상관없음 (인원이 모집되는대로)',
+    value: 'I_DONT_CARE',
+  },
 ];
 
 const CreateInit = () => {
   const { router, dispatch } = useLoadLib();
-  const { orderType } = useSelector((state: RootState) => state.createStates);
+
+  const selectOrderTypeTime = useCallback(
+    (e) => {
+      console.log(e.target);
+      // dispatch(selectOrderType())
+    },
+    [dispatch, router],
+  );
 
   return (
     <Container>
@@ -36,8 +53,8 @@ const CreateInit = () => {
               dispatch(selectOrderType(item));
               router.push('/create/directinput');
             }}
-            active={orderType === item ? true : false}>
-            {item}
+            active>
+            {item.text}
           </Button>
         ))}
       </Content>
