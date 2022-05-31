@@ -1,6 +1,8 @@
 import CategoryMenuSlide from '../CategoryMenuSlide';
 import { ComponentMeta } from '@storybook/react';
 import { mockFoodCategories } from '../data';
+import { configureStore } from '../../../modules';
+import { Provider } from 'react-redux';
 
 export default {
   title: 'main/컴포넌트',
@@ -8,7 +10,11 @@ export default {
   decorators: [(Story) => <Story />],
 } as ComponentMeta<typeof CategoryMenuSlide>;
 
-const Template = (args) => <CategoryMenuSlide {...args} />;
+const Template = (args) => (
+  <Provider store={configureStore()}>
+    <CategoryMenuSlide {...args} />
+  </Provider>
+);
 
 export const CategoryMenuStory = Template.bind({});
 

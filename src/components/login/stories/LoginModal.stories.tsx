@@ -1,4 +1,6 @@
 import { ComponentMeta } from '@storybook/react';
+import { Provider } from 'react-redux';
+import { configureStore } from '../../../modules';
 import LoginModalBox from '../LoginModalBox';
 
 export default {
@@ -9,9 +11,11 @@ export default {
   },
   decorators: [
     (Story) => (
-      <div style={{ position: 'relative', width: '100vw', height: '100vh' }}>
-        <Story />
-      </div>
+      <Provider store={configureStore()}>
+        <div style={{ position: 'relative', width: '100vw', height: '100vh' }}>
+          <Story />
+        </div>
+      </Provider>
     ),
   ],
 } as ComponentMeta<typeof LoginModalBox>;
