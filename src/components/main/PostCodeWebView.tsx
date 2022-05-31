@@ -4,7 +4,10 @@ import styled from 'styled-components';
 import Portal from '../common/Portal';
 import { Address } from 'react-daum-postcode';
 import { useDispatch } from 'react-redux';
-import { patchBuildingCodeRequest } from '../../modules/search-post-code/actions';
+import {
+  patchBuildingCodeRequest,
+  saveApartmentAddress,
+} from '../../modules/search-post-code/actions';
 import palette from '../../styles/palette';
 import { PatchBuildingCodeRequestData } from '../../modules/search-post-code/types';
 
@@ -33,8 +36,11 @@ const PostCodeWebView = ({ closeWebView }: { closeWebView: () => void }) => {
     }
 
     console.log(data.apartment);
-
-    dispatch(patchBuildingCodeRequest(userId, addressInfo));
+    if (data.apartment === 'N') {
+      dispatch(saveApartmentAddress(data.apartment));
+    } else if (data.apartment === 'Y') {
+      dispatch(patchBuildingCodeRequest(userId, addressInfo));
+    }
   };
 
   return (

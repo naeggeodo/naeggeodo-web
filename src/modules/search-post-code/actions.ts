@@ -12,6 +12,8 @@ export const GET_BUILDING_CODE_REQUEST =
 export const GET_BUILDING_CODE_SUCCESS =
   namespace + 'GET_BUILDING_CODE_SUCCESS';
 
+export const SAVE_APARTMENT_ADDRESS = namespace + 'SAVE_APARTMENT_ADDRESS';
+
 export const patchBuildingCodeRequest = createAction(
   PATCH_BUILDING_CODE_REQUEST,
   (userId, addressInfo) => ({ userId, addressInfo }),
@@ -19,7 +21,7 @@ export const patchBuildingCodeRequest = createAction(
 
 export const patchBuildingCodeSuccess = createAction(
   PATCH_BUILDING_CODE_SUCCESS,
-  (response) => response,
+  (response, apartment) => ({ response, apartment }),
 )();
 
 export const getBuildingCodeRequest = createAction(
@@ -29,7 +31,12 @@ export const getBuildingCodeRequest = createAction(
 
 export const getBuildingCodeSuccess = createAction(
   GET_BUILDING_CODE_SUCCESS,
-  (response) => response,
+  (response, apartment) => ({ response, apartment }),
+)();
+
+export const saveApartmentAddress = createAction(
+  SAVE_APARTMENT_ADDRESS,
+  (apartment) => ({ apartment }),
 )();
 
 export type PatchBuildingCodeRequestAction = ReturnType<
@@ -38,4 +45,8 @@ export type PatchBuildingCodeRequestAction = ReturnType<
 
 export type GetBuildingCodeRequestAction = ReturnType<
   typeof getBuildingCodeRequest
+>;
+
+export type SaveApartmentAddressAction = ReturnType<
+  typeof saveApartmentAddress
 >;

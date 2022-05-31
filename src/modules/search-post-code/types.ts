@@ -9,4 +9,5 @@ export interface PatchBuildingCodeResponse {
   buildingCode: string;
   id: string;
   zonecode: string;
+  apartment: 'Y' | 'N' | string;
 }

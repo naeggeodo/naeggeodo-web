@@ -22,7 +22,7 @@ function* searchPostCodeGenerator(action: PatchBuildingCodeRequestAction) {
       action.payload.addressInfo,
     );
 
-    yield put(patchBuildingCodeSuccess(response.data));
+    yield put(patchBuildingCodeSuccess(response.data, 'Y'));
   } catch (error) {
     console.log(error);
   }
@@ -34,7 +34,7 @@ function* getUserAddressGenerator(action: GetBuildingCodeRequestAction) {
       SearchPostCodeService.asyncGetBuildingCode,
       action.payload.userId,
     );
-    yield put(getBuildingCodeSuccess(response.data));
+    yield put(getBuildingCodeSuccess(response.data, 'Y'));
   } catch (err) {
     console.log(err);
   }
