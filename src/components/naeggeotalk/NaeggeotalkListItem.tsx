@@ -1,12 +1,12 @@
 import Image from 'next/image';
 import styled from 'styled-components';
+import { Naeggeotalk } from '../../modules/naeggeotalk/types';
 
 type StyledType = {
   active?: boolean;
 };
 
-type PropsType = { title: string; date: string };
-const NaeggeotalkListItem = ({ data }: { data: PropsType }) => {
+const NaeggeotalkListItem = ({ data }: { data: Naeggeotalk }) => {
   return (
     <Container active={true}>
       <Content>
@@ -14,7 +14,7 @@ const NaeggeotalkListItem = ({ data }: { data: PropsType }) => {
           <Image src='/assets/images/hamburger.svg' width={44} height={44} />
           <div>
             <Title>{data.title}</Title>
-            <Date>{data.date}</Date>
+            <Date>{data.createDate}</Date>
           </div>
         </div>
         {/* <Image src='/assets/images/yellowstar.svg' width={18} height={24} /> */}

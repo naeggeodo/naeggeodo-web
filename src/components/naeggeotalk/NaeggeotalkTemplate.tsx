@@ -1,23 +1,24 @@
 import styled from 'styled-components';
+import { NaeggeotalkListResponse } from '../../modules/naeggeotalk/types';
 import CreateButton from '../create/CreateButton';
 import CreateTabMenu from '../create/CreateTabMenu';
 import TabMenu from '../main/TabMenu';
 import NaeggeotalkListItem from './NaeggeotalkListItem';
 
-const NaeggeotalkTemplate = () => {
-  const listData = [
-    { title: '버거킹 백석 이마트점', date: '하루 전' },
-    { title: '교촌치킨 백석역점', date: '4월 30일' },
-  ];
-
+const NaeggeotalkTemplate = ({
+  naeggeotalkList,
+}: {
+  naeggeotalkList: NaeggeotalkListResponse;
+}) => {
   return (
     <>
       <Container>
         <CreateTabMenu />
         <Content>
-          {listData.map((v, i) => (
-            <NaeggeotalkListItem key={i} data={v} />
-          ))}
+          {naeggeotalkList.chatRoom &&
+            naeggeotalkList.chatRoom.map((v, i) => (
+              <NaeggeotalkListItem key={i} data={v} />
+            ))}
         </Content>
 
         <ButtonWrapper>
