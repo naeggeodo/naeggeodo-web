@@ -1,10 +1,11 @@
-import { useRouter } from 'next/router';
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import palette from '../../styles/palette';
+
+import { useLoadLib } from '../../hooks/useLoadLib';
 import { RootState } from '../../modules';
 import { selectOrderType } from '../../modules/create/actions';
-import palette from '../../styles/palette';
 
 type StyledType = {
   active: boolean;
@@ -14,16 +15,14 @@ const buttonValue = [
   '1시간 이내',
   '최대한 빨리',
   '상관없음 (인원이 모집되는대로)',
-  '선택하지 않음',
 ];
 
 const CreateInit = () => {
-  const router = useRouter();
-  const dispatch = useDispatch();
+  const { router, dispatch } = useLoadLib();
   const { orderType } = useSelector((state: RootState) => state.createStates);
 
   return (
-    <Wrap>
+    <Container>
       <div>
         <Title>언제 음식을</Title>
         <Title>주문하실건가요?</Title>
@@ -42,11 +41,11 @@ const CreateInit = () => {
           </Button>
         ))}
       </Content>
-    </Wrap>
+    </Container>
   );
 };
 
-const Wrap = styled.div`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
