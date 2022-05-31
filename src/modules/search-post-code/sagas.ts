@@ -1,4 +1,5 @@
 import { AxiosResponse } from 'axios';
+import Router from 'next/router';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { SearchPostCodeService } from '../../service/api/search-post-code/SearchPostCodeService';
 import {
@@ -23,6 +24,10 @@ function* searchPostCodeGenerator(action: PatchBuildingCodeRequestAction) {
     );
 
     yield put(patchBuildingCodeSuccess(response.data, 'Y'));
+    yield call(
+      Router.push,
+      `/chatRooms?buildingCode=${response.data.buildingCode}`,
+    );
   } catch (error) {
     console.log(error);
   }

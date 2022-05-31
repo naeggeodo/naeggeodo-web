@@ -1,4 +1,5 @@
 import { AxiosResponse } from 'axios';
+import Router from 'next/router';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { TOKEN_NAME } from '../../constant/Login';
 import { LoginService } from '../../service/api/login/LoginService';
@@ -27,7 +28,7 @@ function* KakaoLoginGenerator(action: getkakaoTokenRequestAction) {
     yield put(getKakaoTokenSuccess(response.data));
     yield put(endLoading());
 
-    location.href = '/';
+    yield call(Router.push, '/');
   } catch (error) {
     console.log(error);
   }
