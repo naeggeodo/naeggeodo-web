@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { ChangeEvent, useCallback, useState } from 'react';
 import styled, { css } from 'styled-components';
 import palette from '../../styles/palette';
 
@@ -6,7 +6,6 @@ import CreateTabMenu from './CreateTabMenu';
 import { useCreateNaeggeotalk } from '../../hooks/useCreateNaeggeotalk';
 import Image from 'next/image';
 import CreateButton from './CreateButton';
-import { useLoadLib } from '../../hooks/useLoadLib';
 import Link from 'next/link';
 import SelectCategoryDrawer from './SelectCategoryDrawer';
 import { convertEngCategoryToKor } from '../../utils/converEngCategoryToKor';
@@ -17,7 +16,6 @@ interface MoveLinkProps {
 
 const CreateForm = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { router } = useLoadLib();
   const {
     title,
     link,
@@ -36,10 +34,29 @@ const CreateForm = () => {
 
   const urlRegex = /(http(s)?:\/\/)([a-z0-9\w]+\.*)+[a-z0-9]{2,4}/gi;
   const [isUrl, setIsUrl] = useState<boolean>(false);
+  const [imgSrc, setImgSrc] = useState<string | ArrayBuffer>();
+  const [imgFile, setImgFile] = useState<any>();
 
   const openCategoryList = useCallback(() => {
     setIsOpen(true);
   }, [isOpen]);
+
+  const uploadImg = useCallback<
+    (e: ChangeEvent<HTMLInputElement>) => Promise<void>
+  >(
+    (e) => {
+      setImgFile(e.target.files[0]);
+      const reader = new FileReader();
+      reader.readAsDataURL(e.target.files[0]);
+      return new Promise<void>((resolve) => {
+        reader.onload = () => {
+          setImgSrc(reader.result);
+          resolve();
+        };
+      });
+    },
+    [imgSrc],
+  );
 
   return (
     <Wrap>
@@ -122,7 +139,7 @@ const CreateForm = () => {
 
             <ChatRoomContainer>
               <TitleWrapper>
-                <Title>채팅방 입장 인원</Title>
+                <Title>입장 인원</Title>
                 <Desc>(최대5명)</Desc>
               </TitleWrapper>
 
@@ -148,11 +165,33 @@ const CreateForm = () => {
                 </PlusMinusButton>
               </CounterContainer>
             </ChatRoomContainer>
+
+            <Item>
+              <TagTitle>
+                <Title>채팅방 이미지</Title>
+              </TagTitle>
+              <FileBox>
+                <ImgBox>
+                  <img src={imgSrc as string} />
+                </ImgBox>
+                <SearchFileButton htmlFor='file'>파일 찾기</SearchFileButton>
+                <InputFile
+                  onChange={uploadImg}
+                  accept='image/*'
+                  type='file'
+                  id='file'
+                />
+              </FileBox>
+            </Item>
           </Content>
         </div>
         <SelectCategoryDrawer isOpen={isOpen} setIsOpen={setIsOpen} />
+
         <ButtonWrapper>
-          <CreateButton storeName={title} />
+          <CreateButton
+            handleClick={() => console.log(imgFile)}
+            storeName={title}
+          />
         </ButtonWrapper>
       </Container>
     </Wrap>
@@ -253,8 +292,8 @@ const TagTitle = styled.div`
 const TagContainer = styled.div`
   display: flex;
   align-items: center;
-  gap: 8px;
   flex-wrap: wrap;
+  gap: 8px;
 `;
 
 const TagButton = styled.button`
@@ -293,7 +332,7 @@ const ChatRoomContainer = styled(Item)`
   flex-direction: row;
   justify-content: space-between;
 
-  border-bottom: none;
+  border-bottom: 1px solid ${palette.bgGray};
 `;
 
 const CounterContainer = styled.div`
@@ -356,6 +395,43 @@ const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   padding-bottom: 20px;
+`;
+
+const FileBox = styled.div`
+  display: flex;
+  align-items: flex-end;
+`;
+
+const ImgBox = styled.div`
+  width: 70px;
+  height: 70px;
+
+  border-radius: 5px;
+  border: 1px solid #dddddd;
+`;
+
+const InputFile = styled.input`
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+`;
+
+const SearchFileButton = styled.label`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: ${palette.mainOrange};
+  background-color: #fdefe7;
+
+  padding: 10px 15px;
+  border-radius: 5px;
+  margin-left: 10px;
+
+  cursor: pointer;
 `;
 
 export default CreateForm;
