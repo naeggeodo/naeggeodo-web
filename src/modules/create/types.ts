@@ -1,5 +1,6 @@
 import { Category } from '../main/types';
 import {
+  addTag,
   insertLink,
   insertTitle,
   selectCategory,
@@ -11,6 +12,7 @@ export type SelectOrderTimeTypeAction = ReturnType<typeof selectOrderTimeType>;
 export type InsertTitleAction = ReturnType<typeof insertTitle>;
 export type InsertLinkAction = ReturnType<typeof insertLink>;
 export type SelectCategoryAction = ReturnType<typeof selectCategory>;
+export type AddTagAction = ReturnType<typeof addTag>;
 
 export type OrderTimeType = 'ONE_HOUR' | 'ASAP' | 'I_DONT_CARE';
 
@@ -21,7 +23,7 @@ export interface CreateStates {
   place: string; // 수령지
   title: string; //방제
   user_id: string; // 방장 id
-  tags: string[];
+  tag: string[];
   orderTimeType: OrderTimeType;
 }
 

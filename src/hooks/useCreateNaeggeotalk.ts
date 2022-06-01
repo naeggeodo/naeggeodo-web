@@ -12,14 +12,20 @@ import {
 
 export function useCreateNaeggeotalk() {
   const dispatch = useDispatch();
-
   const [tagText, setTagText] = useState('');
+  const changeTagText = useCallback<(e: ChangeEvent<HTMLInputElement>) => void>(
+    (e) => {
+      setTagText(e.target.value);
+    },
+    [tagText],
+  );
 
   const title = useSelector((state: RootState) => state.createStates.title);
   const link = useSelector((state: RootState) => state.createStates.link);
   const category = useSelector(
     (state: RootState) => state.createStates.category,
   );
+  const tag = useSelector((state: RootState) => state.createStates.tag);
 
   const dispatchInsertTitle = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -27,24 +33,9 @@ export function useCreateNaeggeotalk() {
     },
     [dispatch],
   );
-
   const dispatchInsertLink = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       dispatch(insertLink(e.target.value));
-    },
-    [dispatch],
-  );
-
-  const dispatchPlusMaxCount = useCallback(
-    (_) => {
-      dispatch(plusMaxCount());
-    },
-    [dispatch],
-  );
-
-  const dispatchMinusMaxCount = useCallback(
-    (_) => {
-      dispatch(minusMaxCount());
     },
     [dispatch],
   );
@@ -61,6 +52,20 @@ export function useCreateNaeggeotalk() {
     [dispatch, tagText],
   );
 
+  const dispatchPlusMaxCount = useCallback(
+    (_) => {
+      dispatch(plusMaxCount());
+    },
+    [dispatch],
+  );
+
+  const dispatchMinusMaxCount = useCallback(
+    (_) => {
+      dispatch(minusMaxCount());
+    },
+    [dispatch],
+  );
+
   const dispatchRemoveTag = useCallback<
     (e: React.MouseEvent<HTMLButtonElement>) => void
   >(
@@ -74,10 +79,10 @@ export function useCreateNaeggeotalk() {
     title,
     link,
     category,
+    tag,
+    changeTagText,
     // maxCount,
-    // tags,
     tagText,
-    setTagText,
     dispatch,
     dispatchInsertTitle,
     dispatchInsertLink,

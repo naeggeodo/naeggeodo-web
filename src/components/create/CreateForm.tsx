@@ -22,8 +22,9 @@ const CreateForm = () => {
     title,
     link,
     category,
+    tag,
     tagText,
-    setTagText,
+    changeTagText,
     dispatchAddTag,
     dispatchRemoveTag,
     dispatchInsertTitle,
@@ -88,7 +89,6 @@ const CreateForm = () => {
                 </Link>
               </InputWrapper>
             </Item>
-            {/*
             <Item>
               <TagTitle>
                 <Title>태그</Title>
@@ -97,17 +97,17 @@ const CreateForm = () => {
               <form onSubmit={(e) => dispatchAddTag(e)}>
                 <Input
                   value={tagText}
-                  onChange={(e) => setTagText(e.target.value)}
-                  placeholder='태그 작성 후 Enter를 입력하세요.'
+                  onChange={changeTagText}
+                  placeholder='태그 작성 후 Enter를 입력하세요. (최대 5개)'
                 />
               </form>
               <TagContainer>
-                {tags.map((tag, i) => (
+                {tag.map((item, i) => (
                   <TagButton
-                    key={i}
-                    data-id={i}
+                    key={item}
+                    data-value={i}
                     onClick={(e) => dispatchRemoveTag(e)}>
-                    <span>{tag}</span>
+                    <span>{item}</span>
                     <Image
                       src='/assets/images/buttonclose.svg'
                       width={12}
@@ -119,6 +119,7 @@ const CreateForm = () => {
               </TagContainer>
             </Item>
 
+            {/*
             <ChatRoomContainer>
               <TitleWrapper>
                 <Title>채팅방 입장 인원</Title>

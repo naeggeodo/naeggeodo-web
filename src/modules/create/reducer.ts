@@ -15,6 +15,7 @@ import {
   InsertTitleAction,
   SelectOrderTimeTypeAction,
   SelectCategoryAction,
+  AddTagAction,
 } from './types';
 
 const initialCreateStates: CreateStates = {
@@ -24,7 +25,7 @@ const initialCreateStates: CreateStates = {
   place: '',
   title: '',
   user_id: '',
-  tags: [],
+  tag: [],
   orderTimeType: 'ONE_HOUR',
 };
 
@@ -45,15 +46,15 @@ export const createStates = createReducer<CreateStates>(initialCreateStates, {
     ...state,
     category: action.payload.category,
   }),
-  // [ADD_TAG]: (state, action) => {
-  //   if (state.tags.length >= 5) return state;
-  //   else {
-  //     return {
-  //       ...state,
-  //       tags: [...state.tags, action.payload],
-  //     };
-  //   }
-  // },
+  [ADD_TAG]: (state, action: AddTagAction) => {
+    if (state.tag.length >= 5) return state;
+    else {
+      return {
+        ...state,
+        tags: [...state.tag, action.payload.keyword],
+      };
+    }
+  },
   // [REMOVE_TAG]: (state, action) => ({
   //   ...state,
   //   tags: state.tags.filter((_, index) => index !== action.payload),
