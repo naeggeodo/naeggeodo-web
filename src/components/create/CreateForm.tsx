@@ -104,9 +104,9 @@ const CreateForm = () => {
               <TagContainer>
                 {tag.map((item, i) => (
                   <TagButton
-                    key={item}
+                    key={item + i}
                     data-value={i}
-                    onClick={(e) => dispatchRemoveTag(e)}>
+                    onClick={dispatchRemoveTag}>
                     <span>{item}</span>
                     <Image
                       src='/assets/images/buttonclose.svg'

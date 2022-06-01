@@ -52,6 +52,16 @@ export function useCreateNaeggeotalk() {
     [dispatch, tagText],
   );
 
+  const dispatchRemoveTag = useCallback<
+    (e: React.MouseEvent<HTMLButtonElement>) => void
+  >(
+    (e) => {
+      const dataValue = e.currentTarget.getAttribute('data-value');
+      dispatch(removeTag(+dataValue));
+    },
+    [dispatch],
+  );
+
   const dispatchPlusMaxCount = useCallback(
     (_) => {
       dispatch(plusMaxCount());
@@ -62,15 +72,6 @@ export function useCreateNaeggeotalk() {
   const dispatchMinusMaxCount = useCallback(
     (_) => {
       dispatch(minusMaxCount());
-    },
-    [dispatch],
-  );
-
-  const dispatchRemoveTag = useCallback<
-    (e: React.MouseEvent<HTMLButtonElement>) => void
-  >(
-    (e) => {
-      dispatch(removeTag(+e.currentTarget.dataset.id));
     },
     [dispatch],
   );

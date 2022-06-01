@@ -29,7 +29,7 @@ export const selectCategory = createAction(
   (category: Category) => ({ category }),
 )();
 export const addTag = createAction(ADD_TAG, (keyword) => ({ keyword }))();
+export const removeTag = createAction(REMOVE_TAG, (index) => ({ index }))();
 
 export const plusMaxCount = createAction(PLUS_MAX_COUNT, () => ({}))();
 export const minusMaxCount = createAction(MINUS_MAX_COUNT, () => ({}))();
-export const removeTag = createAction(REMOVE_TAG, (index) => index)();

@@ -16,6 +16,7 @@ import {
   SelectOrderTimeTypeAction,
   SelectCategoryAction,
   AddTagAction,
+  RemoveTagAction,
 } from './types';
 
 const initialCreateStates: CreateStates = {
@@ -51,14 +52,14 @@ export const createStates = createReducer<CreateStates>(initialCreateStates, {
     else {
       return {
         ...state,
-        tags: [...state.tag, action.payload.keyword],
+        tag: [...state.tag, action.payload.keyword],
       };
     }
   },
-  // [REMOVE_TAG]: (state, action) => ({
-  //   ...state,
-  //   tags: state.tags.filter((_, index) => index !== action.payload),
-  // }),
+  [REMOVE_TAG]: (state, action: RemoveTagAction) => ({
+    ...state,
+    tag: state.tag.filter((_, index) => index !== action.payload.index),
+  }),
   // [PLUS_MAX_COUNT]: (state, _) => {
   //   if (state.maxCount >= 5) {
   //     return state;

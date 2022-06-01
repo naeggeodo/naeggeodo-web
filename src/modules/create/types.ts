@@ -3,6 +3,7 @@ import {
   addTag,
   insertLink,
   insertTitle,
+  removeTag,
   selectCategory,
   selectOrderTimeType,
 } from './actions';
@@ -13,6 +14,7 @@ export type InsertTitleAction = ReturnType<typeof insertTitle>;
 export type InsertLinkAction = ReturnType<typeof insertLink>;
 export type SelectCategoryAction = ReturnType<typeof selectCategory>;
 export type AddTagAction = ReturnType<typeof addTag>;
+export type RemoveTagAction = ReturnType<typeof removeTag>;
 
 export type OrderTimeType = 'ONE_HOUR' | 'ASAP' | 'I_DONT_CARE';
 
