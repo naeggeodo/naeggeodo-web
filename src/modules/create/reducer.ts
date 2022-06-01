@@ -27,6 +27,7 @@ const initialCreateStates: CreateStates = {
   title: '',
   user_id: '',
   tag: [],
+  maxCount: 1,
   orderTimeType: 'ONE_HOUR',
 };
 
@@ -60,24 +61,24 @@ export const createStates = createReducer<CreateStates>(initialCreateStates, {
     ...state,
     tag: state.tag.filter((_, index) => index !== action.payload.index),
   }),
-  // [PLUS_MAX_COUNT]: (state, _) => {
-  //   if (state.maxCount >= 5) {
-  //     return state;
-  //   } else {
-  //     return {
-  //       ...state,
-  //       maxCount: state.maxCount + 1,
-  //     };
-  //   }
-  // },
-  // [MINUS_MAX_COUNT]: (state, _) => {
-  //   if (state.maxCount <= 1) {
-  //     return state;
-  //   } else {
-  //     return {
-  //       ...state,
-  //       maxCount: state.maxCount - 1,
-  //     };
-  //   }
-  // },
+  [PLUS_MAX_COUNT]: (state, _) => {
+    if (state.maxCount >= 5) {
+      return state;
+    } else {
+      return {
+        ...state,
+        maxCount: state.maxCount + 1,
+      };
+    }
+  },
+  [MINUS_MAX_COUNT]: (state, _) => {
+    if (state.maxCount <= 1) {
+      return state;
+    } else {
+      return {
+        ...state,
+        maxCount: state.maxCount - 1,
+      };
+    }
+  },
 });

@@ -24,6 +24,7 @@ const CreateForm = () => {
     category,
     tag,
     tagText,
+    maxCount,
     changeTagText,
     dispatchAddTag,
     dispatchRemoveTag,
@@ -119,7 +120,6 @@ const CreateForm = () => {
               </TagContainer>
             </Item>
 
-            {/*
             <ChatRoomContainer>
               <TitleWrapper>
                 <Title>채팅방 입장 인원</Title>
@@ -147,7 +147,7 @@ const CreateForm = () => {
                   +
                 </PlusMinusButton>
               </CounterContainer>
-            </ChatRoomContainer> */}
+            </ChatRoomContainer>
           </Content>
         </div>
         <SelectCategoryDrawer isOpen={isOpen} setIsOpen={setIsOpen} />
@@ -318,6 +318,8 @@ const PlusMinusButton = styled.button`
 
   background-color: ${palette.LightGray2};
   border-radius: 5px;
+
+  cursor: pointer;
 `;
 
 const MoveLinkButton = styled.a<MoveLinkProps>`

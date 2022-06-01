@@ -26,6 +26,9 @@ export function useCreateNaeggeotalk() {
     (state: RootState) => state.createStates.category,
   );
   const tag = useSelector((state: RootState) => state.createStates.tag);
+  const maxCount = useSelector(
+    (state: RootState) => state.createStates.maxCount,
+  );
 
   const dispatchInsertTitle = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -64,27 +67,29 @@ export function useCreateNaeggeotalk() {
 
   const dispatchPlusMaxCount = useCallback(
     (_) => {
+      if (maxCount === 5) return;
       dispatch(plusMaxCount());
     },
-    [dispatch],
+    [dispatch, maxCount],
   );
 
   const dispatchMinusMaxCount = useCallback(
     (_) => {
+      if (maxCount === 1) return;
       dispatch(minusMaxCount());
     },
-    [dispatch],
+    [dispatch, maxCount],
   );
 
   return {
+    dispatch,
     title,
     link,
     category,
     tag,
-    changeTagText,
-    // maxCount,
     tagText,
-    dispatch,
+    changeTagText,
+    maxCount,
     dispatchInsertTitle,
     dispatchInsertLink,
     dispatchRemoveTag,

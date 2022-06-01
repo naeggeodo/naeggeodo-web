@@ -27,6 +27,7 @@ export interface CreateStates {
   user_id: string; // 방장 id
   tag: string[];
   orderTimeType: OrderTimeType;
+  maxCount: number;
 }
 
 export interface ButtonValue {
