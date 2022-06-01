@@ -18,6 +18,28 @@ export default {
   },
 } as ComponentMeta<typeof NaeggeotalkTemplate>;
 
-export const NaeggeotalkStory = () => <NaeggeotalkTemplate />;
+const Template = (args) => <NaeggeotalkTemplate {...args} />;
+// export const NaeggeotalkStory = () => Template.bind({});
 
-NaeggeotalkStory.storyName = '내꺼톡 주문내역 탭 페이지';
+// NaeggeotalkStory.args = {
+//   naeggeotalkList: {
+//     chatRoom: [
+//       {
+//         buildingCode: 'string',
+//         category: 'string',
+//         createDate: 'string',
+//         id: 1,
+//         idx: 1,
+//         imgPath: 'string',
+//         maxCount: 1,
+//         place: 'string',
+//         state: 'string',
+//         tags: 'string',
+//         title: 'asdf',
+//         user_id: 'string',
+//       },
+//     ],
+//   },
+// };
+
+// NaeggeotalkStory.storyName = '내꺼톡 주문내역 탭 페이지';

@@ -1,19 +1,19 @@
 import Image from 'next/image';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 type StyledType = {
   isMe?: boolean;
-  drawerOpen?: boolean;
+  isDrawerOpen?: boolean;
 };
 
 type PropsType = {
-  setDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  drawerOpen: boolean;
+  setIsDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isDrawerOpen: boolean;
 };
 
-const ChatDrawer = ({ setDrawerOpen, drawerOpen }: PropsType) => {
+const ChatDrawer = ({ setIsDrawerOpen, isDrawerOpen }: PropsType) => {
   return (
-    <Container drawerOpen={drawerOpen}>
+    <Container isDrawerOpen={isDrawerOpen}>
       <Content>
         <Title>내꺼톡 서랍</Title>
         <div>
@@ -92,7 +92,7 @@ const ChatDrawer = ({ setDrawerOpen, drawerOpen }: PropsType) => {
       <Footer>
         <Button
           onClick={() => {
-            setDrawerOpen(false);
+            setIsDrawerOpen(false);
           }}>
           <Image
             src='/assets/images/drawerclosebtn.svg'
@@ -115,7 +115,7 @@ const ChatDrawer = ({ setDrawerOpen, drawerOpen }: PropsType) => {
 };
 
 const Container = styled.div<StyledType>`
-  width: ${(props) => (props.drawerOpen ? '70%' : '0')};
+  width: ${(props) => (props.isDrawerOpen ? '70%' : '0')};
   height: 100%;
 
   position: fixed;
@@ -124,7 +124,10 @@ const Container = styled.div<StyledType>`
 
   overflow: hidden;
   ${(props) =>
-    props.drawerOpen && 'box-shadow: 0 0 1000px 1000px rgba(0, 0, 0, 0.7);'}
+    props.isDrawerOpen &&
+    css`
+      box-shadow: 0 0 1000px 1000px rgba(0, 0, 0, 0.7);
+    `}
   transition: ease-in-out 0.3s;
 `;
 
@@ -187,18 +190,19 @@ const Nickname = styled.p<StyledType>`
   font-size: 0.9375rem;
   ${(props) =>
     props.isMe &&
-    `
-  &:before{
-      content: '나';
+    css`
+      &:before {
+        content: '나';
 
-      background: #191919;
-      color: #fff;
+        background: #191919;
+        color: #fff;
 
-      border-radius: 5px;
-      font-size: 0.625rem;
-      padding: 4px;
-      margin-right: 4px;
-  }`}
+        border-radius: 5px;
+        font-size: 0.625rem;
+        padding: 4px;
+        margin-right: 4px;
+      }
+    `}
 `;
 
 const Footer = styled.div`

@@ -1,10 +1,10 @@
 import Image from 'next/image';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import palette from '../../styles/palette';
 import TabMenu from '../main/TabMenu';
 
 type StyledType = {
-  active?: boolean;
+  isActive?: boolean;
 };
 
 const MoreTemplate = () => {
@@ -20,11 +20,11 @@ const MoreTemplate = () => {
           <InfoBox>
             <InfoDiv>
               <P>최근 3개월간 주문</P>
-              <P active={true}>4건</P>
+              <P isActive={true}>4건</P>
             </InfoDiv>
             <InfoDiv>
               <P>참여중인 내꺼도</P>
-              <P active={true}>3건</P>
+              <P isActive={true}>3건</P>
             </InfoDiv>
           </InfoBox>
         </FirstSection>
@@ -156,11 +156,13 @@ const InfoDiv = styled.div`
 `;
 
 const P = styled.p<StyledType>`
-  font-size: ${(props) => (props.active ? '1.25rem' : '0.875rem')};
+  font-size: ${(props) => (props.isActive ? '1.25rem' : '0.875rem')};
   ${(props) =>
-    props.active &&
-    `color: ${palette.mainOrange};     
-    font-family: 'SpoqaBold';`};
+    props.isActive &&
+    css`
+      color: ${palette.mainOrange};
+      font-family: 'SpoqaBold';
+    `};
 `;
 
 const SectionTitle = styled.h3`

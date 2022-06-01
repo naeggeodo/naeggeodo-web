@@ -2,8 +2,8 @@ import { ComponentMeta } from '@storybook/react';
 import ChatDrawer from '../ChatDrawer';
 
 type Args = {
-  drawerOpen: boolean;
-  setDrawerOpen: null;
+  isDrawerOpen: boolean;
+  setIsDrawerOpen: null;
 };
 
 export default {
@@ -25,7 +25,7 @@ const ChatDrawerStory = (args: Args) => <ChatDrawer {...args} />;
 export const ChatDrawerComp = ChatDrawerStory.bind({});
 
 ChatDrawerComp.args = {
-  drawerOpen: true,
+  isDrawerOpen: true,
 };
 
 ChatDrawerComp.storyName = '채팅 서랍';

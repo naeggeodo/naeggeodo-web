@@ -3,12 +3,12 @@ import styled from 'styled-components';
 import { Naeggeotalk } from '../../modules/naeggeotalk/types';
 
 type StyledType = {
-  active?: boolean;
+  isActive?: boolean;
 };
 
 const NaeggeotalkListItem = ({ data }: { data: Naeggeotalk }) => {
   return (
-    <Container active={true}>
+    <Container isActive={true}>
       <Content>
         <div>
           <Image src='/assets/images/hamburger.svg' width={44} height={44} />
@@ -26,7 +26,7 @@ const NaeggeotalkListItem = ({ data }: { data: Naeggeotalk }) => {
 
 const Container = styled.div<StyledType>`
   border-bottom: 1px solid #f2f2f8;
-  background: ${(props) => (props.active ? ' #f2f2f8;' : '#fff')};
+  background: ${(props) => (props.isActive ? ' #f2f2f8;' : '#fff')};
 `;
 
 const Content = styled.div`

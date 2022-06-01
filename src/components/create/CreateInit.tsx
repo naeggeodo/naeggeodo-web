@@ -8,7 +8,7 @@ import { ButtonValue, OrderTimeType } from '../../modules/create/types';
 import { selectOrderTimeType } from '../../modules/create/actions';
 
 type StyledType = {
-  active: boolean;
+  isActive: boolean;
 };
 
 const buttonValue: ButtonValue[] = [
@@ -57,7 +57,7 @@ const CreateInit = () => {
             onClick={dispatchSelectOrderTypeTime}
             data-value={item.value}
             key={i}
-            active={currentOrderTimeType === item.value ? true : false}>
+            isActive={currentOrderTimeType === item.value ? true : false}>
             {item.text}
           </Button>
         ))}
@@ -101,9 +101,9 @@ const Button = styled.button<StyledType>`
 
   font-size: 0.9375rem;
   font-family: 'SpoqaBold';
-  color: ${(props) => (props.active ? '#EF6212' : '#000')};
+  color: ${(props) => (props.isActive ? '#EF6212' : '#000')};
 
-  background-color: ${(props) => (props.active ? '#FDEFE7' : '#f5f5f5')};
+  background-color: ${(props) => (props.isActive ? '#FDEFE7' : '#f5f5f5')};
 
   border-radius: 10px;
   cursor: pointer;
