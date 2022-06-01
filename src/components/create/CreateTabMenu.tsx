@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import palette from '../../styles/palette';
 
 type StyledType = {
-  active: boolean;
+  isActive: boolean;
 };
 
 const CreateTabMenu = () => {
@@ -21,11 +21,11 @@ const CreateTabMenu = () => {
   return (
     <Wrap>
       <Button
-        active={router.pathname === '/create/directinput'}
+        isActive={router.pathname === '/create/directinput'}
         onClick={onClick}>
         새로입력
       </Button>
-      <Button active={router.pathname === '/naeggeotalk'} onClick={onClick}>
+      <Button isActive={router.pathname === '/naeggeotalk'} onClick={onClick}>
         주문목록
       </Button>
     </Wrap>
@@ -47,11 +47,13 @@ const Button = styled.button<StyledType>`
   font-family: 'SpoqaBold';
   font-size: 1.125rem;
   color: ${(props) =>
-    props.active ? `${palette.mainOrange}` : `${palette.TextGray}`};
+    props.isActive ? `${palette.mainOrange}` : `${palette.TextGray}`};
 
   border: none;
   border-bottom: ${(props) =>
-    props.active ? `3px solid ${palette.mainOrange}` : '3px solid transparent'};
+    props.isActive
+      ? `3px solid ${palette.mainOrange}`
+      : '3px solid transparent'};
 
   padding-bottom: 14.5px;
 

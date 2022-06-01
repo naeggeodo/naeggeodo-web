@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { CompatClient, Stomp } from '@stomp/stompjs';
+import { Stomp } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 
 import Header from '../chatting/Header';
@@ -37,7 +37,7 @@ const ChattingTemplate = ({
   const [messageList, setMessageList] = useState<
     PreviousChattingItemResponse[]
   >([]);
-  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   // const socket = new SockJS(`${process.env.NEXT_PUBLIC_API_URL}/chat`);
   // const stompClient = Stomp.over(socket);
@@ -58,7 +58,7 @@ const ChattingTemplate = ({
 
   return (
     <Wrap>
-      <Header setDrawerOpen={setDrawerOpen} />
+      <Header setIsDrawerOpen={setIsDrawerOpen} />
       {chatRoomInfo.state !== 'END' && <GoInfoBtn />}
       <Content ref={chatListDivRef}>
         {previousChatting.messages &&
@@ -99,7 +99,10 @@ const ChattingTemplate = ({
       </Content>
       <QuickMessageComp stompClient={stompClient} />
       <SubmitForm stompClient={stompClient} />
-      <ChatDrawer drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />
+      <ChatDrawer
+        isDrawerOpen={isDrawerOpen}
+        setIsDrawerOpen={setIsDrawerOpen}
+      />
     </Wrap>
   );
 };

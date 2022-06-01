@@ -11,10 +11,10 @@ type StyledType = {
 };
 
 type PropsType = {
-  setDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const Header = ({ setDrawerOpen }: PropsType) => {
+const Header = ({ setIsDrawerOpen }: PropsType) => {
   const router = useRouter();
 
   const { chatRoomInfo } = useSelector(
@@ -46,7 +46,7 @@ const Header = ({ setDrawerOpen }: PropsType) => {
         </Div>
         <HambergurButton
           onClick={() => {
-            setDrawerOpen(true);
+            setIsDrawerOpen(true);
           }}>
           <Image
             src='/assets/images/hambergurbar.svg'

@@ -7,7 +7,7 @@ import { selectOrderType } from '../../modules/create/actions';
 import palette from '../../styles/palette';
 
 type StyledType = {
-  active: boolean;
+  isActive: boolean;
 };
 
 const buttonValue = [
@@ -37,7 +37,7 @@ const CreateInit = () => {
               dispatch(selectOrderType(item));
               router.push('/create/directinput');
             }}
-            active={orderType === item ? true : false}>
+            isActive={orderType === item ? true : false}>
             {item}
           </Button>
         ))}
@@ -92,9 +92,9 @@ const Button = styled.button<StyledType>`
 
   font-size: 0.9375rem;
   font-family: 'SpoqaBold';
-  color: ${(props) => (props.active ? '#EF6212' : '#000')};
+  color: ${(props) => (props.isActive ? '#EF6212' : '#000')};
 
-  background-color: ${(props) => (props.active ? '#FDEFE7' : '#f5f5f5')};
+  background-color: ${(props) => (props.isActive ? '#FDEFE7' : '#f5f5f5')};
 
   border-radius: 10px;
   cursor: pointer;
