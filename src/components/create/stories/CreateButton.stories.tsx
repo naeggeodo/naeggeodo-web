@@ -22,7 +22,9 @@ export default {
   ],
 } as ComponentMeta<typeof CreateButton>;
 
-const Template = (args: Args) => <CreateButton {...args} />;
+const Template = (args: Args) => (
+  <CreateButton handleClick={() => {}} {...args} />
+);
 export const CreateButtonStory = Template.bind({});
 
 CreateButtonStory.args = {
