@@ -11,18 +11,16 @@ const CreateTabMenu = () => {
   const router = useRouter();
 
   const onClick = () => {
-    if (router.pathname === '/create/directinput') {
+    if (router.pathname === '/create/details') {
       router.push('/naeggeotalk');
     } else if (router.pathname === '/naeggeotalk') {
-      router.push('/create/directinput');
+      router.push('/create/details');
     }
   };
 
   return (
     <Wrap>
-      <Button
-        isActive={router.pathname === '/create/directinput'}
-        onClick={onClick}>
+      <Button isActive={router.pathname === '/create/details'} onClick={onClick}>
         새로입력
       </Button>
       <Button isActive={router.pathname === '/naeggeotalk'} onClick={onClick}>

@@ -1,52 +1,72 @@
-import { useRouter } from 'next/router';
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useCallback } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+
+import { useLoadLib } from '../../hooks/useLoadLib';
 import { RootState } from '../../modules';
-import { selectOrderType } from '../../modules/create/actions';
-import palette from '../../styles/palette';
+import { ButtonValue, OrderTimeType } from '../../modules/create/types';
+import { selectOrderTimeType } from '../../modules/create/actions';
 
 type StyledType = {
   isActive: boolean;
 };
 
-const buttonValue = [
-  '1시간 이내',
-  '최대한 빨리',
-  '상관없음 (인원이 모집되는대로)',
-  '선택하지 않음',
+const buttonValue: ButtonValue[] = [
+  {
+    text: '1시간 이내',
+    value: 'ONE_HOUR',
+  },
+  {
+    text: '최대한 빨리',
+    value: 'ASAP',
+  },
+  {
+    text: '상관없음 (인원이 모집되는대로)',
+    value: 'I_DONT_CARE',
+  },
 ];
 
 const CreateInit = () => {
-  const router = useRouter();
-  const dispatch = useDispatch();
-  const { orderType } = useSelector((state: RootState) => state.createStates);
+  const { router, dispatch } = useLoadLib();
+  const currentOrderTimeType = useSelector(
+    (state: RootState) => state.createStates.orderTimeType,
+  );
+
+  const dispatchSelectOrderTypeTime = useCallback<
+    (e: React.MouseEvent<HTMLButtonElement>) => void
+  >(
+    (e) => {
+      const orderTimeType = e.currentTarget.getAttribute(
+        'data-value',
+      ) as OrderTimeType;
+      dispatch(selectOrderTimeType(orderTimeType));
+      router.push('/create/details');
+    },
+    [dispatch, router],
+  );
 
   return (
-    <Wrap>
+    <Container>
       <div>
         <Title>언제 음식을</Title>
         <Title>주문하실건가요?</Title>
       </div>
       <Content>
-        <CustomButton>직접입력</CustomButton>
         {buttonValue.map((item, i) => (
           <Button
+            onClick={dispatchSelectOrderTypeTime}
+            data-value={item.value}
             key={i}
-            onClick={() => {
-              dispatch(selectOrderType(item));
-              router.push('/create/directinput');
-            }}
-            isActive={orderType === item ? true : false}>
-            {item}
+            isActive={currentOrderTimeType === item.value ? true : false}>
+            {item.text}
           </Button>
         ))}
       </Content>
-    </Wrap>
+    </Container>
   );
 };
 
-const Wrap = styled.div`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -74,17 +94,6 @@ const Content = styled.div`
   flex-direction: column;
 
   gap: 10px;
-`;
-
-const CustomButton = styled.button`
-  margin-bottom: 10px;
-
-  background-color: #fff;
-  color: ${palette.DarkGray};
-
-  text-align: right;
-  outline: none;
-  border: none;
 `;
 
 const Button = styled.button<StyledType>`

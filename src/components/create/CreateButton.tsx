@@ -1,8 +1,19 @@
+import React from 'react';
 import styled from 'styled-components';
 import palette from '../../styles/palette';
 
-const CreateButton = ({ storeName }: { storeName: string }) => {
-  return <Button disabled={storeName.length < 2}>내꺼톡 생성하기</Button>;
+const CreateButton = ({
+  storeName,
+  handleClick,
+}: {
+  storeName: string;
+  handleClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+}) => {
+  return (
+    <Button onClick={handleClick} disabled={storeName.length < 2}>
+      내꺼톡 생성하기
+    </Button>
+  );
 };
 
 const Button = styled.button`
