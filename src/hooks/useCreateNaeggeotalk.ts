@@ -3,46 +3,42 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../modules';
 import {
   addTag,
+  insertLink,
+  insertTitle,
   minusMaxCount,
   plusMaxCount,
   removeTag,
-  typeStoreLink,
-  typeStoreName,
 } from '../modules/create/actions';
 
 export function useCreateNaeggeotalk() {
   const dispatch = useDispatch();
-
   const [tagText, setTagText] = useState('');
-
-  const { storeName, storeLink, maxCount, tags } = useSelector(
-    (state: RootState) => state.createStates,
+  const changeTagText = useCallback<(e: ChangeEvent<HTMLInputElement>) => void>(
+    (e) => {
+      setTagText(e.target.value);
+    },
+    [tagText],
   );
 
-  const dispatchChangeStoreName = useCallback(
+  const title = useSelector((state: RootState) => state.createStates.title);
+  const link = useSelector((state: RootState) => state.createStates.link);
+  const category = useSelector(
+    (state: RootState) => state.createStates.category,
+  );
+  const tag = useSelector((state: RootState) => state.createStates.tag);
+  const maxCount = useSelector(
+    (state: RootState) => state.createStates.maxCount,
+  );
+
+  const dispatchInsertTitle = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
-      dispatch(typeStoreName(e.target.value));
+      dispatch(insertTitle(e.target.value));
     },
     [dispatch],
   );
-
-  const dispatchChangeStoreLink = useCallback(
+  const dispatchInsertLink = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
-      dispatch(typeStoreLink(e.target.value));
-    },
-    [dispatch],
-  );
-
-  const dispatchPlusMaxCount = useCallback(
-    (_) => {
-      dispatch(plusMaxCount());
-    },
-    [dispatch],
-  );
-
-  const dispatchMinusMaxCount = useCallback(
-    (_) => {
-      dispatch(minusMaxCount());
+      dispatch(insertLink(e.target.value));
     },
     [dispatch],
   );
@@ -63,22 +59,40 @@ export function useCreateNaeggeotalk() {
     (e: React.MouseEvent<HTMLButtonElement>) => void
   >(
     (e) => {
-      dispatch(removeTag(+e.currentTarget.dataset.id));
+      const dataValue = e.currentTarget.getAttribute('data-value');
+      dispatch(removeTag(+dataValue));
     },
     [dispatch],
   );
 
+  const dispatchPlusMaxCount = useCallback(
+    (_) => {
+      if (maxCount === 5) return;
+      dispatch(plusMaxCount());
+    },
+    [dispatch, maxCount],
+  );
+
+  const dispatchMinusMaxCount = useCallback(
+    (_) => {
+      if (maxCount === 1) return;
+      dispatch(minusMaxCount());
+    },
+    [dispatch, maxCount],
+  );
+
   return {
-    storeName,
-    storeLink,
-    maxCount,
-    tags,
-    tagText,
-    setTagText,
     dispatch,
-    dispatchChangeStoreName,
+    title,
+    link,
+    category,
+    tag,
+    tagText,
+    changeTagText,
+    maxCount,
+    dispatchInsertTitle,
+    dispatchInsertLink,
     dispatchRemoveTag,
-    dispatchChangeStoreLink,
     dispatchPlusMaxCount,
     dispatchMinusMaxCount,
     dispatchAddTag,

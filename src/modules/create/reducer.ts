@@ -1,50 +1,66 @@
 import { createReducer } from 'typesafe-actions';
 import {
   ADD_TAG,
+  INSERT_TITLE,
+  INSERT_LINK,
   MINUS_MAX_COUNT,
   PLUS_MAX_COUNT,
   REMOVE_TAG,
-  SELECT_ORDER_TYPE,
-  TYPE_STORE_LINK,
-  TYPE_STORE_NAME,
+  SELECT_ORDER_TIME_TYPE,
+  SELECT_CATEGORY,
 } from './actions';
-import { CreateStates } from './types';
+import {
+  CreateStates,
+  InsertLinkAction,
+  InsertTitleAction,
+  SelectOrderTimeTypeAction,
+  SelectCategoryAction,
+  AddTagAction,
+  RemoveTagAction,
+} from './types';
 
 const initialCreateStates: CreateStates = {
-  orderType: '',
-  storeName: '',
-  storeLink: 'http://',
-  tags: [],
+  addr: '',
+  category: 'ALL',
+  link: 'http://',
+  place: '',
+  title: '',
+  user_id: '',
+  tag: [],
   maxCount: 1,
+  orderTimeType: 'ONE_HOUR',
 };
 
 export const createStates = createReducer<CreateStates>(initialCreateStates, {
-  [SELECT_ORDER_TYPE]: (state, action) => ({
+  [SELECT_ORDER_TIME_TYPE]: (state, action: SelectOrderTimeTypeAction) => ({
     ...state,
-    orderType: action.payload,
+    orderTimeType: action.payload.orderTimeType,
   }),
-  [TYPE_STORE_NAME]: (state, action) => ({
+  [INSERT_TITLE]: (state, action: InsertTitleAction) => ({
     ...state,
-    storeName: action.payload,
+    title: action.payload.title,
   }),
-  [TYPE_STORE_LINK]: (state, action) => ({
+  [INSERT_LINK]: (state, action: InsertLinkAction) => ({
     ...state,
-    storeLink: action.payload,
+    link: action.payload.link,
   }),
-  [ADD_TAG]: (state, action) => {
-    if (state.tags.length >= 5) return state;
+  [SELECT_CATEGORY]: (state, action: SelectCategoryAction) => ({
+    ...state,
+    category: action.payload.category,
+  }),
+  [ADD_TAG]: (state, action: AddTagAction) => {
+    if (state.tag.length >= 5) return state;
     else {
       return {
         ...state,
-        tags: [...state.tags, action.payload],
+        tag: [...state.tag, action.payload.keyword],
       };
     }
   },
-  [REMOVE_TAG]: (state, action) => ({
+  [REMOVE_TAG]: (state, action: RemoveTagAction) => ({
     ...state,
-    tags: state.tags.filter((_, index) => index !== action.payload),
+    tag: state.tag.filter((_, index) => index !== action.payload.index),
   }),
-
   [PLUS_MAX_COUNT]: (state, _) => {
     if (state.maxCount >= 5) {
       return state;
