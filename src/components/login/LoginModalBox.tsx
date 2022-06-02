@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { useLoadLib } from '../../hooks/useLoadLib';
 import { closeLoginModal } from '../../modules/modal/actions';
 import palette from '../../styles/palette';
@@ -46,6 +46,8 @@ const ModalContainer = styled.div`
   padding: 30px;
   border-radius: 5px;
   transform: translate(-50%, -50%);
+
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.3);
   background-color: white;
 `;
 
