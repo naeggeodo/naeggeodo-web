@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import Image from 'next/image';
 import styled, { css } from 'styled-components';
@@ -12,22 +12,28 @@ type StyledType = {
 
 type PropsType = {
   setIsDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isDrawerOpen: boolean;
 };
 
-const Header = ({ setIsDrawerOpen }: PropsType) => {
+const Header = ({ setIsDrawerOpen, isDrawerOpen }: PropsType) => {
   const router = useRouter();
 
   const { chatRoomInfo } = useSelector(
     (state: RootState) => state.chattingRoomState,
   );
 
+  const moveToBack = useCallback(() => {
+    router.back();
+  }, [router]);
+
+  const drawerOpen = useCallback(() => {
+    setIsDrawerOpen(true);
+  }, [isDrawerOpen]);
+
   return (
     <Container>
       <ContentWrap>
-        <PrevButton
-          onClick={() => {
-            router.push('/');
-          }}>
+        <PrevButton onClick={moveToBack}>
           <Image
             src='/assets/images/prevbtn.svg'
             alt='prev button'
@@ -44,10 +50,7 @@ const Header = ({ setIsDrawerOpen }: PropsType) => {
           <Info name='title'>{chatRoomInfo?.title}</Info>
           <Info name='info'>인원2명/{chatRoomInfo?.maxCount}명</Info>
         </Div>
-        <HambergurButton
-          onClick={() => {
-            setIsDrawerOpen(true);
-          }}>
+        <HambergurButton onClick={drawerOpen}>
           <Image
             src='/assets/images/hambergurbar.svg'
             width={22}
@@ -85,6 +88,8 @@ const PrevButton = styled.button`
   outline: none;
   background: transparent;
   padding: 0;
+
+  cursor: pointer;
 `;
 
 const StyledImage = styled(Image)`

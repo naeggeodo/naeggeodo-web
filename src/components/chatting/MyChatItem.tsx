@@ -4,6 +4,7 @@ import palette from '../../styles/palette';
 import DateFormatter from '../../utils/DateFormatter';
 
 import { PreviousChattingItemResponse } from '../../modules/chatting/types';
+import { useMemo } from 'react';
 
 const MyChatItem = ({
   message,
@@ -12,7 +13,7 @@ const MyChatItem = ({
   message: PreviousChattingItemResponse;
   date?: string;
 }) => {
-  const chatDate = new DateFormatter(date);
+  const chatDate = useMemo(() => new DateFormatter(date), [date]);
 
   return (
     <Wrap>

@@ -1,4 +1,5 @@
 import { ApiService } from '..';
+
 export default class CheckDepositService {
   static async asyncDepositHandler(chattingRoomId: string, userId: string) {
     try {
@@ -6,8 +7,8 @@ export default class CheckDepositService {
         `/chat-rooms/${chattingRoomId}/users/${userId}`,
         null,
       );
-      const data = await response.data;
-      return data;
+
+      return response.data;
     } catch (err) {
       console.log(err);
     }
@@ -21,8 +22,8 @@ export default class CheckDepositService {
           state: 'END',
         },
       );
-      const data = await response.data;
-      return data;
+
+      return response.data;
     } catch (err) {
       console.log(err);
     }

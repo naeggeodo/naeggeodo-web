@@ -29,7 +29,7 @@ const SelectCategoryDrawer = ({ isOpen, setIsOpen }: PropsType) => {
     if (categories.length === 0) {
       dispatch(getFoodCategoriesActions.request());
     } else return;
-  }, [dispatch]);
+  }, [dispatch, categories]);
 
   const dispatchSelectCategory = useCallback<
     (e: React.MouseEvent<HTMLButtonElement>) => void

@@ -35,7 +35,7 @@ export const tabDatas: TabItem[] = [
     title: '전체',
     altText: '더보기 버튼',
     image: '/assets/images/moregray.svg',
-    link: '/more',
+    link: '/mypage',
   },
 ];
 

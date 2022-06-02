@@ -1,5 +1,5 @@
 import React from 'react';
-import MoreTemplate from '../../components/more/MoreTemplate';
+import MoreTemplate from '../../components/mypage/MypageTemplate';
 
 const more = () => {
   return <MoreTemplate />;

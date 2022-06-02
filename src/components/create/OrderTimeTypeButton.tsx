@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { OrderTimeType } from '../../modules/create/types';
 
 type StyledType = {
   isActive: boolean;
@@ -9,11 +10,17 @@ interface Props {
   children: string;
   handleClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
   isActive: boolean;
+  dataValue: OrderTimeType;
 }
 
-const OrderTimeTypeButton = ({ children, handleClick, isActive }: Props) => {
+const OrderTimeTypeButton = ({
+  dataValue,
+  children,
+  handleClick,
+  isActive,
+}: Props) => {
   return (
-    <Button isActive={isActive} onClick={handleClick}>
+    <Button data-value={dataValue} isActive={isActive} onClick={handleClick}>
       {children}
     </Button>
   );

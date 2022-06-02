@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import palette from '../../styles/palette';
@@ -10,27 +10,31 @@ type StyledType = {
 const CreateTabMenu = () => {
   const router = useRouter();
 
-  const onClick = () => {
+  const moveCreate = useCallback(() => {
     if (router.pathname === '/create/details') {
       router.push('/naeggeotalk');
     } else if (router.pathname === '/naeggeotalk') {
       router.push('/create/details');
     }
-  };
+  }, [router]);
 
   return (
-    <Wrap>
-      <Button isActive={router.pathname === '/create/details'} onClick={onClick}>
+    <Container>
+      <Button
+        isActive={router.pathname === '/create/details'}
+        onClick={moveCreate}>
         새로입력
       </Button>
-      <Button isActive={router.pathname === '/naeggeotalk'} onClick={onClick}>
+      <Button
+        isActive={router.pathname === '/naeggeotalk'}
+        onClick={moveCreate}>
         주문목록
       </Button>
-    </Wrap>
+    </Container>
   );
 };
 
-const Wrap = styled.div`
+const Container = styled.div`
   width: 90%;
 
   display: flex;

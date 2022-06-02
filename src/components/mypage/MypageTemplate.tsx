@@ -7,7 +7,7 @@ type StyledType = {
   isActive?: boolean;
 };
 
-const MoreTemplate = () => {
+const MypageTemplate = () => {
   return (
     <>
       <Wrap>
@@ -185,4 +185,4 @@ const MenuItem = styled.button`
   cursor: pointer;
 `;
 
-export default MoreTemplate;
+export default MypageTemplate;
