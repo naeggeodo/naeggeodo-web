@@ -13,6 +13,7 @@ import { SearchTagListResponse } from '../../modules/search/types';
 import palette from '../../styles/palette';
 import ChatRoomItem from '../main/ChatRoomItem';
 import { SearchResult } from '../../modules/search/types';
+import SearchTag from './SearchTag';
 
 const SearchTemplate = ({ tags }: SearchTagListResponse) => {
   const dispatch = useDispatch();
@@ -21,6 +22,9 @@ const SearchTemplate = ({ tags }: SearchTagListResponse) => {
 
   const { searchResultList } = useSelector(
     (state: RootState) => state.searchPageState,
+  );
+  const selected = useSelector(
+    (state: RootState) => state.searchPageState.selected,
   );
 
   const limit = 5;
@@ -65,8 +69,8 @@ const SearchTemplate = ({ tags }: SearchTagListResponse) => {
     dispatch(getResultByInputActions.request(keyWord));
   };
 
-  const onTagClick = (e: PointerEvent<HTMLSpanElement>) => {
-    const target = e.target as HTMLSpanElement;
+  const onTagClick = (e: PointerEvent<HTMLButtonElement>) => {
+    const target = e.target as HTMLButtonElement;
     dispatch(getResultByTagActions.request(target.innerText));
   };
 
@@ -92,7 +96,7 @@ const SearchTemplate = ({ tags }: SearchTagListResponse) => {
           />
         </SearchForm>
         {dataList.length > 0 ? (
-          <ResultList>
+          <div>
             {dataList.map((v, i) => (
               <ChatRoomItem
                 id={v.id}
@@ -104,13 +108,17 @@ const SearchTemplate = ({ tags }: SearchTagListResponse) => {
                 currentCount={v.currentCount}
               />
             ))}
-          </ResultList>
+          </div>
         ) : (
           <SearchTagList>
             {tags &&
-              tags.map((v, i) => (
-                <SearchTag key={i} onPointerDown={onTagClick}>
-                  {v.msg}
+              tags.map((tag, i) => (
+                <SearchTag
+                  key={i}
+                  handleClick={onTagClick}
+                  selected={selected}
+                  dataValue={tag.msg}>
+                  {tag.msg}
                 </SearchTag>
               ))}
           </SearchTagList>
@@ -161,19 +169,6 @@ const SearchTagList = styled.div`
   width: 100%;
   margin-bottom: 20px;
 `;
-
-const SearchTag = styled.span`
-  display: inline-block;
-
-  background: #f5f5f5;
-  margin: 5px;
-  padding: 10px;
-  border-radius: 5px;
-  font-size: 0.9375rem;
-  cursor: pointer;
-`;
-
-const ResultList = styled.div``;
 
 const Target = styled.div`
   width: 100%;
