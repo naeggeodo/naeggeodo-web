@@ -1,5 +1,12 @@
 import Image from 'next/image';
-import { FormEvent, PointerEvent, useEffect, useRef, useState } from 'react';
+import {
+  FormEvent,
+  PointerEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
@@ -64,20 +71,28 @@ const SearchTemplate = ({ tags }: SearchTagListResponse) => {
     }
   };
 
-  const onSearchClick = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    dispatch(getResultByInputActions.request(keyWord));
-  };
+  const searchList = useCallback<(e: FormEvent<HTMLFormElement>) => void>(
+    (e) => {
+      e.preventDefault();
+      dispatch(getResultByInputActions.request(keyWord));
+    },
+    [dispatch],
+  );
 
-  const onTagClick = (e: PointerEvent<HTMLButtonElement>) => {
-    const target = e.target as HTMLButtonElement;
-    dispatch(getResultByTagActions.request(target.innerText));
-  };
+  const searchListWithTagButton = useCallback<
+    (e: PointerEvent<HTMLButtonElement>) => void
+  >(
+    (e) => {
+      const target = e.target as HTMLButtonElement;
+      dispatch(getResultByTagActions.request(target.innerText));
+    },
+    [dispatch],
+  );
 
   return (
     <>
-      <Wrap>
-        <SearchForm onSubmit={onSearchClick}>
+      <Container>
+        <SearchForm onSubmit={searchList}>
           <Button>
             <Image
               src='/assets/images/searchgray.svg'
@@ -115,7 +130,7 @@ const SearchTemplate = ({ tags }: SearchTagListResponse) => {
               tags.map((tag, i) => (
                 <SearchTag
                   key={i}
-                  handleClick={onTagClick}
+                  handleClick={searchListWithTagButton}
                   selected={selected}
                   dataValue={tag.msg}>
                   {tag.msg}
@@ -124,13 +139,13 @@ const SearchTemplate = ({ tags }: SearchTagListResponse) => {
           </SearchTagList>
         )}
         <Target ref={target}></Target>
-      </Wrap>
+      </Container>
       <TabMenu />
     </>
   );
 };
 
-const Wrap = styled.div`
+const Container = styled.div`
   width: 100%;
   height: 100vh;
   background-color: #fff;

@@ -37,6 +37,7 @@ const NaeggeotalkTemplate = ({
             }}
             storeName={'sample'}
           />
+          <CreateButton handleClick={() => {}} storeName={'sample'} />
         </ButtonWrapper>
       </Container>
       <TabMenu />
