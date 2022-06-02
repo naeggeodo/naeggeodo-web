@@ -21,6 +21,7 @@ import {
 import { getBuildingCodeRequest } from '../../modules/search-post-code/actions';
 import { TOKEN_NAME } from '../../constant/Login';
 import NoItemText from './NoItemText';
+import Loading from '../common/Loading';
 
 const MainTemplate = ({
   foodCategories,
@@ -60,6 +61,8 @@ const MainTemplate = ({
 
   return (
     <Container>
+      <Loading />
+
       <SearchPostCode openWebView={openWebView} />
       <CategoryMenuSlide foodCategories={foodCategories} />
       {chatRooms.length <= 0 ? (
