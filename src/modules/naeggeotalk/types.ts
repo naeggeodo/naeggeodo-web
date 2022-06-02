@@ -1,16 +1,19 @@
 export type Naeggeotalk = {
   buildingCode: string;
-  category: string;
-  createDate: string;
-  id: number;
-  idx: number;
-  imgPath: string;
-  maxCount: number;
-  place: string;
-  state: string;
-  tags: string;
+  link: string;
   title: string;
-  user_id: string;
+  maxCount: number;
+  tags: string;
+  bookmarks: string;
+  user_id: number;
+  currentCount: 0;
+  bookmarksDate: Date;
+  id: number;
+  state: string;
+  place: string;
+  category: string;
+  idx: number;
+  createDate: Date;
 };
 export type NaeggeotalkListResponse = {
   chatRoom: Naeggeotalk[];

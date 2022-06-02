@@ -14,14 +14,14 @@ import { createReducer } from 'typesafe-actions';
 
 type ChattingRoomState = {
   chatRoomInfo: ChattingRoomInfoResponsePayload | null;
-  previousChatting: PreviousChattingListResponse;
+  previousChatting: PreviousChattingListResponse | null;
   quickChatList: QuickChattingListResponse | null;
   currentChatUserList: CurrentChatUserListResponse | null;
 };
 
 const initialChattingRoomState: ChattingRoomState = {
   chatRoomInfo: null,
-  previousChatting: { messages: [] },
+  previousChatting: null,
   quickChatList: null,
   currentChatUserList: null,
 };

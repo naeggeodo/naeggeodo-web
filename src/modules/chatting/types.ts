@@ -24,19 +24,18 @@ export type PreviousChattingItemRequest = {
   userId: string;
 };
 
-export type PreviousChattingItemResponse = {
-  user_id?: number;
-  id?: number;
-  idx?: number;
+export type PreviousChattingItem = {
   chatMain_id: number;
-  regDate?: string;
-  sender?: number;
   contents: string;
+  id: number;
+  idx: number;
+  regDate: string;
   type: string;
+  user_id: string;
 };
 
 export type PreviousChattingListResponse = {
-  messages: PreviousChattingItemResponse[];
+  messages: PreviousChattingItem[];
 };
 
 export type UserId = {
