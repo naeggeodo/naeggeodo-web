@@ -35,7 +35,6 @@ const PostCodeWebView = ({ closeWebView }: { closeWebView: () => void }) => {
       fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
     }
 
-    console.log(data.apartment);
     if (data.apartment === 'N') {
       dispatch(saveApartmentAddress(data.apartment));
     } else if (data.apartment === 'Y') {
