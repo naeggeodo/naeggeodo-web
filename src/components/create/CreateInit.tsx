@@ -36,6 +36,7 @@ const CreateInit = () => {
       const orderTimeType = e.currentTarget.getAttribute(
         'data-value',
       ) as OrderTimeType;
+
       dispatch(selectOrderTimeType(orderTimeType));
       router.push('/create/details');
     },
@@ -53,7 +54,7 @@ const CreateInit = () => {
           <OrderTimeTypeButton
             handleClick={dispatchSelectOrderTypeTime}
             key={i}
-            data-value={item.value}
+            dataValue={item.value}
             isActive={currentOrderTimeType === item.value ? true : false}>
             {item.text}
           </OrderTimeTypeButton>
