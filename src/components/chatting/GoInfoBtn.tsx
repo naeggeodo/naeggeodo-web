@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import { useCallback } from 'react';
 import styled from 'styled-components';
 import palette from '../../styles/palette';
 
@@ -6,11 +7,11 @@ const GoInfoBtn = () => {
   const router = useRouter();
   const chattingRoomId = router.query.id;
 
-  const onClick = () => {
+  const moveToCheckDesosit = useCallback(() => {
     router.push(`/check-deposit/${chattingRoomId}`);
-  };
+  }, [router]);
 
-  return <Button onClick={onClick}>돈을 받으셨나요?</Button>;
+  return <Button onClick={moveToCheckDesosit}>돈을 받으셨나요?</Button>;
 };
 
 const Button = styled.button`

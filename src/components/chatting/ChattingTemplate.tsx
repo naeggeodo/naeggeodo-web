@@ -56,7 +56,7 @@ const ChattingTemplate = ({
 
   return (
     <Wrap>
-      <Header setIsDrawerOpen={setIsDrawerOpen} />
+      <Header isDrawerOpen={isDrawerOpen} setIsDrawerOpen={setIsDrawerOpen} />
       {chatRoomInfo.state !== 'END' && <GoInfoBtn />}
       <Content ref={chatListDivRef}>
         {previousChatting.messages &&

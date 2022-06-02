@@ -40,7 +40,7 @@ const QuickMessageComp = ({ stompClient }: { stompClient: CompatClient }) => {
   };
 
   return (
-    <Wrap ref={target}>
+    <Container ref={target}>
       <Div ref={slideBar}>
         <Image
           src='/assets/images/slidedown.svg'
@@ -64,11 +64,11 @@ const QuickMessageComp = ({ stompClient }: { stompClient: CompatClient }) => {
           height={20}
         />
       </EditBtn>
-    </Wrap>
+    </Container>
   );
 };
 
-const Wrap = styled.div`
+const Container = styled.div`
   position: fixed;
   bottom: 6%;
   width: 100%;

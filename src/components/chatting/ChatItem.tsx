@@ -14,7 +14,7 @@ const ChatItem = ({
   const chatDate = new DateFormatter(date);
 
   return (
-    <Wrap>
+    <Container>
       <StyledImage
         src='/assets/images/hamburger.svg'
         width={35}
@@ -36,11 +36,11 @@ const ChatItem = ({
         <span>{chatDate.formatDate()}</span>
         <span>{chatDate.formatTime()}</span>
       </Time>
-    </Wrap>
+    </Container>
   );
 };
 
-const Wrap = styled.div`
+const Container = styled.div`
   display: flex;
   align-items: flex-end;
   gap: 5px;
