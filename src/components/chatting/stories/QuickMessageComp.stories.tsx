@@ -23,6 +23,6 @@ export default {
 } as ComponentMeta<typeof QuickMessageComp>;
 
 const QuickMessageStory = (args: Args) => <QuickMessageComp {...args} />;
-export const QuickMessageList = () => QuickMessageStory.bind({});
+export const QuickMessageList = QuickMessageStory.bind({});
 
 QuickMessageList.storyName = '빠른 메시지 전송';

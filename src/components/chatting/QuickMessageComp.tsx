@@ -20,7 +20,6 @@ const QuickMessageComp = ({ stompClient }: { stompClient: CompatClient }) => {
   const quickChatList: QuickChattingListResponse = useSelector(
     (state: RootState) => state.chattingRoomState.quickChatList,
   );
-  const { quickChat } = quickChatList;
 
   useEffect(() => {
     slideEvent(slideBar, target);
@@ -50,8 +49,8 @@ const QuickMessageComp = ({ stompClient }: { stompClient: CompatClient }) => {
           height={3}
         />
       </Div>
-      {quickChat &&
-        quickChat.map((v) => (
+      {quickChatList.quickChat &&
+        quickChatList.quickChat.map((v) => (
           <Item key={v.idx} onClick={sendMessage}>
             {v.msg}
           </Item>

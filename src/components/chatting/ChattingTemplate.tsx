@@ -10,7 +10,7 @@ import ChatItem from '../chatting/ChatItem';
 import MyChatItem from '../chatting/MyChatItem';
 
 import {
-  PreviousChattingItemResponse,
+  PreviousChattingItem,
   PreviousChattingListResponse,
 } from '../../modules/chatting/types';
 import { useChat } from '../../hooks/useChat';
@@ -34,9 +34,7 @@ const ChattingTemplate = ({
 
   const { connect, disconnect } = useChat();
 
-  const [messageList, setMessageList] = useState<
-    PreviousChattingItemResponse[]
-  >([]);
+  const [messageList, setMessageList] = useState<PreviousChattingItem[]>([]);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   // const socket = new SockJS(`${process.env.NEXT_PUBLIC_API_URL}/chat`);
@@ -64,7 +62,7 @@ const ChattingTemplate = ({
         {previousChatting.messages &&
           previousChatting.messages.length > 0 &&
           previousChatting.messages.map((message, i) => {
-            if (message.user_id === 1)
+            if (message.user_id === '1')
               return (
                 <MyChatItem key={i} message={message} date={message.regDate} />
               );
@@ -77,7 +75,7 @@ const ChattingTemplate = ({
         {messageList &&
           messageList.length > 0 &&
           messageList.map((message, i) => {
-            if (message.sender === 1) {
+            if (message.user_id === '1') {
               return (
                 <MyChatItem
                   key={i}

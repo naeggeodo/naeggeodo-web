@@ -5,7 +5,7 @@ import {
   GET_QUICK_MESSAGE_LIST_SUCCESS,
 } from './actions';
 import {
-  ChattingRoomInfoResponsePayload,
+  ChattingRoomInfoResponse,
   CurrentChatUserListResponse,
   PreviousChattingListResponse,
   QuickChattingListResponse,
@@ -13,7 +13,7 @@ import {
 import { createReducer } from 'typesafe-actions';
 
 type ChattingRoomState = {
-  chatRoomInfo: ChattingRoomInfoResponsePayload | null;
+  chatRoomInfo: ChattingRoomInfoResponse | null;
   previousChatting: PreviousChattingListResponse | null;
   quickChatList: QuickChattingListResponse | null;
   currentChatUserList: CurrentChatUserListResponse | null;

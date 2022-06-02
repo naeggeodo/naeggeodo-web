@@ -11,7 +11,7 @@ import {
   GET_QUICK_MESSAGE_LIST_REQUEST,
 } from './actions';
 import {
-  ChattingRoomInfoResponsePayload,
+  ChattingRoomInfoResponse,
   CurrentChatUserListResponse,
   PreviousChattingListResponse,
   QuickChattingListResponse,
@@ -20,7 +20,7 @@ import {
 function* getChattingRoomInfoGenerator(
   action: ReturnType<typeof getCurrentChatRoomAsyncActions.request>,
 ) {
-  const { data }: { data: ChattingRoomInfoResponsePayload } = yield call(
+  const { data }: { data: ChattingRoomInfoResponse } = yield call(
     ChattingService.asyncGetChattingRoomInfo,
     action.payload.chattingRoomId,
   );
