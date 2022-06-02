@@ -3,6 +3,7 @@ import CreateButton from '../CreateButton';
 
 type Args = {
   storeName: string;
+  handleClick: null;
 };
 
 export default {

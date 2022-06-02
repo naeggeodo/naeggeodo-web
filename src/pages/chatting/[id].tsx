@@ -27,7 +27,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     store.dispatch(
       getPreviousChattingListActions.request({
         chattingRoomId: context.params.id as string,
-        userId: '2',
+        userId: '1',
       }),
     );
 
