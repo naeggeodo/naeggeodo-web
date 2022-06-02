@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import palette from '../../styles/palette';
@@ -36,13 +36,14 @@ const CheckDepositTemplate = () => {
     }
   }, [currentChatUserList]);
 
+  const moveToBack = useCallback(() => {
+    router.back();
+  }, [router]);
+
   return (
     <Container>
       <TitleContainer>
-        <PrevButton
-          onClick={() => {
-            router.push(`/chatting/${router.query.id}`);
-          }}>
+        <PrevButton onClick={moveToBack}>
           <Image
             src='/assets/images/prevbtn.svg'
             width={11}
@@ -51,7 +52,7 @@ const CheckDepositTemplate = () => {
           />
         </PrevButton>
         <Title>돈을 받으셨나요?</Title>
-        <P style={{ lineHeight: 1.5 }}>
+        <P>
           버튼을 누르면
           <br />
           참여멤버의 안심번호를 확인할 수 있어요.
@@ -65,8 +66,8 @@ const CheckDepositTemplate = () => {
             <SmallTitle>아직 못받았어요.</SmallTitle>
           )}
           {depositYetUsers.length > 0 &&
-            depositYetUsers.map((v) => (
-              <CheckDepositItem key={v.idx} user={v} />
+            depositYetUsers.map((user) => (
+              <CheckDepositItem key={user.idx} user={user} />
             ))}
         </DepositUserList>
         <DepositYetUsers>
@@ -77,7 +78,9 @@ const CheckDepositTemplate = () => {
               '돈을 보낸 멤버들'}
           </SmallTitle>
           {depositUsers.length > 0 &&
-            depositUsers.map((v) => <CheckDepositItem key={v.idx} user={v} />)}
+            depositUsers.map((user) => (
+              <CheckDepositItem key={user.idx} user={user} />
+            ))}
         </DepositYetUsers>
         {depositUsers.length > 0 && <ConvertToCompletedButton />}
       </div>
@@ -110,6 +113,8 @@ const TitleContainer = styled.div`
 `;
 
 const P = styled.p`
+  line-height: 1.5;
+
   &::before {
     content: '수령완료 ';
     color: ${palette.mainOrange};
@@ -119,9 +124,11 @@ const P = styled.p`
 const PrevButton = styled.button`
   width: 40px;
   text-align: left;
-  border: none;
+  background-color: #fff;
+
   outline: none;
-  background: #fff;
+  border: none;
+  cursor: pointer;
 `;
 
 const Title = styled.p`
