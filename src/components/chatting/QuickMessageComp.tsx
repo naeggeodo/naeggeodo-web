@@ -8,6 +8,7 @@ import { useChat } from '../../hooks/useChat';
 import { useSlideMessage } from '../../hooks/useSlideMessage';
 import palette from '../../styles/palette';
 import { RootState } from '../../modules';
+import { QuickChattingListResponse } from '../../modules/chatting/types';
 
 const QuickMessageComp = ({ stompClient }: { stompClient: CompatClient }) => {
   const target = useRef<HTMLDivElement>(null);
@@ -16,8 +17,8 @@ const QuickMessageComp = ({ stompClient }: { stompClient: CompatClient }) => {
   const { onSendMessage } = useChat();
   const { slideEvent, slideDown } = useSlideMessage();
 
-  const { quickChatList } = useSelector(
-    (state: RootState) => state.chattingRoomState,
+  const quickChatList: QuickChattingListResponse = useSelector(
+    (state: RootState) => state.chattingRoomState.quickChatList,
   );
   const { quickChat } = quickChatList;
 
