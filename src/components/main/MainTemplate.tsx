@@ -20,6 +20,7 @@ import {
 } from '../../modules/modal/actions';
 import { getBuildingCodeRequest } from '../../modules/search-post-code/actions';
 import { TOKEN_NAME } from '../../constant/Login';
+import NoItemText from './NoItemText';
 
 const MainTemplate = ({
   foodCategories,
@@ -62,14 +63,7 @@ const MainTemplate = ({
       <SearchPostCode openWebView={openWebView} />
       <CategoryMenuSlide foodCategories={foodCategories} />
       {chatRooms.length <= 0 ? (
-        <NoItemStyle>
-          <CreateButtonContainer>
-            <NoItemText>지금 직접 채팅방을 생성해보세요 🍟</NoItemText>
-            <CreateButton onClick={checkTokenAndRedirection}>
-              채팅방 생성하러가기
-            </CreateButton>
-          </CreateButtonContainer>
-        </NoItemStyle>
+        <NoItemText checkTokenAndRedirection={checkTokenAndRedirection} />
       ) : (
         <StyledUl>
           {chatRooms.map((item) => (
@@ -101,38 +95,6 @@ const Container = styled.div`
 const StyledUl = styled.ul`
   padding: 10px 16px 50px;
   background-color: #ffffff;
-`;
-
-const NoItemStyle = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  height: 80vh;
-`;
-
-const CreateButtonContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-`;
-
-const NoItemText = styled.p`
-  font-size: 1.3125rem;
-`;
-
-const CreateButton = styled.button`
-  all: unset;
-  border-radius: 10px;
-  height: 40px;
-  padding: 0 15px;
-
-  background-color: ${palette.mainOrange};
-  color: #ffffff;
-
-  cursor: pointer;
 `;
 
 export default React.memo(MainTemplate);

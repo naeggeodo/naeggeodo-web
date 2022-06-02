@@ -43,6 +43,8 @@ const Container = styled.div`
   width: 100vw;
   height: 100vh;
   padding: 25px 0 34px;
+
+  background-color: #fff;
 `;
 
 const ContentWrap = styled.div`
