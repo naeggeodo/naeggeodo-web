@@ -15,6 +15,9 @@ export default {
   ],
   parameters: {
     layout: 'fullscreen',
+    nextRouter: {
+      path: '/create',
+    },
   },
 } as ComponentMeta<typeof CreateTemplate>;
 

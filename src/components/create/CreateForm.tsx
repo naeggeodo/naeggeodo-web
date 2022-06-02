@@ -9,6 +9,7 @@ import CreateButton from './CreateButton';
 import Link from 'next/link';
 import SelectCategoryDrawer from './SelectCategoryDrawer';
 import { convertEngCategoryToKor } from '../../utils/converEngCategoryToKor';
+import TagButton from './TagButton';
 
 interface MoveLinkProps {
   isUrl: boolean;
@@ -123,16 +124,10 @@ const CreateForm = () => {
                 {tag.map((item, i) => (
                   <TagButton
                     key={item + i}
-                    data-value={i}
-                    onClick={dispatchRemoveTag}>
-                    <span>{item}</span>
-                    <Image
-                      src='/assets/images/buttonclose.svg'
-                      width={12}
-                      height={12}
-                      alt='닫기 버튼'
-                    />
-                  </TagButton>
+                    dataValue={i}
+                    handleClick={dispatchRemoveTag}
+                    item={item}
+                  />
                 ))}
               </TagContainer>
             </Item>
@@ -294,29 +289,6 @@ const TagContainer = styled.div`
   align-items: center;
   flex-wrap: wrap;
   gap: 8px;
-`;
-
-const TagButton = styled.button`
-  all: unset;
-
-  display: flex;
-  align-items: center;
-  gap: 4px;
-
-  font-weight: 500;
-  font-size: 0.75rem;
-
-  display: flex;
-  align-items: center;
-
-  color: #191919;
-
-  padding: 4px 10px;
-
-  background-color: ${palette.LightGray2};
-  border-radius: 5px;
-
-  cursor: pointer;
 `;
 
 const SmallText = styled.p`

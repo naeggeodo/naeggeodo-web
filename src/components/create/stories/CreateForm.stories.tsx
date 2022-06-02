@@ -4,7 +4,7 @@ import { configureStore } from '../../../modules';
 import CreateForm from '../CreateForm';
 
 export default {
-  title: 'create/컴포넌트',
+  title: 'create/페이지',
   component: CreateForm,
   decorators: [
     (Story) => (
@@ -20,4 +20,4 @@ export default {
 
 export const CreateFormStory = () => <CreateForm />;
 
-CreateFormStory.storyName = '내꺼톡 생성 폼';
+CreateFormStory.storyName = '내꺼톡 생성 페이지';

@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios';
-import { createAsyncAction } from 'typesafe-actions';
+import { createAction, createAsyncAction } from 'typesafe-actions';
 import { SearchResultListResponse, SearchTagListResponse } from './types';
 
 const namespace = 'search/';
@@ -31,6 +31,8 @@ export const GET_RESULT_BY_INPUT_SUCCESS =
 export const GET_RESULT_BY_INPUT_FAILURE =
   namespace + 'GET_RESULT_BY_INPUT_FAILURE';
 
+export const SELECT_SEARCH_TAG = namespace + 'SELECT_SEARCH_TAG';
+
 export const getSearchTagListActions = createAsyncAction(
   GET_SEARCH_TAG_LIST_REQUEST,
   GET_SEARCH_TAG_LIST_SUCCESS,
@@ -48,3 +50,8 @@ export const getResultByInputActions = createAsyncAction(
   GET_RESULT_BY_INPUT_SUCCESS,
   GET_RESULT_BY_INPUT_FAILURE,
 )<string, SearchResultListResponse, AxiosError>();
+
+export const selectSearchTag = createAction(
+  SELECT_SEARCH_TAG,
+  (selected) => selected,
+)();

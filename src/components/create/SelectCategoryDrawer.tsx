@@ -73,8 +73,9 @@ const SelectCategoryDrawer = ({ isOpen, setIsOpen }: PropsType) => {
 const Container = styled.div<StyledProps>`
   position: absolute;
   right: 0;
+  background-color: green;
 
-  width: ${(props) => (props.isOpen ? '70%' : 0)};
+  width: ${(props) => (props.isOpen ? '70%' : '0%')};
 
   ${(props) =>
     props.isOpen &&

@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { ChatRoomItemProps } from '../../modules/main/types';
 import palette from '../../styles/palette';
 import TimeCalculator from '../../utils/TimeCalculator';
+import RegisterTime from './RegisterTime';
 
 const ChatRoomItem = ({
   id,
@@ -25,9 +26,7 @@ const ChatRoomItem = ({
         </NumberOfPeople>
 
         <TimeOrderLinkContainer>
-          <RegisteredTime>
-            {timeCalculator.calculateCreateMinute()}
-          </RegisteredTime>
+          <RegisterTime>{timeCalculator.calculateCreateMinute()}</RegisterTime>
           <div>
             <Link href={`/chatting/${id}`} passHref>
               <StyledLink>
@@ -87,23 +86,6 @@ const Title = styled.p`
 const NumberOfPeople = styled.p`
   font-size: 0.75rem;
   color: ${palette.DarkGray};
-`;
-
-const RegisteredTime = styled.p`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  min-width: 40px;
-  height: 20px;
-
-  font-size: 0.75rem;
-  color: ${palette.DarkGray};
-
-  background-color: ${palette.LightGray};
-
-  padding: 0 4px;
-  border-radius: 3px;
 `;
 
 const TimeOrderLinkContainer = styled.div`
