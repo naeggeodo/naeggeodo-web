@@ -23,23 +23,23 @@ const ChattingPageStory = (args: {
   previousChatting: PreviousChattingListResponse;
 }) => <ChattingTemplate {...args} />;
 
-export const ChattingPage = ChattingPageStory.bind({});
+// export const ChattingPage = ChattingPageStory.bind({});
 
-ChattingPage.args = {
-  previousChatting: {
-    messages: [
-      {
-        user_id: 1,
-        id: 1,
-        idx: 1,
-        chatMain_id: 1,
-        regDate: '2022-05-13T15:52:52',
-        sender: 2,
-        contents: '교촌치킨 먹고싶어요',
-        type: 'TEXT',
-      },
-    ],
-  },
-};
+// ChattingPage.args = {
+//   previousChatting: {
+//     messages: [
+//       {
+//         user_id: 1,
+//         id: 1,
+//         idx: 1,
+//         chatMain_id: 1,
+//         regDate: '2022-05-13T15:52:52',
+//         sender: 2,
+//         contents: '교촌치킨 먹고싶어요',
+//         type: 'TEXT',
+//       },
+//     ],
+//   },
+// };
 
-ChattingPage.storyName = '채팅 페이지';
+// ChattingPage.storyName = '채팅 페이지';
