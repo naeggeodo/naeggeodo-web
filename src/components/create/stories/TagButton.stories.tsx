@@ -12,10 +12,12 @@ export default {
         <div
           style={{
             display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+            alignItems: 'flex-start',
+            justifyContent: 'flex-start',
             height: '100vh',
             gap: '10px',
+            paddingTop: '20px',
+            paddingLeft: '20px',
           }}>
           <Story />
         </div>

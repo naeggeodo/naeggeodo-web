@@ -6,10 +6,7 @@ import { useLoadLib } from '../../hooks/useLoadLib';
 import { RootState } from '../../modules';
 import { ButtonValue, OrderTimeType } from '../../modules/create/types';
 import { selectOrderTimeType } from '../../modules/create/actions';
-
-type StyledType = {
-  isActive: boolean;
-};
+import OrderTimeTypeButton from './OrderTimeTypeButton';
 
 const buttonValue: ButtonValue[] = [
   {
@@ -53,13 +50,13 @@ const CreateInit = () => {
       </div>
       <Content>
         {buttonValue.map((item, i) => (
-          <Button
-            onClick={dispatchSelectOrderTypeTime}
-            data-value={item.value}
+          <OrderTimeTypeButton
+            handleClick={dispatchSelectOrderTypeTime}
             key={i}
+            data-value={item.value}
             isActive={currentOrderTimeType === item.value ? true : false}>
             {item.text}
-          </Button>
+          </OrderTimeTypeButton>
         ))}
       </Content>
     </Container>
@@ -94,21 +91,6 @@ const Content = styled.div`
   flex-direction: column;
 
   gap: 10px;
-`;
-
-const Button = styled.button<StyledType>`
-  padding: 15px;
-
-  font-size: 0.9375rem;
-  font-family: 'SpoqaBold';
-  color: ${(props) => (props.isActive ? '#EF6212' : '#000')};
-
-  background-color: ${(props) => (props.isActive ? '#FDEFE7' : '#f5f5f5')};
-
-  border-radius: 10px;
-  cursor: pointer;
-  border: none;
-  outline: none;
 `;
 
 export default CreateInit;
