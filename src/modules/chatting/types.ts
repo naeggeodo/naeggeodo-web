@@ -1,8 +1,8 @@
-export type ChattingRoomInfoRequestPayload = {
+export type ChattingRoomInfoRequest = {
   chattingRoomId: string;
 };
 
-export type ChattingRoomInfoResponsePayload = {
+export type ChattingRoomInfoResponse = {
   imgpath: string;
   link: string | null;
   title: string;
@@ -19,7 +19,7 @@ export type ChattingRoomInfoResponsePayload = {
   createDate: Date;
 };
 
-export type PreviousChattingItemRequest = {
+export type PreviousChattingListRequest = {
   chattingRoomId: string;
   userId: string;
 };

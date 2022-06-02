@@ -1,6 +1,7 @@
 import { ComponentMeta } from '@storybook/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '../../../modules';
+import { PreviousChattingListResponse } from '../../../modules/chatting/types';
 import ChattingTemplate from '../ChattingTemplate';
 
 export default {
@@ -18,7 +19,10 @@ export default {
   },
 } as ComponentMeta<typeof ChattingTemplate>;
 
-const ChattingPageStory = (args) => <ChattingTemplate {...args} />;
+const ChattingPageStory = (args: {
+  previousChatting: PreviousChattingListResponse;
+}) => <ChattingTemplate {...args} />;
+
 // export const ChattingPage = ChattingPageStory.bind({});
 
 // ChattingPage.args = {

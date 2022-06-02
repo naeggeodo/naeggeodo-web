@@ -1,10 +1,10 @@
 import { AxiosError } from 'axios';
 import { createAsyncAction } from 'typesafe-actions';
 import {
-  ChattingRoomInfoRequestPayload,
-  ChattingRoomInfoResponsePayload,
+  ChattingRoomInfoRequest,
+  ChattingRoomInfoResponse,
   CurrentChatUserListResponse,
-  PreviousChattingItemRequest,
+  PreviousChattingListRequest,
   PreviousChattingListResponse,
   QuickChattingListResponse,
   UserId,
@@ -53,17 +53,13 @@ export const getCurrentChatRoomAsyncActions = createAsyncAction(
   GET_CURRENT_CHATROOM_INFO_REQUEST,
   GET_CURRENT_CHATROOM_INFO_SUCCESS,
   GET_CURRENT_CHATROOM_INFO_FAILURE,
-)<
-  ChattingRoomInfoRequestPayload,
-  ChattingRoomInfoResponsePayload,
-  AxiosError
->();
+)<ChattingRoomInfoRequest, ChattingRoomInfoResponse, AxiosError>();
 
 export const getPreviousChattingListActions = createAsyncAction(
   GET_PREVIOUS_CHATTING_LIST_REQUEST,
   GET_PREVIOUS_CHATTING_LIST_SUCCESS,
   GET_PREVIOUS_CHATTING_LIST_FAILURE,
-)<PreviousChattingItemRequest, PreviousChattingListResponse, AxiosError>();
+)<PreviousChattingListRequest, PreviousChattingListResponse, AxiosError>();
 
 export const getQuickChattingListActions = createAsyncAction(
   GET_QUICK_MESSAGE_LIST_REQUEST,
@@ -75,4 +71,4 @@ export const getCurrentChatUserListActions = createAsyncAction(
   GET_CURRENT_CHAT_USER_LIST_REQUEST,
   GET_CURRENT_CHAT_USER_LIST_SUCCESS,
   GET_CURRENT_CHAT_USER_LIST_FAILURE,
-)<ChattingRoomInfoRequestPayload, CurrentChatUserListResponse, AxiosError>();
+)<ChattingRoomInfoRequest, CurrentChatUserListResponse, AxiosError>();
