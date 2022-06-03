@@ -50,9 +50,9 @@ const QuickMessageComp = ({ stompClient }: { stompClient: CompatClient }) => {
         />
       </Div>
       {quickChatList.quickChat &&
-        quickChatList.quickChat.map((v) => (
-          <Item key={v.idx} onClick={sendMessage}>
-            {v.msg}
+        quickChatList.quickChat.map((quickChat) => (
+          <Item key={quickChat.idx} onClick={sendMessage}>
+            {quickChat.msg}
           </Item>
         ))}
       <EditBtn>

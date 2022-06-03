@@ -3,14 +3,14 @@ import Image from 'next/image';
 import palette from '../../styles/palette';
 import DateFormatter from '../../utils/DateFormatter';
 
-import { PreviousChattingItemResponse } from '../../modules/chatting/types';
+import { PreviousChattingItem } from '../../modules/chatting/types';
 import { useMemo } from 'react';
 
 const MyChatItem = ({
   message,
   date,
 }: {
-  message: PreviousChattingItemResponse;
+  message: PreviousChattingItem;
   date?: string;
 }) => {
   const chatDate = useMemo(() => new DateFormatter(date), [date]);
