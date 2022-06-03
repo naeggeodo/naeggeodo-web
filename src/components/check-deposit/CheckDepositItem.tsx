@@ -19,6 +19,7 @@ const CheckDepositItem = ({ user }: { user: CurrentChatUser }) => {
         />
       </ImageWrapper>
       <NickNameWrapper>{user.user_id}</NickNameWrapper>
+      {/* <CompleteDepositButton user={user} /> */}
       {user.remittanceState === 'N' && <CompleteDepositButton user={user} />}
     </Container>
   );

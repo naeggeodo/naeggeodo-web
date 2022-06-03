@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import styled from 'styled-components';
-import { PreviousChattingItemResponse } from '../../modules/chatting/types';
+import { PreviousChattingItem } from '../../modules/chatting/types';
 import palette from '../../styles/palette';
 import DateFormatter from '../../utils/DateFormatter';
 
@@ -8,7 +8,7 @@ const ChatItem = ({
   message,
   date,
 }: {
-  message: PreviousChattingItemResponse;
+  message: PreviousChattingItem;
   date?: string;
 }) => {
   const chatDate = new DateFormatter(date);

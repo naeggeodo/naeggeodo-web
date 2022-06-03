@@ -18,6 +18,8 @@ import { modalStates } from './modal/reducer';
 import { searchPostCodeSaga } from './search-post-code/sagas';
 import { getNaeggeotalkSaga } from './naeggeotalk/sagas';
 import { naeggeotalkState } from './naeggeotalk/reducer';
+import { getCheckDepositPageInfoSaga } from './check-deposit/sagas';
+import { checkDepositState } from './check-deposit/reducer';
 
 //** RootReducer */
 export const rootReducer = combineReducers({
@@ -29,6 +31,7 @@ export const rootReducer = combineReducers({
   kakaoLoginState,
   modalStates,
   naeggeotalkState,
+  checkDepositState,
 });
 
 //** RootSaga */
@@ -40,6 +43,7 @@ export function* rootSaga() {
     fork(kakaoLoginSaga),
     fork(searchPostCodeSaga),
     fork(getNaeggeotalkSaga),
+    fork(getCheckDepositPageInfoSaga),
   ]);
 }
 

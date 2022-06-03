@@ -1,5 +1,3 @@
-import axios from 'axios';
-import { useEffect } from 'react';
 import styled from 'styled-components';
 import { NaeggeotalkListResponse } from '../../modules/naeggeotalk/types';
 import CreateButton from '../create/CreateButton';
@@ -12,24 +10,16 @@ const NaeggeotalkTemplate = ({
 }: {
   naeggeotalkList: NaeggeotalkListResponse;
 }) => {
-  useEffect(() => {
-    axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/chat-rooms/order-list/1`)
-      .then((res) => {
-        console.log(res.data);
-      });
-  }, []);
   return (
     <>
       <Container>
         <CreateTabMenu />
         <Content>
-          {naeggeotalkList.chatRoom &&
-            naeggeotalkList.chatRoom.map((v, i) => (
-              <NaeggeotalkListItem key={i} data={v} />
+          {naeggeotalkList.chatRooms &&
+            naeggeotalkList.chatRooms.map((item, i) => (
+              <NaeggeotalkListItem key={i} data={item} />
             ))}
         </Content>
-
         <ButtonWrapper>
           <CreateButton
             handleClick={() => {
@@ -37,7 +27,6 @@ const NaeggeotalkTemplate = ({
             }}
             storeName={'sample'}
           />
-          <CreateButton handleClick={() => {}} storeName={'sample'} />
         </ButtonWrapper>
       </Container>
       <TabMenu />

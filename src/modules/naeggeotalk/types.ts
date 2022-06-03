@@ -16,5 +16,5 @@ export type Naeggeotalk = {
   createDate: Date;
 };
 export type NaeggeotalkListResponse = {
-  chatRoom: Naeggeotalk[];
+  chatRooms: Naeggeotalk[];
 };

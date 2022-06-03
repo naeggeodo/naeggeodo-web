@@ -1,4 +1,4 @@
-import { call, put, take, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 import ChattingService from '../../service/api/chatting/ChattingService';
 import {
   getCurrentChatRoomAsyncActions,
@@ -48,7 +48,7 @@ function* getQuickChattingListGenerator(
   yield put(getQuickChattingListActions.success(data));
 }
 
-function* getCurrentChatUserListGenerator(
+export function* getCurrentChatUserListGenerator(
   action: ReturnType<typeof getCurrentChatUserListActions.request>,
 ) {
   const { data }: { data: CurrentChatUserListResponse } = yield call(

@@ -112,15 +112,15 @@ const SearchTemplate = ({ tags }: SearchTagListResponse) => {
         </SearchForm>
         {dataList.length > 0 ? (
           <div>
-            {dataList.map((v, i) => (
+            {dataList.map((data, i) => (
               <ChatRoomItem
-                id={v.id}
+                id={data.id}
                 key={i}
-                title={v.title}
-                link={v.link}
-                maxCount={v.maxCount}
-                createDate={v.createDate}
-                currentCount={v.currentCount}
+                title={data.title}
+                link={data.link}
+                maxCount={data.maxCount}
+                createDate={data.createDate}
+                currentCount={data.currentCount}
               />
             ))}
           </div>
