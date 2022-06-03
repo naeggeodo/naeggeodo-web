@@ -1,4 +1,4 @@
-export type Naeggeotalk = {
+export type NaeggeotalkItem = {
   buildingCode: string;
   link: string;
   title: string;
@@ -16,5 +16,10 @@ export type Naeggeotalk = {
   createDate: Date;
 };
 export type NaeggeotalkListResponse = {
-  chatRooms: Naeggeotalk[];
+  chatRooms: NaeggeotalkItem[];
+};
+
+export type NaeggeotalkItemBookmarkRequest = {
+  chatMainId: string;
+  userId: string;
 };

@@ -12,6 +12,10 @@ type PropsType = {
 };
 
 const ChatDrawer = ({ setIsDrawerOpen, isDrawerOpen }: PropsType) => {
+  const closeDrawer = () => {
+    setIsDrawerOpen(false);
+  };
+
   return (
     <Container isDrawerOpen={isDrawerOpen}>
       <Content>
@@ -90,10 +94,7 @@ const ChatDrawer = ({ setIsDrawerOpen, isDrawerOpen }: PropsType) => {
         </div>
       </Content>
       <Footer>
-        <Button
-          onClick={() => {
-            setIsDrawerOpen(false);
-          }}>
+        <Button onClick={closeDrawer}>
           <Image
             src='/assets/images/drawerclosebtn.svg'
             width={20}
