@@ -10,4 +10,18 @@ export default class NaeggeotalkService {
       console.log(err);
     }
   }
+
+  static async asyncSetNaeggeotalkItemBookmark(
+    chatMainId: string,
+    userId: string,
+  ) {
+    try {
+      return ApiService.patchApi(
+        `/chat-rooms/${chatMainId}/bookmarks/${userId}`,
+        null,
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  }
 }

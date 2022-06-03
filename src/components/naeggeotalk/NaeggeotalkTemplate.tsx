@@ -1,15 +1,22 @@
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { NaeggeotalkListResponse } from '../../modules/naeggeotalk/types';
+import { RootState } from '../../modules';
+import {
+  NaeggeotalkItem,
+  NaeggeotalkListResponse,
+} from '../../modules/naeggeotalk/types';
 import CreateButton from '../create/CreateButton';
 import CreateTabMenu from '../create/CreateTabMenu';
 import TabMenu from '../main/TabMenu';
 import NaeggeotalkListItem from './NaeggeotalkListItem';
 
-const NaeggeotalkTemplate = ({
-  naeggeotalkList,
-}: {
-  naeggeotalkList: NaeggeotalkListResponse;
-}) => {
+const NaeggeotalkTemplate = () => {
+  const { naeggeotalkList } = useSelector(
+    (state: RootState) => state.naeggeotalkState,
+  );
+  const [selectItem, setSelectItem] = useState<NaeggeotalkItem>();
+
   return (
     <>
       <Container>
@@ -17,7 +24,11 @@ const NaeggeotalkTemplate = ({
         <Content>
           {naeggeotalkList.chatRooms &&
             naeggeotalkList.chatRooms.map((item, i) => (
-              <NaeggeotalkListItem key={i} data={item} />
+              <NaeggeotalkListItem
+                key={i}
+                data={item}
+                setSelectItem={setSelectItem}
+              />
             ))}
         </Content>
         <ButtonWrapper>

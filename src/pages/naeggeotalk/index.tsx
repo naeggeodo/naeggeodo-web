@@ -3,14 +3,9 @@ import { END } from 'redux-saga';
 import NaeggeotalkTemplate from '../../components/naeggeotalk/NaeggeotalkTemplate';
 import { wrapper } from '../../modules';
 import { getNaeggeotalkListActions } from '../../modules/naeggeotalk/actions';
-import { NaeggeotalkListResponse } from '../../modules/naeggeotalk/types';
 
-const naeggeotalk = ({
-  naeggeotalkList,
-}: {
-  naeggeotalkList: NaeggeotalkListResponse;
-}) => {
-  return <NaeggeotalkTemplate naeggeotalkList={naeggeotalkList} />;
+const naeggeotalk = () => {
+  return <NaeggeotalkTemplate />;
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(

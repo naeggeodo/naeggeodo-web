@@ -26,7 +26,7 @@ const Header = ({ setIsDrawerOpen, isDrawerOpen }: PropsType) => {
     router.back();
   }, [router]);
 
-  const drawerOpen = useCallback(() => {
+  const openDrawer = useCallback(() => {
     setIsDrawerOpen(true);
   }, [isDrawerOpen]);
 
@@ -50,7 +50,7 @@ const Header = ({ setIsDrawerOpen, isDrawerOpen }: PropsType) => {
           <Info name='title'>{chatRoomInfo?.title}</Info>
           <Info name='info'>인원2명/{chatRoomInfo?.maxCount}명</Info>
         </Div>
-        <HambergurButton onClick={drawerOpen}>
+        <HambergurButton onClick={openDrawer}>
           <Image
             src='/assets/images/hambergurbar.svg'
             width={22}
