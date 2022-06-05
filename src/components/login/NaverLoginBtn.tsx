@@ -37,6 +37,7 @@ const NaverLoginButton = styled.a`
   border-radius: 10px;
   border: none;
   outline: none;
+  text-decoration: none;
 
   & > span {
     font-size: 1.0625rem;

@@ -1,7 +1,18 @@
 import React from 'react';
+import styled from 'styled-components';
+import Loading from '../../../../components/common/Loading';
 
 const naver = () => {
-  return <div>naver 로그인</div>;
+  return (
+    <Wrap>
+      <Loading />
+    </Wrap>
+  );
 };
 
 export default naver;
+
+const Wrap = styled.div`
+  width: 100vw;
+  height: 100vh;
+`;
