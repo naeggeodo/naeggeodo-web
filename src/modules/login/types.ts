@@ -1,7 +1,11 @@
-import { getKakaoTokenRequest } from './actions';
+import { getKakaoTokenRequest, getNaverTokenRequest } from './actions';
 
 export type getkakaoTokenRequestAction = ReturnType<
   typeof getKakaoTokenRequest
+>;
+
+export type getNaverTokenRequestAction = ReturnType<
+  typeof getNaverTokenRequest
 >;
 
 interface UserInfo {
@@ -16,4 +20,11 @@ export interface KakaoLoginResponse {
   type: 'Bearer' | string;
   user: UserInfo;
   isLoading: boolean;
+}
+
+export interface NaverLoginResponse {
+  accessToken: string;
+  refreshToken: string;
+  type: 'Bearer' | string;
+  user: UserInfo;
 }
