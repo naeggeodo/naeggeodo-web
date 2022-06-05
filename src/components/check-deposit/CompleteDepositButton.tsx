@@ -3,10 +3,8 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
-import { getCurrentChatUserListActions } from '../../modules/chatting/actions';
 import { CurrentChatUser } from '../../modules/chatting/types';
 import { setCheckDepositActions } from '../../modules/check-deposit/actions';
-import CheckDepositService from '../../service/api/check-deposit/CheckDepositService';
 import palette from '../../styles/palette';
 import responsive from '../../styles/responsive';
 
@@ -21,16 +19,6 @@ const CompleteDepositButton = ({ user }: { user: CurrentChatUser }) => {
         userId: user.user_id,
       }),
     );
-    // CheckDepositService.asyncDepositHandler(
-    //   router.query.id as string,
-    //   user.user_id,
-    // ).then(() => {
-    //   dispatch(
-    //     getCurrentChatUserListActions.request({
-    //       chattingRoomId: router.query.id as string,
-    //     }),
-    //   );
-    // });
   };
 
   return <Button onClick={onClick}>수령완료</Button>;

@@ -59,7 +59,7 @@ const SearchTemplate = ({ tags }: SearchTagListResponse) => {
         arr.push(searchResultList.chatRoom[i]);
       }
       console.log(arr);
-      setDataList((prev) => prev.concat(arr));
+      setDataList([...dataList, ...arr]);
     }
   }, [skip, searchResultList]);
 

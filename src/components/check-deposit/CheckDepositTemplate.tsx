@@ -29,9 +29,9 @@ const CheckDepositTemplate = () => {
     setDepositUsers([]);
     for (let i = 0; i < users.length; i++) {
       if (users[i].remittanceState === 'N') {
-        setDepositYetUsers((prev) => prev.concat(users[i]));
+        setDepositYetUsers([...depositYetUsers, users[i]]);
       } else {
-        setDepositUsers((prev) => prev.concat(users[i]));
+        setDepositUsers([...depositUsers, users[i]]);
       }
     }
   }, [currentChatUserList]);

@@ -31,7 +31,7 @@ const QuickMessageComp = ({ stompClient }: { stompClient: CompatClient }) => {
     const clickTarget = e.target as HTMLParagraphElement;
     const data = {
       chatMain_id: 1,
-      sender: 2,
+      sender: String(2),
       contents: clickTarget.innerHTML,
       type: 'TEXT',
     };

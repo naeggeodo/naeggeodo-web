@@ -19,6 +19,13 @@ export type ChattingRoomInfoResponse = {
   createDate: Date;
 };
 
+export type ChattingSubmitBody = {
+  sender: string;
+  contents: string;
+  chatMain_id: number;
+  type: string;
+};
+
 export type PreviousChattingListRequest = {
   chattingRoomId: string;
   userId: string;
