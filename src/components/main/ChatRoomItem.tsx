@@ -29,7 +29,7 @@ const ChatRoomItem = ({
           <RegisterTime>{timeCalculator.calculateCreateMinute()}</RegisterTime>
           <div>
             <Link href={`/chatting/${id}`} passHref>
-              <StyledLink>
+              <StyledLink rel='noreferrer noopener'>
                 <span>함께 주문하기</span>
                 <Image
                   src='/assets/images/arrowright.svg'

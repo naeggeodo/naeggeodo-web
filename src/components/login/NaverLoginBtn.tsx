@@ -8,7 +8,7 @@ const NaverLoginBtn = () => {
   return (
     <Link
       href={`https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${SOCIAL_LOGIN.NAVER_CLIENT_ID}&state=STATE&redirect_uri=${SOCIAL_LOGIN.NAVER_REDIRECT_URI}`}>
-      <NaverLoginButton>
+      <NaverLoginButton rel='noreferrer noopener'>
         <Image
           src='/assets/images/naverlogo.svg'
           alt='naver logo'
@@ -21,7 +21,7 @@ const NaverLoginBtn = () => {
   );
 };
 
-const NaverLoginButton = styled.span`
+const NaverLoginButton = styled.a`
   display: flex;
   align-items: center;
   justify-content: center;
