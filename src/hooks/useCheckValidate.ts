@@ -10,8 +10,9 @@ export function useCheckValidate() {
   const checkTokenAndRedirection = useCallback(() => {
     if (!localStorage.getItem(TOKEN_NAME.ACCESS_TOKEN)) {
       dispatch(openLoginModal());
+    } else {
+      router.replace('/create');
     }
-    router.replace('/create');
   }, [dispatch]);
 
   return { checkTokenAndRedirection };
