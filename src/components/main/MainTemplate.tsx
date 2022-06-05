@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import CategoryMenuSlide from './CategoryMenuSlide';
@@ -11,7 +11,6 @@ import LoginModal from '../login/LoginModalTemplate';
 import { CategoriesResponse } from '../../modules/main/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../modules';
-import palette from '../../styles/palette';
 import { useCheckValidate } from '../../hooks/useCheckValidate';
 import {
   closeSearchPostCode,
@@ -27,7 +26,46 @@ const MainTemplate = ({
 }: {
   foodCategories: CategoriesResponse[];
 }) => {
+  const limit = 5;
   const dispatch = useDispatch();
+  const { checkTokenAndRedirection } = useCheckValidate();
+  const [skip, setSkip] = useState(0);
+  const [dataList, setDataList] = useState([]);
+
+  const target = useRef<HTMLDivElement>(null);
+  const chatRooms = useSelector(
+    (state: RootState) => state.mainPageState.chatRooms,
+  );
+
+  useEffect(() => {
+    if (chatRooms) {
+      const observer = new IntersectionObserver(callback, { threshold: 0.5 });
+      observer.observe(target.current);
+
+      return () => {
+        observer && observer.disconnect();
+      };
+    }
+  }, [chatRooms]);
+
+  useEffect(() => {
+    if (chatRooms && skip <= chatRooms.length) {
+      const arr = [];
+      for (let i = skip; i < chatRooms.length; i++) {
+        if (arr.length > limit) break;
+        arr.push(chatRooms[i]);
+      }
+      setDataList((prev) => [...prev, ...arr]);
+    }
+  }, [skip, chatRooms]);
+
+  const callback = async ([entry], observer: IntersectionObserver) => {
+    if (entry.isIntersecting) {
+      observer.unobserve(entry.target);
+      setSkip((prev) => prev + limit + 1);
+      observer.observe(entry.target);
+    }
+  };
 
   useEffect(() => {
     if (localStorage.getItem(TOKEN_NAME.ACCESS_TOKEN)) {
@@ -37,10 +75,6 @@ const MainTemplate = ({
     }
   }, [dispatch]);
 
-  const { checkTokenAndRedirection } = useCheckValidate();
-  const chatRooms = useSelector(
-    (state: RootState) => state.mainPageState.chatRooms,
-  );
   const loginModalIsClicked = useSelector(
     (state: RootState) => state.modalStates.loginModalIsClicked,
   );
@@ -66,7 +100,7 @@ const MainTemplate = ({
         <NoItemText checkTokenAndRedirection={checkTokenAndRedirection} />
       ) : (
         <StyledUl>
-          {chatRooms.map((item) => (
+          {dataList.map((item) => (
             <ChatRoomItem
               id={item.id}
               key={item.id}
@@ -79,10 +113,10 @@ const MainTemplate = ({
           ))}
         </StyledUl>
       )}
-
-      <TabMenu />
+      <div ref={target}></div>
       {loginModalIsClicked && <LoginModal />}
       {searchPostCodeIsOpen && <PostCodeWebView closeWebView={closeWebView} />}
+      <TabMenu />
     </Container>
   );
 };
