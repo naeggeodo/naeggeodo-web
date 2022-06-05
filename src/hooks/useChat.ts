@@ -1,5 +1,8 @@
 import { CompatClient } from '@stomp/stompjs';
-import { PreviousChattingItem } from '../modules/chatting/types';
+import {
+  ChattingSubmitBody,
+  PreviousChattingItem,
+} from '../modules/chatting/types';
 
 export function useChat() {
   const connect = (
@@ -23,7 +26,7 @@ export function useChat() {
 
   const onSendMessage = (
     stompClient: CompatClient,
-    data: PreviousChattingItem,
+    data: ChattingSubmitBody,
   ) => {
     if (stompClient && data) {
       stompClient.send('/app/chat/send', {}, JSON.stringify(data));

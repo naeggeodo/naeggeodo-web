@@ -7,7 +7,8 @@ import palette from '../../styles/palette';
 const NaverLoginBtn = () => {
   return (
     <Link
-      href={`https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${SOCIAL_LOGIN.NAVER_CLIENT_ID}&state=STATE&redirect_uri=${SOCIAL_LOGIN.NAVER_REDIRECT_URI}`}>
+      href={`https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${SOCIAL_LOGIN.NAVER_CLIENT_ID}&state=STATE&redirect_uri=${SOCIAL_LOGIN.NAVER_REDIRECT_URI}`}
+      passHref>
       <NaverLoginButton rel='noreferrer noopener'>
         <Image
           src='/assets/images/naverlogo.svg'

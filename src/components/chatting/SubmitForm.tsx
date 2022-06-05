@@ -19,7 +19,7 @@ const SubmitForm = ({ stompClient }: { stompClient: CompatClient }) => {
 
       const data = {
         chatMain_id: 1,
-        sender: 1,
+        sender: '1',
         contents: message,
         type: 'TEXT',
       };
@@ -41,7 +41,7 @@ const SubmitForm = ({ stompClient }: { stompClient: CompatClient }) => {
 
       const data = {
         chatMain_id: 1,
-        sender: 1,
+        sender: String(1),
         contents: result as string,
         type: 'TEXT',
       };
