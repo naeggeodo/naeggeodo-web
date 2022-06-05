@@ -24,7 +24,9 @@ const TabButtonItem: React.FC<TabItem> = (props) => {
 
   return (
     <Link href={props.link} passHref>
-      <TabButton active={routerfirstpath === props.link ? true : false}>
+      <TabButton
+        rel='noreferrer noopener'
+        active={routerfirstpath === props.link ? true : false}>
         <div>
           <StyledImage
             src={props.image}

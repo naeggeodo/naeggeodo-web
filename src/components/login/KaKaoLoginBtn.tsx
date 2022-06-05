@@ -9,7 +9,7 @@ const KaKaoLoginBtn = () => {
     <Link
       href={`https://kauth.kakao.com/oauth/authorize?client_id=${SOCIAL_LOGIN.KAKAO_CLIENT_ID}&redirect_uri=${SOCIAL_LOGIN.KAKAO_REDIRECT_URI}&response_type=code`}
       passHref>
-      <KaKaoLoginButton>
+      <KaKaoLoginButton rel='noreferrer noopener'>
         <Image
           src='/assets/images/kakaologo.svg'
           alt='kakao logo'
