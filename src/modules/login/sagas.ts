@@ -6,10 +6,17 @@ import { LoginService } from '../../service/api/login/LoginService';
 import {
   endLoading,
   getKakaoTokenSuccess,
+  getNaverTokenSuccess,
   GET_KAKAO_TOKEN_REQUEST,
+  GET_NAVER_TOKEN_REQUEST,
   startLoading,
 } from './actions';
-import { getkakaoTokenRequestAction, KakaoLoginResponse } from './types';
+import {
+  getkakaoTokenRequestAction,
+  getNaverTokenRequestAction,
+  KakaoLoginResponse,
+  NaverLoginResponse,
+} from './types';
 
 function* KakaoLoginGenerator(action: getkakaoTokenRequestAction) {
   try {
@@ -34,6 +41,30 @@ function* KakaoLoginGenerator(action: getkakaoTokenRequestAction) {
   }
 }
 
+function* naverLoginGenerator(action: getNaverTokenRequestAction) {
+  try {
+    yield put(startLoading());
+
+    const response: AxiosResponse<NaverLoginResponse> = yield call(
+      LoginService.asyncGetNaverToken,
+      action.payload,
+    );
+    yield console.log(response);
+
+    localStorage.setItem(TOKEN_NAME.ACCESS_TOKEN, response.data.accessToken);
+    localStorage.setItem(TOKEN_NAME.REFRESH_TOKEN, response.data.refreshToken);
+    localStorage.setItem('user', JSON.stringify(response.data.user));
+
+    yield put(getNaverTokenSuccess(response.data));
+    yield put(endLoading());
+
+    yield call(Router.push, '/');
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export function* kakaoLoginSaga() {
   yield takeLatest(GET_KAKAO_TOKEN_REQUEST, KakaoLoginGenerator);
+  yield takeLatest(GET_NAVER_TOKEN_REQUEST, naverLoginGenerator);
 }
