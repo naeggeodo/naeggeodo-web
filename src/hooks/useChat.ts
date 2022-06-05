@@ -1,12 +1,12 @@
 import { CompatClient } from '@stomp/stompjs';
-import { PreviousChattingItemResponse } from '../modules/chatting/types';
+import { PreviousChattingItem } from '../modules/chatting/types';
 
 export function useChat() {
   const connect = (
     stompClient: CompatClient,
     roomId: number,
     setMessageList: React.Dispatch<
-      React.SetStateAction<PreviousChattingItemResponse[]>
+      React.SetStateAction<PreviousChattingItem[]>
     >,
   ) => {
     stompClient.connect({ chatMain_id: '1', sender: '2' }, () => {
@@ -23,7 +23,7 @@ export function useChat() {
 
   const onSendMessage = (
     stompClient: CompatClient,
-    data: PreviousChattingItemResponse,
+    data: PreviousChattingItem,
   ) => {
     if (stompClient && data) {
       stompClient.send('/app/chat/send', {}, JSON.stringify(data));
