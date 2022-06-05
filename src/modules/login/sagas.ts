@@ -14,15 +14,14 @@ import {
 import {
   getkakaoTokenRequestAction,
   getNaverTokenRequestAction,
-  KakaoLoginResponse,
-  NaverLoginResponse,
+  LoginResponse,
 } from './types';
 
 function* KakaoLoginGenerator(action: getkakaoTokenRequestAction) {
   try {
     yield put(startLoading());
 
-    const response: AxiosResponse<KakaoLoginResponse> = yield call(
+    const response: AxiosResponse<LoginResponse> = yield call(
       LoginService.asyncGetKakaoToken,
       action.payload,
     );
@@ -45,7 +44,7 @@ function* naverLoginGenerator(action: getNaverTokenRequestAction) {
   try {
     yield put(startLoading());
 
-    const response: AxiosResponse<NaverLoginResponse> = yield call(
+    const response: AxiosResponse<LoginResponse> = yield call(
       LoginService.asyncGetNaverToken,
       action.payload,
     );
@@ -64,7 +63,7 @@ function* naverLoginGenerator(action: getNaverTokenRequestAction) {
   }
 }
 
-export function* kakaoLoginSaga() {
+export function* loginSaga() {
   yield takeLatest(GET_KAKAO_TOKEN_REQUEST, KakaoLoginGenerator);
   yield takeLatest(GET_NAVER_TOKEN_REQUEST, naverLoginGenerator);
 }

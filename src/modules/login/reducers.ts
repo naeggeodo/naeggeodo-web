@@ -5,9 +5,9 @@ import {
   GET_NAVER_TOKEN_SUCCESS,
   START_LOADING,
 } from './actions';
-import { KakaoLoginResponse } from './types';
+import { LoginResponse } from './types';
 
-const initialState: KakaoLoginResponse = {
+const initialState: LoginResponse = {
   accessToken: '',
   refreshToken: '',
   type: '',
@@ -19,7 +19,7 @@ const initialState: KakaoLoginResponse = {
   isLoading: false,
 };
 
-export const kakaoLoginState = createReducer<KakaoLoginResponse>(initialState, {
+export const loginState = createReducer<LoginResponse>(initialState, {
   [GET_KAKAO_TOKEN_SUCCESS]: (state, action) => ({
     ...state,
     accessToken: action.payload.accessToken,

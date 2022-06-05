@@ -12,8 +12,8 @@ import { getMainPageInfoSaga } from './main/sagas';
 import { createStates } from './create/reducer';
 import { searchPageState } from './search/reducer';
 import { getSearchPageInfoSaga } from './search/sagas';
-import { kakaoLoginSaga } from './login/sagas';
-import { kakaoLoginState } from './login/reducers';
+import { loginSaga } from './login/sagas';
+import { loginState } from './login/reducers';
 import { modalStates } from './modal/reducer';
 import { searchPostCodeSaga } from './search-post-code/sagas';
 import { getNaeggeotalkSaga } from './naeggeotalk/sagas';
@@ -28,7 +28,7 @@ export const rootReducer = combineReducers({
   mainPageState,
   createStates,
   searchPageState,
-  kakaoLoginState,
+  loginState,
   modalStates,
   naeggeotalkState,
   checkDepositState,
@@ -40,7 +40,7 @@ export function* rootSaga() {
     fork(getChattingRoomInfoSaga),
     fork(getMainPageInfoSaga),
     fork(getSearchPageInfoSaga),
-    fork(kakaoLoginSaga),
+    fork(loginSaga),
     fork(searchPostCodeSaga),
     fork(getNaeggeotalkSaga),
     fork(getCheckDepositPageInfoSaga),

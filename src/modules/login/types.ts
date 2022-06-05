@@ -14,17 +14,10 @@ interface UserInfo {
   id: string;
 }
 
-export interface KakaoLoginResponse {
+export interface LoginResponse {
   accessToken: string;
   refreshToken: string;
   type: 'Bearer' | string;
   user: UserInfo;
   isLoading: boolean;
-}
-
-export interface NaverLoginResponse {
-  accessToken: string;
-  refreshToken: string;
-  type: 'Bearer' | string;
-  user: UserInfo;
 }
