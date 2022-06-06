@@ -27,12 +27,7 @@ function* setNaeggeotalkItemBookmarkGenerator(
     action.payload.chatMainId,
     action.payload.userId,
   );
-
-  const { data }: { data: NaeggeotalkListResponse } = yield call(
-    NaeggeotalkService.asyncGetNaeggeotalkList,
-    action.payload.userId,
-  );
-  yield put(getNaeggeotalkListActions.success(data));
+  yield put(setNaeggeotalkItemBookmarkActions.success());
 }
 
 export function* getNaeggeotalkSaga() {

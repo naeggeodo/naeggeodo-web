@@ -35,4 +35,4 @@ export const setNaeggeotalkItemBookmarkActions = createAsyncAction(
   SET_NAEGGEOTALK_ITEM_BOOKMARK_REQUEST,
   SET_NAEGGEOTALK_ITEM_BOOKMARK_SUCCESS,
   SET_NAEGGEOTALK_ITEM_BOOKMARK_FAILURE,
-)<NaeggeotalkItemBookmarkRequest, null, AxiosError>();
+)<NaeggeotalkItemBookmarkRequest, void, AxiosError>();
