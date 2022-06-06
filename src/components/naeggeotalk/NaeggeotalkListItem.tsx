@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { setNaeggeotalkItemBookmarkActions } from '../../modules/naeggeotalk/actions';
@@ -20,9 +20,12 @@ const NaeggeotalkListItem = ({
 }) => {
   const dispatch = useDispatch();
 
+  const [isBookmark, setIsBookmark] = useState(
+    data.bookmarks === 'Y' ? true : false,
+  );
+
   const onSelect = () => {
     setSelectItem(data);
-    console.log(selectItem);
   };
 
   const onBookmarkHandler = () => {
@@ -32,6 +35,7 @@ const NaeggeotalkListItem = ({
         userId: '1',
       }),
     );
+    setIsBookmark((prev) => !prev);
   };
 
   return (
@@ -44,7 +48,7 @@ const NaeggeotalkListItem = ({
             <Date>{data.createDate}</Date>
           </div>
         </InfoBox>
-        {data.bookmarks === 'Y' ? (
+        {isBookmark === true ? (
           <BookmarkButton onClick={onBookmarkHandler}>
             <Image
               src='/assets/images/yellowstar.svg'
