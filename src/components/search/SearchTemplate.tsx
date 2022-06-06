@@ -59,7 +59,7 @@ const SearchTemplate = ({ tags }: SearchTagListResponse) => {
         arr.push(searchResultList.chatRoom[i]);
       }
       console.log(arr);
-      setDataList([...dataList, ...arr]);
+      setDataList((prev) => [...prev, ...arr]);
     }
   }, [skip, searchResultList]);
 
@@ -138,7 +138,7 @@ const SearchTemplate = ({ tags }: SearchTagListResponse) => {
               ))}
           </SearchTagList>
         )}
-        <Target ref={target}></Target>
+        <div ref={target} />
       </Container>
       <TabMenu />
     </>
@@ -183,11 +183,6 @@ const Button = styled.button`
 const SearchTagList = styled.div`
   width: 100%;
   margin-bottom: 20px;
-`;
-
-const Target = styled.div`
-  width: 100%;
-  height: 100px;
 `;
 
 export default SearchTemplate;
