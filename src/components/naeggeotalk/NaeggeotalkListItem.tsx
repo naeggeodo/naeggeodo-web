@@ -11,15 +11,18 @@ type StyledType = {
 
 const NaeggeotalkListItem = ({
   data,
+  selectItem,
   setSelectItem,
 }: {
   data: NaeggeotalkItem;
+  selectItem: NaeggeotalkItem;
   setSelectItem: Dispatch<SetStateAction<NaeggeotalkItem>>;
 }) => {
   const dispatch = useDispatch();
 
   const onSelect = () => {
     setSelectItem(data);
+    console.log(selectItem);
   };
 
   const onBookmarkHandler = () => {
@@ -32,7 +35,7 @@ const NaeggeotalkListItem = ({
   };
 
   return (
-    <Container isActive={true}>
+    <Container isActive={selectItem && selectItem.id === data.id}>
       <Content>
         <InfoBox onClick={onSelect}>
           <Image src='/assets/images/hamburger.svg' width={44} height={44} />
@@ -68,6 +71,7 @@ const NaeggeotalkListItem = ({
 const Container = styled.div<StyledType>`
   border-bottom: 1px solid #f2f2f8;
   background: ${(props) => (props.isActive ? ' #f2f2f8;' : '#fff')};
+  cursor: pointer;
 `;
 
 const Content = styled.div`
