@@ -58,7 +58,6 @@ const SearchTemplate = ({ tags }: SearchTagListResponse) => {
         if (arr.length > limit) break;
         arr.push(searchResultList.chatRoom[i]);
       }
-      console.log(arr);
       setDataList((prev) => [...prev, ...arr]);
     }
   }, [skip, searchResultList]);

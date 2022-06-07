@@ -40,7 +40,6 @@ const NaeggeotalkTemplate = () => {
         if (arr.length > limit) break;
         arr.push(naeggeotalkList.chatRooms[i]);
       }
-      console.log(arr);
       setDataList((prev) => [...prev, ...arr]);
     }
   }, [skip, naeggeotalkList]);
