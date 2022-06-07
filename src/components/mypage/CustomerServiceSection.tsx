@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
 import palette from '../../styles/palette';
@@ -7,15 +8,20 @@ const CustomerServiceSection = () => {
   return (
     <Container>
       <SectionTitle>고객센터</SectionTitle>
-      <MenuItem>
-        <Image
-          src='/assets/images/doc.svg'
-          width={17}
-          height={20}
-          alt='메뉴 아이콘'
-        />
-        공지사항
-      </MenuItem>
+      <Link
+        passHref
+        href='https://fog-cowl-888.notion.site/63ad9843bb874e5797cff765419f47d7'>
+        <StyledLink rel='noreferrer noopener' target='_blank'>
+          <Image
+            src='/assets/images/doc.svg'
+            width={17}
+            height={20}
+            alt='메뉴 아이콘'
+          />
+          <span>공지사항</span>
+        </StyledLink>
+      </Link>
+
       <MenuItem>
         <Image
           src='/assets/images/message.svg'
@@ -46,9 +52,26 @@ const Container = styled.div`
 `;
 
 const SectionTitle = styled.h3`
+  margin-bottom: 10px;
   color: ${palette.TextGray};
   font-family: 'SpoqaBold';
   font-size: 0.9375rem;
+`;
+
+const StyledLink = styled.a`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  color: ${palette.black};
+  font-size: 0.9375rem;
+  padding: 15px;
+
+  text-decoration: none;
+
+  &:hover {
+    background-color: ${palette.bgGray};
+  }
 `;
 
 const MenuItem = styled.button`
@@ -63,6 +86,10 @@ const MenuItem = styled.button`
   border: none;
   outline: none;
   cursor: pointer;
+
+  &:hover {
+    background-color: ${palette.bgGray};
+  }
 `;
 
 export default CustomerServiceSection;
