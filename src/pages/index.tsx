@@ -4,8 +4,9 @@ import React from 'react';
 import styled from 'styled-components';
 import palette from '../styles/palette';
 
-const index = () => {
+const RendingPage = () => {
   const router = useRouter();
+
   return (
     <Container>
       <Title>
@@ -13,7 +14,7 @@ const index = () => {
         <br />
         배달비 반값 플랫폼
         <br />
-        <Strong>내꺼도</Strong> 같이
+        <Strong>내꺼도</Strong> 🍔
       </Title>
 
       <Description>
@@ -42,7 +43,7 @@ const index = () => {
             </DownLoadButton>
             <DownLoadButton>
               <Image
-                src='/assets/images/googleplay.png'
+                src='/assets/images/googleplay.svg'
                 alt='내꺼도 구글플레이 다운로드'
                 width={200}
                 height={80}
@@ -58,6 +59,7 @@ const index = () => {
 const Container = styled.div`
   padding: 88px 30px 0;
   height: 100vh;
+  background-color: #fff;
 `;
 
 const Title = styled.h1`
@@ -128,4 +130,4 @@ const DownLoadButton = styled.button`
   cursor: pointer;
 `;
 
-export default index;
+export default RendingPage;
