@@ -2,7 +2,7 @@ import { ComponentMeta } from '@storybook/react';
 import MypageTemplate from '../MypageTemplate';
 
 export default {
-  title: 'more/페이지',
+  title: 'mypage/페이지',
   component: MypageTemplate,
   decorators: [(Story) => <Story />],
   parameters: {
@@ -12,4 +12,4 @@ export default {
 
 export const MypageStory = () => <MypageTemplate />;
 
-MypageStory.storyName = '전체 탭 페이지';
+MypageStory.storyName = '마이페이지';
