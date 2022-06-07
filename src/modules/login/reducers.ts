@@ -3,6 +3,12 @@ import {
   END_LOADING,
   GET_KAKAO_TOKEN_SUCCESS,
   GET_NAVER_TOKEN_SUCCESS,
+  saveAccessToken,
+  saveRefreshToken,
+  saveUserInfo,
+  SAVE_ACCESS_TOKEN,
+  SAVE_REFRESH_TOKEN,
+  SAVE_USER_INFO,
   START_LOADING,
 } from './actions';
 import { LoginResponse } from './types';
@@ -11,11 +17,8 @@ const initialState: LoginResponse = {
   accessToken: '',
   refreshToken: '',
   type: '',
-  user: {
-    address: '',
-    id: '',
-    authority: '',
-  },
+  addr: '',
+  userId: '',
   isLoading: false,
 };
 
@@ -25,24 +28,12 @@ export const loginState = createReducer<LoginResponse>(initialState, {
     accessToken: action.payload.accessToken,
     refreshToken: action.payload.refreshToken,
     type: action.payload.type,
-    user: {
-      ...state.user,
-      address: action.payload.user.address,
-      id: action.payload.user.id,
-      authority: action.payload.user.authority,
-    },
   }),
   [GET_NAVER_TOKEN_SUCCESS]: (state, action) => ({
     ...state,
     accessToken: action.payload.accessToken,
     refreshToken: action.payload.refreshToken,
     type: action.payload.type,
-    user: {
-      ...state.user,
-      address: action.payload.user.address,
-      id: action.payload.user.id,
-      authority: action.payload.user.authority,
-    },
   }),
   [START_LOADING]: (state, action) => ({
     ...state,
@@ -51,5 +42,22 @@ export const loginState = createReducer<LoginResponse>(initialState, {
   [END_LOADING]: (state, action) => ({
     ...state,
     isLoading: false,
+  }),
+  [SAVE_ACCESS_TOKEN]: (state, action: ReturnType<typeof saveAccessToken>) => ({
+    ...state,
+    accessToken: action.payload.accessToken,
+  }),
+  [SAVE_REFRESH_TOKEN]: (
+    state,
+    action: ReturnType<typeof saveRefreshToken>,
+  ) => ({
+    ...state,
+    refreshToken: action.payload.refreshToken,
+  }),
+  [SAVE_USER_INFO]: (state, action: ReturnType<typeof saveUserInfo>) => ({
+    ...state,
+    addr: action.payload.addr,
+    userId: action.payload.userId,
+    type: action.payload.type,
   }),
 });

@@ -1,5 +1,6 @@
 import { AxiosResponse } from 'axios';
 import Router from 'next/router';
+import { Cookies } from 'react-cookie';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { TOKEN_NAME } from '../../constant/Login';
 import { LoginService } from '../../service/api/login/LoginService';
@@ -19,19 +20,41 @@ import {
 
 function* KakaoLoginGenerator(action: getkakaoTokenRequestAction) {
   try {
+    const cookies = new Cookies();
     yield put(startLoading());
+    const response = {
+      data: {
+        accessToken: '021093u01ulkjasdlkaj',
+        addr: '서울기 강동구 강일동',
+        refreshToken: '10923091uiojdojd',
+        type: 'Bearer',
+        userId: '간지개발자',
+      },
+    };
 
-    const response: AxiosResponse<LoginResponse> = yield call(
-      LoginService.asyncGetKakaoToken,
-      action.payload,
-    );
-    yield console.log(response);
+    // const response: AxiosResponse<LoginResponse> = yield call(
+    //   LoginService.asyncGetKakaoToken,
+    //   action.payload,
+    // );
+    // yield console.log(response);
 
-    localStorage.setItem(TOKEN_NAME.ACCESS_TOKEN, response.data.accessToken);
-    localStorage.setItem(TOKEN_NAME.REFRESH_TOKEN, response.data.refreshToken);
-    localStorage.setItem('user', JSON.stringify(response.data.user));
+    cookies.set('accessToken', response.data.accessToken, {
+      path: '/',
+    });
+    cookies.set('refreshToken', response.data.refreshToken, {
+      path: '/',
+    });
+    cookies.set('userId', response.data.userId, {
+      path: '/',
+    });
+    cookies.set('addr', response.data.addr, {
+      path: '/',
+    });
+    cookies.set('type', response.data.type, {
+      path: '/',
+    });
 
-    yield put(getKakaoTokenSuccess(response.data));
+    // yield put(getKakaoTokenSuccess(response.data));
     yield put(endLoading());
 
     yield call(Router.push, '/');
@@ -50,9 +73,9 @@ function* naverLoginGenerator(action: getNaverTokenRequestAction) {
     );
     yield console.log(response);
 
-    localStorage.setItem(TOKEN_NAME.ACCESS_TOKEN, response.data.accessToken);
-    localStorage.setItem(TOKEN_NAME.REFRESH_TOKEN, response.data.refreshToken);
-    localStorage.setItem('user', JSON.stringify(response.data.user));
+    // localStorage.setItem(TOKEN_NAME.ACCESS_TOKEN, response.data.accessToken);
+    // localStorage.setItem(TOKEN_NAME.REFRESH_TOKEN, response.data.refreshToken);
+    // localStorage.setItem('user', JSON.stringify(response.data.user));
 
     yield put(getNaverTokenSuccess(response.data));
     yield put(endLoading());

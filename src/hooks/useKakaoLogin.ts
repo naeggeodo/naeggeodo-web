@@ -9,12 +9,12 @@ export function useKakaoLogin() {
   const dispatch = useDispatch();
   const code = router.asPath.split('=')[1];
   const isLoading = useSelector(
-    (state: RootState) => state.kakaoLoginState.isLoading,
+    (state: RootState) => state.loginState.isLoading,
   );
 
   useEffect(() => {
     dispatch(getKakaoTokenRequest(code));
-  }, [dispatch]);
+  }, [dispatch, router]);
 
   return { router, isLoading };
 }

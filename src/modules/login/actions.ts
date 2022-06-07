@@ -36,3 +36,26 @@ export const getNaverTokenSuccess = createAction(
 
 export const startLoading = createAction(START_LOADING, () => ({}))();
 export const endLoading = createAction(END_LOADING, () => ({}))();
+
+export const SAVE_ACCESS_TOKEN = namespace + 'SAVE_ACCESS_TOKEN';
+export const SAVE_REFRESH_TOKEN = namespace + 'SAVE_REFRESH_TOKEN';
+export const SAVE_USER_INFO = namespace + 'SAVE_USER_INFO';
+
+export const saveAccessToken = createAction(
+  SAVE_ACCESS_TOKEN,
+  (accessToken) => ({ accessToken }),
+)();
+
+export const saveRefreshToken = createAction(
+  SAVE_REFRESH_TOKEN,
+  (refreshToken) => ({ refreshToken }),
+)();
+
+export const saveUserInfo = createAction(
+  SAVE_USER_INFO,
+  (addr, userId, type) => ({
+    addr,
+    userId,
+    type,
+  }),
+)();

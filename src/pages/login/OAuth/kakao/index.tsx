@@ -7,11 +7,11 @@ import palette from '../../../../styles/palette';
 const kakao = () => {
   const { isLoading, router } = useKakaoLogin();
 
-  useEffect(() => {
-    if (localStorage.getItem(TOKEN_NAME.ACCESS_TOKEN)) {
-      router.push('/');
-    }
-  }, [router]);
+  // useEffect(() => {
+  //   if (localStorage.getItem(TOKEN_NAME.ACCESS_TOKEN)) {
+  //     router.push('/');
+  //   }
+  // }, [router]);
 
   return (
     <Container isLoading={isLoading}>

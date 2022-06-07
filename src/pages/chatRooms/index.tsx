@@ -1,9 +1,15 @@
+import cookies from 'next-cookies';
 import { NextRouter, useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { END } from 'redux-saga';
 import MainTemplate from '../../components/main/MainTemplate';
 import { RootState, wrapper } from '../../modules';
+import {
+  saveAccessToken,
+  saveRefreshToken,
+  saveUserInfo,
+} from '../../modules/login/actions';
 import {
   getAllChatRoomsListRequest,
   getChatRoomListWithCategoryRequest,
@@ -36,6 +42,17 @@ const ChatRooms = ({
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
+    // if (context.req.headers.cookie) {
+    const allCookies = cookies(context);
+    store.dispatch(saveAccessToken(allCookies.accessToken));
+
+    store.dispatch(saveRefreshToken(allCookies.refreshToken));
+    store.dispatch(
+      saveUserInfo(allCookies.addr, allCookies.userId, allCookies.type),
+    );
+
+    // }
+
     const rootState: RootState = store.getState();
     if (rootState.mainPageState.categories.length > 0) return;
 
