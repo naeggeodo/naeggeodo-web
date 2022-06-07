@@ -1,11 +1,8 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { TOKEN_NAME } from '../../constant/Login';
 import { useCheckValidate } from '../../hooks/useCheckValidate';
-import { useLoadLib } from '../../hooks/useLoadLib';
 import { useSlideTransform } from '../../hooks/useSlideTransform';
 import { CategoriesResponse } from '../../modules/main/types';
-import { openLoginModal } from '../../modules/modal/actions';
 import palette from '../../styles/palette';
 import { convertEngCategoryToKor } from '../../utils/converEngCategoryToKor';
 

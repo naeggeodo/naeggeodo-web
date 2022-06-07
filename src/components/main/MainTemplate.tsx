@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import CategoryMenuSlide from './CategoryMenuSlide';
@@ -12,11 +12,6 @@ import { CategoriesResponse } from '../../modules/main/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../modules';
 import { useCheckValidate } from '../../hooks/useCheckValidate';
-import {
-  closeSearchPostCode,
-  openLoginModal,
-  openSearchPostCode,
-} from '../../modules/modal/actions';
 import { getBuildingCodeRequest } from '../../modules/search-post-code/actions';
 import { TOKEN_NAME } from '../../constant/Login';
 import NoItemText from './NoItemText';
