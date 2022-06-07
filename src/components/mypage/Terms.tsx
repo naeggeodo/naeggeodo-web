@@ -32,6 +32,7 @@ const Terms = () => {
 const Container = styled.div`
   margin-top: 30px;
   padding: 0 24px;
+  background-color: #fff;
 `;
 
 const SectionTitle = styled.h3`
