@@ -2,7 +2,7 @@ import React from 'react';
 import CreateForm from '../../../components/create/CreateForm';
 import TabMenu from '../../../components/main/TabMenu';
 
-const DirectInput = () => {
+const Details = () => {
   return (
     <React.Fragment>
       <CreateForm />
@@ -11,4 +11,4 @@ const DirectInput = () => {
   );
 };
 
-export default DirectInput;
+export default Details;
