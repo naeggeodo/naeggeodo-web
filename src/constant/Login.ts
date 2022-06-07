@@ -6,11 +6,11 @@ export const SOCIAL_LOGIN = {
 };
 
 export const TOKEN_NAME = {
-  ACCESS_TOKEN: 'ng_accessToken',
-  REFRESH_TOKEN: 'ng_refreshToken',
+  ACCESS_TOKEN: 'accessToken',
+  REFRESH_TOKEN: 'refreshToken',
 };
 
 export const USER = {
-  ADDRESS: 'address',
-  ID: 'id',
+  ADDR: 'addr',
+  USER_ID: 'userId',
 };

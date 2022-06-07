@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { TOKEN_NAME } from '../../constant/Login';
+import { useCheckValidate } from '../../hooks/useCheckValidate';
 import { useLoadLib } from '../../hooks/useLoadLib';
 import { useSlideTransform } from '../../hooks/useSlideTransform';
 import { CategoriesResponse } from '../../modules/main/types';
@@ -13,32 +14,8 @@ const CategoryMenuSlide = ({
 }: {
   foodCategories: CategoriesResponse[];
 }) => {
-  const { router, dispatch } = useLoadLib();
+  const { router, routeToCategory } = useCheckValidate();
   const { slideRef } = useSlideTransform();
-
-  const routeToCategory = useCallback(
-    (_, item: CategoriesResponse) => {
-      if (!localStorage.getItem(TOKEN_NAME.ACCESS_TOKEN)) {
-        dispatch(openLoginModal());
-      } else if (item.category === 'ALL') {
-        router.push({
-          pathname: '/chatRooms',
-          query: {
-            buildingCode: '서울',
-          },
-        });
-      } else {
-        router.push({
-          pathname: '/chatRooms',
-          query: {
-            buildingCode: '서울',
-            category: item.category.toLowerCase(),
-          },
-        });
-      }
-    },
-    [dispatch],
-  );
 
   return (
     <Container ref={slideRef}>

@@ -1,6 +1,7 @@
 import { createReducer } from 'typesafe-actions';
 import {
   END_LOADING,
+  getKakaoTokenSuccess,
   GET_KAKAO_TOKEN_SUCCESS,
   GET_NAVER_TOKEN_SUCCESS,
   saveAccessToken,
@@ -23,11 +24,16 @@ const initialState: LoginResponse = {
 };
 
 export const loginState = createReducer<LoginResponse>(initialState, {
-  [GET_KAKAO_TOKEN_SUCCESS]: (state, action) => ({
+  [GET_KAKAO_TOKEN_SUCCESS]: (
+    state,
+    action: ReturnType<typeof getKakaoTokenSuccess>,
+  ) => ({
     ...state,
     accessToken: action.payload.accessToken,
     refreshToken: action.payload.refreshToken,
     type: action.payload.type,
+    userId: action.payload.userId,
+    addr: action.payload.addr,
   }),
   [GET_NAVER_TOKEN_SUCCESS]: (state, action) => ({
     ...state,

@@ -28,13 +28,20 @@ const MainTemplate = ({
 }) => {
   const limit = 5;
   const dispatch = useDispatch();
-  const { checkTokenAndRedirection } = useCheckValidate();
+  const { checkTokenAndRedirection, openWebView, closeWebView } =
+    useCheckValidate();
   const [skip, setSkip] = useState(0);
   const [dataList, setDataList] = useState([]);
 
   const target = useRef<HTMLDivElement>(null);
   const chatRooms = useSelector(
     (state: RootState) => state.mainPageState.chatRooms,
+  );
+  const loginModalIsClicked = useSelector(
+    (state: RootState) => state.modalStates.loginModalIsClicked,
+  );
+  const searchPostCodeIsOpen = useSelector(
+    (state: RootState) => state.modalStates.searchPostCodeIsOpen,
   );
 
   useEffect(() => {
@@ -73,23 +80,6 @@ const MainTemplate = ({
         getBuildingCodeRequest(JSON.parse(localStorage.getItem('user')).id),
       );
     }
-  }, [dispatch]);
-
-  const loginModalIsClicked = useSelector(
-    (state: RootState) => state.modalStates.loginModalIsClicked,
-  );
-  const searchPostCodeIsOpen = useSelector(
-    (state: RootState) => state.modalStates.searchPostCodeIsOpen,
-  );
-
-  const openWebView = useCallback(() => {
-    if (!localStorage.getItem(TOKEN_NAME.ACCESS_TOKEN)) {
-      dispatch(openLoginModal());
-    } else dispatch(openSearchPostCode());
-  }, [dispatch]);
-
-  const closeWebView = useCallback(() => {
-    dispatch(closeSearchPostCode());
   }, [dispatch]);
 
   return (

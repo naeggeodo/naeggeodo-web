@@ -42,16 +42,15 @@ const ChatRooms = ({
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
-    // if (context.req.headers.cookie) {
-    const allCookies = cookies(context);
-    store.dispatch(saveAccessToken(allCookies.accessToken));
+    if (context.req.headers.cookie) {
+      const allCookies = cookies(context);
+      store.dispatch(saveAccessToken(allCookies.accessToken));
 
-    store.dispatch(saveRefreshToken(allCookies.refreshToken));
-    store.dispatch(
-      saveUserInfo(allCookies.addr, allCookies.userId, allCookies.type),
-    );
-
-    // }
+      store.dispatch(saveRefreshToken(allCookies.refreshToken));
+      store.dispatch(
+        saveUserInfo(allCookies.addr, allCookies.userId, allCookies.type),
+      );
+    }
 
     const rootState: RootState = store.getState();
     if (rootState.mainPageState.categories.length > 0) return;

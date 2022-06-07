@@ -1,17 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled, { keyframes } from 'styled-components';
-import { TOKEN_NAME } from '../../../../constant/Login';
 import { useKakaoLogin } from '../../../../hooks/useKakaoLogin';
 import palette from '../../../../styles/palette';
 
 const kakao = () => {
   const { isLoading, router } = useKakaoLogin();
-
-  // useEffect(() => {
-  //   if (localStorage.getItem(TOKEN_NAME.ACCESS_TOKEN)) {
-  //     router.push('/');
-  //   }
-  // }, [router]);
 
   return (
     <Container isLoading={isLoading}>

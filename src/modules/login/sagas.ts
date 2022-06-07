@@ -22,21 +22,21 @@ function* KakaoLoginGenerator(action: getkakaoTokenRequestAction) {
   try {
     const cookies = new Cookies();
     yield put(startLoading());
-    const response = {
-      data: {
-        accessToken: '021093u01ulkjasdlkaj',
-        addr: '서울기 강동구 강일동',
-        refreshToken: '10923091uiojdojd',
-        type: 'Bearer',
-        userId: '간지개발자',
-      },
-    };
+    // const response = {
+    //   data: {
+    //     accessToken: '021093u01ulkjasdlkaj',
+    //     addr: '서울기 강동구 강일동',
+    //     refreshToken: '10923091uiojdojd',
+    //     type: 'Bearer',
+    //     userId: '간지개발자',
+    //   },
+    // };
 
-    // const response: AxiosResponse<LoginResponse> = yield call(
-    //   LoginService.asyncGetKakaoToken,
-    //   action.payload,
-    // );
-    // yield console.log(response);
+    const response: AxiosResponse<LoginResponse> = yield call(
+      LoginService.asyncGetKakaoToken,
+      action.payload,
+    );
+    yield put(getKakaoTokenSuccess(response.data));
 
     cookies.set('accessToken', response.data.accessToken, {
       path: '/',
@@ -54,10 +54,9 @@ function* KakaoLoginGenerator(action: getkakaoTokenRequestAction) {
       path: '/',
     });
 
-    // yield put(getKakaoTokenSuccess(response.data));
     yield put(endLoading());
 
-    yield call(Router.push, '/');
+    yield call(Router.replace, '/');
   } catch (error) {
     console.log(error);
   }
