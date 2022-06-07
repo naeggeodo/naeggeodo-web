@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
 import palette from '../../styles/palette';
@@ -6,16 +7,21 @@ import palette from '../../styles/palette';
 const Terms = () => {
   return (
     <Container>
-      <SectionTitle>이용약관</SectionTitle>
-      <MenuItem>
-        <Image
-          src='/assets/images/terms.svg'
-          width={20}
-          height={20}
-          alt='메뉴 아이콘'
-        />
-        이용약관
-      </MenuItem>
+      <Title>이용약관</Title>
+
+      <Link
+        passHref
+        href='https://fog-cowl-888.notion.site/b7b93231fbff405084d0a043025189e8'>
+        <StyledLink target='_blank'>
+          <Image
+            src='/assets/images/terms.svg'
+            width={20}
+            height={20}
+            alt='메뉴 아이콘'
+          />
+          <span>이용약관</span>
+        </StyledLink>
+      </Link>
       <MenuItem>
         <Image
           src='/assets/images/userinfo.svg'
@@ -35,10 +41,27 @@ const Container = styled.div`
   background-color: #fff;
 `;
 
-const SectionTitle = styled.h3`
+const Title = styled.h3`
   color: ${palette.TextGray};
   font-family: 'SpoqaBold';
   font-size: 0.9375rem;
+  margin-bottom: 10px;
+`;
+
+const StyledLink = styled.a`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  color: ${palette.black};
+  font-size: 0.9375rem;
+  padding: 15px;
+
+  text-decoration: none;
+
+  &:hover {
+    background-color: ${palette.bgGray};
+  }
 `;
 
 const MenuItem = styled.button`
