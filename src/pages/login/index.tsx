@@ -17,7 +17,8 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
     return {
       redirect: {
-        destination: accessToken ? '/' : '/login',
+        permanent: false,
+        destination: accessToken && '/',
       },
       props: {},
     };

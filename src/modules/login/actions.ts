@@ -26,7 +26,7 @@ export const getKakaoTokenSuccess = createAction(
 
 export const getNaverTokenRequest = createAction(
   GET_NAVER_TOKEN_REQUEST,
-  (kakaoCode) => kakaoCode,
+  (naverCode) => naverCode,
 )();
 
 export const getNaverTokenSuccess = createAction(
