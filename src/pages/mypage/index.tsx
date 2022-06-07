@@ -1,8 +1,8 @@
 import React from 'react';
-import MoreTemplate from '../../components/mypage/MypageTemplate';
+import MypageTemplate from '../../components/mypage/MypageTemplate';
 
-const more = () => {
-  return <MoreTemplate />;
+const Mypage = () => {
+  return <MypageTemplate />;
 };
 
-export default more;
+export default Mypage;

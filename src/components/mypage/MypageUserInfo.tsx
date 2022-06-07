@@ -1,12 +1,16 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+import { MyPageResponse } from '../../modules/mypage/types';
 import palette from '../../styles/palette';
 
 type StyledType = {
   isActive?: boolean;
 };
 
-const MypageUserInfo = () => {
+const MypageUserInfo = ({
+  myOrdersCount,
+  participatingChatCount,
+}: MyPageResponse) => {
   return (
     <Container>
       <Title>안녕하세요,</Title>
@@ -16,12 +20,12 @@ const MypageUserInfo = () => {
       </Title>
       <InfoBox>
         <InfoDiv>
-          <P>최근 3개월간 주문</P>
-          <P isActive={true}>4건</P>
+          <P>전체 주문 건수</P>
+          <P isActive={true}>{myOrdersCount}건</P>
         </InfoDiv>
         <InfoDiv>
           <P>참여중인 내꺼도</P>
-          <P isActive={true}>3건</P>
+          <P isActive={true}>{participatingChatCount}건</P>
         </InfoDiv>
       </InfoBox>
     </Container>

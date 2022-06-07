@@ -10,7 +10,7 @@ const MypageTemplate = () => {
   return (
     <React.Fragment>
       <Container>
-        <MypageUserInfo />
+        <MypageUserInfo myOrdersCount={10} participatingChatCount={4} />
         <Bar />
 
         <CustomerServiceSection />
