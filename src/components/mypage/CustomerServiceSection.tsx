@@ -5,7 +5,7 @@ import palette from '../../styles/palette';
 
 const CustomerServiceSection = () => {
   return (
-    <SecondSection>
+    <Container>
       <SectionTitle>고객센터</SectionTitle>
       <MenuItem>
         <Image
@@ -34,13 +34,15 @@ const CustomerServiceSection = () => {
         />
         신고내역 확인
       </MenuItem>
-    </SecondSection>
+    </Container>
   );
 };
 
-const SecondSection = styled.div`
+const Container = styled.div`
   margin-top: 30px;
   padding: 0 24px;
+
+  background-color: #fff;
 `;
 
 const SectionTitle = styled.h3`
