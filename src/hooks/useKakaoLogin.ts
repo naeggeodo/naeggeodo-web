@@ -1,7 +1,6 @@
-import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { getKakaoTokenRequest } from '../modules/login/actions';
-import { useLoadLib } from './useLoadLib';
+import { useLoadLib } from './utils/useLoadLib';
 
 export function useKakaoLogin() {
   const { dispatch, router } = useLoadLib();

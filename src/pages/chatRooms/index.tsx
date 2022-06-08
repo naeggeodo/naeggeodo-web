@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { END } from 'redux-saga';
 import MainTemplate from '../../components/main/MainTemplate';
-import { useLoadLib } from '../../hooks/useLoadLib';
+import { useLoadLib } from '../../hooks/utils/useLoadLib';
 import { RootState, wrapper } from '../../modules';
 import {
   getAllChatRoomsListRequest,

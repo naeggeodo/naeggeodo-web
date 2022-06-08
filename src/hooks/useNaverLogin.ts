@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { getNaverTokenRequest } from '../modules/login/actions';
-import { useLoadLib } from './useLoadLib';
+import { useLoadLib } from './utils/useLoadLib';
 
 export function useNaverLogin() {
   const { dispatch, router } = useLoadLib();
