@@ -1,4 +1,5 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
+import { axiosInstance } from '../../service/api';
 import SearchService from '../../service/api/search/SearchService';
 import {
   getResultByInputActions,
@@ -13,7 +14,14 @@ import { SearchResultListResponse } from './types';
 
 function* getSearchTagListGenerator() {
   const { data } = yield call(SearchService.asyncGetSearchTags);
+
   yield put(getSearchTagListActions.success(data));
+
+  try {
+  } catch (error) {
+    console.log(error);
+  }
+  console.log('this is me');
 }
 
 function* getResultByTagGenerator(

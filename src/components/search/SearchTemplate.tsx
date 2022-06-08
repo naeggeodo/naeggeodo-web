@@ -15,15 +15,22 @@ import { RootState } from '../../modules';
 import {
   getResultByInputActions,
   getResultByTagActions,
+  getSearchTagListActions,
 } from '../../modules/search/actions';
-import { SearchTagListResponse } from '../../modules/search/types';
 import palette from '../../styles/palette';
 import ChatRoomItem from '../main/ChatRoomItem';
 import { SearchResult } from '../../modules/search/types';
 import SearchTag from './SearchTag';
 
-const SearchTemplate = ({ tags }: SearchTagListResponse) => {
+const SearchTemplate = () => {
   const dispatch = useDispatch();
+  const tags = useSelector(
+    (state: RootState) => state.searchPageState?.searchTagList?.tags,
+  );
+
+  useEffect(() => {
+    dispatch(getSearchTagListActions.request());
+  }, [dispatch]);
 
   const target = useRef<HTMLDivElement>(null);
 
