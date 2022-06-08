@@ -13,38 +13,41 @@ import {
 import { SearchResultListResponse } from './types';
 
 function* getSearchTagListGenerator() {
-  const { data } = yield call(SearchService.asyncGetSearchTags);
-
-  yield put(getSearchTagListActions.success(data));
-
   try {
+    const { data } = yield call(SearchService.asyncGetSearchTags);
+    yield put(getSearchTagListActions.success(data));
   } catch (error) {
     console.log(error);
   }
-  console.log('this is me');
 }
 
 function* getResultByTagGenerator(
   action: ReturnType<typeof getResultByTagActions.request>,
 ) {
-  yield put(selectSearchTag(action.payload));
-
-  const { data }: { data: SearchResultListResponse } = yield call(
-    SearchService.asyncGetSearchResultByTag,
-    action.payload,
-  );
-
-  yield put(getResultByTagActions.success(data));
+  try {
+    yield put(selectSearchTag(action.payload));
+    const { data }: { data: SearchResultListResponse } = yield call(
+      SearchService.asyncGetSearchResultByTag,
+      action.payload,
+    );
+    yield put(getResultByTagActions.success(data));
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 function* getResultByInputGenerator(
   action: ReturnType<typeof getResultByTagActions.request>,
 ) {
-  const { data } = yield call(
-    SearchService.asyncGetSearchResultByInput,
-    action.payload,
-  );
-  yield put(getResultByInputActions.success(data));
+  try {
+    const { data } = yield call(
+      SearchService.asyncGetSearchResultByInput,
+      action.payload,
+    );
+    yield put(getResultByInputActions.success(data));
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export function* getSearchPageInfoSaga() {
