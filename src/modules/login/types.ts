@@ -10,9 +10,8 @@ export type getNaverTokenRequestAction = ReturnType<
 
 export interface LoginResponse {
   accessToken: string;
-  addr: string;
+  address: string;
   refreshToken: string;
   type: 'Bearer' | string;
   userId: string;
-  isLoading?: boolean;
 }
