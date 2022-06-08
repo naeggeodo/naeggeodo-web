@@ -2,7 +2,6 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import Loading from '../../../../components/common/Loading';
 import { useKakaoLogin } from '../../../../hooks/useKakaoLogin';
-import palette from '../../../../styles/palette';
 
 const kakao = () => {
   useKakaoLogin();

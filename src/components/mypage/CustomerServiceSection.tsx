@@ -38,7 +38,7 @@ const CustomerServiceSection = () => {
           height={20}
           alt='메뉴 아이콘'
         />
-        신고내역 확인
+        신고하기
       </MenuItem>
     </Container>
   );

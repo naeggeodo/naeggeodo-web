@@ -1,6 +1,4 @@
-import { NextRouter, useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { END } from 'redux-saga';
 import MainTemplate from '../../components/main/MainTemplate';
 import { useLoadLib } from '../../hooks/useLoadLib';

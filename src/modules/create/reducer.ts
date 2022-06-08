@@ -28,7 +28,7 @@ const initialCreateStates: CreateStates = {
   user_id: '',
   tag: [],
   maxCount: 1,
-  orderTimeType: '',
+  orderTimeType: 'ONE_HOUR',
 };
 
 export const createStates = createReducer<CreateStates>(initialCreateStates, {
