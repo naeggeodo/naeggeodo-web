@@ -18,20 +18,10 @@ export const getUserInfoInMypageRequest = createAction(
 
 export const getUserInfoInMypageSuccess = createAction(
   GET_USER_INFO_IN_MYPAGE_SUCCESS,
-  (nickname, myOrdersCount, participatingChatCount) => ({
-    nickname,
-    myOrdersCount,
-    participatingChatCount,
-  }),
+  (data) => data,
 )();
 
 export const getUserInfoInMypageFailure = createAction(
   GET_USER_INFO_IN_MYPAGE_FAILURE,
   () => ({}),
 )();
-
-export const getUserInfoInMypageActions = createAsyncAction(
-  GET_USER_INFO_IN_MYPAGE_REQUEST,
-  GET_USER_INFO_IN_MYPAGE_SUCCESS,
-  GET_USER_INFO_IN_MYPAGE_FAILURE,
-)<void, MyPageUserInfoResponse, AxiosError>();

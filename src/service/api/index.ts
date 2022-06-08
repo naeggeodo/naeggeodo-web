@@ -6,6 +6,12 @@ export const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
 });
 
+const customHeader = (accessToken) => {
+  return {
+    Authorization: `Bearer ${accessToken}`,
+  };
+};
+
 axiosInstance.interceptors.request.use(
   async function (config) {
     try {
@@ -14,6 +20,7 @@ axiosInstance.interceptors.request.use(
       const accessToken = cookies.get(TOKEN_NAME.ACCESS_TOKEN);
       const refreshToken = cookies.get(TOKEN_NAME.REFRESH_TOKEN);
 
+      config.headers = customHeader(accessToken);
       return config;
     } catch (error) {
       console.log(error);
@@ -23,12 +30,6 @@ axiosInstance.interceptors.request.use(
     return Promise.reject(error);
   },
 );
-
-const customHeader = (accessToken) => {
-  return {
-    Authorization: `Bearer ${accessToken}`,
-  };
-};
 
 export class ApiService {
   static getApi(uri: string) {
@@ -45,11 +46,5 @@ export class ApiService {
   }
   static patchParamsApi(uri: string, data: unknown) {
     return axiosInstance.patch(uri, {}, { params: data });
-  }
-
-  static getMethod(accessToken, uri: string) {
-    return axiosInstance.get(uri, {
-      headers: customHeader(accessToken),
-    });
   }
 }
