@@ -13,7 +13,7 @@ export function saveCookies(store: Store, context) {
 
     store.dispatch(saveRefreshToken(allCookies.refreshToken));
     store.dispatch(
-      saveUserInfo(allCookies.addr, allCookies.userId, allCookies.type),
+      saveUserInfo(allCookies.address, allCookies.userId, allCookies.type),
     );
   }
 }

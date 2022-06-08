@@ -34,7 +34,7 @@ function* KakaoLoginGenerator(action: getkakaoTokenRequestAction) {
     cookies.set('userId', response.data.userId, {
       path: '/',
     });
-    cookies.set('addr', response.data.address, {
+    cookies.set('address', response.data.address, {
       path: '/',
     });
     cookies.set('type', response.data.type, {
@@ -66,7 +66,7 @@ function* naverLoginGenerator(action: getNaverTokenRequestAction) {
     cookies.set('userId', response.data.userId, {
       path: '/',
     });
-    cookies.set('addr', response.data.address, {
+    cookies.set('address', response.data.address, {
       path: '/',
     });
     cookies.set('type', response.data.type, {

@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import Loading from '../../../../components/common/Loading';
-import { useNaverLogin } from '../../../../hooks/useNaverLogin';
+import { useAuth } from '../../../../hooks/auth/useAuth';
 
 const naver = () => {
-  useNaverLogin();
+  useAuth('naver');
 
   return (
     <Container>

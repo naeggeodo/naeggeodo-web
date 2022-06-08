@@ -8,8 +8,7 @@ const LoginModalBox = () => {
   const { router, dispatch } = useLoadLib();
 
   const moveLoginPage = useCallback(() => {
-    console.log('first');
-    router.push('/login');
+    router.replace('/login');
   }, [router]);
 
   const cancelLogin = useCallback(() => {
