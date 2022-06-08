@@ -1,3 +1,4 @@
+import cookies from 'next-cookies';
 import { useEffect } from 'react';
 import { END } from 'redux-saga';
 import MainTemplate from '../../components/main/MainTemplate';
