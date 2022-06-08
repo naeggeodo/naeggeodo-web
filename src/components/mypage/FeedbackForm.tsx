@@ -23,8 +23,7 @@ const FeedbackForm = ({
 
   const onSubmitFeedback = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!feedbackBody.user_id || !feedbackBody.contents)
-      return alert('값을 입력해주세요');
+    if (!feedbackBody.contents) return alert('값을 입력해주세요');
     submitReport(feedbackBody, '건의').then(() => {
       setFeedbackBody({ ...feedbackBody, contents: '' });
     });
@@ -55,6 +54,8 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 10px;
+
+  padding: 20px 0;
 `;
 
 const Title = styled.h3`
