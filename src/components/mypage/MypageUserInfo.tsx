@@ -1,21 +1,29 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
-import { MyPageResponse } from '../../modules/mypage/types';
+import { RootState } from '../../modules';
+import { MyPageUserInfoResponse } from '../../modules/mypage/types';
 import palette from '../../styles/palette';
 
 type StyledType = {
   isActive?: boolean;
 };
 
-const MypageUserInfo = ({
-  myOrdersCount,
-  participatingChatCount,
-}: MyPageResponse) => {
+const MypageUserInfo = () => {
+  const nickName = useSelector(
+    (state: RootState) => state.myPageState.userInfo.nickname,
+  );
+  const myOrdersCount = useSelector(
+    (state: RootState) => state.myPageState.userInfo.myOrdersCount,
+  );
+  const participatingChatCount = useSelector(
+    (state: RootState) => state.myPageState.userInfo.participatingChatCount,
+  );
   return (
     <Container>
       <Title>안녕하세요,</Title>
       <Title>
-        <Name>조재연</Name>
+        <Name>{nickName}</Name>
         <span>님</span>
       </Title>
       <InfoBox>

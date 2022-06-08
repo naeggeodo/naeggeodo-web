@@ -1,4 +1,5 @@
 import { createReducer } from 'typesafe-actions';
+import { GET_USER_INFO_IN_MYPAGE_SUCCESS } from './actions';
 
 import { MyPageUserInfoResponse } from './types';
 
@@ -14,4 +15,14 @@ const initialState: MyPageState = {
   },
 };
 
-export const myPageState = createReducer<MyPageState>(initialState, {});
+export const myPageState = createReducer<MyPageState>(initialState, {
+  [GET_USER_INFO_IN_MYPAGE_SUCCESS]: (state, action) => ({
+    ...state,
+    userInfo: {
+      ...state.userInfo,
+      nickname: action.payload.nickname,
+      myOrdersCount: action.payload.myOrdersCount,
+      participatingChatCount: action.payload.participatingChatCount,
+    },
+  }),
+});
