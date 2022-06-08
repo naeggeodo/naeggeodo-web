@@ -4,12 +4,10 @@ import { Cookies } from 'react-cookie';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { LoginService } from '../../service/api/login/LoginService';
 import {
-  endLoading,
   getKakaoTokenSuccess,
   getNaverTokenSuccess,
   GET_KAKAO_TOKEN_REQUEST,
   GET_NAVER_TOKEN_REQUEST,
-  startLoading,
 } from './actions';
 import {
   getkakaoTokenRequestAction,
@@ -20,7 +18,6 @@ import {
 function* KakaoLoginGenerator(action: getkakaoTokenRequestAction) {
   try {
     const cookies = new Cookies();
-    yield put(startLoading());
 
     const response: AxiosResponse<LoginResponse> = yield call(
       LoginService.asyncGetKakaoToken,
@@ -37,14 +34,12 @@ function* KakaoLoginGenerator(action: getkakaoTokenRequestAction) {
     cookies.set('userId', response.data.userId, {
       path: '/',
     });
-    cookies.set('addr', response.data.addr, {
+    cookies.set('address', response.data.address, {
       path: '/',
     });
     cookies.set('type', response.data.type, {
       path: '/',
     });
-
-    yield put(endLoading());
 
     yield call(Router.replace, '/');
   } catch (error) {
@@ -55,8 +50,6 @@ function* KakaoLoginGenerator(action: getkakaoTokenRequestAction) {
 function* naverLoginGenerator(action: getNaverTokenRequestAction) {
   try {
     const cookies = new Cookies();
-
-    yield put(startLoading());
 
     const response: AxiosResponse<LoginResponse> = yield call(
       LoginService.asyncGetNaverToken,
@@ -73,14 +66,12 @@ function* naverLoginGenerator(action: getNaverTokenRequestAction) {
     cookies.set('userId', response.data.userId, {
       path: '/',
     });
-    cookies.set('addr', response.data.addr, {
+    cookies.set('address', response.data.address, {
       path: '/',
     });
     cookies.set('type', response.data.type, {
       path: '/',
     });
-
-    yield put(endLoading());
 
     yield call(Router.replace, '/');
   } catch (error) {

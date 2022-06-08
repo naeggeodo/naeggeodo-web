@@ -1,10 +1,10 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import Loading from '../../../../components/common/Loading';
-import { useKakaoLogin } from '../../../../hooks/useKakaoLogin';
+import { useAuth } from '../../../../hooks/auth/useAuth';
 
 const kakao = () => {
-  useKakaoLogin();
+  useAuth('kakao');
 
   return (
     <Container>

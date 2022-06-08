@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import styled, { keyframes } from 'styled-components';
-import { useLoadLib } from '../../hooks/useLoadLib';
+import { useLoadLib } from '../../hooks/utils/useLoadLib';
 import { closeLoginModal } from '../../modules/modal/actions';
 import palette from '../../styles/palette';
 
@@ -8,8 +8,7 @@ const LoginModalBox = () => {
   const { router, dispatch } = useLoadLib();
 
   const moveLoginPage = useCallback(() => {
-    console.log('first');
-    router.push('/login');
+    router.replace('/login');
   }, [router]);
 
   const cancelLogin = useCallback(() => {

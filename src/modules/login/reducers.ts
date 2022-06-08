@@ -1,6 +1,5 @@
 import { createReducer } from 'typesafe-actions';
 import {
-  END_LOADING,
   getKakaoTokenSuccess,
   GET_KAKAO_TOKEN_SUCCESS,
   GET_NAVER_TOKEN_SUCCESS,
@@ -10,7 +9,6 @@ import {
   SAVE_ACCESS_TOKEN,
   SAVE_REFRESH_TOKEN,
   SAVE_USER_INFO,
-  START_LOADING,
 } from './actions';
 import { LoginResponse } from './types';
 
@@ -18,9 +16,8 @@ const initialState: LoginResponse = {
   accessToken: '',
   refreshToken: '',
   type: '',
-  addr: '',
+  address: '',
   userId: '',
-  isLoading: false,
 };
 
 export const loginState = createReducer<LoginResponse>(initialState, {
@@ -33,7 +30,7 @@ export const loginState = createReducer<LoginResponse>(initialState, {
     refreshToken: action.payload.refreshToken,
     type: action.payload.type,
     userId: action.payload.userId,
-    addr: action.payload.addr,
+    address: action.payload.address,
   }),
   [GET_NAVER_TOKEN_SUCCESS]: (state, action) => ({
     ...state,
@@ -41,14 +38,7 @@ export const loginState = createReducer<LoginResponse>(initialState, {
     refreshToken: action.payload.refreshToken,
     type: action.payload.type,
   }),
-  [START_LOADING]: (state, action) => ({
-    ...state,
-    isLoading: true,
-  }),
-  [END_LOADING]: (state, action) => ({
-    ...state,
-    isLoading: false,
-  }),
+
   [SAVE_ACCESS_TOKEN]: (state, action: ReturnType<typeof saveAccessToken>) => ({
     ...state,
     accessToken: action.payload.accessToken,
@@ -62,7 +52,7 @@ export const loginState = createReducer<LoginResponse>(initialState, {
   }),
   [SAVE_USER_INFO]: (state, action: ReturnType<typeof saveUserInfo>) => ({
     ...state,
-    addr: action.payload.addr,
+    address: action.payload.address,
     userId: action.payload.userId,
     type: action.payload.type,
   }),

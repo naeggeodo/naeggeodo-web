@@ -11,6 +11,6 @@ export const TOKEN_NAME = {
 };
 
 export const USER = {
-  ADDR: 'addr',
+  ADDRESS: 'address',
   USER_ID: 'userId',
 };

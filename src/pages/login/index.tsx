@@ -16,10 +16,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
     await store.sagaTask.toPromise();
 
     return {
-      redirect: {
-        permanent: false,
-        destination: accessToken && '/',
-      },
       props: {},
     };
   },

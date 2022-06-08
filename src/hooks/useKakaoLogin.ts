@@ -1,20 +1,14 @@
-import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../modules';
 import { getKakaoTokenRequest } from '../modules/login/actions';
+import { useLoadLib } from './utils/useLoadLib';
 
 export function useKakaoLogin() {
-  const router = useRouter();
-  const dispatch = useDispatch();
+  const { dispatch, router } = useLoadLib();
   const code = router.asPath.split('=')[1];
-  const isLoading = useSelector(
-    (state: RootState) => state.loginState.isLoading,
-  );
 
   useEffect(() => {
     dispatch(getKakaoTokenRequest(code));
   }, [dispatch, router]);
 
-  return { router, isLoading };
+  return { router };
 }

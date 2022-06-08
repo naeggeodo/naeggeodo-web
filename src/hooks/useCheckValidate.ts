@@ -1,6 +1,5 @@
 import { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { TOKEN_NAME } from '../constant/Login';
+import { useSelector } from 'react-redux';
 import { RootState } from '../modules';
 import { CategoriesResponse } from '../modules/main/types';
 import {
@@ -8,7 +7,7 @@ import {
   openLoginModal,
   openSearchPostCode,
 } from '../modules/modal/actions';
-import { useLoadLib } from './useLoadLib';
+import { useLoadLib } from './utils/useLoadLib';
 
 export function useCheckValidate() {
   const { dispatch, router } = useLoadLib();

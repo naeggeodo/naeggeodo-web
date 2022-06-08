@@ -1,6 +1,7 @@
 import GlobalStyle from '../styles/GlobalStyle';
 import { wrapper } from '../modules';
 import Head from 'next/head';
+import { useCookies } from 'react-cookie';
 
 const app = ({ Component, pageProps }) => {
   return (
