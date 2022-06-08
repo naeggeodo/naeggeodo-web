@@ -3,3 +3,9 @@ export interface MyPageUserInfoResponse {
   myOrdersCount: number | null;
   participatingChatCount: number | null;
 }
+
+export type ReportRequestBody = {
+  user_id: string;
+  contents: string;
+  type: string;
+};
