@@ -20,9 +20,9 @@ const naver = () => {
   );
 };
 
-export default naver;
-
 const Wrap = styled.div`
   width: 100vw;
   height: 100vh;
 `;
+
+export default naver;

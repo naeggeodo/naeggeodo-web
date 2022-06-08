@@ -20,6 +20,8 @@ import { getNaeggeotalkSaga } from './naeggeotalk/sagas';
 import { naeggeotalkState } from './naeggeotalk/reducer';
 import { getCheckDepositPageInfoSaga } from './check-deposit/sagas';
 import { checkDepositState } from './check-deposit/reducer';
+import { getMypageInfoSaga } from './mypage/sagas';
+import { myPageState } from './mypage/reducer';
 
 //** RootReducer */
 export const rootReducer = combineReducers({
@@ -32,6 +34,7 @@ export const rootReducer = combineReducers({
   modalStates,
   naeggeotalkState,
   checkDepositState,
+  myPageState,
 });
 
 //** RootSaga */
@@ -44,6 +47,7 @@ export function* rootSaga() {
     fork(searchPostCodeSaga),
     fork(getNaeggeotalkSaga),
     fork(getCheckDepositPageInfoSaga),
+    fork(getMypageInfoSaga),
   ]);
 }
 

@@ -1,112 +1,59 @@
-import Image from 'next/image';
-import styled, { css } from 'styled-components';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
+import { RootState } from '../../modules';
+import { openLoginModal } from '../../modules/modal/actions';
 import palette from '../../styles/palette';
+import LoginModal from '../login/LoginModalTemplate';
 import TabMenu from '../main/TabMenu';
+import CustomerServiceSection from './CustomerServiceSection';
+import MypageUserInfo from './MypageUserInfo';
+import Terms from './Terms';
 
-type StyledType = {
-  isActive?: boolean;
-};
+// ? 더보기 페이지 (마이페이지)
+// ? url : /mypage
+
+// TODO : 액세스토큰 useSelector 커스텀훅으로 바꾸기
 
 const MypageTemplate = () => {
+  const dispatch = useDispatch();
+  const loginModalIsClicked = useSelector(
+    (state: RootState) => state.modalStates.loginModalIsClicked,
+  );
+  const accessToken = useSelector(
+    (state: RootState) => state.loginState.accessToken,
+  );
+
+  useEffect(() => {
+    if (!accessToken) {
+      dispatch(openLoginModal());
+    }
+  }, [accessToken]);
+
   return (
-    <>
-      <Wrap>
-        <FirstSection>
-          <Title>안녕하세요,</Title>
-          <Title>
-            <Name>조재연</Name>
-            <span>님</span>
-          </Title>
-          <InfoBox>
-            <InfoDiv>
-              <P>최근 3개월간 주문</P>
-              <P isActive={true}>4건</P>
-            </InfoDiv>
-            <InfoDiv>
-              <P>참여중인 내꺼도</P>
-              <P isActive={true}>3건</P>
-            </InfoDiv>
-          </InfoBox>
-        </FirstSection>
+    <React.Fragment>
+      <Container>
+        <MypageUserInfo myOrdersCount={10} participatingChatCount={4} />
         <Bar />
 
-        <SecondSection>
-          <SectionTitle>고객센터</SectionTitle>
-          <MenuItem>
-            <Image
-              src='/assets/images/doc.svg'
-              width={17}
-              height={20}
-              alt='메뉴 아이콘'
-            />
-            공지사항
-          </MenuItem>
-          <MenuItem>
-            <Image
-              src='/assets/images/message.svg'
-              width={20}
-              height={20}
-              alt='메뉴 아이콘'
-            />
-            건의하기
-          </MenuItem>
-          <MenuItem>
-            <Image
-              src='/assets/images/caution.svg'
-              width={19}
-              height={20}
-              alt='메뉴 아이콘'
-            />
-            신고내역 확인
-          </MenuItem>
-        </SecondSection>
-        <ThirdSection>
-          <SectionTitle>이용약관</SectionTitle>
-          <MenuItem>
-            <Image
-              src='/assets/images/terms.svg'
-              width={20}
-              height={20}
-              alt='메뉴 아이콘'
-            />
-            이용약관
-          </MenuItem>
-          <MenuItem>
-            <Image
-              src='/assets/images/userinfo.svg'
-              width={20}
-              height={20}
-              alt='메뉴 아이콘'
-            />
-            개인정보 처리방침
-          </MenuItem>
-        </ThirdSection>
-      </Wrap>
+        <CustomerServiceSection />
+
+        <Terms />
+      </Container>
+
+      {loginModalIsClicked && <LoginModal />}
+
       <TabMenu />
-    </>
+    </React.Fragment>
   );
 };
 
-const Wrap = styled.div`
+const Container = styled.div`
   width: 100%;
   height: 100vh;
 
   background-color: #fff;
   padding: 46px 0 83px;
-`;
-
-const FirstSection = styled.div`
-  padding: 0 24px;
-`;
-
-const SecondSection = styled.div`
-  margin-top: 30px;
-  padding: 0 24px;
-`;
-
-const ThirdSection = styled.div`
-  margin-top: 30px;
-  padding: 0 24px;
 `;
 
 const Bar = styled.div`
@@ -115,74 +62,6 @@ const Bar = styled.div`
 
   background-color: ${palette.LightGray2};
   opacity: 0.5;
-`;
-
-const Title = styled.p`
-  font-size: 1.5rem;
-  line-height: 30px;
-  padding: 0 6px;
-`;
-
-const Name = styled.span`
-  font-family: SpoqaBold;
-`;
-
-const InfoBox = styled.div`
-  display: flex;
-  justify-content: space-around;
-
-  margin-top: 16px;
-  padding: 24px;
-
-  background: #f5f5f5;
-  border-radius: 8px;
-  &::before {
-    content: '';
-    width: 1px;
-    height: 46px;
-
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-
-    background: #dddddd;
-  }
-`;
-
-const InfoDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-`;
-
-const P = styled.p<StyledType>`
-  font-size: ${(props) => (props.isActive ? '1.25rem' : '0.875rem')};
-  ${(props) =>
-    props.isActive &&
-    css`
-      color: ${palette.mainOrange};
-      font-family: 'SpoqaBold';
-    `};
-`;
-
-const SectionTitle = styled.h3`
-  color: ${palette.TextGray};
-  font-family: 'SpoqaBold';
-  font-size: 0.9375rem;
-`;
-
-const MenuItem = styled.button`
-  display: flex;
-  gap: 12px;
-  width: 100%;
-  padding: 15px;
-  font-size: 0.9375rem;
-  background-color: #fff;
-
-  text-align: left;
-  border: none;
-  outline: none;
-  cursor: pointer;
 `;
 
 export default MypageTemplate;

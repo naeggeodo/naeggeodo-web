@@ -1,8 +1,7 @@
-import { NextRouter, useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { END } from 'redux-saga';
 import MainTemplate from '../../components/main/MainTemplate';
+import { useLoadLib } from '../../hooks/useLoadLib';
 import { RootState, wrapper } from '../../modules';
 import {
   getAllChatRoomsListRequest,
@@ -10,14 +9,14 @@ import {
   getFoodCategoriesActions,
 } from '../../modules/main/actions';
 import { CategoriesResponse } from '../../modules/main/types';
+import { saveCookies } from '../../utils/saveCookies';
 
 const ChatRooms = ({
   foodCategories,
 }: {
   foodCategories: CategoriesResponse[];
 }) => {
-  const router: NextRouter = useRouter();
-  const dispatch = useDispatch();
+  const { router, dispatch } = useLoadLib();
 
   useEffect(() => {
     const { query } = router;
@@ -36,6 +35,8 @@ const ChatRooms = ({
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
+    saveCookies(store, context);
+
     const rootState: RootState = store.getState();
     if (rootState.mainPageState.categories.length > 0) return;
 

@@ -1,18 +1,28 @@
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { END } from 'redux-saga';
 import LoginTemplate from '../../components/login/LoginTemplate';
-import { TOKEN_NAME } from '../../constant/Login';
+import { wrapper } from '../../modules';
+import { saveCookies } from '../../utils/saveCookies';
 
 const login = () => {
-  const router = useRouter();
-
-  useEffect(() => {
-    if (localStorage.getItem(TOKEN_NAME.ACCESS_TOKEN)) {
-      router.push('/');
-    }
-  }, [router]);
-
   return <LoginTemplate />;
 };
+
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) => async (context) => {
+    saveCookies(store, context);
+    const accessToken = store.getState().loginState.accessToken;
+
+    store.dispatch(END);
+    await store.sagaTask.toPromise();
+
+    return {
+      redirect: {
+        permanent: false,
+        destination: accessToken && '/',
+      },
+      props: {},
+    };
+  },
+);
 
 export default login;

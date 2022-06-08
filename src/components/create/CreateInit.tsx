@@ -7,6 +7,7 @@ import { RootState } from '../../modules';
 import { ButtonValue, OrderTimeType } from '../../modules/create/types';
 import { selectOrderTimeType } from '../../modules/create/actions';
 import OrderTimeTypeButton from './OrderTimeTypeButton';
+import { openLoginModal } from '../../modules/modal/actions';
 
 const buttonValue: ButtonValue[] = [
   {
@@ -28,17 +29,24 @@ const CreateInit = () => {
   const currentOrderTimeType = useSelector(
     (state: RootState) => state.createStates.orderTimeType,
   );
+  const accessToken = useSelector(
+    (state: RootState) => state.loginState.accessToken,
+  );
 
   const dispatchSelectOrderTypeTime = useCallback<
     (e: React.MouseEvent<HTMLButtonElement>) => void
   >(
     (e) => {
-      const orderTimeType = e.currentTarget.getAttribute(
-        'data-value',
-      ) as OrderTimeType;
+      if (!accessToken) {
+        dispatch(openLoginModal());
+      } else {
+        const orderTimeType = e.currentTarget.getAttribute(
+          'data-value',
+        ) as OrderTimeType;
 
-      dispatch(selectOrderTimeType(orderTimeType));
-      router.push('/create/details');
+        dispatch(selectOrderTimeType(orderTimeType));
+        router.push('/create/details');
+      }
     },
     [dispatch, router],
   );

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import CategoryMenuSlide from './CategoryMenuSlide';
@@ -12,11 +12,6 @@ import { CategoriesResponse } from '../../modules/main/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../modules';
 import { useCheckValidate } from '../../hooks/useCheckValidate';
-import {
-  closeSearchPostCode,
-  openLoginModal,
-  openSearchPostCode,
-} from '../../modules/modal/actions';
 import { getBuildingCodeRequest } from '../../modules/search-post-code/actions';
 import { TOKEN_NAME } from '../../constant/Login';
 import NoItemText from './NoItemText';
@@ -28,13 +23,20 @@ const MainTemplate = ({
 }) => {
   const limit = 5;
   const dispatch = useDispatch();
-  const { checkTokenAndRedirection } = useCheckValidate();
+  const { checkTokenAndRedirection, openWebView, closeWebView } =
+    useCheckValidate();
   const [skip, setSkip] = useState(0);
   const [dataList, setDataList] = useState([]);
 
   const target = useRef<HTMLDivElement>(null);
   const chatRooms = useSelector(
     (state: RootState) => state.mainPageState.chatRooms,
+  );
+  const loginModalIsClicked = useSelector(
+    (state: RootState) => state.modalStates.loginModalIsClicked,
+  );
+  const searchPostCodeIsOpen = useSelector(
+    (state: RootState) => state.modalStates.searchPostCodeIsOpen,
   );
 
   useEffect(() => {
@@ -73,23 +75,6 @@ const MainTemplate = ({
         getBuildingCodeRequest(JSON.parse(localStorage.getItem('user')).id),
       );
     }
-  }, [dispatch]);
-
-  const loginModalIsClicked = useSelector(
-    (state: RootState) => state.modalStates.loginModalIsClicked,
-  );
-  const searchPostCodeIsOpen = useSelector(
-    (state: RootState) => state.modalStates.searchPostCodeIsOpen,
-  );
-
-  const openWebView = useCallback(() => {
-    if (!localStorage.getItem(TOKEN_NAME.ACCESS_TOKEN)) {
-      dispatch(openLoginModal());
-    } else dispatch(openSearchPostCode());
-  }, [dispatch]);
-
-  const closeWebView = useCallback(() => {
-    dispatch(closeSearchPostCode());
   }, [dispatch]);
 
   return (

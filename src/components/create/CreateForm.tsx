@@ -10,6 +10,11 @@ import Link from 'next/link';
 import SelectCategoryDrawer from './SelectCategoryDrawer';
 import { convertEngCategoryToKor } from '../../utils/converEngCategoryToKor';
 import TagButton from './TagButton';
+import FieldTitle from './FieldTitle';
+import TitleText from './TitleText';
+
+// ? 방 생성시 상세 정보 선택하는 페이지
+// ? url : create/details
 
 interface MoveLinkProps {
   isUrl: boolean;
@@ -60,16 +65,13 @@ const CreateForm = () => {
   );
 
   return (
-    <Wrap>
+    <Container>
       <CreateTabMenu />
-      <Container>
+      <Wrapper>
         <div>
           <Content>
             <Item>
-              <TitleWrapper>
-                <Title>가게명</Title>
-                <OrangeStar>*</OrangeStar>
-              </TitleWrapper>
+              <FieldTitle title='가게명' />
               <Input
                 type='text'
                 onChange={dispatchInsertTitle}
@@ -78,16 +80,16 @@ const CreateForm = () => {
               />
             </Item>
             <SelectCategory onClick={openCategoryList}>
-              <Title>
-                {convertEngCategoryToKor(category) || '카테고리 선택'}
-              </Title>
+              <FieldTitle
+                title={convertEngCategoryToKor(category) || '카테고리 선택'}
+              />
               <Image
                 src='/assets/images/arrowrightdarkgray.svg'
                 width={17}
                 height={16}></Image>
             </SelectCategory>
             <Item>
-              <Title>가게 링크</Title>
+              <TitleText>가게 링크</TitleText>
               <InputWrapper>
                 <Input
                   type='text'
@@ -110,7 +112,7 @@ const CreateForm = () => {
             </Item>
             <Item>
               <TagTitle>
-                <Title>태그</Title>
+                <TitleText>태그</TitleText>
                 <SmallText>ex. 음식명, 카테고리명</SmallText>
               </TagTitle>
               <form onSubmit={(e) => dispatchAddTag(e)}>
@@ -134,7 +136,7 @@ const CreateForm = () => {
 
             <ChatRoomContainer>
               <TitleWrapper>
-                <Title>입장 인원</Title>
+                <FieldTitle title='입장 인원' />
                 <Desc>(최대5명)</Desc>
               </TitleWrapper>
 
@@ -163,7 +165,7 @@ const CreateForm = () => {
 
             <Item>
               <TagTitle>
-                <Title>채팅방 이미지</Title>
+                <TitleText>채팅방 이미지</TitleText>
               </TagTitle>
               <FileBox>
                 <ImgBox>
@@ -188,19 +190,19 @@ const CreateForm = () => {
             storeName={title}
           />
         </ButtonWrapper>
-      </Container>
-    </Wrap>
+      </Wrapper>
+    </Container>
   );
 };
 
-const Wrap = styled.div`
+const Container = styled.div`
   width: 100%;
 
   padding: 46px 0 83px;
   background-color: #fff;
 `;
 
-const Container = styled.div`
+const Wrapper = styled.div`
   width: 90%;
 
   display: flex;
@@ -243,17 +245,6 @@ const TitleWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 4px;
-`;
-
-const Title = styled.p`
-  font-family: 'SpoqaBold';
-`;
-
-const OrangeStar = styled.span`
-  font-weight: 500;
-  font-size: 0.9375rem;
-
-  color: ${palette.mainOrange};
 `;
 
 const Input = styled.input`

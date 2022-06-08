@@ -26,7 +26,7 @@ export interface CreateStates {
   title: string; //방제
   user_id: string; // 방장 id
   tag: string[];
-  orderTimeType: OrderTimeType;
+  orderTimeType: OrderTimeType | '';
   maxCount: number;
 }
 

@@ -8,16 +8,11 @@ export type getNaverTokenRequestAction = ReturnType<
   typeof getNaverTokenRequest
 >;
 
-interface UserInfo {
-  address: string;
-  authority: 'MEMBER' | string;
-  id: string;
-}
-
 export interface LoginResponse {
   accessToken: string;
+  addr: string;
   refreshToken: string;
   type: 'Bearer' | string;
-  user: UserInfo;
-  isLoading: boolean;
+  userId: string;
+  isLoading?: boolean;
 }
