@@ -1,10 +1,20 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import palette from '../../styles/palette';
+import ComplainForm from './ComplainForm';
+import FeedbackForm from './FeedbackForm';
 
 const CustomerServiceSection = () => {
+  const [popupState, setPopupState] = useState('');
+  const openFeedbackPopup = () => {
+    setPopupState('feedback');
+  };
+
+  const openComplainPopup = () => {
+    setPopupState('complain');
+  };
   return (
     <Container>
       <SectionTitle>고객센터</SectionTitle>
@@ -22,7 +32,7 @@ const CustomerServiceSection = () => {
         </StyledLink>
       </Link>
 
-      <MenuItem>
+      <MenuItem onClick={openFeedbackPopup}>
         <Image
           src='/assets/images/message.svg'
           width={20}
@@ -31,7 +41,7 @@ const CustomerServiceSection = () => {
         />
         건의하기
       </MenuItem>
-      <MenuItem>
+      <MenuItem onClick={openComplainPopup}>
         <Image
           src='/assets/images/caution.svg'
           width={19}
@@ -40,6 +50,12 @@ const CustomerServiceSection = () => {
         />
         신고하기
       </MenuItem>
+      {popupState === 'feedback' && (
+        <FeedbackForm setPopupState={setPopupState} />
+      )}
+      {popupState === 'complain' && (
+        <ComplainForm setPopupState={setPopupState} />
+      )}
     </Container>
   );
 };
