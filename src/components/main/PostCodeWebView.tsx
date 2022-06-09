@@ -10,14 +10,16 @@ import {
 } from '../../modules/search-post-code/actions';
 import palette from '../../styles/palette';
 import { PatchBuildingCodeRequestData } from '../../modules/search-post-code/types';
+import { useSelectLoginStates } from '../../hooks/select/useSelectLoginStates';
 
 const PostCodeWebView = ({ closeWebView }: { closeWebView: () => void }) => {
   const dispatch = useDispatch();
+  const { user_id } = useSelectLoginStates();
 
   const handleComplete = (data: Address) => {
     let fullAddress = data.address;
     let extraAddress = '';
-    const userId = JSON.parse(localStorage.getItem('user')).id;
+
     const addressInfo: PatchBuildingCodeRequestData = {
       address: data.address,
       buildingCode: data.buildingCode,
@@ -38,7 +40,7 @@ const PostCodeWebView = ({ closeWebView }: { closeWebView: () => void }) => {
     if (data.apartment === 'N') {
       dispatch(saveApartmentAddress(data.apartment));
     } else if (data.apartment === 'Y') {
-      dispatch(patchBuildingCodeRequest(userId, addressInfo));
+      dispatch(patchBuildingCodeRequest(user_id, addressInfo));
     }
   };
 
