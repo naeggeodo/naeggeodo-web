@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { Axios } from 'axios';
 import { Cookies } from 'react-cookie';
 import { TOKEN_NAME } from '../../constant/Login';
 import { createCustomHeader } from '../../utils/createCustomHeader';
@@ -24,24 +24,28 @@ export class CsrApiService {
   }
 }
 
-csrAxiosInstance.interceptors.request.use(
-  async function (config) {
-    try {
-      const cookies = new Cookies();
+axiosInstanceConfigure(csrAxiosInstance);
 
-      const accessToken = cookies.get(TOKEN_NAME.ACCESS_TOKEN);
-      const refreshToken = cookies.get(TOKEN_NAME.REFRESH_TOKEN);
+export function axiosInstanceConfigure(axiosType: Axios) {
+  return axiosType.interceptors.request.use(
+    async function (config) {
+      try {
+        const cookies = new Cookies();
 
-      config.headers = createCustomHeader(accessToken);
-      return config;
-    } catch (error) {
-      console.log(error);
-    }
-  },
-  function (error) {
-    return Promise.reject(error);
-  },
-);
+        const accessToken = cookies.get(TOKEN_NAME.ACCESS_TOKEN);
+        const refreshToken = cookies.get(TOKEN_NAME.REFRESH_TOKEN);
+
+        config.headers = createCustomHeader(accessToken);
+        return config;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    function (error) {
+      return Promise.reject(error);
+    },
+  );
+}
 
 // ** SSR 전용 API 서비스 코드
 export class ApiService {
