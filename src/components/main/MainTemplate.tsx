@@ -17,6 +17,7 @@ import NoItemText from './NoItemText';
 import { useLoadLib } from '../../hooks/utils/useLoadLib';
 import { useInfiniteScroll } from '../../hooks/reder/useInfiniteScroll';
 import { useSelectLoginStates } from '../../hooks/select/useSelectLoginStates';
+import ChatRoomList from './ChatRoomList';
 
 const MainTemplate = ({
   foodCategories,
@@ -30,8 +31,6 @@ const MainTemplate = ({
 
   const { checkTokenAndRedirection, openWebView, closeWebView } =
     useCheckValidate();
-
-  const { target, dataList } = useInfiniteScroll(chatRooms);
 
   const { user_id, accessToken } = useSelectLoginStates();
 
@@ -55,21 +54,8 @@ const MainTemplate = ({
       {chatRooms.length <= 0 ? (
         <NoItemText checkTokenAndRedirection={checkTokenAndRedirection} />
       ) : (
-        <StyledDiv>
-          {dataList.map((item) => (
-            <ChatRoomItem
-              id={item.id}
-              key={item.id}
-              title={item.title}
-              link={item.link}
-              maxCount={item.maxCount}
-              currentCount={item.currentCount}
-              createDate={item.createDate}
-            />
-          ))}
-        </StyledDiv>
+        <ChatRoomList />
       )}
-      <div ref={target}></div>
       {loginModalIsClicked && <LoginModal />}
       {searchPostCodeIsOpen && <PostCodeWebView closeWebView={closeWebView} />}
       <TabMenu />
@@ -79,11 +65,6 @@ const MainTemplate = ({
 
 const Container = styled.div`
   padding-top: 36px;
-  background-color: #ffffff;
-`;
-
-const StyledDiv = styled.div`
-  padding: 10px 16px 50px;
   background-color: #ffffff;
 `;
 

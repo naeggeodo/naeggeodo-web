@@ -49,6 +49,12 @@ const NaeggeotalkTemplate = () => {
     // dispatch(createChatRoomActions.request(body));
 
     // ** 에러남
+    const headers = {
+      'Content-type': 'multipart/form-data',
+      Authorization:
+        'Bearer ' +
+        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJfc3JNZ19DS0VBX0hWS0dVU3lwamZoQXROZk5RMUNTRXFiQ3FFelpQelo4IiwiZXhwIjoxNjU0ODMyNjQ2LCJpc3MiOiJuYWVnZ2VvZG8uY29tIn0.MKahMMTSENvmKPbQ2oWqU1_1MukpA4iO0UmOkDzHAZ8',
+    };
 
     axios
       .post(
@@ -65,12 +71,7 @@ const NaeggeotalkTemplate = () => {
           maxCount: 1,
         },
         {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization:
-              'Bearer ' +
-              'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJfc3JNZ19DS0VBX0hWS0dVU3lwamZoQXROZk5RMUNTRXFiQ3FFelpQelo4IiwiZXhwIjoxNjU0ODMyNjQ2LCJpc3MiOiJuYWVnZ2VvZG8uY29tIn0.MKahMMTSENvmKPbQ2oWqU1_1MukpA4iO0UmOkDzHAZ8',
-          },
+          headers: headers,
         },
       )
       .then((res) => console.log(res.data))
