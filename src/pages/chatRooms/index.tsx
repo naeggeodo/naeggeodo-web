@@ -1,4 +1,3 @@
-import cookies from 'next-cookies';
 import { useEffect } from 'react';
 import { END } from 'redux-saga';
 import MainTemplate from '../../components/main/MainTemplate';
@@ -10,6 +9,7 @@ import {
   getFoodCategoriesActions,
 } from '../../modules/main/actions';
 import { CategoriesResponse } from '../../modules/main/types';
+import { axiosInstance, axiosInstanceConfigure } from '../../service/api';
 import { saveCookies } from '../../utils/saveCookies';
 
 const ChatRooms = ({
@@ -42,6 +42,8 @@ export const getServerSideProps = wrapper.getServerSideProps(
     if (rootState.mainPageState.categories.length > 0) return;
 
     store.dispatch(getFoodCategoriesActions.request());
+
+    axiosInstanceConfigure(axiosInstance);
 
     store.dispatch(END);
     await store.sagaTask.toPromise();
