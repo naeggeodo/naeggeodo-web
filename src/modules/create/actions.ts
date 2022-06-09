@@ -1,11 +1,7 @@
 import { AxiosError } from 'axios';
 import { createAction, createAsyncAction } from 'typesafe-actions';
 import { Category } from '../main/types';
-import {
-  CreateChatRoomRequest,
-  CreateChatRoomResponse,
-  OrderTimeType,
-} from './types';
+import { CreateChatRoomResponse, OrderTimeType } from './types';
 
 const namespace = 'create/';
 
@@ -47,4 +43,4 @@ export const createChatRoomActions = createAsyncAction(
   CREATE_CHAT_ROOM_REQUEST,
   CREATE_CHAT_ROOM_SUCCESS,
   CREATE_CHAT_ROOM_FAILURE,
-)<CreateChatRoomRequest, CreateChatRoomResponse, AxiosError>();
+)<FormData, CreateChatRoomResponse, AxiosError>();

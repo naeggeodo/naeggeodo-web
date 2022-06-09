@@ -23,59 +23,35 @@ const NaeggeotalkTemplate = () => {
   const [selectItem, setSelectItem] = useState<NaeggeotalkItem>();
 
   const createChattingRoom = () => {
-    // const {
-    //   address,
-    //   category,
-    //   link,
-    //   place,
-    //   title,
-    //   user_id,
-    //   orderTimeType,
-    //   maxCount,
-    //   tags,
-    // } = selectItem;
-    // const body = {
-    //   address,
-    //   category,
-    //   link,
-    //   place,
-    //   title,
-    //   user_id,
-    //   tag: tags,
-    //   orderTimeType,
-    //   maxCount,
-    // };
-    // // console.log(body);
-    // dispatch(createChatRoomActions.request(body));
-
-    // ** 에러남
-    const headers = {
-      'Content-type': 'multipart/form-data',
-      Authorization:
-        'Bearer ' +
-        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJfc3JNZ19DS0VBX0hWS0dVU3lwamZoQXROZk5RMUNTRXFiQ3FFelpQelo4IiwiZXhwIjoxNjU0ODMyNjQ2LCJpc3MiOiJuYWVnZ2VvZG8uY29tIn0.MKahMMTSENvmKPbQ2oWqU1_1MukpA4iO0UmOkDzHAZ8',
+    const {
+      address,
+      category,
+      link,
+      place,
+      title,
+      user_id,
+      orderTimeType,
+      maxCount,
+      tags,
+    } = selectItem;
+    const body = {
+      address,
+      category,
+      link,
+      place,
+      title,
+      user_id,
+      tag: tags,
+      orderTimeType,
+      maxCount,
     };
-
-    axios
-      .post(
-        `${process.env.NEXT_PUBLIC_API_URL}/chat-rooms`,
-        {
-          address: '서울',
-          category: 'PIZZA',
-          link: 'www....',
-          place: '1층',
-          title: 'ㄴㄴㄴ',
-          user_id: 'idididid',
-          tag: ['피자', '족발', '떡볶이', '순대'],
-          orderTimeType: 'ASAP',
-          maxCount: 1,
-        },
-        {
-          headers: headers,
-        },
-      )
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log('에러', err));
+    const json = JSON.stringify(body);
+    const blob = new Blob([json], {
+      type: 'application/json',
+    });
+    const chat = new FormData();
+    chat.append('chat', blob);
+    dispatch(createChatRoomActions.request(chat));
   };
 
   return (
