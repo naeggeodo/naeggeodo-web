@@ -1,13 +1,12 @@
-import { ApiService } from '..';
+import { CsrApiService } from '..';
 
 export default class CheckDepositService {
   static async asyncDepositHandler(chattingRoomId: string, userId: string) {
     try {
-      const response = await ApiService.patchApi(
+      const response = await CsrApiService.patchApi(
         `/chat-rooms/${chattingRoomId}/users/${userId}`,
         null,
       );
-
       return response.data;
     } catch (err) {
       console.log(err);
@@ -16,7 +15,7 @@ export default class CheckDepositService {
 
   static async asyncConvertToComplete(chattingRoomId: string) {
     try {
-      const response = await ApiService.patchParamsApi(
+      const response = await CsrApiService.patchParamsApi(
         `/chat-rooms/${chattingRoomId}`,
         {
           state: 'END',

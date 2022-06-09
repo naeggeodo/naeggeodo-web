@@ -22,6 +22,9 @@ export class CsrApiService {
   static patchApi(uri: string, data: unknown) {
     return csrAxiosInstance.patch(uri, data);
   }
+  static patchParamsApi(uri: string, data: unknown) {
+    return axiosInstance.patch(uri, {}, { params: data });
+  }
 }
 
 axiosInstanceConfigure(csrAxiosInstance);

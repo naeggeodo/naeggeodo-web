@@ -1,4 +1,4 @@
-import { ApiService } from '..';
+import { ApiService, CsrApiService } from '..';
 import { ReportRequestBody } from '../../../modules/mypage/types';
 
 export class MypageService {
@@ -6,6 +6,6 @@ export class MypageService {
     return await ApiService.getApi(`/user/${userId}/mypage`);
   }
   static async asyncSubmitReport(body: ReportRequestBody) {
-    return await ApiService.postApi('/report', body);
+    return await CsrApiService.postApi('/report', body);
   }
 }

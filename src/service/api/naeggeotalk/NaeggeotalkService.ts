@@ -1,4 +1,4 @@
-import { ApiService } from '..';
+import { ApiService, CsrApiService } from '..';
 
 export default class NaeggeotalkService {
   static async asyncGetNaeggeotalkList(userId: string) {
@@ -16,7 +16,7 @@ export default class NaeggeotalkService {
     userId: string,
   ) {
     try {
-      return ApiService.patchApi(
+      return CsrApiService.patchApi(
         `/chat-rooms/${chatMainId}/bookmarks/${userId}`,
         null,
       );
