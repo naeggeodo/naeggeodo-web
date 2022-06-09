@@ -37,7 +37,7 @@ function* getUserAddressGenerator(action: GetBuildingCodeRequestAction) {
   try {
     const response: AxiosResponse<PatchBuildingCodeRequestData> = yield call(
       SearchPostCodeService.asyncGetBuildingCode,
-      action.payload.userId,
+      action.payload.user_id,
     );
     yield put(getBuildingCodeSuccess(response.data, 'Y'));
   } catch (err) {

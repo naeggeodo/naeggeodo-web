@@ -14,13 +14,13 @@ export const csrAxiosInstance = axios.create({
 // ** CSR 전용 API 서비스 코드
 export class CsrApiService {
   static getApi(uri: string) {
-    return axiosInstance.get(uri);
+    return csrAxiosInstance.get(uri);
   }
   static postApi(uri: string, data?: unknown) {
-    return axiosInstance.post(uri, data);
+    return csrAxiosInstance.post(uri, data);
   }
   static patchApi(uri: string, data: unknown) {
-    return axiosInstance.patch(uri, data);
+    return csrAxiosInstance.patch(uri, data);
   }
 }
 

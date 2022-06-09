@@ -1,4 +1,4 @@
-import { ApiService } from '..';
+import { ApiService, CsrApiService } from '..';
 import { PatchBuildingCodeRequestData } from '../../../modules/search-post-code/types';
 
 export class SearchPostCodeService {
@@ -10,6 +10,6 @@ export class SearchPostCodeService {
   }
 
   static async asyncGetBuildingCode(userId: string) {
-    return await ApiService.getApi(`/user/${userId}/address`);
+    return await CsrApiService.getApi(`/user/${userId}/address`);
   }
 }
