@@ -1,11 +1,12 @@
 export type NaeggeotalkItem = {
   buildingCode: string;
-  link: string;
+  address: string;
+  link?: string;
   title: string;
   maxCount: number;
-  tags: string;
+  tags: string[];
   bookmarks: string;
-  user_id: number;
+  user_id: string;
   currentCount: 0;
   bookmarksDate: string;
   id: number;
@@ -14,6 +15,7 @@ export type NaeggeotalkItem = {
   category: string;
   idx: number;
   createDate: string;
+  orderTimeType: string;
 };
 export type NaeggeotalkListResponse = {
   chatRooms: string[];

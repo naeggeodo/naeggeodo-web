@@ -8,6 +8,7 @@ import {
   REMOVE_TAG,
   SELECT_ORDER_TIME_TYPE,
   SELECT_CATEGORY,
+  CREATE_CHAT_ROOM_SUCCESS,
 } from './actions';
 import {
   CreateStates,
@@ -80,5 +81,8 @@ export const createStates = createReducer<CreateStates>(initialCreateStates, {
         maxCount: state.maxCount - 1,
       };
     }
+  },
+  [CREATE_CHAT_ROOM_SUCCESS]: (state, action) => {
+    return { ...state };
   },
 });

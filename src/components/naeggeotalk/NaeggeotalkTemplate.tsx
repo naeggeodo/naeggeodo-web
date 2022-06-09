@@ -1,8 +1,11 @@
-import { useState } from 'react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { useInfiniteScroll } from '../../hooks/reder/useInfiniteScroll';
+import { useLoadLib } from '../../hooks/utils/useLoadLib';
 import { RootState } from '../../modules';
+import { createChatRoomActions } from '../../modules/create/actions';
 import { NaeggeotalkItem } from '../../modules/naeggeotalk/types';
 import CreateButton from '../create/CreateButton';
 import CreateTabMenu from '../create/CreateTabMenu';
@@ -10,12 +13,69 @@ import TabMenu from '../main/TabMenu';
 import NaeggeotalkListItem from './NaeggeotalkListItem';
 
 const NaeggeotalkTemplate = () => {
+  const { dispatch } = useLoadLib();
+
   const { naeggeotalkList } = useSelector(
     (state: RootState) => state.naeggeotalkState,
   );
   const { target, dataList } = useInfiniteScroll(naeggeotalkList.chatRooms);
 
   const [selectItem, setSelectItem] = useState<NaeggeotalkItem>();
+
+  const createChattingRoom = () => {
+    // const {
+    //   address,
+    //   category,
+    //   link,
+    //   place,
+    //   title,
+    //   user_id,
+    //   orderTimeType,
+    //   maxCount,
+    //   tags,
+    // } = selectItem;
+    // const body = {
+    //   address,
+    //   category,
+    //   link,
+    //   place,
+    //   title,
+    //   user_id,
+    //   tag: tags,
+    //   orderTimeType,
+    //   maxCount,
+    // };
+    // // console.log(body);
+    // dispatch(createChatRoomActions.request(body));
+
+    // ** 에러남
+
+    axios
+      .post(
+        `${process.env.NEXT_PUBLIC_API_URL}/chat-rooms`,
+        {
+          address: '서울',
+          category: 'PIZZA',
+          link: 'www....',
+          place: '1층',
+          title: 'ㄴㄴㄴ',
+          user_id: 'idididid',
+          tag: ['피자', '족발', '떡볶이', '순대'],
+          orderTimeType: 'ASAP',
+          maxCount: 1,
+        },
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization:
+              'Bearer ' +
+              'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJfc3JNZ19DS0VBX0hWS0dVU3lwamZoQXROZk5RMUNTRXFiQ3FFelpQelo4IiwiZXhwIjoxNjU0ODMyNjQ2LCJpc3MiOiJuYWVnZ2VvZG8uY29tIn0.MKahMMTSENvmKPbQ2oWqU1_1MukpA4iO0UmOkDzHAZ8',
+          },
+        },
+      )
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log('에러', err));
+  };
 
   return (
     <>
@@ -33,12 +93,7 @@ const NaeggeotalkTemplate = () => {
             ))}
         </Content>
         <ButtonWrapper>
-          <CreateButton
-            handleClick={() => {
-              console.log('asdf');
-            }}
-            storeName={'sample'}
-          />
+          <CreateButton handleClick={createChattingRoom} storeName={'sample'} />
         </ButtonWrapper>
         <div ref={target} />
       </Container>

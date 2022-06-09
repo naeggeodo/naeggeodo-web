@@ -34,3 +34,19 @@ export interface ButtonValue {
   text: '1시간 이내' | '최대한 빨리' | '상관없음 (인원이 모집되는대로)';
   value: OrderTimeType;
 }
+
+export type CreateChatRoomRequest = {
+  address: string;
+  category: string;
+  link: string;
+  place: string;
+  title: string;
+  user_id: string;
+  tag: string[];
+  orderTimeType: string;
+  maxCount: number;
+};
+
+export type CreateChatRoomResponse = {
+  chatMain_id: number;
+};

@@ -22,6 +22,7 @@ import { getCheckDepositPageInfoSaga } from './check-deposit/sagas';
 import { checkDepositState } from './check-deposit/reducer';
 import { getMypageInfoSaga } from './mypage/sagas';
 import { myPageState } from './mypage/reducer';
+import { createChatRoomSaga } from './create/sagas';
 
 //** RootReducer */
 export const rootReducer = combineReducers({
@@ -48,6 +49,7 @@ export function* rootSaga() {
     fork(getNaeggeotalkSaga),
     fork(getCheckDepositPageInfoSaga),
     fork(getMypageInfoSaga),
+    fork(createChatRoomSaga),
   ]);
 }
 
