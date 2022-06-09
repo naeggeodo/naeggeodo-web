@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { RootState } from '../../modules';
 
-export function useLoadLoginStates() {
+export function useSelectLoginStates() {
   const accessToken = useSelector(
     (state: RootState) => state.loginState.accessToken,
   );

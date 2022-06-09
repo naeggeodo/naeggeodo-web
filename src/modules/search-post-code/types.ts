@@ -2,7 +2,6 @@ export interface PatchBuildingCodeRequestData {
   address: string;
   buildingCode: string;
   zonecode: string;
-  user_id: string;
 }
 
 export interface PatchBuildingCodeResponse {
@@ -10,5 +9,5 @@ export interface PatchBuildingCodeResponse {
   buildingCode: string;
   user_id: string;
   zonecode: string;
-  apartment: 'Y' | 'N' | string;
+  apartment: 'Y' | 'N' | '';
 }

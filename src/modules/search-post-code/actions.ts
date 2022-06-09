@@ -26,7 +26,7 @@ export const patchBuildingCodeSuccess = createAction(
 
 export const getBuildingCodeRequest = createAction(
   GET_BUILDING_CODE_REQUEST,
-  (userId) => ({ userId }),
+  (user_id) => ({ user_id }),
 )();
 
 export const getBuildingCodeSuccess = createAction(

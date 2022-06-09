@@ -9,7 +9,6 @@ import {
   getFoodCategoriesActions,
 } from '../../modules/main/actions';
 import { CategoriesResponse } from '../../modules/main/types';
-import { axiosInstance, axiosInstanceConfigure } from '../../service/api';
 import { saveCookies } from '../../utils/saveCookies';
 
 const ChatRooms = ({
@@ -19,17 +18,17 @@ const ChatRooms = ({
 }) => {
   const { router, dispatch } = useLoadLib();
 
-  useEffect(() => {
-    const { query } = router;
-    if (!query.buildingCode) return;
-    else if (query.buildingCode && !query.category) {
-      dispatch(getAllChatRoomsListRequest(query.buildingCode));
-    } else if (query.buildingCode && query.category) {
-      dispatch(
-        getChatRoomListWithCategoryRequest(query.buildingCode, query.category),
-      );
-    }
-  }, [router, dispatch]);
+  // useEffect(() => {
+  //   const { query } = router;
+  //   if (!query.buildingCode) return;
+  //   else if (query.buildingCode && !query.category) {
+  //     dispatch(getAllChatRoomsListRequest(query.buildingCode));
+  //   } else if (query.buildingCode && query.category) {
+  //     dispatch(
+  //       getChatRoomListWithCategoryRequest(query.buildingCode, query.category),
+  //     );
+  //   }
+  // }, [router, dispatch]);
 
   return <MainTemplate foodCategories={foodCategories} />;
 };
@@ -37,13 +36,11 @@ const ChatRooms = ({
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
     saveCookies(store, context);
-
     const rootState: RootState = store.getState();
+
     if (rootState.mainPageState.categories.length > 0) return;
 
     store.dispatch(getFoodCategoriesActions.request());
-
-    axiosInstanceConfigure(axiosInstance);
 
     store.dispatch(END);
     await store.sagaTask.toPromise();
