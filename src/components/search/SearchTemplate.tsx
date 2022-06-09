@@ -1,12 +1,5 @@
 import Image from 'next/image';
-import {
-  FormEvent,
-  PointerEvent,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { FormEvent, PointerEvent, useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
@@ -15,24 +8,16 @@ import { RootState } from '../../modules';
 import {
   getResultByInputActions,
   getResultByTagActions,
-  getSearchTagListActions,
 } from '../../modules/search/actions';
 import palette from '../../styles/palette';
-import ChatRoomItem from '../main/ChatRoomItem';
-import { SearchResult } from '../../modules/search/types';
 import SearchTag from './SearchTag';
+import SearchResultList from './SearchResultList';
 
 const SearchTemplate = () => {
   const dispatch = useDispatch();
   const tags = useSelector(
     (state: RootState) => state.searchPageState?.searchTagList?.tags,
   );
-
-  useEffect(() => {
-    dispatch(getSearchTagListActions.request());
-  }, [dispatch]);
-
-  const target = useRef<HTMLDivElement>(null);
 
   const { searchResultList } = useSelector(
     (state: RootState) => state.searchPageState,
@@ -41,43 +26,11 @@ const SearchTemplate = () => {
     (state: RootState) => state.searchPageState.selected,
   );
 
-  const limit = 5;
-
   const [keyWord, setKeyWord] = useState('');
-  const [skip, setSkip] = useState(0);
-  const [dataList, setDataList] = useState<SearchResult[]>([]);
 
-  useEffect(() => {
-    if (searchResultList) {
-      const observer = new IntersectionObserver(callback, { threshold: 0.8 });
-      observer.observe(target.current);
-
-      return () => {
-        observer && observer.disconnect();
-      };
-    }
-  }, [searchResultList]);
-
-  useEffect(() => {
-    if (searchResultList && skip <= searchResultList.chatRoom.length) {
-      const arr = [];
-      for (let i = skip; i < searchResultList.chatRoom.length; i++) {
-        if (arr.length > limit) break;
-        arr.push(searchResultList.chatRoom[i]);
-      }
-      setDataList((prev) => [...prev, ...arr]);
-    }
-  }, [skip, searchResultList]);
-
-  const callback = async ([entry], observer: IntersectionObserver) => {
-    if (entry.isIntersecting) {
-      observer.unobserve(entry.target);
-      setSkip((prev) => prev + limit + 1);
-      observer.observe(entry.target);
-    }
-  };
-
-  const searchList = useCallback<(e: FormEvent<HTMLFormElement>) => void>(
+  const getSearchListByInput = useCallback<
+    (e: FormEvent<HTMLFormElement>) => void
+  >(
     (e) => {
       e.preventDefault();
       dispatch(getResultByInputActions.request(keyWord));
@@ -85,7 +38,7 @@ const SearchTemplate = () => {
     [dispatch],
   );
 
-  const searchListWithTagButton = useCallback<
+  const getSearchListByTag = useCallback<
     (e: PointerEvent<HTMLButtonElement>) => void
   >(
     (e) => {
@@ -98,7 +51,7 @@ const SearchTemplate = () => {
   return (
     <>
       <Container>
-        <SearchForm onSubmit={searchList}>
+        <SearchForm onSubmit={getSearchListByInput}>
           <Button>
             <Image
               src='/assets/images/searchgray.svg'
@@ -116,27 +69,15 @@ const SearchTemplate = () => {
             }}
           />
         </SearchForm>
-        {dataList.length > 0 ? (
-          <div>
-            {dataList.map((data, i) => (
-              <ChatRoomItem
-                id={data.id}
-                key={i}
-                title={data.title}
-                link={data.link}
-                maxCount={data.maxCount}
-                createDate={data.createDate}
-                currentCount={data.currentCount}
-              />
-            ))}
-          </div>
+        {searchResultList && searchResultList.chatRoom.length > 0 ? (
+          <SearchResultList />
         ) : (
           <SearchTagList>
             {tags &&
               tags.map((tag, i) => (
                 <SearchTag
                   key={i}
-                  handleClick={searchListWithTagButton}
+                  handleClick={getSearchListByTag}
                   selected={selected}
                   dataValue={tag.msg}>
                   {tag.msg}
@@ -144,7 +85,6 @@ const SearchTemplate = () => {
               ))}
           </SearchTagList>
         )}
-        <div ref={target} />
       </Container>
       <TabMenu />
     </>

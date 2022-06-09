@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { useInfiniteScroll } from '../../hooks/reder/useInfiniteScroll';
 import { RootState } from '../../modules';
 import { NaeggeotalkItem } from '../../modules/naeggeotalk/types';
 import CreateButton from '../create/CreateButton';
@@ -12,45 +13,9 @@ const NaeggeotalkTemplate = () => {
   const { naeggeotalkList } = useSelector(
     (state: RootState) => state.naeggeotalkState,
   );
-
-  const target = useRef<HTMLDivElement>(null);
+  const { target, dataList } = useInfiniteScroll(naeggeotalkList.chatRooms);
 
   const [selectItem, setSelectItem] = useState<NaeggeotalkItem>();
-
-  const [skip, setSkip] = useState(0);
-  const [dataList, setDataList] = useState([]);
-
-  const limit = 5;
-
-  useEffect(() => {
-    if (naeggeotalkList) {
-      const observer = new IntersectionObserver(callback, { threshold: 0.8 });
-      observer.observe(target.current);
-
-      return () => {
-        observer && observer.disconnect();
-      };
-    }
-  }, [naeggeotalkList]);
-
-  useEffect(() => {
-    if (naeggeotalkList && skip <= naeggeotalkList.chatRooms.length) {
-      const arr = [];
-      for (let i = skip; i < naeggeotalkList.chatRooms.length; i++) {
-        if (arr.length > limit) break;
-        arr.push(naeggeotalkList.chatRooms[i]);
-      }
-      setDataList((prev) => [...prev, ...arr]);
-    }
-  }, [skip, naeggeotalkList]);
-
-  const callback = async ([entry], observer: IntersectionObserver) => {
-    if (entry.isIntersecting) {
-      observer.unobserve(entry.target);
-      setSkip((prev) => prev + limit + 1);
-      observer.observe(entry.target);
-    }
-  };
 
   return (
     <>
@@ -82,6 +47,8 @@ const NaeggeotalkTemplate = () => {
   );
 };
 
+export default NaeggeotalkTemplate;
+
 const Container = styled.div`
   width: 100%;
 
@@ -107,5 +74,3 @@ const ButtonWrapper = styled.div`
 
   margin: 0 auto;
 `;
-
-export default NaeggeotalkTemplate;
