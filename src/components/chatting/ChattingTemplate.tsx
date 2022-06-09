@@ -49,7 +49,7 @@ const ChattingTemplate = ({
       behavior: 'smooth',
     });
     if (!stompClient.connected) {
-      connect(stompClient, 1, setMessageList); // 1은 채팅방 아이디
+      connect(stompClient, '2', setMessageList);
     }
     return () => disconnect(stompClient);
   }, [messageList]);

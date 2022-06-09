@@ -1,27 +1,39 @@
 import { CompatClient } from '@stomp/stompjs';
+import { Cookies } from 'react-cookie';
+import { TOKEN_NAME } from '../constant/Login';
 import {
   ChattingSubmitBody,
   PreviousChattingItem,
 } from '../modules/chatting/types';
 
 export function useChat() {
+  const cookies = new Cookies();
+  const accessToken = cookies.get(TOKEN_NAME.ACCESS_TOKEN);
+
   const connect = (
     stompClient: CompatClient,
-    roomId: number,
+    roomId: string,
     setMessageList: React.Dispatch<
       React.SetStateAction<PreviousChattingItem[]>
     >,
   ) => {
-    stompClient.connect({ chatMain_id: '1', sender: '2' }, () => {
-      stompClient.subscribe(
-        `/topic/${roomId}`,
-        (data) => {
-          const newMessage = JSON.parse(data.body);
-          setMessageList((prev) => prev.concat(newMessage));
-        },
-        { chatMain_id: '1' },
-      );
-    });
+    stompClient.connect(
+      {
+        chatMain_id: roomId,
+        sender: '1',
+        Authorization: `Bearer ${accessToken}`,
+      },
+      () => {
+        stompClient.subscribe(
+          `/topic/${roomId}`,
+          (data) => {
+            const newMessage = JSON.parse(data.body);
+            setMessageList((prev) => prev.concat(newMessage));
+          },
+          { chatMain_id: roomId },
+        );
+      },
+    );
   };
 
   const onSendMessage = (
