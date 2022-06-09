@@ -6,16 +6,14 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../modules';
 
 const SearchPostCode = ({ openWebView }: { openWebView: () => void }) => {
-  const addr = useSelector((state: RootState) => state.loginState.addr);
-  const address = useSelector(
-    (state: RootState) => state.postCodeState.address,
-  );
+  const address = useSelector((state: RootState) => state.loginState.address);
+
   const apartment: 'Y' | 'N' | string = useSelector(
     (state: RootState) => state.postCodeState.apartment,
   );
 
   const checkIsApartment = () => {
-    return addr;
+    return address;
     // if (!address && apartment === 'N')
     //   return '빌라 같은 공동주택이나 아파트만 이용가능합니다.';
     // else if (addr && apartment === 'Y') return addr;

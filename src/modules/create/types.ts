@@ -19,7 +19,7 @@ export type RemoveTagAction = ReturnType<typeof removeTag>;
 export type OrderTimeType = 'ONE_HOUR' | 'ASAP' | 'I_DONT_CARE';
 
 export interface CreateStates {
-  addr: string; //주소
+  address: string; //주소
   category: Category; // 카테고리
   link: string; // 카카오페이 링크
   place: string; // 수령지

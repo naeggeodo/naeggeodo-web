@@ -12,7 +12,7 @@ export type ChattingRoomInfoResponse = {
   id: number;
   state: string;
   place: string;
-  addr: string;
+  address: string;
   category: string;
   dealHistory: null;
   user: null;

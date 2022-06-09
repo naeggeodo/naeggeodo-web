@@ -13,10 +13,10 @@ const FeedbackForm = ({
 }) => {
   const { submitReport } = useReport();
 
-  const userId = useSelector((state: RootState) => state.loginState.userId);
+  const user_id = useSelector((state: RootState) => state.loginState.user_id);
 
   const [feedbackBody, setFeedbackBody] = useState({
-    user_id: userId,
+    user_id: user_id,
     contents: '',
     type: 'FEEDBACK',
   });

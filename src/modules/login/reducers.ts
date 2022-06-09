@@ -15,9 +15,8 @@ import { LoginResponse } from './types';
 const initialState: LoginResponse = {
   accessToken: '',
   refreshToken: '',
-  type: '',
   address: '',
-  userId: '',
+  user_id: '',
 };
 
 export const loginState = createReducer<LoginResponse>(initialState, {
@@ -29,7 +28,7 @@ export const loginState = createReducer<LoginResponse>(initialState, {
     accessToken: action.payload.accessToken,
     refreshToken: action.payload.refreshToken,
     type: action.payload.type,
-    userId: action.payload.userId,
+    user_id: action.payload.user_id,
     address: action.payload.address,
   }),
   [GET_NAVER_TOKEN_SUCCESS]: (state, action) => ({
@@ -53,7 +52,6 @@ export const loginState = createReducer<LoginResponse>(initialState, {
   [SAVE_USER_INFO]: (state, action: ReturnType<typeof saveUserInfo>) => ({
     ...state,
     address: action.payload.address,
-    userId: action.payload.userId,
-    type: action.payload.type,
+    user_id: action.payload.user_id,
   }),
 });

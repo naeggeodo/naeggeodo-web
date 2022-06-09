@@ -12,6 +12,5 @@ export interface LoginResponse {
   accessToken: string;
   address: string;
   refreshToken: string;
-  type: 'Bearer' | string;
-  userId: string;
+  user_id: string;
 }
