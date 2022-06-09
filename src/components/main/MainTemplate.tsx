@@ -26,7 +26,7 @@ const MainTemplate = ({
   const chatRooms = useSelector(
     (state: RootState) => state.mainPageState.chatRooms,
   );
-  const { dispatch } = useLoadLib();
+  const { dispatch, router } = useLoadLib();
 
   const { checkTokenAndRedirection, openWebView, closeWebView } =
     useCheckValidate();
@@ -46,7 +46,7 @@ const MainTemplate = ({
     if (accessToken) {
       dispatch(getBuildingCodeRequest(user_id));
     }
-  }, [dispatch, user_id, accessToken]);
+  }, [dispatch, user_id, accessToken, router]);
 
   return (
     <Container>
@@ -55,7 +55,7 @@ const MainTemplate = ({
       {chatRooms.length <= 0 ? (
         <NoItemText checkTokenAndRedirection={checkTokenAndRedirection} />
       ) : (
-        <StyledUl>
+        <StyledDiv>
           {dataList.map((item) => (
             <ChatRoomItem
               id={item.id}
@@ -67,7 +67,7 @@ const MainTemplate = ({
               createDate={item.createDate}
             />
           ))}
-        </StyledUl>
+        </StyledDiv>
       )}
       <div ref={target}></div>
       {loginModalIsClicked && <LoginModal />}
@@ -82,7 +82,7 @@ const Container = styled.div`
   background-color: #ffffff;
 `;
 
-const StyledUl = styled.ul`
+const StyledDiv = styled.div`
   padding: 10px 16px 50px;
   background-color: #ffffff;
 `;

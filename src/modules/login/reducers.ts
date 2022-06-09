@@ -7,6 +7,7 @@ import {
   saveRefreshToken,
   saveUserInfo,
   SAVE_ACCESS_TOKEN,
+  SAVE_ADDRESS,
   SAVE_REFRESH_TOKEN,
   SAVE_USER_INFO,
 } from './actions';
@@ -50,6 +51,11 @@ export const loginState = createReducer<LoginResponse>(initialState, {
     refreshToken: action.payload.refreshToken,
   }),
   [SAVE_USER_INFO]: (state, action: ReturnType<typeof saveUserInfo>) => ({
+    ...state,
+    address: action.payload.address,
+    user_id: action.payload.user_id,
+  }),
+  [SAVE_ADDRESS]: (state, action) => ({
     ...state,
     address: action.payload.address,
     user_id: action.payload.user_id,
