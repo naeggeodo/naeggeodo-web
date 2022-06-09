@@ -22,7 +22,7 @@ export type ChattingRoomInfoResponse = {
 export type ChattingSubmitBody = {
   sender: string;
   contents: string;
-  chatMain_id: number;
+  chatMain_id: string;
   type: string;
 };
 
