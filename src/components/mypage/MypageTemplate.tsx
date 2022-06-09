@@ -29,9 +29,9 @@ const MypageTemplate = () => {
   const userId = useSelector((state: RootState) => state.loginState.user_id);
   console.log(userId, '유저아이디');
 
-  useEffect(() => {
-    dispatch(getUserInfoInMypageRequest(userId));
-  }, [dispatch, userId]);
+  // useEffect(() => {
+  //   dispatch(getUserInfoInMypageRequest(userId));
+  // }, [dispatch, userId]);
 
   useEffect(() => {
     if (!accessToken) {

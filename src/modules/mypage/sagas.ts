@@ -1,5 +1,4 @@
 import { AxiosResponse } from 'axios';
-import { Cookies } from 'react-cookie';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { MypageService } from '../../service/api/mypage/MypageService';
 import {
