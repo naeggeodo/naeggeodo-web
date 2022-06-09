@@ -35,18 +35,6 @@ export interface ButtonValue {
   value: OrderTimeType;
 }
 
-export type CreateChatRoomRequest = {
-  address: string;
-  category: string;
-  link: string;
-  place: string;
-  title: string;
-  user_id: string;
-  tag: string[];
-  orderTimeType: string;
-  maxCount: number;
-};
-
 export type CreateChatRoomResponse = {
   chatMain_id: number;
 };
