@@ -18,17 +18,17 @@ const ChatRooms = ({
 }) => {
   const { router, dispatch } = useLoadLib();
 
-  // useEffect(() => {
-  //   const { query } = router;
-  //   if (!query.buildingCode) return;
-  //   else if (query.buildingCode && !query.category) {
-  //     dispatch(getAllChatRoomsListRequest(query.buildingCode));
-  //   } else if (query.buildingCode && query.category) {
-  //     dispatch(
-  //       getChatRoomListWithCategoryRequest(query.buildingCode, query.category),
-  //     );
-  //   }
-  // }, [router, dispatch]);
+  useEffect(() => {
+    const { query } = router;
+    if (!query.buildingCode) return;
+    else if (query.buildingCode && !query.category) {
+      dispatch(getAllChatRoomsListRequest(query.buildingCode));
+    } else if (query.buildingCode && query.category) {
+      dispatch(
+        getChatRoomListWithCategoryRequest(query.buildingCode, query.category),
+      );
+    }
+  }, [router, dispatch]);
 
   return <MainTemplate foodCategories={foodCategories} />;
 };

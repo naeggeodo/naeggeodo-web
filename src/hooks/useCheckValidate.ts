@@ -7,12 +7,15 @@ import {
   openLoginModal,
   openSearchPostCode,
 } from '../modules/modal/actions';
+import { useSelectLoginStates } from './select/useSelectLoginStates';
 import { useLoadLib } from './utils/useLoadLib';
 
 export function useCheckValidate() {
   const { dispatch, router } = useLoadLib();
-  const accessToken = useSelector(
-    (state: RootState) => state.loginState.accessToken,
+
+  const { accessToken } = useSelectLoginStates();
+  const buildingCode = useSelector(
+    (state: RootState) => state.postCodeState.buildingCode,
   );
 
   const checkTokenAndRedirection = useCallback(() => {
@@ -27,11 +30,11 @@ export function useCheckValidate() {
     if (!accessToken) {
       dispatch(openLoginModal());
     } else dispatch(openSearchPostCode());
-  }, [dispatch]);
+  }, [dispatch, accessToken]);
 
   const closeWebView = useCallback(() => {
     dispatch(closeSearchPostCode());
-  }, [dispatch]);
+  }, [dispatch, accessToken]);
 
   const routeToCategory = useCallback(
     (_, item: CategoriesResponse) => {
@@ -41,20 +44,20 @@ export function useCheckValidate() {
         router.push({
           pathname: '/chatRooms',
           query: {
-            buildingCode: '서울',
+            buildingCode: buildingCode,
           },
         });
       } else {
         router.push({
           pathname: '/chatRooms',
           query: {
-            buildingCode: '서울',
+            buildingCode: buildingCode,
             category: item.category.toLowerCase(),
           },
         });
       }
     },
-    [dispatch],
+    [dispatch, router, accessToken, buildingCode],
   );
 
   return {
