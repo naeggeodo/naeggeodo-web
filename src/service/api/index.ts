@@ -27,28 +27,24 @@ export class CsrApiService {
   }
 }
 
-axiosInstanceConfigure(csrAxiosInstance);
+csrAxiosInstance.interceptors.request.use(
+  async function (config) {
+    try {
+      const cookies = new Cookies();
 
-export function axiosInstanceConfigure(axiosType: Axios) {
-  return axiosType.interceptors.request.use(
-    async function (config) {
-      try {
-        const cookies = new Cookies();
+      const accessToken = cookies.get(TOKEN_NAME.ACCESS_TOKEN);
+      const refreshToken = cookies.get(TOKEN_NAME.REFRESH_TOKEN);
 
-        const accessToken = cookies.get(TOKEN_NAME.ACCESS_TOKEN);
-        const refreshToken = cookies.get(TOKEN_NAME.REFRESH_TOKEN);
-
-        config.headers = createCustomHeader(accessToken);
-        return config;
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    function (error) {
-      return Promise.reject(error);
-    },
-  );
-}
+      config.headers = createCustomHeader(accessToken);
+      return config;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  function (error) {
+    return Promise.reject(error);
+  },
+);
 
 // ** SSR 전용 API 서비스 코드
 export class ApiService {

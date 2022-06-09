@@ -14,22 +14,6 @@ const naeggeotalk = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
-    axiosInstance.interceptors.request.use(
-      async function (config) {
-        try {
-          const allCookies = cookies(context);
-          const accessToken = allCookies.accessToken;
-          config.headers = createCustomHeader(accessToken);
-          return config;
-        } catch (error) {
-          console.log(error);
-        }
-      },
-      function (error) {
-        return Promise.reject(error);
-      },
-    );
-
     store.dispatch(getNaeggeotalkListActions.request('1'));
 
     store.dispatch(END);

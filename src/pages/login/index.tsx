@@ -10,7 +10,6 @@ const login = () => {
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
     saveCookies(store, context);
-    const accessToken = store.getState().loginState.accessToken;
 
     store.dispatch(END);
     await store.sagaTask.toPromise();
