@@ -1,5 +1,4 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { axiosInstance } from '../../service/api';
 import SearchService from '../../service/api/search/SearchService';
 import {
   getResultByInputActions,
