@@ -2,6 +2,7 @@ import { AxiosResponse } from 'axios';
 import Router from 'next/router';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { SearchPostCodeService } from '../../service/api/search-post-code/SearchPostCodeService';
+import { saveAddress } from '../login/actions';
 import {
   GetBuildingCodeRequestAction,
   getBuildingCodeSuccess,
@@ -24,6 +25,7 @@ function* searchPostCodeGenerator(action: PatchBuildingCodeRequestAction) {
     );
 
     yield put(patchBuildingCodeSuccess(response.data, 'Y'));
+    yield put(saveAddress(response.data));
     yield call(
       Router.push,
       `/chatRooms?buildingCode=${response.data.buildingCode}`,
@@ -40,6 +42,7 @@ function* getUserAddressGenerator(action: GetBuildingCodeRequestAction) {
       action.payload.user_id,
     );
     yield put(getBuildingCodeSuccess(response.data, 'Y'));
+    yield put(saveAddress(response.data));
   } catch (err) {
     console.log(err);
   }

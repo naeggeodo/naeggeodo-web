@@ -34,6 +34,7 @@ export const getNaverTokenSuccess = createAction(
 export const SAVE_ACCESS_TOKEN = namespace + 'SAVE_ACCESS_TOKEN';
 export const SAVE_REFRESH_TOKEN = namespace + 'SAVE_REFRESH_TOKEN';
 export const SAVE_USER_INFO = namespace + 'SAVE_USER_INFO';
+export const SAVE_ADDRESS = namespace + 'SAVE_ADDRESS';
 
 export const saveAccessToken = createAction(
   SAVE_ACCESS_TOKEN,
@@ -52,3 +53,5 @@ export const saveUserInfo = createAction(
     user_id,
   }),
 )();
+
+export const saveAddress = createAction(SAVE_ADDRESS, (data) => data)();

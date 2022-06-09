@@ -26,7 +26,7 @@ const MainTemplate = ({
   const chatRooms = useSelector(
     (state: RootState) => state.mainPageState.chatRooms,
   );
-  const { dispatch } = useLoadLib();
+  const { dispatch, router } = useLoadLib();
 
   const { checkTokenAndRedirection, openWebView, closeWebView } =
     useCheckValidate();
@@ -46,7 +46,7 @@ const MainTemplate = ({
     if (accessToken) {
       dispatch(getBuildingCodeRequest(user_id));
     }
-  }, [dispatch, user_id, accessToken]);
+  }, [dispatch, user_id, accessToken, router]);
 
   return (
     <Container>
