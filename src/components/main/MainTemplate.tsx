@@ -14,9 +14,9 @@ import { RootState } from '../../modules';
 import { useCheckValidate } from '../../hooks/useCheckValidate';
 import { getBuildingCodeRequest } from '../../modules/search-post-code/actions';
 import NoItemText from './NoItemText';
-import { useLoadLoginStates } from '../../hooks/auth/useLoadLoginStates';
 import { useLoadLib } from '../../hooks/utils/useLoadLib';
 import { useInfiniteScroll } from '../../hooks/reder/useInfiniteScroll';
+import { useSelectLoginStates } from '../../hooks/select/useSelectLoginStates';
 
 const MainTemplate = ({
   foodCategories,
@@ -33,7 +33,7 @@ const MainTemplate = ({
 
   const { target, dataList } = useInfiniteScroll(chatRooms);
 
-  const { user_id, accessToken } = useLoadLoginStates();
+  const { user_id, accessToken } = useSelectLoginStates();
 
   const loginModalIsClicked = useSelector(
     (state: RootState) => state.modalStates.loginModalIsClicked,

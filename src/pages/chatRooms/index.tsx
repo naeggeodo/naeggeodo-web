@@ -36,8 +36,8 @@ const ChatRooms = ({
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
     saveCookies(store, context);
-
     const rootState: RootState = store.getState();
+
     if (rootState.mainPageState.categories.length > 0) return;
 
     store.dispatch(getFoodCategoriesActions.request());

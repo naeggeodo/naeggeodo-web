@@ -6,7 +6,7 @@ export class SearchPostCodeService {
     userId: string,
     data: PatchBuildingCodeRequestData,
   ) {
-    return await ApiService.patchApi(`/user/${userId}/address`, data);
+    return await CsrApiService.patchApi(`/user/${userId}/address`, data);
   }
 
   static async asyncGetBuildingCode(userId: string) {

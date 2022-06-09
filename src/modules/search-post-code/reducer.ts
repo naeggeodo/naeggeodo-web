@@ -31,8 +31,8 @@ export const postCodeState = createReducer<PatchBuildingCodeResponse>(
       address: action.payload.response.address,
       buildingCode: action.payload.response.buildingCode,
       zonecode: action.payload.response.zonecode,
-      apartment: action.payload.apartment,
       user_id: action.payload.user_id,
+      apartment: action.payload.apartment,
     }),
     [SAVE_APARTMENT_ADDRESS]: (state, action: SaveApartmentAddressAction) => ({
       ...state,
