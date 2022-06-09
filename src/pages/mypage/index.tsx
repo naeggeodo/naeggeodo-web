@@ -2,8 +2,9 @@ import cookies from 'next-cookies';
 import React from 'react';
 import { END } from 'redux-saga';
 import MypageTemplate from '../../components/mypage/MypageTemplate';
-import { wrapper } from '../../modules';
-import { axiosInstance } from '../../service/api';
+import { RootState, wrapper } from '../../modules';
+import { getUserInfoInMypageRequest } from '../../modules/mypage/actions';
+import { axiosInstance, axiosInstanceConfigure } from '../../service/api';
 import { createCustomHeader } from '../../utils/createCustomHeader';
 import { saveCookies } from '../../utils/saveCookies';
 
@@ -14,6 +15,9 @@ const Mypage = () => {
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
     saveCookies(store, context);
+    const rootState: RootState = store.getState();
+
+    const user_id = rootState.loginState.user_id;
 
     axiosInstance.interceptors.request.use(
       async function (config) {
@@ -30,6 +34,8 @@ export const getServerSideProps = wrapper.getServerSideProps(
         return Promise.reject(error);
       },
     );
+
+    store.dispatch(getUserInfoInMypageRequest(user_id));
 
     store.dispatch(END);
     await store.sagaTask.toPromise();
