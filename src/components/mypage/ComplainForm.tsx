@@ -13,7 +13,7 @@ const ComplainForm = ({
 }) => {
   const { submitReport } = useReport();
 
-  const userId = useSelector((state: RootState) => state.loginState.userId);
+  const userId = useSelector((state: RootState) => state.loginState.user_id);
 
   const [complainBody, setComplainBody] = useState({
     user_id: userId,

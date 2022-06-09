@@ -26,7 +26,7 @@ const MypageTemplate = () => {
     (state: RootState) => state.loginState.accessToken,
   );
 
-  const userId = useSelector((state: RootState) => state.loginState.userId);
+  const userId = useSelector((state: RootState) => state.loginState.user_id);
   console.log(userId, '유저아이디');
 
   useEffect(() => {

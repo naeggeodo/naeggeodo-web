@@ -14,8 +14,6 @@ export default class DateFormatter {
   }
 
   static getNowDate() {
-    let result: string;
-
     const date = new Date();
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
@@ -24,13 +22,11 @@ export default class DateFormatter {
     const minutes = date.getMinutes();
     const seconds = date.getSeconds();
 
-    result = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(
-      2,
-      '0',
-    )}T${String(hour).padStart(2, '0')}:${String(minutes).padStart(
-      2,
-      '0',
-    )}:${String(seconds).padStart(2, '0')}`;
+    const result = `${year}-${String(month).padStart(2, '0')}-${String(
+      day,
+    ).padStart(2, '0')}T${String(hour).padStart(2, '0')}:${String(
+      minutes,
+    ).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 
     return result;
   }
@@ -43,7 +39,7 @@ export default class DateFormatter {
     let ampm: AMPM;
     let result: string;
 
-    let min = String(this.minute).padStart(2, '0');
+    const min = String(this.minute).padStart(2, '0');
 
     if (this.hour >= 12 && this.hour <= 24) {
       ampm = '오후';
