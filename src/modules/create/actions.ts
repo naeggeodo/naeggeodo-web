@@ -1,6 +1,11 @@
-import { createAction } from 'typesafe-actions';
+import { AxiosError } from 'axios';
+import { createAction, createAsyncAction } from 'typesafe-actions';
 import { Category } from '../main/types';
-import { OrderTimeType } from './types';
+import {
+  CreateChatRoomRequest,
+  CreateChatRoomResponse,
+  OrderTimeType,
+} from './types';
 
 const namespace = 'create/';
 
@@ -13,6 +18,10 @@ export const ADD_TAG = namespace + 'ADD_TAG';
 export const PLUS_MAX_COUNT = namespace + 'PLUS_MAX_COUNT';
 export const MINUS_MAX_COUNT = namespace + 'MINUS_MAX_COUNT';
 export const REMOVE_TAG = namespace + 'REMOVE_TAG';
+
+export const CREATE_CHAT_ROOM_REQUEST = namespace + 'CREATE_CHAT_ROOM_REQUEST';
+export const CREATE_CHAT_ROOM_SUCCESS = namespace + 'CREATE_CHAT_ROOM_SUCCESS';
+export const CREATE_CHAT_ROOM_FAILURE = namespace + 'CREATE_CHAT_ROOM_FAILURE';
 
 export const selectOrderTimeType = createAction(
   SELECT_ORDER_TIME_TYPE,
@@ -33,3 +42,9 @@ export const removeTag = createAction(REMOVE_TAG, (index) => ({ index }))();
 
 export const plusMaxCount = createAction(PLUS_MAX_COUNT, () => ({}))();
 export const minusMaxCount = createAction(MINUS_MAX_COUNT, () => ({}))();
+
+export const createChatRoomActions = createAsyncAction(
+  CREATE_CHAT_ROOM_REQUEST,
+  CREATE_CHAT_ROOM_SUCCESS,
+  CREATE_CHAT_ROOM_FAILURE,
+)<CreateChatRoomRequest, CreateChatRoomResponse, AxiosError>();
