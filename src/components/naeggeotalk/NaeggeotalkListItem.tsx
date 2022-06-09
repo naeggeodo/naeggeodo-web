@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { setNaeggeotalkItemBookmarkActions } from '../../modules/naeggeotalk/actions';
 import { NaeggeotalkItem } from '../../modules/naeggeotalk/types';
+import DateFormatter from '../../utils/DateFormatter';
 
 type StyledType = {
   isActive?: boolean;
@@ -18,6 +19,8 @@ const NaeggeotalkListItem = ({
   selectItem: NaeggeotalkItem;
   setSelectItem: Dispatch<SetStateAction<NaeggeotalkItem>>;
 }) => {
+  const chatDate = new DateFormatter(data.createDate);
+
   const dispatch = useDispatch();
 
   const [isBookmark, setIsBookmark] = useState(
@@ -45,7 +48,7 @@ const NaeggeotalkListItem = ({
           <Image src='/assets/images/hamburger.svg' width={44} height={44} />
           <div>
             <Title>{data.title}</Title>
-            <Date>{data.createDate}</Date>
+            <Date>{`${chatDate.formatDate()}  ${chatDate.formatTime()}`}</Date>
           </div>
         </InfoBox>
         {isBookmark === true ? (
