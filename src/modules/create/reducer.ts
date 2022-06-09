@@ -20,7 +20,7 @@ import {
 } from './types';
 
 const initialCreateStates: CreateStates = {
-  addr: '',
+  address: '',
   category: 'ALL',
   link: 'http://',
   place: '',
