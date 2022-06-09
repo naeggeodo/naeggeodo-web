@@ -10,7 +10,7 @@ import { PatchBuildingCodeResponse } from './types';
 const initialPostCodeState: PatchBuildingCodeResponse = {
   address: '',
   buildingCode: '',
-  id: '',
+  user_id: '',
   zonecode: '',
   apartment: '',
 };
@@ -23,7 +23,7 @@ export const postCodeState = createReducer<PatchBuildingCodeResponse>(
       address: action.payload.response.address,
       buildingCode: action.payload.response.buildingCode,
       zonecode: action.payload.response.zonecode,
-      id: action.payload.response.id,
+      user_id: action.payload.response.user_id,
       apartment: action.payload.apartment,
     }),
     [GET_BUILDING_CODE_SUCCESS]: (state, action) => ({
@@ -32,6 +32,7 @@ export const postCodeState = createReducer<PatchBuildingCodeResponse>(
       buildingCode: action.payload.response.buildingCode,
       zonecode: action.payload.response.zonecode,
       apartment: action.payload.apartment,
+      user_id: action.payload.user_id,
     }),
     [SAVE_APARTMENT_ADDRESS]: (state, action: SaveApartmentAddressAction) => ({
       ...state,

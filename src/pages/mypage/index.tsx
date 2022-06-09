@@ -4,6 +4,7 @@ import { END } from 'redux-saga';
 import MypageTemplate from '../../components/mypage/MypageTemplate';
 import { wrapper } from '../../modules';
 import { axiosInstance } from '../../service/api';
+import { createCustomHeader } from '../../utils/createCustomHeader';
 import { saveCookies } from '../../utils/saveCookies';
 
 const Mypage = () => {
@@ -14,17 +15,12 @@ export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
     saveCookies(store, context);
 
-    const customHeader = (accessToken) => {
-      return {
-        Authorization: `Bearer ${accessToken}`,
-      };
-    };
     axiosInstance.interceptors.request.use(
       async function (config) {
         try {
           const allCookies = cookies(context);
           const accessToken = allCookies.accessToken;
-          config.headers = customHeader(accessToken);
+          config.headers = createCustomHeader(accessToken);
           return config;
         } catch (error) {
           console.log(error);

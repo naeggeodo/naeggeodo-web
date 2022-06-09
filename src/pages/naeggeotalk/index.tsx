@@ -6,6 +6,7 @@ import NaeggeotalkTemplate from '../../components/naeggeotalk/NaeggeotalkTemplat
 import { wrapper } from '../../modules';
 import { getNaeggeotalkListActions } from '../../modules/naeggeotalk/actions';
 import { axiosInstance } from '../../service/api';
+import { createCustomHeader } from '../../utils/createCustomHeader';
 
 const naeggeotalk = () => {
   return <NaeggeotalkTemplate />;
@@ -13,18 +14,12 @@ const naeggeotalk = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
-    const customHeader = (accessToken) => {
-      return {
-        Authorization: `Bearer ${accessToken}`,
-      };
-    };
-
     axiosInstance.interceptors.request.use(
       async function (config) {
         try {
           const allCookies = cookies(context);
           const accessToken = allCookies.accessToken;
-          config.headers = customHeader(accessToken);
+          config.headers = createCustomHeader(accessToken);
           return config;
         } catch (error) {
           console.log(error);
