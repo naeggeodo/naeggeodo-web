@@ -15,6 +15,7 @@ import { useCheckValidate } from '../../hooks/useCheckValidate';
 import { getBuildingCodeRequest } from '../../modules/search-post-code/actions';
 import { TOKEN_NAME } from '../../constant/Login';
 import NoItemText from './NoItemText';
+import { useLoadLoginStates } from '../../hooks/auth/useLoadLoginStates';
 
 const MainTemplate = ({
   foodCategories,
@@ -27,6 +28,7 @@ const MainTemplate = ({
     useCheckValidate();
   const [skip, setSkip] = useState(0);
   const [dataList, setDataList] = useState([]);
+  const { user_id, accessToken } = useLoadLoginStates();
 
   const target = useRef<HTMLDivElement>(null);
   const chatRooms = useSelector(
@@ -70,12 +72,10 @@ const MainTemplate = ({
   };
 
   useEffect(() => {
-    if (localStorage.getItem(TOKEN_NAME.ACCESS_TOKEN)) {
-      dispatch(
-        getBuildingCodeRequest(JSON.parse(localStorage.getItem('user')).id),
-      );
+    if (accessToken) {
+      dispatch(getBuildingCodeRequest(user_id));
     }
-  }, [dispatch]);
+  }, [dispatch, user_id, accessToken]);
 
   return (
     <Container>

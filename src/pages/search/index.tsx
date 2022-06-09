@@ -6,6 +6,7 @@ import SearchTemplate from '../../components/search/SearchTemplate';
 import { wrapper } from '../../modules';
 import { getSearchTagListActions } from '../../modules/search/actions';
 import { axiosInstance } from '../../service/api';
+import { createCustomHeader } from '../../utils/createCustomHeader';
 
 const Search = () => {
   return <SearchTemplate />;
@@ -13,18 +14,12 @@ const Search = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
-    const customHeader = (accessToken) => {
-      return {
-        Authorization: `Bearer ${accessToken}`,
-      };
-    };
-
     axiosInstance.interceptors.request.use(
       async function (config) {
         try {
           const allCookies = cookies(context);
           const accessToken = allCookies.accessToken;
-          config.headers = customHeader(accessToken);
+          config.headers = createCustomHeader(accessToken);
           return config;
         } catch (error) {
           console.log(error);
