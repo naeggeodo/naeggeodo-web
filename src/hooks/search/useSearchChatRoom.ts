@@ -37,15 +37,16 @@ export function useSearchChatRoom(dispatch: Dispatch, router: NextRouter) {
     (e) => {
       const target = e.target as HTMLButtonElement;
       const searchValue = target.getAttribute('data-value');
+      console.log(searchValue);
 
       router.push({
         pathname: '/search',
         query: {
-          tag: searchValue,
+          tag: encodeURI(searchValue),
         },
       });
     },
-    [dispatch],
+    [dispatch, router],
   );
 
   const getSearchListByInput = useCallback<
@@ -54,14 +55,13 @@ export function useSearchChatRoom(dispatch: Dispatch, router: NextRouter) {
     (e) => {
       e.preventDefault();
       router.push({
-        pathname: '/search/tag',
+        pathname: '/search',
         query: {
-          keyword: searchValue,
+          keyword: encodeURI(searchValue),
         },
       });
-      // dispatch(getResultByInputActions.request(keyWord));
     },
-    [dispatch, searchValue],
+    [dispatch, searchValue, router],
   );
 
   return {

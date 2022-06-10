@@ -1,4 +1,4 @@
-import { ApiService, CsrApiService } from '..';
+import { ApiService } from '..';
 
 export default class SearchService {
   static async asyncGetSearchTags() {
@@ -14,10 +14,6 @@ export default class SearchService {
   }
 
   static async asyncGetSearchResultByInput(keyWord: string) {
-    try {
-      return CsrApiService.getApi(`/chat-rooms/search/${keyWord}`);
-    } catch (err) {
-      console.log(err);
-    }
+    return ApiService.getApi(`/chat-rooms/search?keyWord=${keyWord}`);
   }
 }

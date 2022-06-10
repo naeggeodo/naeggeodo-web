@@ -4,6 +4,7 @@ import { END } from 'redux-saga';
 import SearchTemplate from '../../components/search/SearchTemplate';
 import { wrapper } from '../../modules';
 import {
+  getResultByInputActions,
   getResultByTagActions,
   getSearchTagListActions,
 } from '../../modules/search/actions';
@@ -19,9 +20,15 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
     store.dispatch(getSearchTagListActions.request());
 
-    console.log(context.query.tag, 'wayen');
-
-    store.dispatch(getResultByTagActions.request(context.query.tag as string));
+    if (context.query.tag) {
+      store.dispatch(
+        getResultByTagActions.request(decodeURI(context.query.tag as string)),
+      );
+    } else if (context.query.keyword) {
+      store.dispatch(
+        getResultByInputActions.request(context.query.keyword as string),
+      );
+    }
 
     store.dispatch(END);
     await store.sagaTask.toPromise();
