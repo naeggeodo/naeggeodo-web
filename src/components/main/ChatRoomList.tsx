@@ -10,7 +10,8 @@ const ChatRoomList = () => {
   const chatRooms = useSelector(
     (state: RootState) => state.mainPageState.chatRooms,
   );
-  const { target, dataList } = useInfiniteScroll(chatRooms);
+  const { target, dataList } =
+    useInfiniteScroll<ChatRoomItemResponse>(chatRooms);
 
   return (
     <Container>
