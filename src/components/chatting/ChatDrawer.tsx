@@ -1,5 +1,9 @@
+import { CompatClient } from '@stomp/stompjs';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import styled, { css } from 'styled-components';
+import { useSelectLoginStates } from '../../hooks/select/useSelectLoginStates';
+import { useChat } from '../../hooks/useChat';
 
 type StyledType = {
   isMe?: boolean;
@@ -7,13 +11,25 @@ type StyledType = {
 };
 
 type PropsType = {
+  stompClient: CompatClient;
   setIsDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
   isDrawerOpen: boolean;
 };
 
-const ChatDrawer = ({ setIsDrawerOpen, isDrawerOpen }: PropsType) => {
-  const closeDrawer = () => {
-    setIsDrawerOpen(false);
+const ChatDrawer = ({
+  stompClient,
+  setIsDrawerOpen,
+  isDrawerOpen,
+}: PropsType) => {
+  const router = useRouter();
+  const { user_id } = useSelectLoginStates();
+  // const closeDrawer = () => {
+  //   setIsDrawerOpen(false);
+  // };
+  const { exitChatRoom } = useChat();
+
+  const onExit = () => {
+    exitChatRoom(stompClient, router.query.id as string, user_id);
   };
 
   return (
@@ -73,7 +89,7 @@ const ChatDrawer = ({ setIsDrawerOpen, isDrawerOpen }: PropsType) => {
         </div>
       </Content>
       <Footer>
-        <Button onClick={closeDrawer}>
+        <Button onClick={onExit}>
           <Image
             src='/assets/images/drawerclosebtn.svg'
             width={20}

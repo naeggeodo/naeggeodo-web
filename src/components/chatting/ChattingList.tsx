@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ChatItem from '../chatting/ChatItem';
 import MyChatItem from '../chatting/MyChatItem';
 import { PreviousChattingItem } from '../../modules/chatting/types';
@@ -11,7 +11,9 @@ const ChattingList = ({
   messageList: PreviousChattingItem[];
 }) => {
   const { user_id } = useSelectLoginStates();
-
+  useEffect(() => {
+    console.log(messageList);
+  }, [messageList]);
   return (
     <>
       {messageList &&

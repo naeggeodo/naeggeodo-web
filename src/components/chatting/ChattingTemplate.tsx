@@ -53,7 +53,7 @@ const ChattingTemplate = () => {
     if (!stompClient.connected) {
       connect(
         stompClient,
-        String(router.query.id),
+        router.query.id as string,
         messageList,
         setMessageList,
       );
@@ -74,6 +74,7 @@ const ChattingTemplate = () => {
       {/* <QuickMessageComp stompClient={stompClient} /> */}
       <SubmitForm stompClient={stompClient} />
       <ChatDrawer
+        stompClient={stompClient}
         isDrawerOpen={isDrawerOpen}
         setIsDrawerOpen={setIsDrawerOpen}
       />
