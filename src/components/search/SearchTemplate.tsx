@@ -12,9 +12,10 @@ import {
 import palette from '../../styles/palette';
 import SearchTag from './SearchTag';
 import SearchResultList from './SearchResultList';
+import { useLoadLib } from '../../hooks/utils/useLoadLib';
 
 const SearchTemplate = () => {
-  const dispatch = useDispatch();
+  const { router, dispatch } = useLoadLib();
   const tags = useSelector(
     (state: RootState) => state.searchPageState?.searchTagList?.tags,
   );
@@ -35,7 +36,7 @@ const SearchTemplate = () => {
       e.preventDefault();
       dispatch(getResultByInputActions.request(keyWord));
     },
-    [dispatch],
+    [dispatch, keyWord],
   );
 
   const getSearchListByTag = useCallback<
@@ -43,7 +44,14 @@ const SearchTemplate = () => {
   >(
     (e) => {
       const target = e.target as HTMLButtonElement;
-      dispatch(getResultByTagActions.request(target.innerText));
+      const searchValue = target.getAttribute('data-value');
+
+      router.push({
+        pathname: '/search',
+        query: {
+          keyword: searchValue,
+        },
+      });
     },
     [dispatch],
   );

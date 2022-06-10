@@ -11,7 +11,7 @@ export default class SearchService {
 
   static async asyncGetSearchResultByTag(tag: string) {
     try {
-      return CsrApiService.getApi(`/chat-rooms/tag/${tag}`);
+      return ApiService.getApi(`/chat-rooms/tag/${tag}`);
     } catch (err) {
       console.log(err);
     }

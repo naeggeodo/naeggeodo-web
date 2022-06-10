@@ -3,7 +3,10 @@ import { END } from 'redux-saga';
 
 import SearchTemplate from '../../components/search/SearchTemplate';
 import { wrapper } from '../../modules';
-import { getSearchTagListActions } from '../../modules/search/actions';
+import {
+  getResultByTagActions,
+  getSearchTagListActions,
+} from '../../modules/search/actions';
 
 const Search = () => {
   return <SearchTemplate />;
@@ -11,7 +14,13 @@ const Search = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
+    const keyword = encodeURI(context.query.keyword as string);
+
     store.dispatch(getSearchTagListActions.request());
+
+    store.dispatch(getResultByTagActions.request(keyword));
+
+    console.log(typeof context.query.keyword, 'wayne');
 
     store.dispatch(END);
     await store.sagaTask.toPromise();
