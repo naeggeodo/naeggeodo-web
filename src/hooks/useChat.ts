@@ -41,7 +41,7 @@ export function useChat() {
   //   });
   // };
 
-  function enter(stompClient) {
+  function enter(stompClient: CompatClient) {
     const data = {
       chatMain_id: router.query.id,
       sender: user_id,
@@ -72,22 +72,14 @@ export function useChat() {
           (data) => {
             const newMessage = JSON.parse(data.body);
             const messageType: MessageDataType = JSON.parse(data.body).type;
-
             const body = {
-              chatMain_id: 0,
+              chatMain_id: newMessage.chatMain_id,
               contents: `${newMessage.sender}${newMessage.contents}`,
-              id: 0,
-              idx: 0,
               regDate: DateFormatter.getNowDate(),
-              type: 'WELCOME',
+              type: newMessage.type,
               user_id: newMessage.sender,
             };
-
-            if (messageType === 'CNT') return;
-            else if (messageType === 'WELCOME') {
-              setMessageList([...messageList, body]);
-            }
-            console.log(messageList);
+            setMessageList([...messageList, body]);
           },
           {
             chatMain_id: roomId,
@@ -111,9 +103,24 @@ export function useChat() {
     stompClient.disconnect();
   };
 
+  const exitChatRoom = (
+    stompClient: CompatClient,
+    chatMain_id: string,
+    userId: string,
+  ) => {
+    const data = {
+      chatMain_id: chatMain_id,
+      sender: userId,
+      contents: '님이 퇴장하셨습니다.',
+      type: 'EXIT',
+    };
+    stompClient.send('/app/chat/exit', {}, JSON.stringify(data));
+  };
+
   return {
     connect,
     disconnect,
     onSendMessage,
+    exitChatRoom,
   };
 }

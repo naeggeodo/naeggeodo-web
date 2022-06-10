@@ -6,11 +6,14 @@ import {
   getCurrentChatRoomAsyncActions,
   getCurrentChatUserListActions,
 } from '../../modules/chatting/actions';
+import { saveCookies } from '../../utils/saveCookies';
 
 const checkDeposit = () => <CheckDepositTemplate />;
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
+    saveCookies(store, context);
+
     store.dispatch(
       getCurrentChatUserListActions.request({
         chattingRoomId: String(context.params.id),
