@@ -16,6 +16,7 @@ import ChatDrawer from './ChatDrawer';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../modules';
 import ChattingList from './ChattingList';
+import { useRouter } from 'next/router';
 
 const ChattingTemplate = ({
   previousChatting,
@@ -24,6 +25,7 @@ const ChattingTemplate = ({
 }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const chatListDivRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
   const { chatRoomInfo } = useSelector(
     (state: RootState) => state.chattingRoomState,
@@ -44,13 +46,13 @@ const ChattingTemplate = ({
       behavior: 'smooth',
     });
     if (!stompClient.connected) {
-      connect(stompClient, '2', setMessageList);
+      connect(stompClient, router.query.id as string, setMessageList);
     }
     return () => disconnect(stompClient);
   }, [messageList]);
 
   return (
-    <Wrap>
+    <Container>
       <Header isDrawerOpen={isDrawerOpen} setIsDrawerOpen={setIsDrawerOpen} />
       {chatRoomInfo.state !== 'END' && <GoInfoBtn />}
       <Content ref={chatListDivRef}>
@@ -64,13 +66,11 @@ const ChattingTemplate = ({
         isDrawerOpen={isDrawerOpen}
         setIsDrawerOpen={setIsDrawerOpen}
       />
-    </Wrap>
+    </Container>
   );
 };
 
-export default ChattingTemplate;
-
-const Wrap = styled.div`
+const Container = styled.div`
   width: 100vw;
   height: 100vh;
 
@@ -102,3 +102,4 @@ const Content = styled.div`
     display: none;
   }
 `;
+export default ChattingTemplate;
