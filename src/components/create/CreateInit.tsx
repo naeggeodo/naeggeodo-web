@@ -6,8 +6,9 @@ import { useLoadLib } from '../../hooks/utils/useLoadLib';
 import { RootState } from '../../modules';
 import { ButtonValue, OrderTimeType } from '../../modules/create/types';
 import { selectOrderTimeType } from '../../modules/create/actions';
-import OrderTimeTypeButton from './OrderTimeTypeButton';
+
 import { openLoginModal } from '../../modules/modal/actions';
+import OrderTimeTypeButton from './OrderTimeTypeButton';
 
 const buttonValue: ButtonValue[] = [
   {

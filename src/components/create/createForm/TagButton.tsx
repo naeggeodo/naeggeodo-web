@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 import styled from 'styled-components';
-import palette from '../../styles/palette';
+import palette from '../../../styles/palette';
 
 interface Props {
   dataValue?: number;

@@ -1,7 +1,7 @@
 import { ComponentMeta } from '@storybook/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '../../../modules';
-import CreateForm from '../CreateForm';
+import CreateForm from '../createForm/CreateForm';
 
 export default {
   title: 'create/페이지',

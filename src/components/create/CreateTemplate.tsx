@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../modules';
 import LoginModal from '../login/LoginModalTemplate';
 import TabMenu from '../main/TabMenu';
-import CreateDetails from './CreateDetails';
+import CreateDetails from './createForm/CreateDetails';
 import CreateInit from './CreateInit';
 
 const CreateTemplate = () => {
