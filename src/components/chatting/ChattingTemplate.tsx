@@ -39,6 +39,13 @@ const ChattingTemplate = () => {
   const socket = new SockJS(`${process.env.NEXT_PUBLIC_API_URL}/chat`);
   const stompClient = Stomp.over(socket);
 
+  function load() {
+    ChattingService.asyncGetPreviousChattingList(
+      '2',
+      'fm0pjVuB1UjMDHPkm19S7jcG2GnQbdEroLcq8weWOEs',
+    );
+  }
+
   useEffect(() => {
     chatListDivRef.current.scroll({
       top: scrollRef.current.offsetTop,
@@ -59,12 +66,13 @@ const ChattingTemplate = () => {
 
   return (
     <Container>
-      {/* <Header
-        chatRoomInfo={chatRoomInfo}
+      <button onClick={load}></button>
+      <Header
         isDrawerOpen={isDrawerOpen}
         setIsDrawerOpen={setIsDrawerOpen}
-      /> */}
-      {chatRoomInfo?.state !== 'END' && <GoInfoBtn />}
+        chatRoomInfo={chatRoomInfo}
+      />
+      {chatRoomInfo.state !== 'END' && <GoInfoBtn />}
       <Content ref={chatListDivRef}>
         {/* <ChattingList messageList={previousChatting.messages} /> */}
         <ChattingList messageList={messageList} />
