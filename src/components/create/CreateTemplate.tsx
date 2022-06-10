@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../modules';
 import LoginModal from '../login/LoginModalTemplate';
 import TabMenu from '../main/TabMenu';
+import CreateDetails from './CreateDetails';
 import CreateInit from './CreateInit';
 
 const CreateTemplate = () => {
@@ -10,9 +11,13 @@ const CreateTemplate = () => {
     (state: RootState) => state.modalStates.loginModalIsClicked,
   );
 
+  const { orderTimeType } = useSelector(
+    (state: RootState) => state.createStates,
+  );
+
   return (
     <>
-      <CreateInit />
+      {orderTimeType ? <CreateDetails /> : <CreateInit />}
       {loginModalIsClicked && <LoginModal />}
       <TabMenu />
     </>

@@ -1,5 +1,11 @@
 import Image from 'next/image';
-import { FormEvent, PointerEvent, useCallback, useState } from 'react';
+import {
+  ChangeEvent,
+  FormEvent,
+  PointerEvent,
+  useCallback,
+  useState,
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
@@ -28,6 +34,10 @@ const SearchTemplate = () => {
 
   const [keyWord, setKeyWord] = useState('');
 
+  const onChaneInput = (e: ChangeEvent<HTMLInputElement>) => {
+    setKeyWord(e.target.value);
+  };
+
   const getSearchListByInput = useCallback<
     (e: FormEvent<HTMLFormElement>) => void
   >(
@@ -35,7 +45,7 @@ const SearchTemplate = () => {
       e.preventDefault();
       dispatch(getResultByInputActions.request(keyWord));
     },
-    [dispatch],
+    [dispatch, keyWord],
   );
 
   const getSearchListByTag = useCallback<
@@ -64,9 +74,7 @@ const SearchTemplate = () => {
             type='text'
             value={keyWord}
             placeholder='검색어를 입력해주세요'
-            onChange={(e) => {
-              setKeyWord(e.target.value);
-            }}
+            onChange={onChaneInput}
           />
         </SearchForm>
         {searchResultList && searchResultList.chatRoom.length > 0 ? (
