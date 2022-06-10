@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import { FormEvent, useCallback } from 'react';
 import styled from 'styled-components';
 import palette from '../../styles/palette';
 

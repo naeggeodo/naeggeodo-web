@@ -25,6 +25,7 @@ function* getResultByTagGenerator(
 ) {
   try {
     yield put(selectSearchTag(action.payload));
+
     const { data }: { data: SearchResultListResponse } = yield call(
       SearchService.asyncGetSearchResultByTag,
       action.payload,

@@ -41,7 +41,7 @@ export function useSearchChatRoom(dispatch: Dispatch, router: NextRouter) {
       router.push({
         pathname: '/search',
         query: {
-          keyword: searchValue,
+          tag: searchValue,
         },
       });
     },

@@ -10,11 +10,7 @@ export default class SearchService {
   }
 
   static async asyncGetSearchResultByTag(tag: string) {
-    try {
-      return ApiService.getApi(`/chat-rooms/tag/${tag}`);
-    } catch (err) {
-      console.log(err);
-    }
+    return ApiService.getApi(`/chat-rooms/tag?keyWord=${encodeURI(tag)}`);
   }
 
   static async asyncGetSearchResultByInput(keyWord: string) {

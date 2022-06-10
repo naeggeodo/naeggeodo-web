@@ -7,6 +7,7 @@ import {
   getResultByTagActions,
   getSearchTagListActions,
 } from '../../modules/search/actions';
+import { saveCookies } from '../../utils/saveCookies';
 
 const Search = () => {
   return <SearchTemplate />;
@@ -14,13 +15,13 @@ const Search = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
-    const keyword = encodeURI(context.query.keyword as string);
+    saveCookies(store, context);
 
     store.dispatch(getSearchTagListActions.request());
 
-    store.dispatch(getResultByTagActions.request(keyword));
+    console.log(context.query.tag, 'wayen');
 
-    console.log(typeof context.query.keyword, 'wayne');
+    store.dispatch(getResultByTagActions.request(context.query.tag as string));
 
     store.dispatch(END);
     await store.sagaTask.toPromise();
