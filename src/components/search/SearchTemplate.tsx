@@ -1,60 +1,26 @@
 import Image from 'next/image';
-import { FormEvent, PointerEvent, useCallback, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { FormEvent, useCallback } from 'react';
 import styled from 'styled-components';
+import palette from '../../styles/palette';
 
 import TabMenu from '../../components/main/TabMenu';
-import { RootState } from '../../modules';
-import {
-  getResultByInputActions,
-  getResultByTagActions,
-} from '../../modules/search/actions';
-import palette from '../../styles/palette';
 import SearchTag from './SearchTag';
 import SearchResultList from './SearchResultList';
+
 import { useLoadLib } from '../../hooks/utils/useLoadLib';
+import { useSearchChatRoom } from '../../hooks/search/useSearchChatRoom';
 
 const SearchTemplate = () => {
   const { router, dispatch } = useLoadLib();
-  const tags = useSelector(
-    (state: RootState) => state.searchPageState?.searchTagList?.tags,
-  );
-
-  const { searchResultList } = useSelector(
-    (state: RootState) => state.searchPageState,
-  );
-  const selected = useSelector(
-    (state: RootState) => state.searchPageState.selected,
-  );
-
-  const [keyWord, setKeyWord] = useState('');
-
-  const getSearchListByInput = useCallback<
-    (e: FormEvent<HTMLFormElement>) => void
-  >(
-    (e) => {
-      e.preventDefault();
-      dispatch(getResultByInputActions.request(keyWord));
-    },
-    [dispatch, keyWord],
-  );
-
-  const getSearchListByTag = useCallback<
-    (e: PointerEvent<HTMLButtonElement>) => void
-  >(
-    (e) => {
-      const target = e.target as HTMLButtonElement;
-      const searchValue = target.getAttribute('data-value');
-
-      router.push({
-        pathname: '/search',
-        query: {
-          keyword: searchValue,
-        },
-      });
-    },
-    [dispatch],
-  );
+  const {
+    searchValue,
+    handleChangeSearchValue,
+    getSearchListByTag,
+    getSearchListByInput,
+    tags,
+    searchResultList,
+    selected,
+  } = useSearchChatRoom(dispatch, router);
 
   return (
     <>
@@ -70,11 +36,9 @@ const SearchTemplate = () => {
           </Button>
           <Input
             type='text'
-            value={keyWord}
+            value={searchValue}
             placeholder='검색어를 입력해주세요'
-            onChange={(e) => {
-              setKeyWord(e.target.value);
-            }}
+            onChange={handleChangeSearchValue}
           />
         </SearchForm>
         {searchResultList && searchResultList.chatRoom.length > 0 ? (
