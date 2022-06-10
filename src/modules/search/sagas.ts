@@ -37,7 +37,7 @@ function* getResultByTagGenerator(
 }
 
 function* getResultByInputGenerator(
-  action: ReturnType<typeof getResultByTagActions.request>,
+  action: ReturnType<typeof getResultByInputActions.request>,
 ) {
   try {
     const { data } = yield call(

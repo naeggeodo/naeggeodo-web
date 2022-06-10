@@ -39,27 +39,6 @@ const ChatDrawer = ({ setIsDrawerOpen, isDrawerOpen }: PropsType) => {
             </NextButton>
           </SubTitle>
           <ImageList>
-            <StyledImage
-              src='/assets/images/pizzabg.svg'
-              width={55}
-              height={55}
-              alt='이미지'
-              objectFit='contain'
-            />
-            <Image
-              src='/assets/images/pizzabg.svg'
-              width={55}
-              height={55}
-              alt='이미지'
-              objectFit='contain'
-            />
-            <Image
-              src='/assets/images/pizzabg.svg'
-              width={55}
-              height={55}
-              alt='이미지'
-              objectFit='contain'
-            />
             <Image
               src='/assets/images/pizzabg.svg'
               width={55}

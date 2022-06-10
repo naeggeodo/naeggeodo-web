@@ -45,7 +45,6 @@ const CreateInit = () => {
         ) as OrderTimeType;
 
         dispatch(selectOrderTimeType(orderTimeType));
-        router.push('/create/details');
       }
     },
     [dispatch, router],
