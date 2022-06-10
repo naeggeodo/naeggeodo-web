@@ -1,15 +1,4 @@
 import Image from 'next/image';
-<<<<<<< HEAD
-=======
-import {
-  ChangeEvent,
-  FormEvent,
-  PointerEvent,
-  useCallback,
-  useState,
-} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
->>>>>>> 51e45010a4818081a4eafabd908888b49ed47ab8
 import styled from 'styled-components';
 import palette from '../../styles/palette';
 
