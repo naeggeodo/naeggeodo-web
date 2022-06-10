@@ -7,10 +7,13 @@ import {
   getPreviousChattingListActions,
   getQuickChattingListActions,
 } from '../../modules/chatting/actions';
-import { PreviousChattingListResponse } from '../../modules/chatting/types';
 import { saveCookies } from '../../utils/saveCookies';
+import { useEffect } from 'react';
 
-const chatting = ({}: {}) => {
+const chatting = ({ previousChatting }: { previousChatting: any }) => {
+  useEffect(() => {
+    console.log(previousChatting, 'asdf');
+  }, []);
   return <ChattingTemplate />;
 };
 

@@ -5,7 +5,6 @@ import styled from 'styled-components';
 
 import palette from '../../styles/palette';
 import { RootState } from '../../modules';
-import CheckDepositService from '../../service/api/check-deposit/CheckDepositService';
 import axios from 'axios';
 import { useSelectLoginStates } from '../../hooks/select/useSelectLoginStates';
 
