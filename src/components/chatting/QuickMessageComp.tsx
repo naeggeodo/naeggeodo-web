@@ -9,6 +9,8 @@ import { useSlideMessage } from '../../hooks/useSlideMessage';
 import palette from '../../styles/palette';
 import { RootState } from '../../modules';
 import { QuickChattingListResponse } from '../../modules/chatting/types';
+import { useRouter } from 'next/router';
+import { useSelectLoginStates } from '../../hooks/select/useSelectLoginStates';
 
 const QuickMessageComp = ({ stompClient }: { stompClient: CompatClient }) => {
   const target = useRef<HTMLDivElement>(null);
@@ -16,10 +18,12 @@ const QuickMessageComp = ({ stompClient }: { stompClient: CompatClient }) => {
 
   const { onSendMessage } = useChat();
   const { slideEvent, slideDown } = useSlideMessage();
+  const router = useRouter();
 
   const quickChatList: QuickChattingListResponse = useSelector(
     (state: RootState) => state.chattingRoomState.quickChatList,
   );
+  const { user_id } = useSelectLoginStates();
 
   useEffect(() => {
     slideEvent(slideBar, target);
@@ -30,8 +34,8 @@ const QuickMessageComp = ({ stompClient }: { stompClient: CompatClient }) => {
   ) => {
     const clickTarget = e.target as HTMLParagraphElement;
     const data = {
-      chatMain_id: '2',
-      sender: '1',
+      chatMain_id: String(router.query.id),
+      sender: user_id,
       contents: clickTarget.innerHTML,
       type: 'TEXT',
     };

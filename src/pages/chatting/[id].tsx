@@ -1,6 +1,6 @@
 import { END } from 'redux-saga';
 
-import { wrapper } from '../../modules';
+import { RootState, wrapper } from '../../modules';
 import ChattingTemplate from '../../components/chatting/ChattingTemplate';
 import {
   getCurrentChatRoomAsyncActions,
@@ -8,6 +8,7 @@ import {
   getQuickChattingListActions,
 } from '../../modules/chatting/actions';
 import { PreviousChattingListResponse } from '../../modules/chatting/types';
+import { saveCookies } from '../../utils/saveCookies';
 
 const chatting = ({
   previousChatting,
@@ -19,6 +20,11 @@ const chatting = ({
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
+    saveCookies(store, context);
+
+    const rootState: RootState = store.getState();
+    const user_id = rootState.loginState.user_id;
+
     store.dispatch(
       getCurrentChatRoomAsyncActions.request({
         chattingRoomId: context.params.id as string,
@@ -27,7 +33,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     store.dispatch(
       getPreviousChattingListActions.request({
         chattingRoomId: context.params.id as string,
-        userId: '1',
+        userId: user_id,
       }),
     );
 

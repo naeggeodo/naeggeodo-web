@@ -3,11 +3,15 @@ import styled from 'styled-components';
 import { CompatClient } from '@stomp/stompjs';
 import Image from 'next/image';
 import { useChat } from '../../hooks/useChat';
+import { useRouter } from 'next/router';
+import { useSelectLoginStates } from '../../hooks/select/useSelectLoginStates';
 
 const SubmitForm = ({ stompClient }: { stompClient: CompatClient }) => {
   const { onSendMessage } = useChat();
 
   const [message, setMessage] = useState('');
+  const router = useRouter();
+  const { user_id } = useSelectLoginStates();
 
   const sendMessage = useCallback<
     (e: React.FormEvent<HTMLFormElement>) => void
@@ -18,8 +22,8 @@ const SubmitForm = ({ stompClient }: { stompClient: CompatClient }) => {
       if (!message) return;
 
       const data = {
-        chatMain_id: '2',
-        sender: '1',
+        chatMain_id: String(router.query.id),
+        sender: user_id,
         contents: message,
         type: 'TEXT',
       };
@@ -40,8 +44,8 @@ const SubmitForm = ({ stompClient }: { stompClient: CompatClient }) => {
       const result = e.target.result;
 
       const data = {
-        chatMain_id: '2',
-        sender: '1',
+        chatMain_id: String(router.query.id),
+        sender: user_id,
         contents: result as string,
         type: 'TEXT',
       };
