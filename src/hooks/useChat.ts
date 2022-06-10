@@ -53,6 +53,7 @@ export function useChat() {
   }
 
   const connect = (
+    socket: any,
     stompClient: CompatClient,
     roomId: string,
     messageList: PreviousChattingItem[],
@@ -67,6 +68,10 @@ export function useChat() {
         Authorization: `Bearer ${accessToken}`,
       },
       () => {
+        const sessionId = /\/([^\/]+)\/websocket/.exec(
+          socket._transport.url,
+        )[1];
+
         stompClient.subscribe(
           `/topic/${roomId}`,
           (data) => {
@@ -85,6 +90,12 @@ export function useChat() {
             chatMain_id: roomId,
           },
         );
+        stompClient.subscribe(`/user/queue/${sessionId}`, () => {
+          // TODO quick채팅 업데이트
+          // TODO 강퇴할 때
+          // TODO alert할 때
+        });
+
         enter(stompClient);
       },
     );

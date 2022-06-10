@@ -33,16 +33,11 @@ const ChattingTemplate = () => {
   const [messageList, setMessageList] = useState<PreviousChattingItem[]>([]);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-  const stompClient = Stomp.over(
-    () => new SockJS(`${process.env.NEXT_PUBLIC_API_URL}/chat`),
-  );
-
-  function load() {
-    ChattingService.asyncGetPreviousChattingList(
-      '2',
-      'fm0pjVuB1UjMDHPkm19S7jcG2GnQbdEroLcq8weWOEs',
-    );
-  }
+  // const stompClient = Stomp.over(
+  //   () => new SockJS(`${process.env.NEXT_PUBLIC_API_URL}/chat`),
+  // );
+  const socket = new SockJS(`${process.env.NEXT_PUBLIC_API_URL}/chat`);
+  const stompClient = Stomp.over(socket);
 
   useEffect(() => {
     chatListDivRef.current.scroll({
@@ -52,6 +47,7 @@ const ChattingTemplate = () => {
 
     if (!stompClient.connected) {
       connect(
+        socket,
         stompClient,
         router.query.id as string,
         messageList,
@@ -63,7 +59,6 @@ const ChattingTemplate = () => {
 
   return (
     <Container>
-      <button onClick={load}></button>
       <Header isDrawerOpen={isDrawerOpen} setIsDrawerOpen={setIsDrawerOpen} />
       {chatRoomInfo.state !== 'END' && <GoInfoBtn />}
       <Content ref={chatListDivRef}>
