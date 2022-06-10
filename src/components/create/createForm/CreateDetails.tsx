@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import CreateForm from './CreateForm';
-import CreateTabMenu from './CreateTabMenu';
-import PrevCreatedList from './PrevCreatedList';
+import CreateTabMenu from '../CreateTabMenu';
+import PrevCreatedList from '../PrevCreatedList';
 
 const CreateDetails = () => {
   const [isShowCreateForm, setIsShowCreateForm] = useState(true);

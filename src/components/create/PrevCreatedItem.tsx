@@ -28,6 +28,7 @@ const PrevCreatedItem = ({
   );
 
   const onSelect = () => {
+    console.log(data);
     setSelectItem(data);
   };
 

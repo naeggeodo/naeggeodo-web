@@ -10,7 +10,6 @@ function* createChatRoomGenerator(
     CreateService.asyncCreateChatRoom,
     action.payload,
   );
-  console.log(data);
   yield put(createChatRoomActions.success(data));
 }
 

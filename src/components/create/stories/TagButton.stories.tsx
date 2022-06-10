@@ -1,7 +1,7 @@
 import { ComponentMeta } from '@storybook/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '../../../modules';
-import TagButton from '../TagButton';
+import TagButton from '../createForm/TagButton';
 
 export default {
   title: 'create/컴포넌트',
