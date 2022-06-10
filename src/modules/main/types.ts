@@ -1,3 +1,5 @@
+import { OrderTimeType } from '../create/types';
+
 export type Category =
   | 'ALL'
   | 'CHICKEN'
@@ -26,14 +28,16 @@ export interface CategoriesResponse {
 
 export interface ChatRoomItemResponse {
   address: string | null;
-  endDate: string | null;
   buildingCode: string;
   link: string | null;
+  orderTimeType: OrderTimeType;
   title: string;
   maxCount: number;
+  tags: string[];
   user_id: string;
   imgPath: string;
   currentCount: number;
+  endDate: string | null;
   id: number;
   state: 'CREATE' | 'PROGRESS' | 'END' | 'FULL';
   place: string;
@@ -50,4 +54,5 @@ export type ChatRoomItemProps = {
   createDate: string;
   link: string;
   id: number;
+  orderTimeType: OrderTimeType;
 };

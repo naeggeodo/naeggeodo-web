@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 
-export function useInfiniteScroll(data: any) {
+export function useInfiniteScroll<T>(data: T[]) {
   const limit = 5;
   const target = useRef<HTMLDivElement>(null);
 
   const [skip, setSkip] = useState(0);
-  const [dataList, setDataList] = useState([]);
+  const [dataList, setDataList] = useState<T[]>([]);
 
   useEffect(() => {
     if (data) {

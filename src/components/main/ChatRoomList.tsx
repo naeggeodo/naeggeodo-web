@@ -3,16 +3,18 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { useInfiniteScroll } from '../../hooks/reder/useInfiniteScroll';
 import { RootState } from '../../modules';
+import { ChatRoomItemResponse } from '../../modules/main/types';
 import ChatRoomItem from './ChatRoomItem';
 
 const ChatRoomList = () => {
   const chatRooms = useSelector(
     (state: RootState) => state.mainPageState.chatRooms,
   );
-  const { target, dataList } = useInfiniteScroll(chatRooms);
+  const { target, dataList } =
+    useInfiniteScroll<ChatRoomItemResponse>(chatRooms);
 
   return (
-    <Wrap>
+    <Container>
       {dataList.map((item) => (
         <ChatRoomItem
           id={item.id}
@@ -22,15 +24,17 @@ const ChatRoomList = () => {
           maxCount={item.maxCount}
           currentCount={item.currentCount}
           createDate={item.createDate}
+          orderTimeType={item.orderTimeType}
         />
       ))}
       <div ref={target}></div>
-    </Wrap>
+    </Container>
   );
 };
 
-export default ChatRoomList;
-const Wrap = styled.div`
+const Container = styled.div`
   padding: 10px 16px 50px;
   background-color: #ffffff;
 `;
+
+export default React.memo(ChatRoomList);
