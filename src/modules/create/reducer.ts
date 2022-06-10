@@ -9,7 +9,6 @@ import {
   SELECT_ORDER_TIME_TYPE,
   SELECT_CATEGORY,
   CREATE_CHAT_ROOM_SUCCESS,
-  SET_CREATE_CHAT_ROOM_BODY,
 } from './actions';
 import {
   CreateStates,
@@ -85,18 +84,5 @@ export const createStates = createReducer<CreateStates>(initialCreateStates, {
   },
   [CREATE_CHAT_ROOM_SUCCESS]: (state, action) => {
     return { ...state };
-  },
-  [SET_CREATE_CHAT_ROOM_BODY]: (state, action) => {
-    return {
-      ...state,
-      address: action.payload.address,
-      category: action.payload.category,
-      link: action.payload.link,
-      place: action.payload.place,
-      title: action.payload.title,
-      user_id: action.payload.user_id,
-      tag: action.payload.tag,
-      maxCount: action.payload.maxCount,
-    };
   },
 });

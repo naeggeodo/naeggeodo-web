@@ -14,8 +14,6 @@ export const ADD_TAG = namespace + 'ADD_TAG';
 export const PLUS_MAX_COUNT = namespace + 'PLUS_MAX_COUNT';
 export const MINUS_MAX_COUNT = namespace + 'MINUS_MAX_COUNT';
 export const REMOVE_TAG = namespace + 'REMOVE_TAG';
-export const SET_CREATE_CHAT_ROOM_BODY =
-  namespace + 'SET_CREATE_CHAT_ROOM_BODY';
 
 export const CREATE_CHAT_ROOM_REQUEST = namespace + 'CREATE_CHAT_ROOM_REQUEST';
 export const CREATE_CHAT_ROOM_SUCCESS = namespace + 'CREATE_CHAT_ROOM_SUCCESS';
@@ -40,11 +38,6 @@ export const removeTag = createAction(REMOVE_TAG, (index) => ({ index }))();
 
 export const plusMaxCount = createAction(PLUS_MAX_COUNT, () => ({}))();
 export const minusMaxCount = createAction(MINUS_MAX_COUNT, () => ({}))();
-
-export const setCreateChatRoomBody = createAction(
-  SET_CREATE_CHAT_ROOM_BODY,
-  () => ({}),
-)();
 
 export const createChatRoomActions = createAsyncAction(
   CREATE_CHAT_ROOM_REQUEST,

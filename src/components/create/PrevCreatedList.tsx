@@ -17,23 +17,18 @@ const PrevCreatedList = () => {
   const { naeggeotalkList } = useSelector(
     (state: RootState) => state.naeggeotalkState,
   );
+
+  const { orderTimeType } = useSelector(
+    (state: RootState) => state.createStates,
+  );
+
   const { target, dataList } = useInfiniteScroll(naeggeotalkList.chatRooms);
 
   const [selectItem, setSelectItem] = useState<NaeggeotalkItem>();
 
   const createChattingRoom = () => {
-    console.log(selectItem);
-    const {
-      address,
-      category,
-      link,
-      place,
-      title,
-      user_id,
-      orderTimeType,
-      maxCount,
-      tags,
-    } = selectItem;
+    const { address, category, link, place, title, user_id, maxCount, tags } =
+      selectItem;
     const body = {
       address,
       category,
@@ -42,9 +37,10 @@ const PrevCreatedList = () => {
       title,
       user_id,
       tag: tags,
-      orderTimeType,
+      orderTimeType: orderTimeType,
       maxCount,
     };
+    console.log(body);
     const json = JSON.stringify(body);
     const blob = new Blob([json], {
       type: 'application/json',
