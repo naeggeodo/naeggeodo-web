@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { useInfiniteScroll } from '../../hooks/reder/useInfiniteScroll';
+import { useInfiniteScroll } from '../../hooks/render/useInfiniteScroll';
 import { RootState } from '../../modules';
 import { ChatRoomItemResponse } from '../../modules/main/types';
 import ChatRoomItem from './ChatRoomItem';

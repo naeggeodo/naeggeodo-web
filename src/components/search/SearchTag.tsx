@@ -11,9 +11,14 @@ interface Props {
 
 const SearchTag = ({ handleClick, children, dataValue, selected }: Props) => {
   return (
-    <TagButton onClick={handleClick} data-value={dataValue} selected={selected}>
-      {children}
-    </TagButton>
+    <li>
+      <TagButton
+        onClick={handleClick}
+        data-value={dataValue}
+        selected={selected}>
+        {children}
+      </TagButton>
+    </li>
   );
 };
 
@@ -21,7 +26,6 @@ const TagButton = styled.button<{ selected: string }>`
   all: unset;
 
   background: #f5f5f5;
-  margin: 5px;
   padding: 10px;
   border-radius: 5px;
   font-size: 0.9375rem;

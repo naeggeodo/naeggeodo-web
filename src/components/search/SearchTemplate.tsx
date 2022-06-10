@@ -1,4 +1,6 @@
 import Image from 'next/image';
+<<<<<<< HEAD
+=======
 import {
   ChangeEvent,
   FormEvent,
@@ -7,56 +9,28 @@ import {
   useState,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+>>>>>>> 51e45010a4818081a4eafabd908888b49ed47ab8
 import styled from 'styled-components';
+import palette from '../../styles/palette';
 
 import TabMenu from '../../components/main/TabMenu';
-import { RootState } from '../../modules';
-import {
-  getResultByInputActions,
-  getResultByTagActions,
-} from '../../modules/search/actions';
-import palette from '../../styles/palette';
 import SearchTag from './SearchTag';
 import SearchResultList from './SearchResultList';
 
+import { useLoadLib } from '../../hooks/utils/useLoadLib';
+import { useSearchChatRoom } from '../../hooks/search/useSearchChatRoom';
+
 const SearchTemplate = () => {
-  const dispatch = useDispatch();
-  const tags = useSelector(
-    (state: RootState) => state.searchPageState?.searchTagList?.tags,
-  );
-
-  const { searchResultList } = useSelector(
-    (state: RootState) => state.searchPageState,
-  );
-  const selected = useSelector(
-    (state: RootState) => state.searchPageState.selected,
-  );
-
-  const [keyWord, setKeyWord] = useState('');
-
-  const onChaneInput = (e: ChangeEvent<HTMLInputElement>) => {
-    setKeyWord(e.target.value);
-  };
-
-  const getSearchListByInput = useCallback<
-    (e: FormEvent<HTMLFormElement>) => void
-  >(
-    (e) => {
-      e.preventDefault();
-      dispatch(getResultByInputActions.request(keyWord));
-    },
-    [dispatch, keyWord],
-  );
-
-  const getSearchListByTag = useCallback<
-    (e: PointerEvent<HTMLButtonElement>) => void
-  >(
-    (e) => {
-      const target = e.target as HTMLButtonElement;
-      dispatch(getResultByTagActions.request(target.innerText));
-    },
-    [dispatch],
-  );
+  const { router, dispatch } = useLoadLib();
+  const {
+    searchValue,
+    handleChangeSearchValue,
+    getSearchListByTag,
+    getSearchListByInput,
+    tags,
+    searchResultList,
+    selected,
+  } = useSearchChatRoom(dispatch, router);
 
   return (
     <>
@@ -72,26 +46,29 @@ const SearchTemplate = () => {
           </Button>
           <Input
             type='text'
-            value={keyWord}
+            value={searchValue}
             placeholder='검색어를 입력해주세요'
-            onChange={onChaneInput}
+            onChange={handleChangeSearchValue}
           />
         </SearchForm>
         {searchResultList && searchResultList.chatRoom.length > 0 ? (
           <SearchResultList />
         ) : (
-          <SearchTagList>
-            {tags.length > 0 &&
-              tags.map((tag, i) => (
-                <SearchTag
-                  key={i}
-                  handleClick={getSearchListByTag}
-                  selected={selected}
-                  dataValue={tag.msg}>
-                  {tag.msg}
-                </SearchTag>
-              ))}
-          </SearchTagList>
+          <SearchTagContainer>
+            <SearchTagTitle>많이 검색한 태그</SearchTagTitle>
+            <SearchTagList>
+              {tags.length > 0 &&
+                tags.map((tag, i) => (
+                  <SearchTag
+                    key={i}
+                    handleClick={getSearchListByTag}
+                    selected={selected}
+                    dataValue={tag.msg}>
+                    {tag.msg}
+                  </SearchTag>
+                ))}
+            </SearchTagList>
+          </SearchTagContainer>
         )}
       </Container>
       <TabMenu />
@@ -104,7 +81,7 @@ const Container = styled.div`
   height: 100vh;
   background-color: #fff;
 
-  padding: 35px 8px 83px;
+  padding: 35px 24px 83px;
 `;
 
 const SearchForm = styled.form`
@@ -134,9 +111,21 @@ const Button = styled.button`
   border: none;
 `;
 
-const SearchTagList = styled.div`
+const SearchTagContainer = styled.div`
   width: 100%;
   margin-bottom: 20px;
+`;
+
+const SearchTagTitle = styled.p`
+  font-size: 1rem;
+  font-family: 'SpoqaBold';
+`;
+
+const SearchTagList = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
 `;
 
 export default SearchTemplate;

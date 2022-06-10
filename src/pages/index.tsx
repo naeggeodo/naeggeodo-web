@@ -1,11 +1,15 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import palette from '../styles/palette';
 
 const RendingPage = () => {
   const router = useRouter();
+
+  const moveToChatRooms = useCallback(() => {
+    router.push('chat-rooms');
+  }, [router]);
 
   return (
     <Container>
@@ -24,7 +28,7 @@ const RendingPage = () => {
       </Description>
 
       <StartContainer>
-        <MoveMainPageButton onClick={() => router.push('chatRooms')}>
+        <MoveMainPageButton onClick={moveToChatRooms}>
           지금 둘러보기
         </MoveMainPageButton>
         <DownLoad>
