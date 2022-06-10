@@ -42,14 +42,14 @@ export function useCheckValidate() {
         dispatch(openLoginModal());
       } else if (item.category === 'ALL') {
         router.push({
-          pathname: '/chatRooms',
+          pathname: '/chat-rooms',
           query: {
             buildingCode: buildingCode,
           },
         });
       } else {
         router.push({
-          pathname: '/chatRooms',
+          pathname: '/chat-rooms',
           query: {
             buildingCode: buildingCode,
             category: item.category.toLowerCase(),

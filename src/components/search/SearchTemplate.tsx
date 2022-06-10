@@ -72,18 +72,21 @@ const SearchTemplate = () => {
         {searchResultList && searchResultList.chatRoom.length > 0 ? (
           <SearchResultList />
         ) : (
-          <SearchTagList>
-            {tags.length > 0 &&
-              tags.map((tag, i) => (
-                <SearchTag
-                  key={i}
-                  handleClick={getSearchListByTag}
-                  selected={selected}
-                  dataValue={tag.msg}>
-                  {tag.msg}
-                </SearchTag>
-              ))}
-          </SearchTagList>
+          <SearchTagContainer>
+            <SearchTagTitle>많이 검색한 태그</SearchTagTitle>
+            <SearchTagList>
+              {tags.length > 0 &&
+                tags.map((tag, i) => (
+                  <SearchTag
+                    key={i}
+                    handleClick={getSearchListByTag}
+                    selected={selected}
+                    dataValue={tag.msg}>
+                    {tag.msg}
+                  </SearchTag>
+                ))}
+            </SearchTagList>
+          </SearchTagContainer>
         )}
       </Container>
       <TabMenu />
@@ -96,7 +99,7 @@ const Container = styled.div`
   height: 100vh;
   background-color: #fff;
 
-  padding: 35px 8px 83px;
+  padding: 35px 24px 83px;
 `;
 
 const SearchForm = styled.form`
@@ -126,9 +129,21 @@ const Button = styled.button`
   border: none;
 `;
 
-const SearchTagList = styled.div`
+const SearchTagContainer = styled.div`
   width: 100%;
   margin-bottom: 20px;
+`;
+
+const SearchTagTitle = styled.p`
+  font-size: 1rem;
+  font-family: 'SpoqaBold';
+`;
+
+const SearchTagList = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
 `;
 
 export default SearchTemplate;
