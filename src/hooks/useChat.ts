@@ -8,7 +8,15 @@ import {
 import { useSelectLoginStates } from './select/useSelectLoginStates';
 import { useLoadLib } from './utils/useLoadLib';
 
-type MessageDataType = 'TEXT' | 'IMAGE' | 'WELCOME' | 'CNT' | 'BAN';
+export type MessageDataType =
+  | 'TEXT'
+  | 'IMAGE'
+  | 'WELCOME'
+  | 'CNT'
+  | 'BAN'
+  | 'EXIT'
+  | 'ALERT'
+  | 'SYSTEM';
 
 export function useChat() {
   const cookies = new Cookies();
@@ -17,13 +25,18 @@ export function useChat() {
   const { router, dispatch } = useLoadLib();
 
   // ** 메세지 데이터 받았을 때 TODO
+  // ** 메세지리스트에 넣을것
+  // TODO TEXT, WELCOME, EXIT 인데 나갔습니다.
   const filterMessageType = (data, setMessageList): any => {
     const newMessage = JSON.parse(data.body);
     const messageType: MessageDataType = JSON.parse(data.body).type;
 
     setMessageList((prev) => {
       if (messageType === 'CNT') return;
-      return prev.concat(newMessage);
+      else if (messageType === 'WELCOME') {
+        console.log(prev);
+      }
+      // return prev.concat(newMessage);
     });
   };
 
