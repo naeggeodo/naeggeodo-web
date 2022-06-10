@@ -16,7 +16,7 @@ export type SelectCategoryAction = ReturnType<typeof selectCategory>;
 export type AddTagAction = ReturnType<typeof addTag>;
 export type RemoveTagAction = ReturnType<typeof removeTag>;
 
-export type OrderTimeType = 'ONE_HOUR' | 'ASAP' | 'I_DONT_CARE';
+export type OrderTimeType = 'ONE_HOUR' | 'QUICK' | 'FREEDOM';
 
 export interface CreateStates {
   address: string; //주소
@@ -31,10 +31,12 @@ export interface CreateStates {
 }
 
 export interface ButtonValue {
-  text: '1시간 이내' | '최대한 빨리' | '상관없음 (인원이 모집되는대로)';
+  text: OrderTimeTypeKr | '상관없음 (인원이 모집되는대로)';
   value: OrderTimeType;
 }
 
 export type CreateChatRoomResponse = {
   chatMain_id: number;
 };
+
+export type OrderTimeTypeKr = '1시간 이내' | '최대한 빨리';

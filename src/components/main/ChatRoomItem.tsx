@@ -1,9 +1,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { ChatRoomItemProps } from '../../modules/main/types';
 import palette from '../../styles/palette';
+import { converOrderTimeType } from '../../utils/convertOrderTimeType';
 import TimeCalculator from '../../utils/TimeCalculator';
 import RegisterTime from './RegisterTime';
 
@@ -13,8 +14,12 @@ const ChatRoomItem = ({
   maxCount,
   createDate,
   currentCount,
+  orderTimeType,
 }: ChatRoomItemProps) => {
-  const timeCalculator = new TimeCalculator(createDate);
+  const timeCalculator = useMemo(
+    () => new TimeCalculator(createDate),
+    [createDate],
+  );
 
   return (
     <Container>
@@ -26,7 +31,13 @@ const ChatRoomItem = ({
         </NumberOfPeople>
 
         <TimeOrderLinkContainer>
-          <RegisterTime>{timeCalculator.calculateCreateMinute()}</RegisterTime>
+          <OrderTimeTypeWrapper>
+            <RegisterTime>
+              {timeCalculator.calculateCreateMinute()}
+            </RegisterTime>
+            <p>{converOrderTimeType(orderTimeType)}</p>
+          </OrderTimeTypeWrapper>
+
           <div>
             <Link href={`/chatting/${id}`} passHref>
               <StyledLink rel='noreferrer noopener'>
@@ -94,6 +105,18 @@ const TimeOrderLinkContainer = styled.div`
   align-items: center;
 
   width: 100%;
+`;
+
+const OrderTimeTypeWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  & > p:nth-child(2) {
+    font-size: 0.75rem;
+    color: ${palette.mainOrange};
+  }
 `;
 
 const StyledLink = styled.a`
