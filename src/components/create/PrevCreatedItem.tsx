@@ -10,7 +10,7 @@ type StyledType = {
   isActive?: boolean;
 };
 
-const NaeggeotalkListItem = ({
+const PrevCreatedItem = ({
   data,
   selectItem,
   setSelectItem,
@@ -75,6 +75,8 @@ const NaeggeotalkListItem = ({
   );
 };
 
+export default PrevCreatedItem;
+
 const Container = styled.div<StyledType>`
   border-bottom: 1px solid #f2f2f8;
   background: ${(props) => (props.isActive ? ' #f2f2f8;' : '#fff')};
@@ -117,5 +119,3 @@ const Date = styled.span`
   margin-right: 5px;
   border-radius: 3px;
 `;
-
-export default NaeggeotalkListItem;

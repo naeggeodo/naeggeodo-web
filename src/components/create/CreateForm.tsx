@@ -2,7 +2,6 @@ import React, { ChangeEvent, useCallback, useState } from 'react';
 import styled, { css } from 'styled-components';
 import palette from '../../styles/palette';
 
-import CreateTabMenu from './CreateTabMenu';
 import { useCreateNaeggeotalk } from '../../hooks/useCreateNaeggeotalk';
 import Image from 'next/image';
 import CreateButton from './CreateButton';
@@ -65,142 +64,132 @@ const CreateForm = () => {
   );
 
   return (
-    <Container>
-      <CreateTabMenu />
-      <Wrapper>
-        <div>
-          <Content>
-            <Item>
-              <FieldTitle title='가게명' />
+    <Wrapper>
+      <div>
+        <Content>
+          <Item>
+            <FieldTitle title='가게명' />
+            <Input
+              type='text'
+              onChange={dispatchInsertTitle}
+              value={title}
+              placeholder='가게 이름을 입력해주세요.'
+            />
+          </Item>
+          <SelectCategory onClick={openCategoryList}>
+            <FieldTitle
+              title={convertEngCategoryToKor(category) || '카테고리 선택'}
+            />
+            <Image
+              src='/assets/images/arrowrightdarkgray.svg'
+              width={17}
+              height={16}></Image>
+          </SelectCategory>
+          <Item>
+            <TitleText>가게 링크</TitleText>
+            <InputWrapper>
               <Input
                 type='text'
-                onChange={dispatchInsertTitle}
-                value={title}
-                placeholder='가게 이름을 입력해주세요.'
+                placeholder='가게 링크를 입력해주세요'
+                value={link}
+                onChange={(e) => {
+                  setIsUrl(urlRegex.test(link));
+                  dispatchInsertLink(e);
+                }}
               />
-            </Item>
-            <SelectCategory onClick={openCategoryList}>
-              <FieldTitle
-                title={convertEngCategoryToKor(category) || '카테고리 선택'}
+              <Link href={`${link}`} passHref>
+                <MoveLinkButton
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  isUrl={isUrl}>
+                  링크이동
+                </MoveLinkButton>
+              </Link>
+            </InputWrapper>
+          </Item>
+          <Item>
+            <TagTitle>
+              <TitleText>태그</TitleText>
+              <SmallText>ex. 음식명, 카테고리명</SmallText>
+            </TagTitle>
+            <form onSubmit={(e) => dispatchAddTag(e)}>
+              <Input
+                value={tagText}
+                onChange={changeTagText}
+                placeholder='태그 작성 후 Enter를 입력하세요. (최대 5개)'
               />
-              <Image
-                src='/assets/images/arrowrightdarkgray.svg'
-                width={17}
-                height={16}></Image>
-            </SelectCategory>
-            <Item>
-              <TitleText>가게 링크</TitleText>
-              <InputWrapper>
-                <Input
-                  type='text'
-                  placeholder='가게 링크를 입력해주세요'
-                  value={link}
-                  onChange={(e) => {
-                    setIsUrl(urlRegex.test(link));
-                    dispatchInsertLink(e);
-                  }}
+            </form>
+            <TagContainer>
+              {tag.map((item, i) => (
+                <TagButton
+                  key={item + i}
+                  dataValue={i}
+                  handleClick={dispatchRemoveTag}
+                  item={item}
                 />
-                <Link href={`${link}`} passHref>
-                  <MoveLinkButton
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    isUrl={isUrl}>
-                    링크이동
-                  </MoveLinkButton>
-                </Link>
-              </InputWrapper>
-            </Item>
-            <Item>
-              <TagTitle>
-                <TitleText>태그</TitleText>
-                <SmallText>ex. 음식명, 카테고리명</SmallText>
-              </TagTitle>
-              <form onSubmit={(e) => dispatchAddTag(e)}>
-                <Input
-                  value={tagText}
-                  onChange={changeTagText}
-                  placeholder='태그 작성 후 Enter를 입력하세요. (최대 5개)'
-                />
-              </form>
-              <TagContainer>
-                {tag.map((item, i) => (
-                  <TagButton
-                    key={item + i}
-                    dataValue={i}
-                    handleClick={dispatchRemoveTag}
-                    item={item}
-                  />
-                ))}
-              </TagContainer>
-            </Item>
+              ))}
+            </TagContainer>
+          </Item>
 
-            <ChatRoomContainer>
-              <TitleWrapper>
-                <FieldTitle title='입장 인원' />
-                <Desc>(최대5명)</Desc>
-              </TitleWrapper>
+          <ChatRoomContainer>
+            <TitleWrapper>
+              <FieldTitle title='입장 인원' />
+              <Desc>(최대5명)</Desc>
+            </TitleWrapper>
 
-              <CounterContainer>
-                <PlusMinusButton
-                  style={
-                    maxCount <= 5 && maxCount > 1
-                      ? { color: `${palette.black}` }
-                      : { color: `${palette.TextGray}` }
-                  }
-                  onClick={dispatchMinusMaxCount}>
-                  -
-                </PlusMinusButton>
-                <div>{maxCount}</div>
-                <PlusMinusButton
-                  style={
-                    maxCount < 5 && maxCount >= 1
-                      ? { color: `${palette.black}` }
-                      : { color: `${palette.TextGray}` }
-                  }
-                  onClick={dispatchPlusMaxCount}>
-                  +
-                </PlusMinusButton>
-              </CounterContainer>
-            </ChatRoomContainer>
+            <CounterContainer>
+              <PlusMinusButton
+                style={
+                  maxCount <= 5 && maxCount > 1
+                    ? { color: `${palette.black}` }
+                    : { color: `${palette.TextGray}` }
+                }
+                onClick={dispatchMinusMaxCount}>
+                -
+              </PlusMinusButton>
+              <div>{maxCount}</div>
+              <PlusMinusButton
+                style={
+                  maxCount < 5 && maxCount >= 1
+                    ? { color: `${palette.black}` }
+                    : { color: `${palette.TextGray}` }
+                }
+                onClick={dispatchPlusMaxCount}>
+                +
+              </PlusMinusButton>
+            </CounterContainer>
+          </ChatRoomContainer>
 
-            <Item>
-              <TagTitle>
-                <TitleText>채팅방 이미지</TitleText>
-              </TagTitle>
-              <FileBox>
-                <ImgBox>
-                  <img src={imgSrc as string} />
-                </ImgBox>
-                <SearchFileButton htmlFor='file'>파일 찾기</SearchFileButton>
-                <InputFile
-                  onChange={uploadImg}
-                  accept='image/*'
-                  type='file'
-                  id='file'
-                />
-              </FileBox>
-            </Item>
-          </Content>
-        </div>
-        <SelectCategoryDrawer isOpen={isOpen} setIsOpen={setIsOpen} />
+          <Item>
+            <TagTitle>
+              <TitleText>채팅방 이미지</TitleText>
+            </TagTitle>
+            <FileBox>
+              <ImgBox>
+                <img src={imgSrc as string} />
+              </ImgBox>
+              <SearchFileButton htmlFor='file'>파일 찾기</SearchFileButton>
+              <InputFile
+                onChange={uploadImg}
+                accept='image/*'
+                type='file'
+                id='file'
+              />
+            </FileBox>
+          </Item>
+        </Content>
+      </div>
+      <SelectCategoryDrawer isOpen={isOpen} setIsOpen={setIsOpen} />
 
-        <ButtonWrapper>
-          <CreateButton
-            handleClick={() => console.log(imgFile)}
-            storeName={title}
-          />
-        </ButtonWrapper>
-      </Wrapper>
-    </Container>
+      <ButtonWrapper>
+        <CreateButton
+          handleClick={() => console.log(imgFile)}
+          storeName={title}
+        />
+      </ButtonWrapper>
+    </Wrapper>
   );
 };
-
-const Container = styled.div`
-  width: 100%;
-
-  padding: 46px 0 83px;
-  background-color: #fff;
-`;
 
 const Wrapper = styled.div`
   width: 90%;

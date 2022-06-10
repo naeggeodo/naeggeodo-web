@@ -13,10 +13,13 @@ export const getServerSideProps = wrapper.getServerSideProps(
     saveCookies(store, context);
 
     store.dispatch(END);
+
     await store.sagaTask.toPromise();
 
     return {
-      props: {},
+      props: {
+        naeggeotalkList: store.getState().naeggeotalkState.naeggeotalkList,
+      },
     };
   },
 );
