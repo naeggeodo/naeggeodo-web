@@ -5,6 +5,7 @@ import {
   ChattingSubmitBody,
   PreviousChattingItem,
 } from '../modules/chatting/types';
+import DateFormatter from '../utils/DateFormatter';
 import { useSelectLoginStates } from './select/useSelectLoginStates';
 import { useLoadLib } from './utils/useLoadLib';
 
@@ -27,18 +28,18 @@ export function useChat() {
   // ** 메세지 데이터 받았을 때 TODO
   // ** 메세지리스트에 넣을것
   // TODO TEXT, WELCOME, EXIT 인데 나갔습니다.
-  const filterMessageType = (data, setMessageList): any => {
-    const newMessage = JSON.parse(data.body);
-    const messageType: MessageDataType = JSON.parse(data.body).type;
+  // const filterMessageType = (data, setMessageList, messageList): any => {
+  //   const newMessage = JSON.parse(data.body);
+  //   const messageType: MessageDataType = JSON.parse(data.body).type;
 
-    setMessageList((prev) => {
-      if (messageType === 'CNT') return;
-      else if (messageType === 'WELCOME') {
-        console.log(prev);
-      }
-      // return prev.concat(newMessage);
-    });
-  };
+  //   setMessageList((messageList) => {
+  //     if (messageType === 'CNT') return;
+  //     else if (messageType === 'WELCOME') {
+  //       console.log(messageList);
+  //     }
+  //     return [...messageList, newMessage];
+  //   });
+  // };
 
   function enter(stompClient) {
     const data = {
@@ -54,6 +55,7 @@ export function useChat() {
   const connect = (
     stompClient: CompatClient,
     roomId: string,
+    messageList: PreviousChattingItem[],
     setMessageList: React.Dispatch<
       React.SetStateAction<PreviousChattingItem[]>
     >,
@@ -68,7 +70,24 @@ export function useChat() {
         stompClient.subscribe(
           `/topic/${roomId}`,
           (data) => {
-            filterMessageType(data, setMessageList);
+            const newMessage = JSON.parse(data.body);
+            const messageType: MessageDataType = JSON.parse(data.body).type;
+
+            const body = {
+              chatMain_id: 0,
+              contents: `${newMessage.sender}${newMessage.contents}`,
+              id: 0,
+              idx: 0,
+              regDate: DateFormatter.getNowDate(),
+              type: 'WELCOME',
+              user_id: newMessage.sender,
+            };
+
+            if (messageType === 'CNT') return;
+            else if (messageType === 'WELCOME') {
+              setMessageList([...messageList, body]);
+            }
+            console.log(messageList);
           },
           {
             chatMain_id: roomId,

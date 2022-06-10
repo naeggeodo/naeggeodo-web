@@ -19,7 +19,7 @@ import ChattingList from './ChattingList';
 import { useRouter } from 'next/router';
 import ChattingService from '../../service/api/chatting/ChattingService';
 
-const ChattingTemplate = ({}: {}) => {
+const ChattingTemplate = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const chatListDivRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
@@ -51,7 +51,12 @@ const ChattingTemplate = ({}: {}) => {
     });
 
     if (!stompClient.connected) {
-      connect(stompClient, String(router.query.id), setMessageList);
+      connect(
+        stompClient,
+        String(router.query.id),
+        messageList,
+        setMessageList,
+      );
     }
     return () => disconnect(stompClient);
   }, []);

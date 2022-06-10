@@ -39,7 +39,7 @@ export type PreviousChattingItem = {
   id: number;
   idx: number;
   regDate: string;
-  type: MessageDataType;
+  type: any;
   user_id: string;
 };
 
