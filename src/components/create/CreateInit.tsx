@@ -16,11 +16,11 @@ const buttonValue: ButtonValue[] = [
   },
   {
     text: '최대한 빨리',
-    value: 'ASAP',
+    value: 'QUICK',
   },
   {
     text: '상관없음 (인원이 모집되는대로)',
-    value: 'I_DONT_CARE',
+    value: 'FREEDOM',
   },
 ];
 

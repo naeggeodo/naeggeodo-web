@@ -1,33 +1,36 @@
-import React, { useCallback } from 'react';
+import React, { Dispatch, SetStateAction, useCallback } from 'react';
 import styled from 'styled-components';
-import { useRouter } from 'next/router';
 import palette from '../../styles/palette';
 
 type StyledType = {
   isActive: boolean;
 };
 
-const CreateTabMenu = () => {
-  const router = useRouter();
-
-  const moveCreate = useCallback(() => {
-    if (router.pathname === '/create/details') {
-      router.push('/naeggeotalk');
-    } else if (router.pathname === '/naeggeotalk') {
-      router.push('/create/details');
-    }
-  }, [router]);
+const CreateTabMenu = ({
+  isShowCreateForm,
+  setIsShowCreateForm,
+}: {
+  isShowCreateForm: boolean;
+  setIsShowCreateForm: Dispatch<SetStateAction<boolean>>;
+}) => {
+  const onMenuClick = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      const target = e.target as HTMLButtonElement;
+      if (target.innerText === '새로입력') {
+        setIsShowCreateForm(true);
+      } else {
+        setIsShowCreateForm(false);
+      }
+    },
+    [],
+  );
 
   return (
     <Container>
-      <Button
-        isActive={router.pathname === '/create/details'}
-        onClick={moveCreate}>
+      <Button isActive={isShowCreateForm} onClick={onMenuClick}>
         새로입력
       </Button>
-      <Button
-        isActive={router.pathname === '/naeggeotalk'}
-        onClick={moveCreate}>
+      <Button isActive={!isShowCreateForm} onClick={onMenuClick}>
         주문목록
       </Button>
     </Container>
