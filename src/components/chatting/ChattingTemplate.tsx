@@ -6,19 +6,16 @@ import SockJS from 'sockjs-client';
 import Header from '../chatting/Header';
 import GoInfoBtn from '../chatting/GoInfoBtn';
 import SubmitForm from '../chatting/SubmitForm';
-import ChatItem from '../chatting/ChatItem';
-import MyChatItem from '../chatting/MyChatItem';
-
 import {
   PreviousChattingItem,
   PreviousChattingListResponse,
 } from '../../modules/chatting/types';
 import { useChat } from '../../hooks/useChat';
-import DateFormatter from '../../utils/DateFormatter';
 import QuickMessageComp from './QuickMessageComp';
 import ChatDrawer from './ChatDrawer';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../modules';
+import ChattingList from './ChattingList';
 
 const ChattingTemplate = ({
   previousChatting,
@@ -37,8 +34,6 @@ const ChattingTemplate = ({
   const [messageList, setMessageList] = useState<PreviousChattingItem[]>([]);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-  // const socket = new SockJS(`${process.env.NEXT_PUBLIC_API_URL}/chat`);
-  // const stompClient = Stomp.over(socket);
   const stompClient = Stomp.over(
     () => new SockJS(`${process.env.NEXT_PUBLIC_API_URL}/chat`),
   );
@@ -59,41 +54,9 @@ const ChattingTemplate = ({
       <Header isDrawerOpen={isDrawerOpen} setIsDrawerOpen={setIsDrawerOpen} />
       {chatRoomInfo.state !== 'END' && <GoInfoBtn />}
       <Content ref={chatListDivRef}>
-        {previousChatting.messages &&
-          previousChatting.messages.length > 0 &&
-          previousChatting.messages.map((message, i) => {
-            if (message.user_id === '1')
-              return (
-                <MyChatItem key={i} message={message} date={message.regDate} />
-              );
-            else
-              return (
-                <ChatItem key={i} message={message} date={message.regDate} />
-              );
-          })}
-
-        {messageList &&
-          messageList.length > 0 &&
-          messageList.map((message, i) => {
-            if (message.user_id === '1') {
-              return (
-                <MyChatItem
-                  key={i}
-                  message={message}
-                  date={DateFormatter.getNowDate()}
-                />
-              );
-            } else {
-              return (
-                <ChatItem
-                  key={i}
-                  message={message}
-                  date={DateFormatter.getNowDate()}
-                />
-              );
-            }
-          })}
-        <Scroll ref={scrollRef} />
+        <ChattingList messageList={previousChatting.messages} />
+        <ChattingList messageList={messageList} />
+        <div ref={scrollRef} />
       </Content>
       <QuickMessageComp stompClient={stompClient} />
       <SubmitForm stompClient={stompClient} />
@@ -104,6 +67,8 @@ const ChattingTemplate = ({
     </Wrap>
   );
 };
+
+export default ChattingTemplate;
 
 const Wrap = styled.div`
   width: 100vw;
@@ -137,7 +102,3 @@ const Content = styled.div`
     display: none;
   }
 `;
-
-const Scroll = styled.div``;
-
-export default ChattingTemplate;
