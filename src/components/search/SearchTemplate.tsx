@@ -73,7 +73,7 @@ const SearchTemplate = () => {
           <SearchResultList />
         ) : (
           <SearchTagList>
-            {tags &&
+            {tags.length > 0 &&
               tags.map((tag, i) => (
                 <SearchTag
                   key={i}
