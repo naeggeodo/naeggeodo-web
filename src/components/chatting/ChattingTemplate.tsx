@@ -66,7 +66,7 @@ const ChattingTemplate = () => {
         <ChattingList messageList={messageList} />
         <div ref={scrollRef} />
       </Content>
-      {/* <QuickMessageComp stompClient={stompClient} /> */}
+      <QuickMessageComp stompClient={stompClient} />
       <SubmitForm stompClient={stompClient} />
       <ChatDrawer
         stompClient={stompClient}

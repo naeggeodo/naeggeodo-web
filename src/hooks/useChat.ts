@@ -98,6 +98,11 @@ export function useChat() {
 
         enter(stompClient);
       },
+      // !error callback error.headers.message
+      // !자동으로 disconnect
+      (error) => {
+        console.log(error.headers.message, 'sss');
+      },
     );
   };
 

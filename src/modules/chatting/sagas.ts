@@ -41,11 +41,16 @@ function* getPreviousChattingListGenerator(
 function* getQuickChattingListGenerator(
   action: ReturnType<typeof getQuickChattingListActions.request>,
 ) {
-  const { data }: { data: QuickChattingListResponse } = yield call(
-    ChattingService.asyncGetQuickChattingList,
-    action.payload.userId,
-  );
-  yield put(getQuickChattingListActions.success(data));
+  try {
+    const { data }: { data: QuickChattingListResponse } = yield call(
+      ChattingService.asyncGetQuickChattingList,
+      action.payload.userId,
+    );
+    console.log(action.payload.userId, 'jayden');
+    yield put(getQuickChattingListActions.success(data));
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export function* getCurrentChatUserListGenerator(

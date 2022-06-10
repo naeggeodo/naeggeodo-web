@@ -11,9 +11,7 @@ const ChattingList = ({
   messageList: PreviousChattingItem[];
 }) => {
   const { user_id } = useSelectLoginStates();
-  useEffect(() => {
-    console.log(messageList);
-  }, [messageList]);
+
   return (
     <>
       {messageList &&

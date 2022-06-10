@@ -19,18 +19,10 @@ export default class ChattingService {
   }
 
   static async asyncGetQuickChattingList(userId: string) {
-    try {
-      return await ApiService.getApi(`/user/${userId}/quick-chatting`);
-    } catch (err) {
-      console.log(err);
-    }
+    return await ApiService.getApi(`/user/${userId}/quick-chatting`);
   }
 
   static async asyncGetCurrentChatUserList(chattingRoomId: string) {
-    try {
-      return await ApiService.getApi(`/chat-rooms/${chattingRoomId}/users`);
-    } catch (err) {
-      console.log(err);
-    }
+    return await ApiService.getApi(`/chat-rooms/${chattingRoomId}/users`);
   }
 }
