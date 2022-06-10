@@ -12,6 +12,7 @@ export type NaeggeotalkItem = {
   id: number;
   state: string;
   place: string;
+  endData: string | null;
   category: string;
   idx: number;
   createDate: string;

@@ -1,8 +1,7 @@
 import { CsrApiService } from '..';
-import { CreateChatRoomRequest } from '../../../modules/create/types';
-
+import { CreateStates } from '../../../modules/create/types';
 export class CreateService {
-  static async asyncCreateChatRoom(body: CreateChatRoomRequest) {
+  static async asyncCreateChatRoom(body: CreateStates) {
     return await CsrApiService.postApi('/chat-rooms', body);
   }
 }

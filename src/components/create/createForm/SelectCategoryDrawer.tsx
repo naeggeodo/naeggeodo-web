@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
-import { RootState } from '../../modules';
-import { selectCategory } from '../../modules/create/actions';
-import { getFoodCategoriesActions } from '../../modules/main/actions';
-import { CategoriesResponse, Category } from '../../modules/main/types';
-import palette from '../../styles/palette';
-import { convertEngCategoryToKor } from '../../utils/converEngCategoryToKor';
+import { RootState } from '../../../modules';
+import { selectCategory } from '../../../modules/create/actions';
+import { getFoodCategoriesActions } from '../../../modules/main/actions';
+import { CategoriesResponse, Category } from '../../../modules/main/types';
+import palette from '../../../styles/palette';
+import { convertEngCategoryToKor } from '../../../utils/converEngCategoryToKor';
 
 interface StyledProps {
   isOpen: boolean;

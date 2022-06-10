@@ -1,16 +1,15 @@
 import React, { ChangeEvent, useCallback, useState } from 'react';
 import styled, { css } from 'styled-components';
-import palette from '../../styles/palette';
-
-import { useCreateNaeggeotalk } from '../../hooks/useCreateNaeggeotalk';
 import Image from 'next/image';
-import CreateButton from './CreateButton';
 import Link from 'next/link';
-import SelectCategoryDrawer from './SelectCategoryDrawer';
-import { convertEngCategoryToKor } from '../../utils/converEngCategoryToKor';
 import TagButton from './TagButton';
 import FieldTitle from './FieldTitle';
 import TitleText from './TitleText';
+import { useCreateNaeggeotalk } from '../../../hooks/useCreateNaeggeotalk';
+import CreateButton from '../CreateButton';
+import SelectCategoryDrawer from './SelectCategoryDrawer';
+import palette from '../../../styles/palette';
+import { convertEngCategoryToKor } from '../../../utils/converEngCategoryToKor';
 
 // ? 방 생성시 상세 정보 선택하는 페이지
 // ? url : create/details
@@ -166,7 +165,9 @@ const CreateForm = () => {
             </TagTitle>
             <FileBox>
               <ImgBox>
-                <img src={imgSrc as string} />
+                {imgSrc && (
+                  <Image src={imgSrc as string} width={70} height={70} />
+                )}
               </ImgBox>
               <SearchFileButton htmlFor='file'>파일 찾기</SearchFileButton>
               <InputFile
@@ -193,17 +194,14 @@ const CreateForm = () => {
 
 const Wrapper = styled.div`
   width: 90%;
-
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
   margin: 0 auto;
 `;
 
 const Content = styled.div`
   min-height: 70vh;
-
   margin-top: 19.5px;
 `;
 
@@ -211,22 +209,17 @@ const Item = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-
   padding: 20px 0;
   border-bottom: 1px solid ${palette.bgGray};
 `;
 
 const SelectCategory = styled.button`
   all: unset;
-
   display: flex;
   justify-content: space-between;
   padding: 20px 0;
-
   border-bottom: 1px solid ${palette.bgGray};
-
   width: 100%;
-
   cursor: pointer;
 `;
 
@@ -241,7 +234,6 @@ const Input = styled.input`
   font-size: 0.9375rem;
   color: ${palette.DarkGray};
   width: 80%;
-
   outline: none;
   border: none;
 `;
@@ -254,7 +246,6 @@ const InputWrapper = styled.div`
 const Desc = styled.p`
   font-weight: 500;
   font-size: 0.9375rem;
-
   color: ${palette.DarkGray};
 `;
 
@@ -274,7 +265,6 @@ const TagContainer = styled.div`
 const SmallText = styled.p`
   display: flex;
   align-items: center;
-
   font-weight: 500;
   font-size: 0.75rem;
   color: ${palette.black};
@@ -283,7 +273,6 @@ const SmallText = styled.p`
 const ChatRoomContainer = styled(Item)`
   flex-direction: row;
   justify-content: space-between;
-
   border-bottom: 1px solid ${palette.bgGray};
 `;
 
@@ -291,7 +280,6 @@ const CounterContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 20px;
-
   font-weight: 500;
   font-size: 1.25rem;
   color: ${palette.black};
@@ -304,12 +292,9 @@ const PlusMinusButton = styled.button`
   align-items: center;
   width: 36px;
   height: 36px;
-
   color: ${palette.TextGray};
-
   background-color: ${palette.LightGray2};
   border-radius: 5px;
-
   cursor: pointer;
 `;
 
@@ -317,23 +302,17 @@ const MoveLinkButton = styled.a<MoveLinkProps>`
   all: unset;
   display: flex;
   justify-content: center;
-
   visibility: hidden;
   opacity: 0;
   width: 63px;
-
   padding: 4px 0;
-
   font-weight: 500;
   font-size: 0.75rem;
   color: ${palette.mainOrange};
-
   background-color: ${palette.LightGray};
   border-radius: 5px;
-
   cursor: pointer;
   transition: 1s;
-
   ${(props) =>
     props.isUrl &&
     css`
@@ -357,7 +336,6 @@ const FileBox = styled.div`
 const ImgBox = styled.div`
   width: 70px;
   height: 70px;
-
   border-radius: 5px;
   border: 1px solid #dddddd;
 `;
@@ -375,14 +353,11 @@ const SearchFileButton = styled.label`
   display: flex;
   justify-content: center;
   align-items: center;
-
   color: ${palette.mainOrange};
   background-color: #fdefe7;
-
   padding: 10px 15px;
   border-radius: 5px;
   margin-left: 10px;
-
   cursor: pointer;
 `;
 
