@@ -10,12 +10,8 @@ import {
 import { PreviousChattingListResponse } from '../../modules/chatting/types';
 import { saveCookies } from '../../utils/saveCookies';
 
-const chatting = ({
-  previousChatting,
-}: {
-  previousChatting: PreviousChattingListResponse;
-}) => {
-  return <ChattingTemplate previousChatting={previousChatting} />;
+const chatting = ({}: {}) => {
+  return <ChattingTemplate />;
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(

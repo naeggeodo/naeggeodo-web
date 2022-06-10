@@ -6,11 +6,37 @@ import {
   PreviousChattingItem,
 } from '../modules/chatting/types';
 import { useSelectLoginStates } from './select/useSelectLoginStates';
+import { useLoadLib } from './utils/useLoadLib';
+
+type MessageDataType = 'TEXT' | 'IMAGE' | 'WELCOME' | 'CNT' | 'BAN';
 
 export function useChat() {
   const cookies = new Cookies();
   const accessToken = cookies.get(TOKEN_NAME.ACCESS_TOKEN);
   const { user_id } = useSelectLoginStates();
+  const { router, dispatch } = useLoadLib();
+
+  // ** 메세지 데이터 받았을 때 TODO
+  const filterMessageType = (data, setMessageList): any => {
+    const newMessage = JSON.parse(data.body);
+    const messageType: MessageDataType = JSON.parse(data.body).type;
+
+    setMessageList((prev) => {
+      if (messageType === 'CNT') return;
+      return prev.concat(newMessage);
+    });
+  };
+
+  function enter(stompClient) {
+    const data = {
+      chatMain_id: router.query.id,
+      sender: user_id,
+      contents: '님이 입장하셨습니다.',
+      type: 'WELCOME',
+    };
+
+    stompClient.send('/app/chat/enter', {}, JSON.stringify(data));
+  }
 
   const connect = (
     stompClient: CompatClient,
@@ -29,11 +55,13 @@ export function useChat() {
         stompClient.subscribe(
           `/topic/${roomId}`,
           (data) => {
-            const newMessage = JSON.parse(data.body);
-            setMessageList((prev) => prev.concat(newMessage));
+            filterMessageType(data, setMessageList);
           },
-          { chatMain_id: roomId },
+          {
+            chatMain_id: roomId,
+          },
         );
+        enter(stompClient);
       },
     );
   };
