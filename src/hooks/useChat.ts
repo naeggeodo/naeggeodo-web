@@ -5,10 +5,12 @@ import {
   ChattingSubmitBody,
   PreviousChattingItem,
 } from '../modules/chatting/types';
+import { useSelectLoginStates } from './select/useSelectLoginStates';
 
 export function useChat() {
   const cookies = new Cookies();
   const accessToken = cookies.get(TOKEN_NAME.ACCESS_TOKEN);
+  const { user_id } = useSelectLoginStates();
 
   const connect = (
     stompClient: CompatClient,
@@ -20,7 +22,7 @@ export function useChat() {
     stompClient.connect(
       {
         chatMain_id: roomId,
-        sender: '1',
+        sender: user_id,
         Authorization: `Bearer ${accessToken}`,
       },
       () => {
