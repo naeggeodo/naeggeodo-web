@@ -28,16 +28,18 @@ export interface CategoriesResponse {
 
 export interface ChatRoomItemResponse {
   address: string | null;
+  endDate: string | null;
   buildingCode: string;
   link: string | null;
   orderTimeType: OrderTimeType;
   title: string;
   maxCount: number;
   tags: string[];
+  bookmarks: null | 'Y' | 'N';
   user_id: string;
   imgPath: string;
   currentCount: number;
-  endDate: string | null;
+  bookmarksDate: string;
   id: number;
   state: 'CREATE' | 'PROGRESS' | 'END' | 'FULL';
   place: string;
