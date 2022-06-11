@@ -37,11 +37,11 @@ export const getServerSideProps = wrapper.getServerSideProps(
       }),
     );
 
-    store.dispatch(
-      getQuickChattingListActions.request({
-        userId: String(context.params.id),
-      }),
-    );
+    // store.dispatch(
+    //   getQuickChattingListActions.request({
+    //     userId: String(context.params.id),
+    //   }),
+    // );
 
     store.dispatch(END);
     await store.sagaTask.toPromise();

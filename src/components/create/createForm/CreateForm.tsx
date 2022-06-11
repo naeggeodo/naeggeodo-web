@@ -10,9 +10,10 @@ import CreateButton from '../CreateButton';
 import SelectCategoryDrawer from './SelectCategoryDrawer';
 import palette from '../../../styles/palette';
 import { convertEngCategoryToKor } from '../../../utils/converEngCategoryToKor';
+import { CsrApiService } from '../../../service/api';
 
 // ? 방 생성시 상세 정보 선택하는 페이지
-// ? url : create/details
+// ? url : create
 
 interface MoveLinkProps {
   isUrl: boolean;
@@ -25,13 +26,16 @@ const CreateForm = () => {
     link,
     category,
     tag,
+    place,
     tagText,
     maxCount,
+    user_id,
+    buildingCode,
+    orderTimeType,
     changeTagText,
     dispatchAddTag,
     dispatchRemoveTag,
-    dispatchInsertTitle,
-    dispatchInsertLink,
+    dispatchInputAction,
     dispatchMinusMaxCount,
     dispatchPlusMaxCount,
   } = useCreateNaeggeotalk();
@@ -49,30 +53,72 @@ const CreateForm = () => {
     (e: ChangeEvent<HTMLInputElement>) => Promise<void>
   >(
     (e) => {
-      setImgFile(e.target.files[0]);
       const reader = new FileReader();
       reader.readAsDataURL(e.target.files[0]);
       return new Promise<void>((resolve) => {
         reader.onload = () => {
+          setImgFile(e.target.files[0]);
           setImgSrc(reader.result);
           resolve();
         };
       });
     },
-    [imgSrc],
+    [imgSrc, imgFile],
   );
+
+  const createChatRoom = useCallback(async () => {
+    const sendData = {
+      buildingCode,
+      category,
+      link,
+      place,
+      title,
+      user_id,
+      tag,
+      maxCount,
+      orderTimeType,
+    };
+
+    try {
+      const json = JSON.stringify(sendData);
+      const formData = new FormData();
+
+      const blob = new Blob([json], {
+        type: 'application/json',
+      });
+
+      formData.append('chat', blob);
+      formData.append('file', imgFile);
+
+      await CsrApiService.postApi('chat-rooms', formData);
+    } catch (err) {
+      console.log(err);
+    }
+  }, [
+    buildingCode,
+    category,
+    link,
+    place,
+    title,
+    user_id,
+    tag,
+    maxCount,
+    orderTimeType,
+    imgFile,
+    imgSrc,
+  ]);
 
   return (
     <Wrapper>
       <div>
         <Content>
           <Item>
-            <FieldTitle title='가게명' />
+            <FieldTitle title='채팅방 제목' />
             <Input
               type='text'
-              onChange={dispatchInsertTitle}
+              onChange={(e) => dispatchInputAction(e, 'title')}
               value={title}
-              placeholder='가게 이름을 입력해주세요.'
+              placeholder='채팅방 제목을 입력해주세요.'
             />
           </Item>
           <SelectCategory onClick={openCategoryList}>
@@ -85,6 +131,15 @@ const CreateForm = () => {
               height={16}></Image>
           </SelectCategory>
           <Item>
+            <TitleText>수령장소</TitleText>
+            <Input
+              type='text'
+              onChange={(e) => dispatchInputAction(e, 'place')}
+              value={place}
+              placeholder='수령장소를 입력해주세요 (ex.105동 1층 경비실)'
+            />
+          </Item>
+          <Item>
             <TitleText>가게 링크</TitleText>
             <InputWrapper>
               <Input
@@ -93,7 +148,7 @@ const CreateForm = () => {
                 value={link}
                 onChange={(e) => {
                   setIsUrl(urlRegex.test(link));
-                  dispatchInsertLink(e);
+                  dispatchInputAction(e, 'link');
                 }}
               />
               <Link href={`${link}`} passHref>
@@ -184,8 +239,10 @@ const CreateForm = () => {
 
       <ButtonWrapper>
         <CreateButton
-          handleClick={() => console.log(imgFile)}
+          handleClick={createChatRoom}
           storeName={title}
+          maxCount={maxCount}
+          category={category}
         />
       </ButtonWrapper>
     </Wrapper>

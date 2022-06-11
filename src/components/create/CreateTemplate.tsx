@@ -16,11 +16,11 @@ const CreateTemplate = () => {
   );
 
   return (
-    <>
+    <React.Fragment>
       {orderTimeType ? <CreateDetails /> : <CreateInit />}
       {loginModalIsClicked && <LoginModal />}
       <TabMenu />
-    </>
+    </React.Fragment>
   );
 };
 

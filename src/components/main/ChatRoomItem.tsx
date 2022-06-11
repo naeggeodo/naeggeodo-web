@@ -15,6 +15,7 @@ const ChatRoomItem = ({
   createDate,
   currentCount,
   orderTimeType,
+  imgPath,
 }: ChatRoomItemProps) => {
   const timeCalculator = useMemo(
     () => new TimeCalculator(createDate),
@@ -23,7 +24,11 @@ const ChatRoomItem = ({
 
   return (
     <Container>
-      <StyledImage src='/assets/images/pizza.svg' width={70} height={70} />
+      <StyledImage
+        src={imgPath ? imgPath : '/assets/images/pizza.svg'}
+        width={70}
+        height={70}
+      />
       <FlexRight>
         <Title>{title}</Title>
         <NumberOfPeople>

@@ -11,6 +11,7 @@ export type getNaverTokenRequestAction = ReturnType<
 export interface LoginResponse {
   accessToken: string;
   address: string;
+  buildingCode: string;
   refreshToken: string;
   user_id: string;
 }

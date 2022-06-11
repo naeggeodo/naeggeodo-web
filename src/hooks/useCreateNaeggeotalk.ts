@@ -4,15 +4,19 @@ import { RootState } from '../modules';
 import {
   addTag,
   insertLink,
+  insertPlace,
   insertTitle,
   minusMaxCount,
   plusMaxCount,
   removeTag,
 } from '../modules/create/actions';
 
+type InputActionType = 'title' | 'place' | 'link';
+
 export function useCreateNaeggeotalk() {
   const dispatch = useDispatch();
   const [tagText, setTagText] = useState('');
+
   const changeTagText = useCallback<(e: ChangeEvent<HTMLInputElement>) => void>(
     (e) => {
       setTagText(e.target.value);
@@ -22,6 +26,7 @@ export function useCreateNaeggeotalk() {
 
   const title = useSelector((state: RootState) => state.createStates.title);
   const link = useSelector((state: RootState) => state.createStates.link);
+
   const category = useSelector(
     (state: RootState) => state.createStates.category,
   );
@@ -29,16 +34,28 @@ export function useCreateNaeggeotalk() {
   const maxCount = useSelector(
     (state: RootState) => state.createStates.maxCount,
   );
-
-  const dispatchInsertTitle = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      dispatch(insertTitle(e.target.value));
-    },
-    [dispatch],
+  const place = useSelector((state: RootState) => state.createStates.place);
+  const orderTimeType = useSelector(
+    (state: RootState) => state.createStates.orderTimeType,
   );
-  const dispatchInsertLink = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      dispatch(insertLink(e.target.value));
+  const buildingCode = useSelector(
+    (state: RootState) => state.loginState.buildingCode,
+  );
+  const user_id = useSelector((state: RootState) => state.loginState.user_id);
+
+  const dispatchInputAction = useCallback<
+    (e: ChangeEvent<HTMLInputElement>, inputctionsType: InputActionType) => void
+  >(
+    (e, inputActionType) => {
+      const value = e.target.value;
+
+      if (inputActionType === 'title') {
+        dispatch(insertTitle(value));
+      } else if (inputActionType === 'link') {
+        dispatch(insertLink(value));
+      } else if (inputActionType === 'place') {
+        dispatch(insertPlace(value));
+      }
     },
     [dispatch],
   );
@@ -85,13 +102,16 @@ export function useCreateNaeggeotalk() {
     dispatch,
     title,
     link,
+    place,
     category,
+    buildingCode,
+    user_id,
     tag,
     tagText,
+    orderTimeType,
     changeTagText,
     maxCount,
-    dispatchInsertTitle,
-    dispatchInsertLink,
+    dispatchInputAction,
     dispatchRemoveTag,
     dispatchPlusMaxCount,
     dispatchMinusMaxCount,

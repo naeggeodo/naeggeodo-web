@@ -22,7 +22,7 @@ const CreateTabMenu = ({
         setIsShowCreateForm(false);
       }
     },
-    [],
+    [isShowCreateForm],
   );
 
   return (
@@ -31,7 +31,7 @@ const CreateTabMenu = ({
         새로입력
       </Button>
       <Button isActive={!isShowCreateForm} onClick={onMenuClick}>
-        주문목록
+        이전 주문내역 불러오기
       </Button>
     </Container>
   );

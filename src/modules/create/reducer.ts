@@ -9,6 +9,9 @@ import {
   SELECT_ORDER_TIME_TYPE,
   SELECT_CATEGORY,
   CREATE_CHAT_ROOM_SUCCESS,
+  INSERT_PLACE,
+  SAVE_USER_ID,
+  SAVE_BUILDING_CODE,
 } from './actions';
 import {
   CreateStates,
@@ -18,11 +21,14 @@ import {
   SelectCategoryAction,
   AddTagAction,
   RemoveTagAction,
+  InsertPlaceAction,
+  SaveUserIdAction,
+  SaveBuildingCodeAction,
 } from './types';
 
 const initialCreateStates: CreateStates = {
-  address: '',
-  category: 'ALL',
+  buildingCode: '',
+  category: null,
   link: 'http://',
   place: '',
   title: '',
@@ -82,6 +88,18 @@ export const createStates = createReducer<CreateStates>(initialCreateStates, {
       };
     }
   },
+  [INSERT_PLACE]: (state, action: InsertPlaceAction) => ({
+    ...state,
+    place: action.payload.place,
+  }),
+  [SAVE_USER_ID]: (state, action: SaveUserIdAction) => ({
+    ...state,
+    user_id: action.payload.user_id,
+  }),
+  [SAVE_BUILDING_CODE]: (state, action: SaveBuildingCodeAction) => ({
+    ...state,
+    buildingCode: action.payload.buildingCode,
+  }),
   [CREATE_CHAT_ROOM_SUCCESS]: (state, action) => {
     return { ...state };
   },

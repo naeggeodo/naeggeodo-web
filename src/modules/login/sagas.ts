@@ -31,6 +31,9 @@ function* KakaoLoginGenerator(action: getkakaoTokenRequestAction) {
     cookies.set('refreshToken', response.data.refreshToken, {
       path: '/',
     });
+    cookies.set('buildingCode', response.data.buildingCode, {
+      path: '/',
+    });
     cookies.set('user_id', response.data.user_id, {
       path: '/',
     });
@@ -53,11 +56,15 @@ function* naverLoginGenerator(action: getNaverTokenRequestAction) {
       action.payload,
     );
     yield put(getNaverTokenSuccess(response.data));
+    console.log(response);
 
     cookies.set('accessToken', response.data.accessToken, {
       path: '/',
     });
     cookies.set('refreshToken', response.data.refreshToken, {
+      path: '/',
+    });
+    cookies.set('buildingCode', response.data.buildingCode, {
       path: '/',
     });
     cookies.set('user_id', response.data.user_id, {

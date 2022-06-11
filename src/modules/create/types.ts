@@ -2,8 +2,11 @@ import { Category } from '../main/types';
 import {
   addTag,
   insertLink,
+  insertPlace,
   insertTitle,
   removeTag,
+  saveBuildingCode,
+  saveUserId,
   selectCategory,
   selectOrderTimeType,
 } from './actions';
@@ -15,12 +18,15 @@ export type InsertLinkAction = ReturnType<typeof insertLink>;
 export type SelectCategoryAction = ReturnType<typeof selectCategory>;
 export type AddTagAction = ReturnType<typeof addTag>;
 export type RemoveTagAction = ReturnType<typeof removeTag>;
+export type InsertPlaceAction = ReturnType<typeof insertPlace>;
+export type SaveUserIdAction = ReturnType<typeof saveUserId>;
+export type SaveBuildingCodeAction = ReturnType<typeof saveBuildingCode>;
 
 export type OrderTimeType = 'ONE_HOUR' | 'QUICK' | 'FREEDOM';
 
 export interface CreateStates {
-  address: string; //주소
-  category: Category; // 카테고리
+  buildingCode: string;
+  category: Category | null; // 카테고리
   link: string; // 카카오페이 링크
   place: string; // 수령지
   title: string; //방제

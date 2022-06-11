@@ -7,7 +7,7 @@ import { useLoadLib } from '../../hooks/utils/useLoadLib';
 import { RootState } from '../../modules';
 import { createChatRoomActions } from '../../modules/create/actions';
 import { NaeggeotalkItem } from '../../modules/naeggeotalk/types';
-import CreateButton from '../create/CreateButton';
+import CreateButton from './CreateButton';
 import TabMenu from '../main/TabMenu';
 import PrevCreatedItem from './PrevCreatedItem';
 
@@ -49,22 +49,24 @@ const PrevCreatedList = () => {
     chat.append('chat', blob);
     dispatch(createChatRoomActions.request(chat));
   };
+
   return (
     <>
       <Container>
         <Content>
           {dataList &&
             dataList.map((item, i) => (
-              <PrevCreatedItem
-                key={i}
-                data={item}
-                selectItem={selectItem}
-                setSelectItem={setSelectItem}
-              />
+              <></>
+              // <PrevCreatedItem
+              //   key={i}
+              //   data={item}
+              //   selectItem={selectItem}
+              //   setSelectItem={setSelectItem}
+              // />
             ))}
         </Content>
         <ButtonWrapper>
-          <CreateButton handleClick={createChattingRoom} storeName={'sample'} />
+          <button>버튼</button>
         </ButtonWrapper>
         <div ref={target} />
       </Container>
@@ -72,8 +74,6 @@ const PrevCreatedList = () => {
     </>
   );
 };
-
-export default PrevCreatedList;
 
 const Container = styled.div`
   width: 100%;
@@ -98,3 +98,5 @@ const ButtonWrapper = styled.div`
 
   margin: 0 auto;
 `;
+
+export default PrevCreatedList;

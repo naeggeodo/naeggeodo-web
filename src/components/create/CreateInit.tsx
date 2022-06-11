@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
@@ -9,6 +9,7 @@ import { selectOrderTimeType } from '../../modules/create/actions';
 
 import { openLoginModal } from '../../modules/modal/actions';
 import OrderTimeTypeButton from './OrderTimeTypeButton';
+import palette from '../../styles/palette';
 
 const buttonValue: ButtonValue[] = [
   {
@@ -26,15 +27,15 @@ const buttonValue: ButtonValue[] = [
 ];
 
 const CreateInit = () => {
+  const [selectedOrderTimeType, setSelectedOrderTimeType] =
+    useState<OrderTimeType>();
   const { router, dispatch } = useLoadLib();
-  const currentOrderTimeType = useSelector(
-    (state: RootState) => state.createStates.orderTimeType,
-  );
+
   const accessToken = useSelector(
     (state: RootState) => state.loginState.accessToken,
   );
 
-  const dispatchSelectOrderTypeTime = useCallback<
+  const selectOrderTypeTimeInComponent = useCallback<
     (e: React.MouseEvent<HTMLButtonElement>) => void
   >(
     (e) => {
@@ -45,11 +46,15 @@ const CreateInit = () => {
           'data-value',
         ) as OrderTimeType;
 
-        dispatch(selectOrderTimeType(orderTimeType));
+        setSelectedOrderTimeType(orderTimeType);
       }
     },
-    [dispatch, router],
+    [dispatch, selectedOrderTimeType],
   );
+
+  const dispatchOrderTimeType = useCallback(() => {
+    dispatch(selectOrderTimeType(selectedOrderTimeType));
+  }, [dispatch, selectedOrderTimeType]);
 
   return (
     <Container>
@@ -60,13 +65,18 @@ const CreateInit = () => {
       <Content>
         {buttonValue.map((item, i) => (
           <OrderTimeTypeButton
-            handleClick={dispatchSelectOrderTypeTime}
-            key={i}
+            handleClick={selectOrderTypeTimeInComponent}
+            key={item.text}
             dataValue={item.value}
-            isActive={currentOrderTimeType === item.value ? true : false}>
+            isActive={selectedOrderTimeType === item.value ? true : false}>
             {item.text}
           </OrderTimeTypeButton>
         ))}
+        <NextStepButtonContainer>
+          <NextStepButton onClick={dispatchOrderTimeType}>
+            다음으로 &gt;
+          </NextStepButton>
+        </NextStepButtonContainer>
       </Content>
     </Container>
   );
@@ -100,6 +110,26 @@ const Content = styled.div`
   flex-direction: column;
 
   gap: 10px;
+`;
+
+const NextStepButtonContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const NextStepButton = styled.button`
+  padding: 10px 30px;
+
+  font-size: 0.9375rem;
+  font-family: 'SpoqaBold';
+
+  border-radius: 10px;
+  background-color: ${palette.mainOrange};
+  color: #fff;
+
+  cursor: pointer;
+  border: none;
+  outline: none;
 `;
 
 export default CreateInit;

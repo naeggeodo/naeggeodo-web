@@ -1,5 +1,5 @@
 const withPlugins = require('next-compose-plugins');
-const images = require('next-images');
+const withImages = require('next-images');
 const bundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
@@ -19,12 +19,15 @@ const nextConfig = {
 
     return config;
   },
+  images: {
+    domains: ['res.cloudinary.com'],
+  },
 };
 
 module.exports = withPlugins(
   [
     [
-      images,
+      withImages,
       {
         swcMinify: true,
         compiler: {

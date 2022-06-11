@@ -3,12 +3,13 @@ export type ChattingRoomInfoRequest = {
 };
 
 export type ChattingRoomInfoResponse = {
-  imgpath: string;
+  imgPath: string;
   link: string | null;
   title: string;
   maxCount: number;
+  currentCount: number;
   chatUser: string[];
-  enddate: null;
+  endDate: null;
   id: number;
   state: string;
   place: string;
