@@ -5,10 +5,11 @@ import App, { AppContext } from 'next/app';
 import { axiosInstance } from '../service/api';
 import cookies from 'next-cookies';
 import { createCustomHeader } from '../utils/createCustomHeader';
+import AppLayout from '../components/common/AppLayout';
 
 const app = ({ Component, pageProps }) => {
   return (
-    <>
+    <AppLayout>
       <Head>
         <title>내꺼도 같이 시켜줘</title>
         <link rel='icon' href='/assets/images/favicon.ico' />
@@ -16,7 +17,7 @@ const app = ({ Component, pageProps }) => {
       </Head>
       <GlobalStyle />
       <Component {...pageProps} />
-    </>
+    </AppLayout>
   );
 };
 
