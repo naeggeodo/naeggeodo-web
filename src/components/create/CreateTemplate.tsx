@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../modules';
+import CompleteModalTemplate from '../common/CompleteModalTemplate';
 import LoginModal from '../login/LoginModalTemplate';
 import TabMenu from '../main/TabMenu';
 import CreateDetails from './createForm/CreateDetails';
@@ -19,6 +20,7 @@ const CreateTemplate = () => {
     <React.Fragment>
       {orderTimeType ? <CreateDetails /> : <CreateInit />}
       {loginModalIsClicked && <LoginModal />}
+      <CompleteModalTemplate />
       <TabMenu />
     </React.Fragment>
   );
