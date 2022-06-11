@@ -1,16 +1,23 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
+import { Category } from '../../modules/main/types';
 import palette from '../../styles/palette';
 
 const CreateButton = ({
+  maxCount,
+  category,
   storeName,
   handleClick,
 }: {
+  maxCount: number;
+  category: Category;
   storeName: string;
   handleClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }) => {
   return (
-    <Button onClick={handleClick} disabled={storeName.length < 2}>
+    <Button
+      onClick={handleClick}
+      disabled={storeName.length < 2 || !category || maxCount <= 1}>
       내꺼톡 생성하기
     </Button>
   );

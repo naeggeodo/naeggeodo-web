@@ -195,6 +195,8 @@ const CreateForm = () => {
         <CreateButton
           handleClick={() => console.log(imgFile)}
           storeName={title}
+          maxCount={maxCount}
+          category={category}
         />
       </ButtonWrapper>
     </Wrapper>
