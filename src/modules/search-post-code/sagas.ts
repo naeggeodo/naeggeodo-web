@@ -28,7 +28,7 @@ function* searchPostCodeGenerator(action: PatchBuildingCodeRequestAction) {
     yield put(saveAddress(response.data));
     yield call(
       Router.push,
-      `/chatRooms?buildingCode=${response.data.buildingCode}`,
+      `/chat-rooms?buildingCode=${response.data.buildingCode}`,
     );
   } catch (error) {
     console.log(error);
