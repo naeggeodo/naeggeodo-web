@@ -9,6 +9,8 @@ import {
   SELECT_ORDER_TIME_TYPE,
   SELECT_CATEGORY,
   CREATE_CHAT_ROOM_SUCCESS,
+  INSERT_PLACE,
+  insertPlace,
 } from './actions';
 import {
   CreateStates,
@@ -18,6 +20,7 @@ import {
   SelectCategoryAction,
   AddTagAction,
   RemoveTagAction,
+  insertPlaceAction,
 } from './types';
 
 const initialCreateStates: CreateStates = {
@@ -82,6 +85,10 @@ export const createStates = createReducer<CreateStates>(initialCreateStates, {
       };
     }
   },
+  [INSERT_PLACE]: (state, action: insertPlaceAction) => ({
+    ...state,
+    place: action.payload.place,
+  }),
   [CREATE_CHAT_ROOM_SUCCESS]: (state, action) => {
     return { ...state };
   },

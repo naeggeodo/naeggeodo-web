@@ -25,13 +25,13 @@ const CreateForm = () => {
     link,
     category,
     tag,
+    place,
     tagText,
     maxCount,
     changeTagText,
     dispatchAddTag,
     dispatchRemoveTag,
-    dispatchInsertTitle,
-    dispatchInsertLink,
+    dispatchInputAction,
     dispatchMinusMaxCount,
     dispatchPlusMaxCount,
   } = useCreateNaeggeotalk();
@@ -67,12 +67,12 @@ const CreateForm = () => {
       <div>
         <Content>
           <Item>
-            <FieldTitle title='가게명' />
+            <FieldTitle title='채팅방 제목' />
             <Input
               type='text'
-              onChange={dispatchInsertTitle}
+              onChange={(e) => dispatchInputAction(e, 'title')}
               value={title}
-              placeholder='가게 이름을 입력해주세요.'
+              placeholder='채팅방 제목을 입력해주세요.'
             />
           </Item>
           <SelectCategory onClick={openCategoryList}>
@@ -85,10 +85,11 @@ const CreateForm = () => {
               height={16}></Image>
           </SelectCategory>
           <Item>
-            <FieldTitle title='수령장소' />
+            <TitleText>수령장소</TitleText>
             <Input
               type='text'
-              value={title}
+              onChange={(e) => dispatchInputAction(e, 'place')}
+              value={place}
               placeholder='수령장소를 입력해주세요 (ex.105동 1층 경비실)'
             />
           </Item>
@@ -101,7 +102,7 @@ const CreateForm = () => {
                 value={link}
                 onChange={(e) => {
                   setIsUrl(urlRegex.test(link));
-                  dispatchInsertLink(e);
+                  dispatchInputAction(e, 'link');
                 }}
               />
               <Link href={`${link}`} passHref>

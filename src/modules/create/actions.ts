@@ -10,6 +10,7 @@ export const INSERT_TITLE = namespace + 'INSERT_TITLE';
 export const INSERT_LINK = namespace + 'INSERT_LINK';
 export const SELECT_CATEGORY = namespace + 'SELECT_CATEGORY';
 export const ADD_TAG = namespace + 'ADD_TAG';
+export const INSERT_PLACE = namespace + 'INSERT_PLACE';
 
 export const PLUS_MAX_COUNT = namespace + 'PLUS_MAX_COUNT';
 export const MINUS_MAX_COUNT = namespace + 'MINUS_MAX_COUNT';
@@ -38,6 +39,7 @@ export const removeTag = createAction(REMOVE_TAG, (index) => ({ index }))();
 
 export const plusMaxCount = createAction(PLUS_MAX_COUNT, () => ({}))();
 export const minusMaxCount = createAction(MINUS_MAX_COUNT, () => ({}))();
+export const insertPlace = createAction(INSERT_PLACE, (place) => ({ place }))();
 
 export const createChatRoomActions = createAsyncAction(
   CREATE_CHAT_ROOM_REQUEST,

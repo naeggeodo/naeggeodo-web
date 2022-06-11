@@ -2,6 +2,7 @@ import { Category } from '../main/types';
 import {
   addTag,
   insertLink,
+  insertPlace,
   insertTitle,
   removeTag,
   selectCategory,
@@ -15,6 +16,7 @@ export type InsertLinkAction = ReturnType<typeof insertLink>;
 export type SelectCategoryAction = ReturnType<typeof selectCategory>;
 export type AddTagAction = ReturnType<typeof addTag>;
 export type RemoveTagAction = ReturnType<typeof removeTag>;
+export type insertPlaceAction = ReturnType<typeof insertPlace>;
 
 export type OrderTimeType = 'ONE_HOUR' | 'QUICK' | 'FREEDOM';
 

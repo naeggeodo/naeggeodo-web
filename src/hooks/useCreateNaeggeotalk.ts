@@ -4,11 +4,14 @@ import { RootState } from '../modules';
 import {
   addTag,
   insertLink,
+  insertPlace,
   insertTitle,
   minusMaxCount,
   plusMaxCount,
   removeTag,
 } from '../modules/create/actions';
+
+type InputActionType = 'title' | 'place' | 'link';
 
 export function useCreateNaeggeotalk() {
   const dispatch = useDispatch();
@@ -29,16 +32,21 @@ export function useCreateNaeggeotalk() {
   const maxCount = useSelector(
     (state: RootState) => state.createStates.maxCount,
   );
+  const place = useSelector((state: RootState) => state.createStates.place);
 
-  const dispatchInsertTitle = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      dispatch(insertTitle(e.target.value));
-    },
-    [dispatch],
-  );
-  const dispatchInsertLink = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      dispatch(insertLink(e.target.value));
+  const dispatchInputAction = useCallback<
+    (e: ChangeEvent<HTMLInputElement>, inputctionsType: InputActionType) => void
+  >(
+    (e, inputActionType) => {
+      const value = e.target.value;
+
+      if (inputActionType === 'title') {
+        dispatch(insertTitle(value));
+      } else if (inputActionType === 'link') {
+        dispatch(insertLink(value));
+      } else if (inputActionType === 'place') {
+        dispatch(insertPlace(value));
+      }
     },
     [dispatch],
   );
@@ -85,13 +93,13 @@ export function useCreateNaeggeotalk() {
     dispatch,
     title,
     link,
+    place,
     category,
     tag,
     tagText,
     changeTagText,
     maxCount,
-    dispatchInsertTitle,
-    dispatchInsertLink,
+    dispatchInputAction,
     dispatchRemoveTag,
     dispatchPlusMaxCount,
     dispatchMinusMaxCount,
