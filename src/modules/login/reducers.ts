@@ -16,6 +16,7 @@ import { LoginResponse } from './types';
 const initialState: LoginResponse = {
   accessToken: '',
   refreshToken: '',
+  buildingCode: '',
   address: '',
   user_id: '',
 };
@@ -58,6 +59,7 @@ export const loginState = createReducer<LoginResponse>(initialState, {
   [SAVE_ADDRESS]: (state, action) => ({
     ...state,
     address: action.payload.address,
+    buildingCode: action.payload.buildingCode,
     user_id: action.payload.user_id,
   }),
 });

@@ -48,8 +48,9 @@ export const saveRefreshToken = createAction(
 
 export const saveUserInfo = createAction(
   SAVE_USER_INFO,
-  (address, user_id) => ({
+  (address, buildingCode, user_id) => ({
     address,
+    buildingCode,
     user_id,
   }),
 )();

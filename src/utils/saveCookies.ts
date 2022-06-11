@@ -12,6 +12,12 @@ export function saveCookies(store: Store, context) {
     store.dispatch(saveAccessToken(allCookies.accessToken));
 
     store.dispatch(saveRefreshToken(allCookies.refreshToken));
-    store.dispatch(saveUserInfo(allCookies.address, allCookies.user_id));
+    store.dispatch(
+      saveUserInfo(
+        allCookies.address,
+        allCookies.buildingCode,
+        allCookies.user_id,
+      ),
+    );
   }
 }
