@@ -85,6 +85,14 @@ const CreateForm = () => {
               height={16}></Image>
           </SelectCategory>
           <Item>
+            <FieldTitle title='수령장소' />
+            <Input
+              type='text'
+              value={title}
+              placeholder='수령장소를 입력해주세요 (ex.105동 1층 경비실)'
+            />
+          </Item>
+          <Item>
             <TitleText>가게 링크</TitleText>
             <InputWrapper>
               <Input
