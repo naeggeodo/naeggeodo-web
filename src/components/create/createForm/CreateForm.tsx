@@ -12,7 +12,7 @@ import palette from '../../../styles/palette';
 import { convertEngCategoryToKor } from '../../../utils/converEngCategoryToKor';
 
 // ? 방 생성시 상세 정보 선택하는 페이지
-// ? url : create/details
+// ? url : create
 
 interface MoveLinkProps {
   isUrl: boolean;
@@ -28,6 +28,7 @@ const CreateForm = () => {
     place,
     tagText,
     maxCount,
+    orderTimeType,
     changeTagText,
     dispatchAddTag,
     dispatchRemoveTag,
@@ -40,6 +41,8 @@ const CreateForm = () => {
   const [isUrl, setIsUrl] = useState<boolean>(false);
   const [imgSrc, setImgSrc] = useState<string | ArrayBuffer>();
   const [imgFile, setImgFile] = useState<any>();
+
+  console.log(imgSrc);
 
   const openCategoryList = useCallback(() => {
     setIsOpen(true);
@@ -61,6 +64,19 @@ const CreateForm = () => {
     },
     [imgSrc],
   );
+
+  const createChatRoom = useCallback(() => {
+    const sendData = {
+      category,
+      link,
+      place,
+      title,
+      user_id: '123',
+      tag,
+      maxCount,
+      orderTimeType,
+    };
+  }, []);
 
   return (
     <Wrapper>
@@ -193,7 +209,7 @@ const CreateForm = () => {
 
       <ButtonWrapper>
         <CreateButton
-          handleClick={() => console.log(imgFile)}
+          handleClick={createChatRoom}
           storeName={title}
           maxCount={maxCount}
           category={category}

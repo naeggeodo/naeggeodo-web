@@ -16,6 +16,7 @@ type InputActionType = 'title' | 'place' | 'link';
 export function useCreateNaeggeotalk() {
   const dispatch = useDispatch();
   const [tagText, setTagText] = useState('');
+
   const changeTagText = useCallback<(e: ChangeEvent<HTMLInputElement>) => void>(
     (e) => {
       setTagText(e.target.value);
@@ -33,6 +34,9 @@ export function useCreateNaeggeotalk() {
     (state: RootState) => state.createStates.maxCount,
   );
   const place = useSelector((state: RootState) => state.createStates.place);
+  const orderTimeType = useSelector(
+    (state: RootState) => state.createStates.orderTimeType,
+  );
 
   const dispatchInputAction = useCallback<
     (e: ChangeEvent<HTMLInputElement>, inputctionsType: InputActionType) => void
@@ -97,6 +101,7 @@ export function useCreateNaeggeotalk() {
     category,
     tag,
     tagText,
+    orderTimeType,
     changeTagText,
     maxCount,
     dispatchInputAction,

@@ -10,7 +10,6 @@ import { selectOrderTimeType } from '../../modules/create/actions';
 import { openLoginModal } from '../../modules/modal/actions';
 import OrderTimeTypeButton from './OrderTimeTypeButton';
 import palette from '../../styles/palette';
-import Image from 'next/image';
 
 const buttonValue: ButtonValue[] = [
   {
@@ -31,9 +30,7 @@ const CreateInit = () => {
   const [selectedOrderTimeType, setSelectedOrderTimeType] =
     useState<OrderTimeType>();
   const { router, dispatch } = useLoadLib();
-  const currentOrderTimeType = useSelector(
-    (state: RootState) => state.createStates.orderTimeType,
-  );
+
   const accessToken = useSelector(
     (state: RootState) => state.loginState.accessToken,
   );
@@ -56,7 +53,6 @@ const CreateInit = () => {
   );
 
   const dispatchOrderTimeType = useCallback(() => {
-    console.log(selectedOrderTimeType);
     dispatch(selectOrderTimeType(selectedOrderTimeType));
   }, [dispatch, selectedOrderTimeType]);
 

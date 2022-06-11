@@ -12,6 +12,7 @@ import {
   INSERT_PLACE,
   insertPlace,
   SAVE_USER_ID,
+  SAVE_ADDRESS,
 } from './actions';
 import {
   CreateStates,
@@ -21,8 +22,9 @@ import {
   SelectCategoryAction,
   AddTagAction,
   RemoveTagAction,
-  insertPlaceAction,
-  saveUserIdAction,
+  InsertPlaceAction,
+  SaveUserIdAction,
+  SaveAddressAction,
 } from './types';
 
 const initialCreateStates: CreateStates = {
@@ -87,13 +89,17 @@ export const createStates = createReducer<CreateStates>(initialCreateStates, {
       };
     }
   },
-  [INSERT_PLACE]: (state, action: insertPlaceAction) => ({
+  [INSERT_PLACE]: (state, action: InsertPlaceAction) => ({
     ...state,
     place: action.payload.place,
   }),
-  [SAVE_USER_ID]: (state, action: saveUserIdAction) => ({
+  [SAVE_USER_ID]: (state, action: SaveUserIdAction) => ({
     ...state,
     user_id: action.payload.user_id,
+  }),
+  [SAVE_ADDRESS]: (state, action: SaveAddressAction) => ({
+    ...state,
+    address: action.payload.address,
   }),
   [CREATE_CHAT_ROOM_SUCCESS]: (state, action) => {
     return { ...state };

@@ -16,6 +16,7 @@ export const PLUS_MAX_COUNT = namespace + 'PLUS_MAX_COUNT';
 export const MINUS_MAX_COUNT = namespace + 'MINUS_MAX_COUNT';
 export const REMOVE_TAG = namespace + 'REMOVE_TAG';
 export const SAVE_USER_ID = namespace + 'SAVE_USER_ID';
+export const SAVE_ADDRESS = namespace + 'SAVE_ADDRESS';
 
 export const CREATE_CHAT_ROOM_REQUEST = namespace + 'CREATE_CHAT_ROOM_REQUEST';
 export const CREATE_CHAT_ROOM_SUCCESS = namespace + 'CREATE_CHAT_ROOM_SUCCESS';
@@ -43,6 +44,9 @@ export const minusMaxCount = createAction(MINUS_MAX_COUNT, () => ({}))();
 export const insertPlace = createAction(INSERT_PLACE, (place) => ({ place }))();
 export const saveUserId = createAction(SAVE_USER_ID, (user_id) => ({
   user_id,
+}))();
+export const saveAddress = createAction(SAVE_ADDRESS, (address) => ({
+  address,
 }))();
 
 export const createChatRoomActions = createAsyncAction(
