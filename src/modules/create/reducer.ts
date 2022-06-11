@@ -25,7 +25,7 @@ import {
 
 const initialCreateStates: CreateStates = {
   address: '',
-  category: 'ALL',
+  category: null,
   link: 'http://',
   place: '',
   title: '',

@@ -30,5 +30,7 @@ export const convertEngCategoryToKor = (category: Category) => {
       return '양식';
     case 'HAMBURGER':
       return '햄버거';
+    default:
+      return '카테고리 선택';
   }
 };

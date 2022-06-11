@@ -22,7 +22,7 @@ export type OrderTimeType = 'ONE_HOUR' | 'QUICK' | 'FREEDOM';
 
 export interface CreateStates {
   address: string; //주소
-  category: Category; // 카테고리
+  category: Category | null; // 카테고리
   link: string; // 카카오페이 링크
   place: string; // 수령지
   title: string; //방제
