@@ -7,7 +7,7 @@ import { useLoadLib } from '../../hooks/utils/useLoadLib';
 import { RootState } from '../../modules';
 import { createChatRoomActions } from '../../modules/create/actions';
 import { NaeggeotalkItem } from '../../modules/naeggeotalk/types';
-import CreateButton from '../create/CreateButton';
+import CreateButton from './CreateButton';
 import TabMenu from '../main/TabMenu';
 import PrevCreatedItem from './PrevCreatedItem';
 

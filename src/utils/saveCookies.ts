@@ -7,7 +7,7 @@ import {
 } from '../modules/login/actions';
 
 export function saveCookies(store: Store, context) {
-  if (context.req.headers.cookie) {
+  if (context?.req?.headers?.cookie) {
     const allCookies = cookies(context);
     store.dispatch(saveAccessToken(allCookies.accessToken));
 

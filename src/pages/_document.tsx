@@ -47,10 +47,7 @@ export default class MyDocument extends Document {
             property='og:description'
             content='우리동네 배달비 반띵 어플리케이션<br/>지금 나와 같은 음식을 떠올리고 있는 사람과 대화해보세요!'
           />
-          <meta
-            property='og:url'
-            content='http://www.naeggeodo.com:8080/create'
-          />
+          <meta property='og:url' content='http://www.naeggeodo.com:8080/' />
           <meta
             property='og:image'
             content='/public/assets/images/hamburger.svg'

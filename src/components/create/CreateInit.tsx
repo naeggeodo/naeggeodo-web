@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
@@ -28,6 +28,8 @@ const buttonValue: ButtonValue[] = [
 ];
 
 const CreateInit = () => {
+  const [selectedOrderTimeType, setSelectedOrderTimeType] =
+    useState<OrderTimeType>();
   const { router, dispatch } = useLoadLib();
   const currentOrderTimeType = useSelector(
     (state: RootState) => state.createStates.orderTimeType,
@@ -36,7 +38,7 @@ const CreateInit = () => {
     (state: RootState) => state.loginState.accessToken,
   );
 
-  const dispatchSelectOrderTypeTime = useCallback<
+  const selectOrderTypeTimeInComponent = useCallback<
     (e: React.MouseEvent<HTMLButtonElement>) => void
   >(
     (e) => {
@@ -47,11 +49,16 @@ const CreateInit = () => {
           'data-value',
         ) as OrderTimeType;
 
-        dispatch(selectOrderTimeType(orderTimeType));
+        setSelectedOrderTimeType(orderTimeType);
       }
     },
-    [dispatch, router],
+    [dispatch, selectedOrderTimeType],
   );
+
+  const dispatchOrderTimeType = useCallback(() => {
+    console.log(selectedOrderTimeType);
+    dispatch(selectOrderTimeType(selectedOrderTimeType));
+  }, [dispatch, selectedOrderTimeType]);
 
   return (
     <Container>
@@ -62,15 +69,17 @@ const CreateInit = () => {
       <Content>
         {buttonValue.map((item, i) => (
           <OrderTimeTypeButton
-            handleClick={dispatchSelectOrderTypeTime}
+            handleClick={selectOrderTypeTimeInComponent}
             key={item.text}
             dataValue={item.value}
-            isActive={currentOrderTimeType === item.value ? true : false}>
+            isActive={selectedOrderTimeType === item.value ? true : false}>
             {item.text}
           </OrderTimeTypeButton>
         ))}
         <NextStepButtonContainer>
-          <NextStepButton>다음으로 &gt; </NextStepButton>
+          <NextStepButton onClick={dispatchOrderTimeType}>
+            다음으로 &gt;
+          </NextStepButton>
         </NextStepButtonContainer>
       </Content>
     </Container>
