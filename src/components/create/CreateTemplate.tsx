@@ -17,7 +17,7 @@ const CreateTemplate = () => {
 
   return (
     <>
-      {orderTimeType ? <CreateDetails /> : <CreateInit />}
+      <CreateInit />
       {loginModalIsClicked && <LoginModal />}
       <TabMenu />
     </>

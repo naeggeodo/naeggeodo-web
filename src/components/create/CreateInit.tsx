@@ -9,6 +9,8 @@ import { selectOrderTimeType } from '../../modules/create/actions';
 
 import { openLoginModal } from '../../modules/modal/actions';
 import OrderTimeTypeButton from './OrderTimeTypeButton';
+import palette from '../../styles/palette';
+import Image from 'next/image';
 
 const buttonValue: ButtonValue[] = [
   {
@@ -61,12 +63,15 @@ const CreateInit = () => {
         {buttonValue.map((item, i) => (
           <OrderTimeTypeButton
             handleClick={dispatchSelectOrderTypeTime}
-            key={i}
+            key={item.text}
             dataValue={item.value}
             isActive={currentOrderTimeType === item.value ? true : false}>
             {item.text}
           </OrderTimeTypeButton>
         ))}
+        <NextStepButtonContainer>
+          <NextStepButton>다음으로 &gt; </NextStepButton>
+        </NextStepButtonContainer>
       </Content>
     </Container>
   );
@@ -100,6 +105,26 @@ const Content = styled.div`
   flex-direction: column;
 
   gap: 10px;
+`;
+
+const NextStepButtonContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const NextStepButton = styled.button`
+  padding: 10px 30px;
+
+  font-size: 0.9375rem;
+  font-family: 'SpoqaBold';
+
+  border-radius: 10px;
+  background-color: ${palette.mainOrange};
+  color: #fff;
+
+  cursor: pointer;
+  border: none;
+  outline: none;
 `;
 
 export default CreateInit;
