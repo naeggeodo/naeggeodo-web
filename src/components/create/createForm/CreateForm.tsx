@@ -10,6 +10,7 @@ import CreateButton from '../CreateButton';
 import SelectCategoryDrawer from './SelectCategoryDrawer';
 import palette from '../../../styles/palette';
 import { convertEngCategoryToKor } from '../../../utils/converEngCategoryToKor';
+import { CsrApiService } from '../../../service/api';
 
 // ? 방 생성시 상세 정보 선택하는 페이지
 // ? url : create
@@ -28,6 +29,8 @@ const CreateForm = () => {
     place,
     tagText,
     maxCount,
+    user_id,
+    buildingCode,
     orderTimeType,
     changeTagText,
     dispatchAddTag,
@@ -42,8 +45,6 @@ const CreateForm = () => {
   const [imgSrc, setImgSrc] = useState<string | ArrayBuffer>();
   const [imgFile, setImgFile] = useState<any>();
 
-  console.log(imgSrc);
-
   const openCategoryList = useCallback(() => {
     setIsOpen(true);
   }, [isOpen]);
@@ -52,31 +53,60 @@ const CreateForm = () => {
     (e: ChangeEvent<HTMLInputElement>) => Promise<void>
   >(
     (e) => {
-      setImgFile(e.target.files[0]);
       const reader = new FileReader();
       reader.readAsDataURL(e.target.files[0]);
       return new Promise<void>((resolve) => {
         reader.onload = () => {
+          setImgFile(e.target.files[0]);
           setImgSrc(reader.result);
           resolve();
         };
       });
     },
-    [imgSrc],
+    [imgSrc, imgFile],
   );
 
-  const createChatRoom = useCallback(() => {
+  const createChatRoom = useCallback(async () => {
     const sendData = {
+      buildingCode,
       category,
       link,
       place,
       title,
-      user_id: '123',
+      user_id,
       tag,
       maxCount,
       orderTimeType,
     };
-  }, []);
+
+    try {
+      const json = JSON.stringify(sendData);
+      const formData = new FormData();
+
+      const blob = new Blob([json], {
+        type: 'application/json',
+      });
+
+      formData.append('chat', blob);
+      formData.append('file', imgFile);
+
+      await CsrApiService.postApi('chat-rooms', formData);
+    } catch (err) {
+      console.log(err);
+    }
+  }, [
+    buildingCode,
+    category,
+    link,
+    place,
+    title,
+    user_id,
+    tag,
+    maxCount,
+    orderTimeType,
+    imgFile,
+    imgSrc,
+  ]);
 
   return (
     <Wrapper>

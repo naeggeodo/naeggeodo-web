@@ -10,9 +10,8 @@ import {
   SELECT_CATEGORY,
   CREATE_CHAT_ROOM_SUCCESS,
   INSERT_PLACE,
-  insertPlace,
   SAVE_USER_ID,
-  SAVE_ADDRESS,
+  SAVE_BUILDING_CODE,
 } from './actions';
 import {
   CreateStates,
@@ -24,11 +23,11 @@ import {
   RemoveTagAction,
   InsertPlaceAction,
   SaveUserIdAction,
-  SaveAddressAction,
+  SaveBuildingCodeAction,
 } from './types';
 
 const initialCreateStates: CreateStates = {
-  address: '',
+  buildingCode: '',
   category: null,
   link: 'http://',
   place: '',
@@ -97,9 +96,9 @@ export const createStates = createReducer<CreateStates>(initialCreateStates, {
     ...state,
     user_id: action.payload.user_id,
   }),
-  [SAVE_ADDRESS]: (state, action: SaveAddressAction) => ({
+  [SAVE_BUILDING_CODE]: (state, action: SaveBuildingCodeAction) => ({
     ...state,
-    address: action.payload.address,
+    buildingCode: action.payload.buildingCode,
   }),
   [CREATE_CHAT_ROOM_SUCCESS]: (state, action) => {
     return { ...state };
