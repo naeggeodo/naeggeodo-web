@@ -6,6 +6,7 @@ import { RootState } from '../../modules';
 import palette from '../../styles/palette';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { ChattingRoomInfoResponse } from '../../modules/chatting/types';
 
 type StyledType = {
   name: 'title' | 'info';
@@ -14,9 +15,10 @@ type StyledType = {
 type PropsType = {
   setIsDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
   isDrawerOpen: boolean;
+  chatRoomInfo: ChattingRoomInfoResponse;
 };
 
-const Header = ({ setIsDrawerOpen, isDrawerOpen }: PropsType) => {
+const Header = ({ setIsDrawerOpen, isDrawerOpen, chatRoomInfo }: PropsType) => {
   const router = useRouter();
 
   const currentCount = useSelector(
@@ -57,15 +59,19 @@ const Header = ({ setIsDrawerOpen, isDrawerOpen }: PropsType) => {
           />
         </PrevButton>
         <StyledImage
-          src={imgPath ? imgPath : '/assets/images/hamburger.svg'}
+          src={
+            chatRoomInfo.imgPath
+              ? chatRoomInfo.imgPath
+              : '/assets/images/hamburger.svg'
+          }
           width={44}
           height={44}
         />
-        <Link href={link} passHref>
+        <Link href={chatRoomInfo.link} passHref>
           <LinkWrapper target='_blank' rel='noopener noreferrer'>
             <Info name='title'>{title}</Info>
             <Info name='info'>
-              인원{currentCount}명/{maxCount}명
+              인원{chatRoomInfo.currentCount}명/{chatRoomInfo.maxCount}명
             </Info>
           </LinkWrapper>
         </Link>

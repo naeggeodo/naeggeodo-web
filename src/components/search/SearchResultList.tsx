@@ -27,6 +27,7 @@ const SearchResultList = () => {
           createDate={data.createDate}
           currentCount={data.currentCount}
           orderTimeType={data.orderTimeType}
+          imgPath={data.imgPath}
         />
       ))}
 
