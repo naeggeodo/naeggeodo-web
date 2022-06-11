@@ -40,13 +40,13 @@ const SearchTemplate = () => {
             onChange={handleChangeSearchValue}
           />
         </SearchForm>
-        {searchResultList && searchResultList.chatRoom.length > 0 ? (
+        {searchResultList && searchResultList?.chatRoom.length > 0 ? (
           <SearchResultList />
         ) : (
           <SearchTagContainer>
             <SearchTagTitle>많이 검색한 태그</SearchTagTitle>
             <SearchTagList>
-              {tags.length > 0 &&
+              {tags?.length > 0 &&
                 tags.map((tag, i) => (
                   <SearchTag
                     key={i}

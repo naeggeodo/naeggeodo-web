@@ -7,7 +7,7 @@ interface Props {
   children: ReactNode;
 }
 
-const TIMEOUT = 100;
+const TIMEOUT = 400;
 const getTransitionStyles = {
   entering: {
     position: `absolute`,
@@ -27,25 +27,23 @@ const AppLayout = ({ children }: Props) => {
   const router = useRouter();
 
   return (
-    <>
-      <TransitionGroup style={{ position: 'relative' }}>
-        <Transition
-          key={router.pathname}
-          timeout={{
-            enter: TIMEOUT,
-            exit: TIMEOUT,
-          }}>
-          {(status) => (
-            <div
-              style={{
-                ...getTransitionStyles[status],
-              }}>
-              {children}
-            </div>
-          )}
-        </Transition>
-      </TransitionGroup>
-    </>
+    <TransitionGroup style={{ position: 'relative' }}>
+      <Transition
+        key={router.pathname}
+        timeout={{
+          enter: TIMEOUT,
+          exit: TIMEOUT,
+        }}>
+        {(status) => (
+          <div
+            style={{
+              ...getTransitionStyles[status],
+            }}>
+            {children}
+          </div>
+        )}
+      </Transition>
+    </TransitionGroup>
   );
 };
 

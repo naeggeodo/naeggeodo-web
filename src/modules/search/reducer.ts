@@ -8,13 +8,13 @@ import {
 import { SearchResultListResponse, SearchTagListResponse } from './types';
 
 type SearchPageState = {
-  searchTagList: SearchTagListResponse | null;
+  searchTagList: SearchTagListResponse | [];
   searchResultList: SearchResultListResponse | null;
   selected: string | null;
 };
 
 const initialSearchPageState: SearchPageState = {
-  searchTagList: null,
+  searchTagList: [],
   searchResultList: null,
   selected: null,
 };
