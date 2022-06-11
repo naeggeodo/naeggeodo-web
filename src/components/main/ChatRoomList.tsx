@@ -10,6 +10,7 @@ const ChatRoomList = () => {
   const chatRooms = useSelector(
     (state: RootState) => state.mainPageState.chatRooms,
   );
+  console.log(chatRooms);
   const { target, dataList } =
     useInfiniteScroll<ChatRoomItemResponse>(chatRooms);
 
@@ -25,6 +26,7 @@ const ChatRoomList = () => {
           currentCount={item.currentCount}
           createDate={item.createDate}
           orderTimeType={item.orderTimeType}
+          imgPath={item.imgPath}
         />
       ))}
       <div ref={target}></div>

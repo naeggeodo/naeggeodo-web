@@ -15,7 +15,6 @@ import { useCheckValidate } from '../../hooks/useCheckValidate';
 import { getBuildingCodeRequest } from '../../modules/search-post-code/actions';
 import NoItemText from './NoItemText';
 import { useLoadLib } from '../../hooks/utils/useLoadLib';
-import { useInfiniteScroll } from '../../hooks/render/useInfiniteScroll';
 import { useSelectLoginStates } from '../../hooks/select/useSelectLoginStates';
 import ChatRoomList from './ChatRoomList';
 

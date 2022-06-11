@@ -56,5 +56,6 @@ export type ChatRoomItemProps = {
   createDate: string;
   link: string;
   id: number;
+  imgPath: string;
   orderTimeType: OrderTimeType;
 };
