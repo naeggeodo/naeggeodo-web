@@ -5,6 +5,7 @@ import styled, { css } from 'styled-components';
 import { RootState } from '../../modules';
 import palette from '../../styles/palette';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 type StyledType = {
   name: 'title' | 'info';
@@ -18,8 +19,22 @@ type PropsType = {
 const Header = ({ setIsDrawerOpen, isDrawerOpen }: PropsType) => {
   const router = useRouter();
 
-  const { chatRoomInfo } = useSelector(
-    (state: RootState) => state.chattingRoomState,
+  const currentCount = useSelector(
+    (state: RootState) => state.chattingRoomState.chatRoomInfo.currentCount,
+  );
+
+  const link = useSelector(
+    (state: RootState) => state.chattingRoomState.chatRoomInfo.link,
+  );
+
+  const title = useSelector(
+    (state: RootState) => state.chattingRoomState.chatRoomInfo.title,
+  );
+  const maxCount = useSelector(
+    (state: RootState) => state.chattingRoomState.chatRoomInfo.maxCount,
+  );
+  const imgPath = useSelector(
+    (state: RootState) => state.chattingRoomState.chatRoomInfo.imgPath,
   );
 
   const moveToBack = useCallback(() => {
@@ -42,14 +57,18 @@ const Header = ({ setIsDrawerOpen, isDrawerOpen }: PropsType) => {
           />
         </PrevButton>
         <StyledImage
-          src='/assets/images/hamburger.svg'
+          src={imgPath ? imgPath : '/assets/images/hamburger.svg'}
           width={44}
           height={44}
         />
-        <Div>
-          <Info name='title'>{chatRoomInfo?.title}</Info>
-          <Info name='info'>인원2명/{chatRoomInfo?.maxCount}명</Info>
-        </Div>
+        <Link href={link} passHref>
+          <LinkWrapper target='_blank' rel='noopener noreferrer'>
+            <Info name='title'>{title}</Info>
+            <Info name='info'>
+              인원{currentCount}명/{maxCount}명
+            </Info>
+          </LinkWrapper>
+        </Link>
         <HambergurButton onClick={openDrawer}>
           <Image
             src='/assets/images/hambergurbar.svg'
@@ -99,10 +118,12 @@ const StyledImage = styled(Image)`
   background-color: #fff;
 `;
 
-const Div = styled.div`
+const LinkWrapper = styled.a`
   display: flex;
   flex-direction: column;
+
   gap: 5px;
+  text-decoration: none;
 `;
 
 const Info = styled.p<StyledType>`

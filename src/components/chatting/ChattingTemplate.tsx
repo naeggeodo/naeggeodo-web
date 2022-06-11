@@ -54,13 +54,13 @@ const ChattingTemplate = ({
   return (
     <Container>
       <Header isDrawerOpen={isDrawerOpen} setIsDrawerOpen={setIsDrawerOpen} />
-      {chatRoomInfo.state !== 'END' && <GoInfoBtn />}
+      {/* {chatRoomInfo.state !== 'END' && <GoInfoBtn />} */}
       <Content ref={chatListDivRef}>
         <ChattingList messageList={previousChatting.messages} />
         <ChattingList messageList={messageList} />
         <div ref={scrollRef} />
       </Content>
-      <QuickMessageComp stompClient={stompClient} />
+      {/* <QuickMessageComp stompClient={stompClient} /> */}
       <SubmitForm stompClient={stompClient} />
       <ChatDrawer
         isDrawerOpen={isDrawerOpen}
