@@ -5,6 +5,7 @@ import {
   insertPlace,
   insertTitle,
   removeTag,
+  saveUserId,
   selectCategory,
   selectOrderTimeType,
 } from './actions';
@@ -17,6 +18,7 @@ export type SelectCategoryAction = ReturnType<typeof selectCategory>;
 export type AddTagAction = ReturnType<typeof addTag>;
 export type RemoveTagAction = ReturnType<typeof removeTag>;
 export type insertPlaceAction = ReturnType<typeof insertPlace>;
+export type saveUserIdAction = ReturnType<typeof saveUserId>;
 
 export type OrderTimeType = 'ONE_HOUR' | 'QUICK' | 'FREEDOM';
 

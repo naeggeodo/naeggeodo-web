@@ -66,7 +66,7 @@ const PrevCreatedList = () => {
             ))}
         </Content>
         <ButtonWrapper>
-          <button>클릭</button>
+          <button>버튼</button>
         </ButtonWrapper>
         <div ref={target} />
       </Container>

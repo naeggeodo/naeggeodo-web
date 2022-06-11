@@ -1,7 +1,8 @@
 import React from 'react';
 import { END } from 'redux-saga';
 import CreateTemplate from '../../components/create/CreateTemplate';
-import { wrapper } from '../../modules';
+import { RootState, wrapper } from '../../modules';
+import { saveUserId } from '../../modules/create/actions';
 import { getNaeggeotalkListActions } from '../../modules/naeggeotalk/actions';
 import { saveCookies } from '../../utils/saveCookies';
 
@@ -13,7 +14,9 @@ export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
     saveCookies(store, context);
 
+    const rootState: RootState = store.getState();
     store.dispatch(getNaeggeotalkListActions.request('1'));
+    store.dispatch(saveUserId(rootState.loginState.user_id));
 
     store.dispatch(END);
 

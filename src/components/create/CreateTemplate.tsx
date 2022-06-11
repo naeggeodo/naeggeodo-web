@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../modules';
 import LoginModal from '../login/LoginModalTemplate';
 import TabMenu from '../main/TabMenu';
-import CreateForm from './createForm/CreateForm';
+import CreateDetails from './createForm/CreateDetails';
 import CreateInit from './CreateInit';
 
 const CreateTemplate = () => {
@@ -17,7 +17,7 @@ const CreateTemplate = () => {
 
   return (
     <React.Fragment>
-      {orderTimeType ? <CreateForm /> : <CreateInit />}
+      {orderTimeType ? <CreateDetails /> : <CreateInit />}
       {loginModalIsClicked && <LoginModal />}
       <TabMenu />
     </React.Fragment>

@@ -9,9 +9,9 @@ const CreateButton = ({
   storeName,
   handleClick,
 }: {
-  maxCount: number;
-  category: Category;
-  storeName: string;
+  maxCount?: number;
+  category?: Category;
+  storeName?: string;
   handleClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }) => {
   return (
