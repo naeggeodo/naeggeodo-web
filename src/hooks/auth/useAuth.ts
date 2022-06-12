@@ -9,7 +9,6 @@ import { useLoadLib } from '../utils/useLoadLib';
 export function useAuth(loginProvider: 'kakao' | 'naver'): void {
   const { router, dispatch } = useLoadLib();
   const code = router?.asPath.split('=')[1];
-  const { accessToken } = useSelectLoginStates();
 
   useEffect(() => {
     if (loginProvider === 'kakao') {
