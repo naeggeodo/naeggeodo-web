@@ -2,8 +2,10 @@ import Image from 'next/image';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { PrevCreatedListItem } from '../../modules/create/types';
 import { setNaeggeotalkItemBookmarkActions } from '../../modules/naeggeotalk/actions';
 import { NaeggeotalkItem } from '../../modules/naeggeotalk/types';
+import palette from '../../styles/palette';
 import DateFormatter from '../../utils/DateFormatter';
 
 type StyledType = {
@@ -15,7 +17,7 @@ const PrevCreatedItem = ({
   selectItem,
   setSelectItem,
 }: {
-  data: NaeggeotalkItem;
+  data: PrevCreatedListItem;
   selectItem: NaeggeotalkItem;
   setSelectItem: Dispatch<SetStateAction<NaeggeotalkItem>>;
 }) => {
@@ -46,7 +48,7 @@ const PrevCreatedItem = ({
     <Container isActive={selectItem && selectItem.id === data.id}>
       <Content>
         <InfoBox onClick={onSelect}>
-          <Image src='/assets/images/hamburger.svg' width={44} height={44} />
+          <Image src={'/assets/images/hamburger.svg'} width={44} height={44} />
           <div>
             <Title>{data.title}</Title>
             <Date>{`${chatDate.formatDate()}  ${chatDate.formatTime()}`}</Date>
@@ -77,8 +79,8 @@ const PrevCreatedItem = ({
 };
 
 const Container = styled.div<StyledType>`
-  border-bottom: 1px solid #f2f2f8;
-  background: ${(props) => (props.isActive ? ' #f2f2f8;' : '#fff')};
+  border-bottom: 1px solid ${palette.bgGray};
+  background: ${(props) => (props.isActive ? `${palette.bgGray}` : '#fff')};
   cursor: pointer;
 `;
 
@@ -97,10 +99,11 @@ const InfoBox = styled.div`
 `;
 
 const BookmarkButton = styled.button`
-  border: none;
-  outline: none;
   padding: 10px;
   background: transparent;
+
+  border: none;
+  outline: none;
   cursor: pointer;
 `;
 
@@ -112,8 +115,8 @@ const Title = styled.h3`
 
 const Date = styled.span`
   font-size: 0.75rem;
-  color: #696969;
-  background: #ebebeb;
+  color: ${palette.DarkGray};
+  background: ${palette.LightGray};
   padding: 2px 5px;
   margin-right: 5px;
   border-radius: 3px;

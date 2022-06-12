@@ -1,9 +1,6 @@
 import { AxiosError } from 'axios';
 import { createAsyncAction } from 'typesafe-actions';
-import {
-  NaeggeotalkItemBookmarkRequest,
-  NaeggeotalkListResponse,
-} from './types';
+import { NaeggeotalkItemBookmarkRequest } from './types';
 
 const namespace = 'naeggeotalk/';
 

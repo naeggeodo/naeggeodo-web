@@ -66,6 +66,7 @@ export type PrevCreatedListItem = {
   bookmarksDate: string;
   id: number;
   state: string;
+  imgPath: string;
   place: string;
   endData: string | null;
   category: string;
@@ -73,6 +74,7 @@ export type PrevCreatedListItem = {
   createDate: string;
   orderTimeType: string;
 };
+
 export type PrevCreatedListResponses = {
   chatRooms: PrevCreatedListItem[];
 };

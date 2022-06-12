@@ -6,16 +6,17 @@ import { useInfiniteScroll } from '../../hooks/render/useInfiniteScroll';
 import { useLoadLib } from '../../hooks/utils/useLoadLib';
 import { RootState } from '../../modules';
 import { createChatRoomActions } from '../../modules/create/actions';
-import { NaeggeotalkItem } from '../../modules/naeggeotalk/types';
-import CreateButton from './CreateButton';
+import { PrevCreatedListItem } from '../../modules/create/types';
+import palette from '../../styles/palette';
 import TabMenu from '../main/TabMenu';
 import PrevCreatedItem from './PrevCreatedItem';
 
+// TODO 인피니티 스크롤 수정하기
+
 const PrevCreatedList = () => {
   const { dispatch } = useLoadLib();
-
-  const { naeggeotalkList } = useSelector(
-    (state: RootState) => state.naeggeotalkState,
+  const { chatRooms } = useSelector(
+    (state: RootState) => state.createStates.prevCreatedListResponse,
   );
 
   const { orderTimeType } = useSelector(
@@ -24,7 +25,7 @@ const PrevCreatedList = () => {
 
   // const { target, dataList } = useInfiniteScroll(naeggeotalkList.chatRooms);
 
-  const [selectItem, setSelectItem] = useState<NaeggeotalkItem>();
+  const [selectItem, setSelectItem] = useState<PrevCreatedListItem>();
 
   const createChattingRoom = () => {
     const { address, category, link, place, title, user_id, maxCount, tags } =
@@ -51,26 +52,26 @@ const PrevCreatedList = () => {
   };
 
   return (
-    <>
+    <React.Fragment>
       <Container>
         <Content>
-          {/* {naeggeotalkList.chatRooms.length > 0 &&
-            naeggeotalkList.chatRooms.map((item, i) => (
+          {chatRooms.length > 0 &&
+            chatRooms.map((item, i) => (
               <PrevCreatedItem
                 key={i}
                 data={item}
                 selectItem={selectItem}
                 setSelectItem={setSelectItem}
               />
-            ))} */}
+            ))}
         </Content>
         <ButtonWrapper>
-          <button>버튼</button>
+          <Button>내꺼톡 생성하기 버튼</Button>
         </ButtonWrapper>
         {/* <div ref={target} /> */}
       </Container>
       <TabMenu />
-    </>
+    </React.Fragment>
   );
 };
 
@@ -96,6 +97,29 @@ const ButtonWrapper = styled.div`
   justify-content: center;
 
   margin: 0 auto;
+`;
+
+const Button = styled.button`
+  all: unset;
+  height: 52px;
+  width: 100%;
+
+  text-align: center;
+
+  font-weight: 500;
+  font-size: 1.0625rem;
+  color: #ffffff;
+
+  border-radius: 10px;
+  background-color: ${palette.black};
+
+  transition: 0.5s;
+  cursor: pointer;
+
+  &:disabled {
+    background-color: ${palette.LineGray};
+    cursor: not-allowed;
+  }
 `;
 
 export default PrevCreatedList;

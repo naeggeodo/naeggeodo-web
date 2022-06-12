@@ -5,7 +5,6 @@ import {
   setNaeggeotalkItemBookmarkActions,
   SET_NAEGGEOTALK_ITEM_BOOKMARK_REQUEST,
 } from './actions';
-import { NaeggeotalkListResponse } from './types';
 
 function* setNaeggeotalkItemBookmarkGenerator(
   action: ReturnType<typeof setNaeggeotalkItemBookmarkActions.request>,

@@ -1,7 +1,6 @@
 import { AxiosError } from 'axios';
 import { createAction, createAsyncAction } from 'typesafe-actions';
 import { Category } from '../main/types';
-import { NaeggeotalkListResponse } from '../naeggeotalk/types';
 import {
   CreateChatRoomResponse,
   OrderTimeType,

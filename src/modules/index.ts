@@ -17,7 +17,6 @@ import { loginState } from './login/reducers';
 import { modalStates } from './modal/reducer';
 import { searchPostCodeSaga } from './search-post-code/sagas';
 import { getNaeggeotalkSaga } from './naeggeotalk/sagas';
-import { naeggeotalkState } from './naeggeotalk/reducer';
 import { getCheckDepositPageInfoSaga } from './check-deposit/sagas';
 import { checkDepositState } from './check-deposit/reducer';
 import { getMypageInfoSaga } from './mypage/sagas';
@@ -33,7 +32,6 @@ export const rootReducer = combineReducers({
   searchPageState,
   loginState,
   modalStates,
-  naeggeotalkState,
   checkDepositState,
   myPageState,
 });
