@@ -2,16 +2,17 @@ import Image from 'next/image';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { useSelectLoginStates } from '../../hooks/select/useSelectLoginStates';
 import { RootState } from '../../modules';
 import palette from '../../styles/palette';
-import { filterLocation } from '../../utils/filterLocation';
+import {
+  filterLocation,
+  filterLocationInSearchPage,
+} from '../../utils/filterLocation';
 
 const CurrentLocation = () => {
-  const address = useSelector((state: RootState) => state.loginState.address);
+  const { address, accessToken } = useSelectLoginStates();
 
-  const apartment: 'Y' | 'N' | '' = useSelector(
-    (state: RootState) => state.postCodeState.apartment,
-  );
   return (
     <Container>
       <CenterWrapper>
@@ -23,8 +24,7 @@ const CurrentLocation = () => {
             alt='위치 이미지'
           />
           <AddressText>
-            현재 위치는<span>{filterLocation(apartment, address)}</span>
-            입니다
+            <span>{filterLocationInSearchPage(address, accessToken)}</span>
           </AddressText>
         </FlexRow>
       </CenterWrapper>

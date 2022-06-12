@@ -14,7 +14,7 @@ import { SearchResultListResponse } from './types';
 function* getSearchTagListGenerator() {
   try {
     const { data } = yield call(SearchService.asyncGetSearchTags);
-    yield put(getSearchTagListActions.success(data));
+    yield put(getSearchTagListActions.success(data.tags));
   } catch (error) {
     console.log(error);
   }

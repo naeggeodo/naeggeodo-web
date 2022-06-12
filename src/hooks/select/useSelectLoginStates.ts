@@ -9,6 +9,7 @@ export function useSelectLoginStates() {
   const buildingCode = useSelector(
     (state: RootState) => state.loginState.buildingCode,
   );
+  const address = useSelector((state: RootState) => state.loginState.address);
 
-  return { accessToken, user_id, buildingCode };
+  return { accessToken, user_id, buildingCode, address };
 }

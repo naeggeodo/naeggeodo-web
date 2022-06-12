@@ -8,13 +8,15 @@ import {
 import { SearchResultListResponse, SearchTagListResponse } from './types';
 
 type SearchPageState = {
-  searchTagList: SearchTagListResponse | [];
+  searchTagList: SearchTagListResponse;
   searchResultList: SearchResultListResponse | null;
   selected: string | null;
 };
 
 const initialSearchPageState: SearchPageState = {
-  searchTagList: [],
+  searchTagList: {
+    tags: [],
+  },
   searchResultList: null,
   selected: null,
 };
@@ -24,7 +26,10 @@ export const searchPageState = createReducer<SearchPageState>(
   {
     [GET_SEARCH_TAG_LIST_SUCCESS]: (state, action) => ({
       ...state,
-      searchTagList: action.payload,
+      searchTagList: {
+        ...state.searchTagList,
+        tags: action.payload,
+      },
     }),
     [GET_RESULT_BY_TAG_SUCCESS]: (state, action) => ({
       ...state,
