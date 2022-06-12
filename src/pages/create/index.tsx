@@ -15,19 +15,31 @@ export const getServerSideProps = wrapper.getServerSideProps(
     saveCookies(store, context);
 
     const rootState: RootState = store.getState();
-    store.dispatch(getNaeggeotalkListActions.request('1'));
-    store.dispatch(saveUserId(rootState.loginState.user_id));
-    store.dispatch(saveBuildingCode(rootState.loginState.buildingCode));
+    const accessToken = rootState.loginState.accessToken;
 
-    store.dispatch(END);
+    if (accessToken) {
+      store.dispatch(getNaeggeotalkListActions.request('1'));
+      store.dispatch(saveUserId(rootState.loginState.user_id));
+      store.dispatch(saveBuildingCode(rootState.loginState.buildingCode));
 
-    await store.sagaTask.toPromise();
+      store.dispatch(END);
 
-    return {
-      props: {
-        naeggeotalkList: store.getState().naeggeotalkState.naeggeotalkList,
-      },
-    };
+      await store.sagaTask.toPromise();
+
+      return {
+        props: {
+          naeggeotalkList: store.getState().naeggeotalkState.naeggeotalkList,
+        },
+      };
+    } else {
+      return {
+        props: {},
+        redirect: {
+          permanent: false,
+          destination: '/login',
+        },
+      };
+    }
   },
 );
 
