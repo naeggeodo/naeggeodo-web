@@ -8,6 +8,7 @@ import SearchResultList from './SearchResultList';
 
 import { useLoadLib } from '../../hooks/utils/useLoadLib';
 import { useSearchChatRoom } from '../../hooks/search/useSearchChatRoom';
+import CurrentLocation from './CurrentLocation';
 
 const SearchTemplate = () => {
   const { router, dispatch } = useLoadLib();
@@ -26,6 +27,7 @@ const SearchTemplate = () => {
   return (
     <>
       <Container>
+        <CurrentLocation />
         <SearchForm onSubmit={getSearchListByInput}>
           <Button>
             <Image
