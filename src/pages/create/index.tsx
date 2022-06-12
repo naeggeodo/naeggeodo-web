@@ -7,7 +7,6 @@ import {
   saveBuildingCode,
   saveUserId,
 } from '../../modules/create/actions';
-import { getNaeggeotalkListActions } from '../../modules/naeggeotalk/actions';
 import { saveCookies } from '../../utils/saveCookies';
 
 const create = () => {
