@@ -4,9 +4,11 @@ import { openCompleteModal } from '../modal/actions';
 import {
   createChatRoomActions,
   CREATE_CHAT_ROOM_REQUEST,
+  getPrevCreatedListActions,
+  GET_PREV_CREATED_LIST_REQUEST,
   initializeCreateStates,
 } from './actions';
-import { CreateChatRoomResponse } from './types';
+import { CreateChatRoomResponse, PrevCreatedListResponses } from './types';
 
 function* createChatRoomGenerator(
   action: ReturnType<typeof createChatRoomActions.request>,
@@ -24,6 +26,19 @@ function* createChatRoomGenerator(
   }
 }
 
+function* getPrevCreatedListGenerator(
+  action: ReturnType<typeof getPrevCreatedListActions.request>,
+) {
+  const { data }: { data: PrevCreatedListResponses } = yield call(
+    CreateService.asyncGetPrevCreatedList,
+    action.payload,
+  );
+  yield put(getPrevCreatedListActions.success(data));
+}
+
 export function* createChatRoomSaga() {
-  yield* [takeLatest(CREATE_CHAT_ROOM_REQUEST, createChatRoomGenerator)];
+  yield* [
+    takeLatest(CREATE_CHAT_ROOM_REQUEST, createChatRoomGenerator),
+    takeLatest(GET_PREV_CREATED_LIST_REQUEST, getPrevCreatedListGenerator),
+  ];
 }

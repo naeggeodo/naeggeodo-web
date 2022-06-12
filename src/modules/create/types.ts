@@ -39,6 +39,7 @@ export interface CreateData {
 export interface CreateStates {
   createData: CreateData;
   createChatRoomResponse: CreateChatRoomResponse;
+  prevCreatedListResponse: PrevCreatedListResponses;
 }
 
 export interface ButtonValue {
@@ -51,3 +52,27 @@ export type CreateChatRoomResponse = {
 };
 
 export type OrderTimeTypeKr = '1시간 이내' | '최대한 빨리';
+
+export type PrevCreatedListItem = {
+  buildingCode: string;
+  address: string;
+  link?: string;
+  title: string;
+  maxCount: number;
+  tags: string[];
+  bookmarks: string;
+  user_id: string;
+  currentCount: 0;
+  bookmarksDate: string;
+  id: number;
+  state: string;
+  place: string;
+  endData: string | null;
+  category: string;
+  idx: number;
+  createDate: string;
+  orderTimeType: string;
+};
+export type PrevCreatedListResponses = {
+  chatRooms: PrevCreatedListItem[];
+};

@@ -19,10 +19,10 @@ const PrevCreatedList = () => {
   );
 
   const { orderTimeType } = useSelector(
-    (state: RootState) => state.createStates,
+    (state: RootState) => state.createStates.createData,
   );
 
-  const { target, dataList } = useInfiniteScroll(naeggeotalkList.chatRooms);
+  // const { target, dataList } = useInfiniteScroll(naeggeotalkList.chatRooms);
 
   const [selectItem, setSelectItem] = useState<NaeggeotalkItem>();
 
@@ -54,21 +54,20 @@ const PrevCreatedList = () => {
     <>
       <Container>
         <Content>
-          {dataList &&
-            dataList.map((item, i) => (
-              <></>
-              // <PrevCreatedItem
-              //   key={i}
-              //   data={item}
-              //   selectItem={selectItem}
-              //   setSelectItem={setSelectItem}
-              // />
-            ))}
+          {/* {naeggeotalkList.chatRooms.length > 0 &&
+            naeggeotalkList.chatRooms.map((item, i) => (
+              <PrevCreatedItem
+                key={i}
+                data={item}
+                selectItem={selectItem}
+                setSelectItem={setSelectItem}
+              />
+            ))} */}
         </Content>
         <ButtonWrapper>
           <button>버튼</button>
         </ButtonWrapper>
-        <div ref={target} />
+        {/* <div ref={target} /> */}
       </Container>
       <TabMenu />
     </>

@@ -13,6 +13,7 @@ import {
   SAVE_USER_ID,
   SAVE_BUILDING_CODE,
   INITIALIZE_CREATE_CHATROOM_STATES,
+  GET_PREV_CREATED_LIST_SUCCESS,
 } from './actions';
 import {
   CreateStates,
@@ -41,6 +42,9 @@ const initialCreateStates: CreateStates = {
   },
   createChatRoomResponse: {
     chatMain_id: null,
+  },
+  prevCreatedListResponse: {
+    chatRooms: [],
   },
 };
 
@@ -151,5 +155,13 @@ export const createStates = createReducer<CreateStates>(initialCreateStates, {
   [INITIALIZE_CREATE_CHATROOM_STATES]: (state, action) => ({
     ...state,
     createData: initialCreateStates.createData,
+  }),
+
+  [GET_PREV_CREATED_LIST_SUCCESS]: (state, action) => ({
+    ...state,
+    prevCreatedListResponse: {
+      ...state.prevCreatedListResponse,
+      chatRooms: action.payload.chatRooms,
+    },
   }),
 });

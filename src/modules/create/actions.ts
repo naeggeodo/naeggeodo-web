@@ -1,11 +1,17 @@
 import { AxiosError } from 'axios';
 import { createAction, createAsyncAction } from 'typesafe-actions';
 import { Category } from '../main/types';
-import { CreateChatRoomResponse, OrderTimeType } from './types';
+import { NaeggeotalkListResponse } from '../naeggeotalk/types';
+import {
+  CreateChatRoomResponse,
+  OrderTimeType,
+  PrevCreatedListResponses,
+} from './types';
 
 const namespace = 'create/';
 
-// ** 채팅방 생성 정보 입력받는 actions
+// ? 채팅방 생성 정보 입력받는 actions
+
 export const SELECT_ORDER_TIME_TYPE = namespace + 'SELECT_ORDER_TIME_TYPE';
 export const INSERT_TITLE = namespace + 'INSERT_TITLE';
 export const INSERT_LINK = namespace + 'INSERT_LINK';
@@ -65,3 +71,18 @@ export const createChatRoomActions = createAsyncAction(
   CREATE_CHAT_ROOM_SUCCESS,
   CREATE_CHAT_ROOM_FAILURE,
 )<FormData, CreateChatRoomResponse, AxiosError>();
+
+// ? 이전내역 불러오기
+
+export const GET_PREV_CREATED_LIST_REQUEST =
+  namespace + 'GET_PREV_CREATED_LIST_REQUEST';
+export const GET_PREV_CREATED_LIST_SUCCESS =
+  namespace + 'GET_PREV_CREATED_LIST_SUCCESS';
+export const GET_PREV_CREATED_LIST_FAILURE =
+  namespace + 'GET_PREV_CREATED_LIST_FAILURE';
+
+export const getPrevCreatedListActions = createAsyncAction(
+  GET_PREV_CREATED_LIST_REQUEST,
+  GET_PREV_CREATED_LIST_SUCCESS,
+  GET_PREV_CREATED_LIST_FAILURE,
+)<string, PrevCreatedListResponses, AxiosError>();
