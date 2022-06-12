@@ -7,6 +7,7 @@ import { useLoadLib } from '../../hooks/utils/useLoadLib';
 import { RootState } from '../../modules';
 import { createChatRoomActions } from '../../modules/create/actions';
 import { PrevCreatedListItem } from '../../modules/create/types';
+import { CsrApiService } from '../../service/api';
 import palette from '../../styles/palette';
 import TabMenu from '../main/TabMenu';
 import PrevCreatedItem from './PrevCreatedItem';
@@ -27,28 +28,16 @@ const PrevCreatedList = () => {
 
   const [selectItem, setSelectItem] = useState<PrevCreatedListItem>();
 
-  const createChattingRoom = () => {
-    const { address, category, link, place, title, user_id, maxCount, tags } =
-      selectItem;
-    const body = {
-      address,
-      category,
-      link,
-      place,
-      title,
-      user_id,
-      tag: tags,
-      orderTimeType: orderTimeType,
-      maxCount,
-    };
-    console.log(body);
-    const json = JSON.stringify(body);
-    const blob = new Blob([json], {
-      type: 'application/json',
-    });
-    const chat = new FormData();
-    chat.append('chat', blob);
-    dispatch(createChatRoomActions.request(chat));
+  const createChattingRoom = async () => {
+    const { id } = selectItem;
+    try {
+      const res = await CsrApiService.postParamsApi(`/chat-rooms/${id}/copy`, {
+        orderTimeType: orderTimeType,
+      });
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -66,7 +55,7 @@ const PrevCreatedList = () => {
             ))}
         </Content>
         <ButtonWrapper>
-          <Button>내꺼톡 생성하기 버튼</Button>
+          <Button onClick={createChattingRoom}>내꺼톡 생성하기 버튼</Button>
         </ButtonWrapper>
         {/* <div ref={target} /> */}
       </Container>

@@ -19,6 +19,9 @@ export class CsrApiService {
   static postApi(uri: string, data?: unknown) {
     return csrAxiosInstance.post(uri, data);
   }
+  static postParamsApi(uri: string, data?: unknown) {
+    return csrAxiosInstance.post(uri, {}, { params: data });
+  }
   static patchApi(uri: string, data: unknown) {
     return csrAxiosInstance.patch(uri, data);
   }

@@ -22,7 +22,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     const user_id = rootState.loginState.user_id;
 
     if (accessToken) {
-      store.dispatch(getPrevCreatedListActions.request('1'));
+      store.dispatch(getPrevCreatedListActions.request(user_id));
       store.dispatch(saveUserId(rootState.loginState.user_id));
       store.dispatch(saveBuildingCode(rootState.loginState.buildingCode));
 
