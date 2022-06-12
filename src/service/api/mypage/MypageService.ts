@@ -2,7 +2,7 @@ import { ApiService, CsrApiService } from '..';
 import { ReportRequestBody } from '../../../modules/mypage/types';
 
 export class MypageService {
-  static async asyncGetMypageUserInfo(userId) {
+  static async asyncGetMypageUserInfo(userId: string) {
     return await ApiService.getApi(`/user/${userId}/mypage`);
   }
   static async asyncSubmitReport(body: ReportRequestBody) {

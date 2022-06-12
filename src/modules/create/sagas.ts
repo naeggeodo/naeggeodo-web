@@ -2,6 +2,8 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import { CreateService } from '../../service/api/create/CreateService';
 import { openCompleteModal } from '../modal/actions';
 import {
+  copyPrevChatRoomDataActions,
+  COPY_PREV_CHATROOM_DATA_REQUEST,
   createChatRoomActions,
   CREATE_CHAT_ROOM_REQUEST,
   getPrevCreatedListActions,
@@ -29,16 +31,36 @@ function* createChatRoomGenerator(
 function* getPrevCreatedListGenerator(
   action: ReturnType<typeof getPrevCreatedListActions.request>,
 ) {
-  const { data }: { data: PrevCreatedListResponses } = yield call(
-    CreateService.asyncGetPrevCreatedList,
-    action.payload,
-  );
-  yield put(getPrevCreatedListActions.success(data));
+  try {
+    const { data }: { data: PrevCreatedListResponses } = yield call(
+      CreateService.asyncGetPrevCreatedList,
+      action.payload,
+    );
+    yield put(getPrevCreatedListActions.success(data));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function* copyPrevChatRoomDataGenerator(
+  action: ReturnType<typeof copyPrevChatRoomDataActions.request>,
+) {
+  try {
+    yield call(
+      CreateService.asyncCopyPrevCreatedData,
+      action.payload.id,
+      action.payload.orderTimeType,
+    );
+    yield put(copyPrevChatRoomDataActions.success('success'));
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export function* createChatRoomSaga() {
   yield* [
     takeLatest(CREATE_CHAT_ROOM_REQUEST, createChatRoomGenerator),
     takeLatest(GET_PREV_CREATED_LIST_REQUEST, getPrevCreatedListGenerator),
+    takeLatest(COPY_PREV_CHATROOM_DATA_REQUEST, copyPrevChatRoomDataGenerator),
   ];
 }

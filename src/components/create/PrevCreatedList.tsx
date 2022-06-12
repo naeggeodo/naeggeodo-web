@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { useInfiniteScroll } from '../../hooks/render/useInfiniteScroll';
 import { useLoadLib } from '../../hooks/utils/useLoadLib';
 import { RootState } from '../../modules';
-import { createChatRoomActions } from '../../modules/create/actions';
+import {
+  copyPrevChatRoomDataActions,
+  createChatRoomActions,
+} from '../../modules/create/actions';
 import { PrevCreatedListItem } from '../../modules/create/types';
 import { CsrApiService } from '../../service/api';
+import { CreateService } from '../../service/api/create/CreateService';
 import palette from '../../styles/palette';
 import TabMenu from '../main/TabMenu';
 import PrevCreatedItem from './PrevCreatedItem';
@@ -26,19 +30,12 @@ const PrevCreatedList = () => {
 
   // const { target, dataList } = useInfiniteScroll(naeggeotalkList.chatRooms);
 
-  const [selectItem, setSelectItem] = useState<PrevCreatedListItem>();
+  const [selectedItem, setSelectedItem] = useState<PrevCreatedListItem>();
 
-  const createChattingRoom = async () => {
-    const { id } = selectItem;
-    try {
-      const res = await CsrApiService.postParamsApi(`/chat-rooms/${id}/copy`, {
-        orderTimeType: orderTimeType,
-      });
-      console.log(res);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const copyPrevChatRoom = useCallback(async () => {
+    const { id } = selectedItem;
+    dispatch(copyPrevChatRoomDataActions.request({ id, orderTimeType }));
+  }, [dispatch, selectedItem]);
 
   return (
     <React.Fragment>
@@ -49,13 +46,13 @@ const PrevCreatedList = () => {
               <PrevCreatedItem
                 key={i}
                 data={item}
-                selectItem={selectItem}
-                setSelectItem={setSelectItem}
+                selectedItem={selectedItem}
+                setSelectedItem={setSelectedItem}
               />
             ))}
         </Content>
         <ButtonWrapper>
-          <Button onClick={createChattingRoom}>내꺼톡 생성하기 버튼</Button>
+          <Button onClick={copyPrevChatRoom}>내꺼톡 생성하기 버튼</Button>
         </ButtonWrapper>
         {/* <div ref={target} /> */}
       </Container>

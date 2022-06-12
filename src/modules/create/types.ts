@@ -40,6 +40,7 @@ export interface CreateStates {
   createData: CreateData;
   createChatRoomResponse: CreateChatRoomResponse;
   prevCreatedListResponse: PrevCreatedListResponses;
+  copyPrevChatRoomResponse: 'success' | 'fail';
 }
 
 export interface ButtonValue {
@@ -77,4 +78,9 @@ export type PrevCreatedListItem = {
 
 export type PrevCreatedListResponses = {
   chatRooms: PrevCreatedListItem[];
+};
+
+export type CopyPrevChatRoomDataRequestParams = {
+  id: number;
+  orderTimeType: OrderTimeType | '';
 };

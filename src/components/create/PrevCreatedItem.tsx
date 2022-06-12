@@ -1,5 +1,11 @@
 import Image from 'next/image';
-import { Dispatch, SetStateAction, useState } from 'react';
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useMemo,
+  useState,
+} from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { PrevCreatedListItem } from '../../modules/create/types';
@@ -13,26 +19,28 @@ type StyledType = {
 
 const PrevCreatedItem = ({
   data,
-  selectItem,
-  setSelectItem,
+  selectedItem,
+  setSelectedItem,
 }: {
   data: PrevCreatedListItem;
-  selectItem: PrevCreatedListItem;
-  setSelectItem: Dispatch<SetStateAction<PrevCreatedListItem>>;
+  selectedItem: PrevCreatedListItem;
+  setSelectedItem: Dispatch<SetStateAction<PrevCreatedListItem>>;
 }) => {
-  const chatDate = new DateFormatter(data.createDate);
-
-  const dispatch = useDispatch();
-
   const [isBookmark, setIsBookmark] = useState(
     data.bookmarks === 'Y' ? true : false,
   );
+  const dispatch = useDispatch();
+  const chatDate = useMemo(
+    () => new DateFormatter(data.createDate),
+    [data.createDate],
+  );
 
-  const onSelect = () => {
+  const selectPrevData = useCallback(() => {
     console.log(data);
-    setSelectItem(data);
-  };
+    setSelectedItem(data);
+  }, [selectedItem]);
 
+  // TODO book마크 기능 추가
   const onBookmarkHandler = () => {
     dispatch(
       setNaeggeotalkItemBookmarkActions.request({
@@ -44,9 +52,9 @@ const PrevCreatedItem = ({
   };
 
   return (
-    <Container isActive={selectItem && selectItem.id === data.id}>
+    <Container isActive={selectedItem && selectedItem.id === data.id}>
       <Content>
-        <InfoBox onClick={onSelect}>
+        <InfoBox onClick={selectPrevData}>
           <Image
             src={data.imgPath ? data.imgPath : '/assets/images/hamburger.svg'}
             width={44}

@@ -2,6 +2,7 @@ import { AxiosError } from 'axios';
 import { createAction, createAsyncAction } from 'typesafe-actions';
 import { Category } from '../main/types';
 import {
+  CopyPrevChatRoomDataRequestParams,
   CreateChatRoomResponse,
   OrderTimeType,
   PrevCreatedListResponses,
@@ -72,7 +73,6 @@ export const createChatRoomActions = createAsyncAction(
 )<FormData, CreateChatRoomResponse, AxiosError>();
 
 // ? 이전내역 불러오기
-
 export const GET_PREV_CREATED_LIST_REQUEST =
   namespace + 'GET_PREV_CREATED_LIST_REQUEST';
 export const GET_PREV_CREATED_LIST_SUCCESS =
@@ -80,8 +80,22 @@ export const GET_PREV_CREATED_LIST_SUCCESS =
 export const GET_PREV_CREATED_LIST_FAILURE =
   namespace + 'GET_PREV_CREATED_LIST_FAILURE';
 
+// ? 이전내역 복사하기
+export const COPY_PREV_CHATROOM_DATA_REQUEST =
+  namespace + 'COPY_PREV_CHATROOM_DATA_REQUEST';
+export const COPY_PREV_CHATROOM_DATA_SUCCESS =
+  namespace + 'COPY_PREV_CHATROOM_DATA_SUCCESS';
+export const COPY_PREV_CHATROOM_DATA_FAILURE =
+  namespace + 'COPY_PREV_CHATROOM_DATA_FAILURE';
+
 export const getPrevCreatedListActions = createAsyncAction(
   GET_PREV_CREATED_LIST_REQUEST,
   GET_PREV_CREATED_LIST_SUCCESS,
   GET_PREV_CREATED_LIST_FAILURE,
 )<string, PrevCreatedListResponses, AxiosError>();
+
+export const copyPrevChatRoomDataActions = createAsyncAction(
+  COPY_PREV_CHATROOM_DATA_REQUEST,
+  COPY_PREV_CHATROOM_DATA_SUCCESS,
+  COPY_PREV_CHATROOM_DATA_FAILURE,
+)<CopyPrevChatRoomDataRequestParams, string, AxiosError>();
