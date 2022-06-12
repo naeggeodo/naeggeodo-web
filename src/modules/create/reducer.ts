@@ -15,6 +15,8 @@ import {
   INITIALIZE_CREATE_CHATROOM_STATES,
   GET_PREV_CREATED_LIST_SUCCESS,
   COPY_PREV_CHATROOM_DATA_SUCCESS,
+  SELECT_COPY_PREV_CHATROOM_DATA,
+  selectCopyPrevChatRoomData,
 } from './actions';
 import {
   CreateStates,
@@ -48,6 +50,7 @@ const initialCreateStates: CreateStates = {
     chatRooms: [],
   },
   copyPrevChatRoomResponse: null,
+  selectedPrevChatRoomData: null,
 };
 
 export const createStates = createReducer<CreateStates>(initialCreateStates, {
@@ -170,5 +173,13 @@ export const createStates = createReducer<CreateStates>(initialCreateStates, {
   [COPY_PREV_CHATROOM_DATA_SUCCESS]: (state, action) => ({
     ...state,
     copyPrevChatRoomResponse: action.payload,
+  }),
+
+  [SELECT_COPY_PREV_CHATROOM_DATA]: (
+    state,
+    action: ReturnType<typeof selectCopyPrevChatRoomData>,
+  ) => ({
+    ...state,
+    selectedPrevChatRoomData: action.payload.data,
   }),
 });

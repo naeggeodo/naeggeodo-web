@@ -88,6 +88,9 @@ export const COPY_PREV_CHATROOM_DATA_SUCCESS =
 export const COPY_PREV_CHATROOM_DATA_FAILURE =
   namespace + 'COPY_PREV_CHATROOM_DATA_FAILURE';
 
+export const SELECT_COPY_PREV_CHATROOM_DATA =
+  namespace + 'SELECT_COPY_PREV_CHATROOM_DATA';
+
 export const getPrevCreatedListActions = createAsyncAction(
   GET_PREV_CREATED_LIST_REQUEST,
   GET_PREV_CREATED_LIST_SUCCESS,
@@ -99,3 +102,8 @@ export const copyPrevChatRoomDataActions = createAsyncAction(
   COPY_PREV_CHATROOM_DATA_SUCCESS,
   COPY_PREV_CHATROOM_DATA_FAILURE,
 )<CopyPrevChatRoomDataRequestParams, string, AxiosError>();
+
+export const selectCopyPrevChatRoomData = createAction(
+  SELECT_COPY_PREV_CHATROOM_DATA,
+  (data) => ({ data }),
+)();

@@ -17,11 +17,11 @@ const CreateDetails = () => {
   );
 };
 
-export default CreateDetails;
-
 const Container = styled.div`
   width: 100%;
 
   padding: 46px 0 83px;
   background-color: #fff;
 `;
+
+export default CreateDetails;

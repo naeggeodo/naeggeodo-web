@@ -5,13 +5,8 @@ import styled from 'styled-components';
 import { useInfiniteScroll } from '../../hooks/render/useInfiniteScroll';
 import { useLoadLib } from '../../hooks/utils/useLoadLib';
 import { RootState } from '../../modules';
-import {
-  copyPrevChatRoomDataActions,
-  createChatRoomActions,
-} from '../../modules/create/actions';
+import { copyPrevChatRoomDataActions } from '../../modules/create/actions';
 import { PrevCreatedListItem } from '../../modules/create/types';
-import { CsrApiService } from '../../service/api';
-import { CreateService } from '../../service/api/create/CreateService';
 import palette from '../../styles/palette';
 import TabMenu from '../main/TabMenu';
 import PrevCreatedItem from './PrevCreatedItem';
@@ -30,26 +25,16 @@ const PrevCreatedList = () => {
 
   // const { target, dataList } = useInfiniteScroll(naeggeotalkList.chatRooms);
 
-  const [selectedItem, setSelectedItem] = useState<PrevCreatedListItem>();
-
   const copyPrevChatRoom = useCallback(async () => {
-    const { id } = selectedItem;
-    dispatch(copyPrevChatRoomDataActions.request({ id, orderTimeType }));
-  }, [dispatch, selectedItem]);
+    // dispatch(copyPrevChatRoomDataActions.request({ id, orderTimeType }));
+  }, [dispatch]);
 
   return (
     <React.Fragment>
       <Container>
         <Content>
           {chatRooms.length > 0 &&
-            chatRooms.map((item, i) => (
-              <PrevCreatedItem
-                key={i}
-                data={item}
-                selectedItem={selectedItem}
-                setSelectedItem={setSelectedItem}
-              />
-            ))}
+            chatRooms.map((item, i) => <PrevCreatedItem key={i} data={item} />)}
         </Content>
         <ButtonWrapper>
           <Button onClick={copyPrevChatRoom}>내꺼톡 생성하기 버튼</Button>

@@ -8,6 +8,7 @@ import {
 } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { selectCopyPrevChatRoomData } from '../../modules/create/actions';
 import { PrevCreatedListItem } from '../../modules/create/types';
 import { setNaeggeotalkItemBookmarkActions } from '../../modules/naeggeotalk/actions';
 import palette from '../../styles/palette';
@@ -17,15 +18,7 @@ type StyledType = {
   isActive?: boolean;
 };
 
-const PrevCreatedItem = ({
-  data,
-  selectedItem,
-  setSelectedItem,
-}: {
-  data: PrevCreatedListItem;
-  selectedItem: PrevCreatedListItem;
-  setSelectedItem: Dispatch<SetStateAction<PrevCreatedListItem>>;
-}) => {
+const PrevCreatedItem = ({ data }: { data: PrevCreatedListItem }) => {
   const [isBookmark, setIsBookmark] = useState(
     data.bookmarks === 'Y' ? true : false,
   );
@@ -36,9 +29,8 @@ const PrevCreatedItem = ({
   );
 
   const selectPrevData = useCallback(() => {
-    console.log(data);
-    setSelectedItem(data);
-  }, [selectedItem]);
+    dispatch(selectCopyPrevChatRoomData(data));
+  }, [dispatch]);
 
   // TODO book마크 기능 추가
   const onBookmarkHandler = () => {
@@ -51,8 +43,10 @@ const PrevCreatedItem = ({
     setIsBookmark((prev) => !prev);
   };
 
+  // isActive={selectedItem && selectedItem.id === data.id}
+
   return (
-    <Container isActive={selectedItem && selectedItem.id === data.id}>
+    <Container>
       <Content>
         <InfoBox onClick={selectPrevData}>
           <Image

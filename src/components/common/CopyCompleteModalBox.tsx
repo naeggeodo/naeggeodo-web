@@ -1,8 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useSelectLoginStates } from '../../hooks/select/useSelectLoginStates';
+import { useCustomRouter } from '../../hooks/utils/useCustomRouter';
 import palette from '../../styles/palette';
 
 const CopyCompleteModalBox = () => {
+  const { buildingCode } = useSelectLoginStates();
+
+  const shiftPage = useCustomRouter(
+    `/chat-rooms?buildingCode=${buildingCode}`,
+  ).shiftPage;
+
   return (
     <ModalContainer>
       <TitleWrapper>
@@ -10,7 +18,7 @@ const CopyCompleteModalBox = () => {
       </TitleWrapper>
 
       <ButtonContainer>
-        <CancelButton>홈으로</CancelButton>
+        <CancelButton onClick={shiftPage}>홈으로</CancelButton>
         <GoLogin>채팅방으로 바로 이동하기</GoLogin>
       </ButtonContainer>
     </ModalContainer>

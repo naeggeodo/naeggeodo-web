@@ -41,6 +41,7 @@ export interface CreateStates {
   createChatRoomResponse: CreateChatRoomResponse;
   prevCreatedListResponse: PrevCreatedListResponses;
   copyPrevChatRoomResponse: 'success' | 'fail';
+  selectedPrevChatRoomData: PrevCreatedListItem | null;
 }
 
 export interface ButtonValue {

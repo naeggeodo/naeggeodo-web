@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import CopyCompleteModalBox from './CopyCompleteModalBox';
 import Portal from './Portal';
 
-const CopyCompleteModal = () => {
+const CopyCompleteModalTemplate = () => {
   return (
     <Portal selector='loginPortal'>
       <Background>
@@ -28,4 +28,4 @@ const Background = styled.div`
   touch-action: none;
 `;
 
-export default CopyCompleteModal;
+export default CopyCompleteModalTemplate;
