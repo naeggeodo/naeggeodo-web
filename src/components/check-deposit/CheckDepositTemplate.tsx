@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import palette from '../../styles/palette';
@@ -7,13 +7,12 @@ import responsive from '../../styles/responsive';
 import CheckDepositItem from './CheckDepositItem';
 import ConvertToCompletedButton from './ConvertToCompletedButton';
 import { CurrentChatUser } from '../../modules/chatting/types';
-import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../modules';
+import { useCustomRouter } from '../../hooks/utils/useCustomRouter';
 
 const CheckDepositTemplate = () => {
-  const router = useRouter();
-
+  const { routeBack } = useCustomRouter();
   const { currentChatUserList } = useSelector(
     (state: RootState) => state.chattingRoomState,
   );
@@ -36,14 +35,10 @@ const CheckDepositTemplate = () => {
     }
   }, [currentChatUserList]);
 
-  const moveToBack = useCallback(() => {
-    router.back();
-  }, [router]);
-
   return (
     <Container>
       <TitleContainer>
-        <PrevButton onClick={moveToBack}>
+        <PrevButton onClick={routeBack}>
           <Image
             src='/assets/images/prevbtn.svg'
             width={11}

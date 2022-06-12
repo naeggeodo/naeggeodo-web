@@ -5,22 +5,20 @@ import NaverLoginBtn from '../login/NaverLoginBtn';
 import palette from '../../styles/palette';
 import { useCallback } from 'react';
 import { useRouter } from 'next/router';
+import { useCustomRouter } from '../../hooks/utils/useCustomRouter';
 
 type StyledProps = {
   name: 'header' | 'content' | 'buttons';
 };
 
 const LoginTemplate = () => {
-  const router = useRouter();
-  const goBack = useCallback(() => {
-    router.back();
-  }, [router]);
+  const { routeBack } = useCustomRouter();
 
   return (
     <Container>
       <ContentWrap>
         <TextWrapper>
-          <PrevButton onClick={goBack}>
+          <PrevButton onClick={routeBack}>
             <Image
               src='/assets/images/prevbtn.svg'
               alt='prev button'
