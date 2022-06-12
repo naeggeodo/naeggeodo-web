@@ -24,7 +24,7 @@ export type SaveBuildingCodeAction = ReturnType<typeof saveBuildingCode>;
 
 export type OrderTimeType = 'ONE_HOUR' | 'QUICK' | 'FREEDOM';
 
-export interface CreateStates {
+export interface CreateData {
   buildingCode: string;
   category: Category | null; // 카테고리
   link: string; // 카카오페이 링크
@@ -34,6 +34,11 @@ export interface CreateStates {
   tag: string[];
   orderTimeType: OrderTimeType | '';
   maxCount: number;
+}
+
+export interface CreateStates {
+  createData: CreateData;
+  createChatRoomResponse: CreateChatRoomResponse;
 }
 
 export interface ButtonValue {

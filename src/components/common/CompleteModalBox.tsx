@@ -1,22 +1,26 @@
 import { useRouter } from 'next/router';
 import React, { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { useCustomRouter } from '../../hooks/utils/useCustomRouter';
+import { closeCompleteModal } from '../../modules/modal/actions';
 import palette from '../../styles/palette';
 
 const CompleteModalBox = () => {
-  const { shiftPage } = useCustomRouter('/chat-rooms');
+  const dispatch = useDispatch();
+  const closeModal = useCallback(() => {
+    dispatch(closeCompleteModal());
+  }, [dispatch]);
 
   return (
     <ModalContainer>
       <TitleWrapper>
-        <Title>채팅방이 생성되었습니다 ✅</Title>
-        <SubTitle>채팅방으로 이동해보세요.</SubTitle>
+        <Title>채팅방을 생성하시겠습니까?</Title>
       </TitleWrapper>
 
       <ButtonContainer>
-        <CancelButton onClick={shiftPage}>홈으로</CancelButton>
-        <GoLogin>채팅방으로 이동하기</GoLogin>
+        <CancelButton onClick={closeModal}>취소</CancelButton>
+        <GoLogin>생성 완료하기</GoLogin>
       </ButtonContainer>
     </ModalContainer>
   );

@@ -5,6 +5,7 @@ import { CreateChatRoomResponse, OrderTimeType } from './types';
 
 const namespace = 'create/';
 
+// ** 채팅방 생성 정보 입력받는 actions
 export const SELECT_ORDER_TIME_TYPE = namespace + 'SELECT_ORDER_TIME_TYPE';
 export const INSERT_TITLE = namespace + 'INSERT_TITLE';
 export const INSERT_LINK = namespace + 'INSERT_LINK';

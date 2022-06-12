@@ -25,19 +25,27 @@ export function useCreateNaeggeotalk() {
     [tagText],
   );
 
-  const title = useSelector((state: RootState) => state.createStates.title);
-  const link = useSelector((state: RootState) => state.createStates.link);
+  const title = useSelector(
+    (state: RootState) => state.createStates.createData.title,
+  );
+  const link = useSelector(
+    (state: RootState) => state.createStates.createData.link,
+  );
 
   const category = useSelector(
-    (state: RootState) => state.createStates.category,
+    (state: RootState) => state.createStates.createData.category,
   );
-  const tag = useSelector((state: RootState) => state.createStates.tag);
+  const tag = useSelector(
+    (state: RootState) => state.createStates.createData.tag,
+  );
   const maxCount = useSelector(
-    (state: RootState) => state.createStates.maxCount,
+    (state: RootState) => state.createStates.createData.maxCount,
   );
-  const place = useSelector((state: RootState) => state.createStates.place);
+  const place = useSelector(
+    (state: RootState) => state.createStates.createData.place,
+  );
   const orderTimeType = useSelector(
-    (state: RootState) => state.createStates.orderTimeType,
+    (state: RootState) => state.createStates.createData.orderTimeType,
   );
   const buildingCode = useSelector(
     (state: RootState) => state.loginState.buildingCode,

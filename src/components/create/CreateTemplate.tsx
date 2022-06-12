@@ -16,7 +16,7 @@ const CreateTemplate = () => {
   );
 
   const { orderTimeType } = useSelector(
-    (state: RootState) => state.createStates,
+    (state: RootState) => state.createStates.createData,
   );
 
   return (
