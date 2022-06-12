@@ -252,11 +252,14 @@ const CreateForm = () => {
 };
 
 const Wrapper = styled.div`
-  width: 90%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  width: 90%;
+
   margin: 0 auto;
+  background-color: #fff;
 `;
 
 const Content = styled.div`

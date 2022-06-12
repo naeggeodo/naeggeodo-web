@@ -95,7 +95,6 @@ const SubmitForm = ({ stompClient }: { stompClient: CompatClient }) => {
 
 const Container = styled.div`
   width: 100%;
-  height: 6%;
   background: #fff;
 `;
 

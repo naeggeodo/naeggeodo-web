@@ -1,6 +1,6 @@
 import { ComponentMeta } from '@storybook/react';
-import { Provider } from 'react-redux';
-import { configureStore } from '../../../modules';
+import { Provider, useSelector } from 'react-redux';
+import { configureStore, RootState } from '../../../modules';
 import Header from '../Header';
 
 type Args = {

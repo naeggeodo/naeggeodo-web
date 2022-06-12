@@ -9,7 +9,9 @@ export default {
   decorators: [
     (Story) => (
       <Provider store={configureStore()}>
-        <Story />
+        <div style={{ height: '100vh', backgroundColor: '#fff' }}>
+          <Story />
+        </div>
       </Provider>
     ),
   ],
