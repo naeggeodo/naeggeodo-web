@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { ChatRoomItemProps } from '../../modules/main/types';
@@ -16,6 +15,7 @@ const ChatRoomItem = ({
   currentCount,
   orderTimeType,
   imgPath,
+  address,
 }: ChatRoomItemProps) => {
   const timeCalculator = useMemo(
     () => new TimeCalculator(createDate),
@@ -44,17 +44,7 @@ const ChatRoomItem = ({
           </OrderTimeTypeWrapper>
 
           <div>
-            <Link href={`/chatting/${id}`} passHref>
-              <StyledLink rel='noreferrer noopener'>
-                <span>함께 주문하기</span>
-                <Image
-                  src='/assets/images/arrowright.svg'
-                  alt='더보기 화살표'
-                  width={14}
-                  height={20}
-                />
-              </StyledLink>
-            </Link>
+            <p>{address}</p>
           </div>
         </TimeOrderLinkContainer>
       </FlexRight>

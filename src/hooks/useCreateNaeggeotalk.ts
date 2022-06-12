@@ -48,10 +48,6 @@ export function useCreateNaeggeotalk() {
   const orderTimeType = useSelector(
     (state: RootState) => state.createStates.createData.orderTimeType,
   );
-  const buildingCode = useSelector(
-    (state: RootState) => state.loginState.buildingCode,
-  );
-  const user_id = useSelector((state: RootState) => state.loginState.user_id);
 
   const dispatchInputAction = useCallback<
     (e: ChangeEvent<HTMLInputElement>, inputctionsType: InputActionType) => void
@@ -125,8 +121,6 @@ export function useCreateNaeggeotalk() {
     link,
     place,
     category,
-    buildingCode,
-    user_id,
     tag,
     tagText,
     orderTimeType,

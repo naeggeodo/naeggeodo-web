@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { PrevCreatedListItem } from '../../modules/create/types';
 import { setNaeggeotalkItemBookmarkActions } from '../../modules/naeggeotalk/actions';
-import { NaeggeotalkItem } from '../../modules/naeggeotalk/types';
 import palette from '../../styles/palette';
 import DateFormatter from '../../utils/DateFormatter';
 
@@ -18,8 +17,8 @@ const PrevCreatedItem = ({
   setSelectItem,
 }: {
   data: PrevCreatedListItem;
-  selectItem: NaeggeotalkItem;
-  setSelectItem: Dispatch<SetStateAction<NaeggeotalkItem>>;
+  selectItem: PrevCreatedListItem;
+  setSelectItem: Dispatch<SetStateAction<PrevCreatedListItem>>;
 }) => {
   const chatDate = new DateFormatter(data.createDate);
 
@@ -48,7 +47,11 @@ const PrevCreatedItem = ({
     <Container isActive={selectItem && selectItem.id === data.id}>
       <Content>
         <InfoBox onClick={onSelect}>
-          <Image src={'/assets/images/hamburger.svg'} width={44} height={44} />
+          <Image
+            src={data.imgPath ? data.imgPath : '/assets/images/hamburger.svg'}
+            width={44}
+            height={44}
+          />
           <div>
             <Title>{data.title}</Title>
             <Date>{`${chatDate.formatDate()}  ${chatDate.formatTime()}`}</Date>
