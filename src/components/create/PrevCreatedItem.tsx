@@ -1,13 +1,8 @@
 import Image from 'next/image';
-import {
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useMemo,
-  useState,
-} from 'react';
-import { useDispatch } from 'react-redux';
+import { useCallback, useMemo, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { RootState } from '../../modules';
 import { selectCopyPrevChatRoomData } from '../../modules/create/actions';
 import { PrevCreatedListItem } from '../../modules/create/types';
 import { setNaeggeotalkItemBookmarkActions } from '../../modules/naeggeotalk/actions';
@@ -23,6 +18,9 @@ const PrevCreatedItem = ({ data }: { data: PrevCreatedListItem }) => {
     data.bookmarks === 'Y' ? true : false,
   );
   const dispatch = useDispatch();
+  const selectedPrevChatRoomData = useSelector(
+    (state: RootState) => state.createStates.selectedPrevChatRoomData,
+  );
   const chatDate = useMemo(
     () => new DateFormatter(data.createDate),
     [data.createDate],
@@ -43,10 +41,11 @@ const PrevCreatedItem = ({ data }: { data: PrevCreatedListItem }) => {
     setIsBookmark((prev) => !prev);
   };
 
-  // isActive={selectedItem && selectedItem.id === data.id}
-
   return (
-    <Container>
+    <Container
+      isActive={
+        selectedPrevChatRoomData && selectedPrevChatRoomData.id === data.id
+      }>
       <Content>
         <InfoBox onClick={selectPrevData}>
           <Image
