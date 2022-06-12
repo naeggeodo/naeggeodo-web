@@ -11,6 +11,9 @@ const CreateTemplate = () => {
   const loginModalIsClicked = useSelector(
     (state: RootState) => state.modalStates.loginModalIsClicked,
   );
+  const completeModalIsOpen = useSelector(
+    (state: RootState) => state.modalStates.completeModalIsOpen,
+  );
 
   const { orderTimeType } = useSelector(
     (state: RootState) => state.createStates,
@@ -20,7 +23,7 @@ const CreateTemplate = () => {
     <React.Fragment>
       {orderTimeType ? <CreateDetails /> : <CreateInit />}
       {loginModalIsClicked && <LoginModal />}
-      <CompleteModalTemplate />
+      {completeModalIsOpen && <CompleteModalTemplate />}
       <TabMenu />
     </React.Fragment>
   );

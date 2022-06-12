@@ -38,6 +38,7 @@ const CreateForm = () => {
     dispatchInputAction,
     dispatchMinusMaxCount,
     dispatchPlusMaxCount,
+    dispatchOpenCompleteModal,
   } = useCreateNaeggeotalk();
 
   const urlRegex = /(http(s)?:\/\/)([a-z0-9\w]+\.*)+[a-z0-9]{2,4}/gi;
@@ -78,22 +79,23 @@ const CreateForm = () => {
       maxCount,
       orderTimeType,
     };
+    dispatchOpenCompleteModal();
 
-    try {
-      const json = JSON.stringify(sendData);
-      const formData = new FormData();
+    // try {
+    //   const json = JSON.stringify(sendData);
+    //   const formData = new FormData();
 
-      const blob = new Blob([json], {
-        type: 'application/json',
-      });
+    //   const blob = new Blob([json], {
+    //     type: 'application/json',
+    //   });
 
-      formData.append('chat', blob);
-      formData.append('file', imgFile);
+    //   formData.append('chat', blob);
+    //   formData.append('file', imgFile);
 
-      await CsrApiService.postApi('chat-rooms', formData);
-    } catch (err) {
-      console.log(err);
-    }
+    //   await CsrApiService.postApi('chat-rooms', formData);
+    // } catch (err) {
+    //   console.log(err);
+    // }
   }, [
     buildingCode,
     category,
