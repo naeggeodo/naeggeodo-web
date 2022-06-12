@@ -15,6 +15,7 @@ export default {
             justifyContent: 'flex-start',
             alignItems: 'flex-start',
             paddingLeft: '20px',
+            gap: '10px',
             paddingTop: '20px',
             height: '100vh',
           }}>

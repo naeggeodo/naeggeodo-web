@@ -11,16 +11,20 @@ interface Props {
 
 const SearchTag = ({ handleClick, children, dataValue, selected }: Props) => {
   return (
-    <li>
+    <TagItem>
       <TagButton
         onClick={handleClick}
         data-value={dataValue}
         selected={selected}>
         {children}
       </TagButton>
-    </li>
+    </TagItem>
   );
 };
+
+const TagItem = styled.li`
+  list-style: none;
+`;
 
 const TagButton = styled.button<{ selected: string }>`
   all: unset;
