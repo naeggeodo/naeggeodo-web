@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../modules';
 import {
   addTag,
+  createChatRoomActions,
   insertLink,
   insertPlace,
   insertTitle,
@@ -111,6 +112,13 @@ export function useCreateNaeggeotalk() {
     dispatch(openCompleteModal());
   }, [dispatch]);
 
+  const dispatchCreateChatRoom = useCallback(
+    (formData: FormData) => {
+      dispatch(createChatRoomActions.request(formData));
+    },
+    [dispatch],
+  );
+
   return {
     dispatch,
     title,
@@ -130,5 +138,6 @@ export function useCreateNaeggeotalk() {
     dispatchMinusMaxCount,
     dispatchAddTag,
     dispatchOpenCompleteModal,
+    dispatchCreateChatRoom,
   };
 }

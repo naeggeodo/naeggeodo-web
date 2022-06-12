@@ -1,16 +1,22 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { CreateService } from '../../service/api/create/CreateService';
+import { openCompleteModal } from '../modal/actions';
 import { createChatRoomActions, CREATE_CHAT_ROOM_REQUEST } from './actions';
 import { CreateChatRoomResponse } from './types';
 
 function* createChatRoomGenerator(
   action: ReturnType<typeof createChatRoomActions.request>,
 ) {
-  const { data }: { data: CreateChatRoomResponse } = yield call(
-    CreateService.asyncCreateChatRoom,
-    action.payload,
-  );
-  yield put(createChatRoomActions.success(data));
+  try {
+    const { data }: { data: CreateChatRoomResponse } = yield call(
+      CreateService.asyncCreateChatRoom,
+      action.payload,
+    );
+    yield put(openCompleteModal());
+    yield put(createChatRoomActions.success(data));
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export function* createChatRoomSaga() {
