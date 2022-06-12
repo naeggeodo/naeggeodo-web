@@ -1,31 +1,17 @@
-import { useRouter } from 'next/router';
-import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
 import styled from 'styled-components';
-import { useSelectLoginStates } from '../../hooks/select/useSelectLoginStates';
-import { useCustomRouter } from '../../hooks/utils/useCustomRouter';
-import { RootState } from '../../modules';
 import palette from '../../styles/palette';
 
-const CompleteModalBox = () => {
-  const { buildingCode } = useSelectLoginStates();
-  const chatMain_id = useSelector(
-    (state: RootState) => state.createStates.createChatRoomResponse.chatMain_id,
-  );
-  const shiftPage = useCustomRouter(
-    `/chat-rooms?buildingCode=${buildingCode}`,
-  ).shiftPage;
-  const shiftChatRoom = useCustomRouter(`/chatting/${chatMain_id}`).shiftPage;
-
+const CopyCompleteModalBox = () => {
   return (
     <ModalContainer>
       <TitleWrapper>
-        <Title>입력한 데이터로 채팅방이 생성되었습니다 🛵</Title>
+        <Title>이전에 생성했던 데이터로 채팅방이 생성되었습니다 ✅</Title>
       </TitleWrapper>
 
       <ButtonContainer>
-        <CancelButton onClick={shiftPage}>홈으로</CancelButton>
-        <GoLogin onClick={shiftChatRoom}>채팅방으로 바로 이동하기</GoLogin>
+        <CancelButton>홈으로</CancelButton>
+        <GoLogin>채팅방으로 바로 이동하기</GoLogin>
       </ButtonContainer>
     </ModalContainer>
   );
@@ -123,4 +109,4 @@ const CancelButton = styled.button`
   cursor: pointer;
 `;
 
-export default CompleteModalBox;
+export default CopyCompleteModalBox;
