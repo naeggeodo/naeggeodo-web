@@ -1,4 +1,6 @@
 import { ComponentMeta } from '@storybook/react';
+import { Provider } from 'react-redux';
+import { configureStore } from '../../../modules';
 import MypageUserInfo from '../MypageUserInfo';
 
 export default {
@@ -6,14 +8,16 @@ export default {
   component: MypageUserInfo,
   decorators: [
     (Story) => (
-      <div
-        style={{
-          paddingTop: '30px',
-          height: '100vh',
-          backgroundColor: '#fff',
-        }}>
-        <Story />
-      </div>
+      <Provider store={configureStore()}>
+        <div
+          style={{
+            paddingTop: '30px',
+            height: '100vh',
+            backgroundColor: '#fff',
+          }}>
+          <Story />
+        </div>
+      </Provider>
     ),
   ],
   parameters: {

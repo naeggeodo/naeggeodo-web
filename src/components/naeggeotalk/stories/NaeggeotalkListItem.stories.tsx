@@ -3,6 +3,8 @@ import { Provider } from 'react-redux';
 import { configureStore } from '../../../modules';
 import NaeggeotalkListItem from '../NaeggeotalkListItem';
 
+// TODO 스토리북 에러
+
 export default {
   title: 'naeggeotalk/컴포넌트',
   component: NaeggeotalkListItem,
@@ -19,6 +21,7 @@ export default {
 } as ComponentMeta<typeof NaeggeotalkListItem>;
 
 const Template = (args) => <NaeggeotalkListItem {...args} />;
+
 export const NaeggeotalkListItemStory = Template.bind({});
 
 NaeggeotalkListItemStory.args = {

@@ -1,10 +1,18 @@
 import { ComponentMeta } from '@storybook/react';
+import { Provider } from 'react-redux';
+import { configureStore } from '../../../modules';
 import MypageTemplate from '../MypageTemplate';
 
 export default {
   title: 'mypage/페이지',
   component: MypageTemplate,
-  decorators: [(Story) => <Story />],
+  decorators: [
+    (Story) => (
+      <Provider store={configureStore()}>
+        <Story />
+      </Provider>
+    ),
+  ],
   parameters: {
     layout: 'fullscreen',
   },

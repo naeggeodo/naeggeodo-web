@@ -9,6 +9,9 @@ import SearchResultList from './SearchResultList';
 import { useLoadLib } from '../../hooks/utils/useLoadLib';
 import { useSearchChatRoom } from '../../hooks/search/useSearchChatRoom';
 import CurrentLocation from './CurrentLocation';
+import LoginModal from '../login/LoginModalTemplate';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../modules';
 
 const SearchTemplate = () => {
   const { router, dispatch } = useLoadLib();
@@ -22,7 +25,9 @@ const SearchTemplate = () => {
     selected,
   } = useSearchChatRoom(dispatch, router);
 
-  console.log(searchResultList);
+  const loginModalIsClicked = useSelector(
+    (state: RootState) => state.modalStates.loginModalIsClicked,
+  );
 
   return (
     <>
@@ -64,6 +69,8 @@ const SearchTemplate = () => {
           </SearchTagContainer>
         )}
       </Container>
+      {loginModalIsClicked && <LoginModal />}
+
       <TabMenu />
     </>
   );

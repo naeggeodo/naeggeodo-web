@@ -9,11 +9,13 @@ import {
 import { useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 import { RootState } from '../../modules';
+import { openLoginModal } from '../../modules/modal/actions';
+import { useSelectLoginStates } from '../select/useSelectLoginStates';
 
 export function useSearchChatRoom(dispatch: Dispatch, router: NextRouter) {
   const [searchValue, setSearchValue] = useState('');
   const tags = useSelector(
-    (state: RootState) => state.searchPageState?.searchTagList?.tags,
+    (state: RootState) => state.searchPageState.searchTagList.tags,
   );
   const { searchResultList } = useSelector(
     (state: RootState) => state.searchPageState,
@@ -30,23 +32,27 @@ export function useSearchChatRoom(dispatch: Dispatch, router: NextRouter) {
     },
     [searchValue],
   );
+  const { accessToken } = useSelectLoginStates();
 
   const getSearchListByTag = useCallback<
     (e: PointerEvent<HTMLButtonElement>) => void
   >(
     (e) => {
       const target = e.target as HTMLButtonElement;
-      const searchValue = target.getAttribute('data-value');
-      console.log(searchValue);
+      const searchTagValue = target.getAttribute('data-value');
 
-      router.push({
-        pathname: '/search',
-        query: {
-          tag: encodeURI(searchValue),
-        },
-      });
+      if (accessToken) {
+        router.push({
+          pathname: '/search',
+          query: {
+            tag: encodeURI(searchTagValue),
+          },
+        });
+      } else {
+        dispatch(openLoginModal());
+      }
     },
-    [dispatch, router],
+    [dispatch, router, accessToken],
   );
 
   const getSearchListByInput = useCallback<
@@ -54,14 +60,19 @@ export function useSearchChatRoom(dispatch: Dispatch, router: NextRouter) {
   >(
     (e) => {
       e.preventDefault();
-      router.push({
-        pathname: '/search',
-        query: {
-          keyword: encodeURI(searchValue),
-        },
-      });
+
+      if (accessToken) {
+        router.push({
+          pathname: '/search',
+          query: {
+            keyword: encodeURI(searchValue),
+          },
+        });
+      } else {
+        dispatch(openLoginModal());
+      }
     },
-    [dispatch, searchValue, router],
+    [dispatch, searchValue, router, accessToken],
   );
 
   return {

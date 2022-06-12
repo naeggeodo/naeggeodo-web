@@ -6,7 +6,8 @@ export default {
   component: CustomerServiceSection,
   decorators: [
     (Story) => (
-      <div style={{ backgroundColor: '#fff', padding: '30px 0' }}>
+      <div
+        style={{ height: '100vh', backgroundColor: '#fff', padding: '30px 0' }}>
         <Story />
       </div>
     ),

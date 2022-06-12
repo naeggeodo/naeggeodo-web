@@ -4,9 +4,9 @@ import Image from 'next/image';
 import styled, { css } from 'styled-components';
 import { RootState } from '../../modules';
 import palette from '../../styles/palette';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { ChattingRoomInfoResponse } from '../../modules/chatting/types';
+import { useCustomRouter } from '../../hooks/utils/useCustomRouter';
 
 type StyledType = {
   name: 'title' | 'info';
@@ -19,8 +19,7 @@ type PropsType = {
 };
 
 const Header = ({ setIsDrawerOpen, isDrawerOpen, chatRoomInfo }: PropsType) => {
-  const router = useRouter();
-
+  const { routeBack } = useCustomRouter();
   const currentCount = useSelector(
     (state: RootState) => state.chattingRoomState.chatRoomInfo.currentCount,
   );
@@ -39,10 +38,6 @@ const Header = ({ setIsDrawerOpen, isDrawerOpen, chatRoomInfo }: PropsType) => {
     (state: RootState) => state.chattingRoomState.chatRoomInfo.imgPath,
   );
 
-  const moveToBack = useCallback(() => {
-    router.back();
-  }, [router]);
-
   const openDrawer = useCallback(() => {
     setIsDrawerOpen(true);
   }, [isDrawerOpen]);
@@ -50,7 +45,7 @@ const Header = ({ setIsDrawerOpen, isDrawerOpen, chatRoomInfo }: PropsType) => {
   return (
     <Container>
       <ContentWrap>
-        <PrevButton onClick={moveToBack}>
+        <PrevButton onClick={routeBack}>
           <Image
             src='/assets/images/prevbtn.svg'
             alt='prev button'

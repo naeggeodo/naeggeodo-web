@@ -1,4 +1,4 @@
-import axios, { Axios } from 'axios';
+import axios from 'axios';
 import { Cookies } from 'react-cookie';
 import { TOKEN_NAME } from '../../constant/Login';
 import { createCustomHeader } from '../../utils/createCustomHeader';

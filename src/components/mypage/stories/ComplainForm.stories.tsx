@@ -9,7 +9,7 @@ export default {
   decorators: [
     (Story) => (
       <Provider store={configureStore()}>
-        <div style={{ backgroundColor: '#fff', padding: '30px 0' }}>
+        <div style={{ backgroundColor: '#fff' }}>
           <Story />
         </div>
       </Provider>

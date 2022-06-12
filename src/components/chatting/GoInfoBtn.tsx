@@ -1,17 +1,17 @@
 import { useRouter } from 'next/router';
 import { useCallback } from 'react';
 import styled from 'styled-components';
+import { useCustomRouter } from '../../hooks/utils/useCustomRouter';
+import { useLoadLib } from '../../hooks/utils/useLoadLib';
 import palette from '../../styles/palette';
 
 const GoInfoBtn = () => {
-  const router = useRouter();
+  const { router } = useLoadLib();
   const chattingRoomId = router.query.id;
 
-  const moveToCheckDesosit = useCallback(() => {
-    router.push(`/check-deposit/${chattingRoomId}`);
-  }, [router]);
+  const { shiftPage } = useCustomRouter(`/check-deposit/${chattingRoomId}`);
 
-  return <Button onClick={moveToCheckDesosit}>돈을 받으셨나요?</Button>;
+  return <Button onClick={shiftPage}>돈을 받으셨나요?</Button>;
 };
 
 const Button = styled.button`
