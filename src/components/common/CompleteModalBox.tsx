@@ -1,13 +1,11 @@
 import { useRouter } from 'next/router';
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
+import { useCustomRouter } from '../../hooks/utils/useCustomRouter';
 import palette from '../../styles/palette';
 
 const CompleteModalBox = () => {
-  const router = useRouter();
-  const moveToHome = useCallback(() => {
-    router.replace('/chat-rooms');
-  }, [router]);
+  const { shiftPage } = useCustomRouter('/chat-rooms');
 
   return (
     <ModalContainer>
@@ -17,7 +15,7 @@ const CompleteModalBox = () => {
       </TitleWrapper>
 
       <ButtonContainer>
-        <CancelButton onClick={moveToHome}>홈으로</CancelButton>
+        <CancelButton onClick={shiftPage}>홈으로</CancelButton>
         <GoLogin>채팅방으로 이동하기</GoLogin>
       </ButtonContainer>
     </ModalContainer>

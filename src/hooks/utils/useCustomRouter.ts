@@ -3,12 +3,16 @@ import { useCallback } from 'react';
 
 // ? NEXT ROUTER 커스텀
 
-export function useCustomRouter() {
+export function useCustomRouter(url?: string) {
   const router = useRouter();
 
   const routeBack = useCallback(() => {
     router.back();
   }, [router]);
 
-  return { routeBack };
+  const shiftPage = useCallback(() => {
+    router.push(url);
+  }, [router]);
+
+  return { routeBack, shiftPage };
 }
