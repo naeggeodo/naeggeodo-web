@@ -40,8 +40,6 @@ function* KakaoLoginGenerator(action: getkakaoTokenRequestAction) {
     cookies.set('address', response.data.address, {
       path: '/',
     });
-
-    yield call(Router.replace, '/');
   } catch (error) {
     console.log(error);
   }
@@ -74,7 +72,7 @@ function* naverLoginGenerator(action: getNaverTokenRequestAction) {
       path: '/',
     });
 
-    yield call(Router.replace, '/');
+    // yield call(Router.replace, '/');
   } catch (error) {
     console.log(error);
   }
