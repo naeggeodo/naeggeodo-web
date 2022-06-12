@@ -10,13 +10,12 @@ const ChatRoomList = () => {
   const chatRooms = useSelector(
     (state: RootState) => state.mainPageState.chatRooms,
   );
-  console.log(chatRooms);
   const { target, dataList } =
     useInfiniteScroll<ChatRoomItemResponse>(chatRooms);
 
   return (
     <Container>
-      {dataList.map((item) => (
+      {chatRooms.map((item) => (
         <ChatRoomItem
           id={item.id}
           key={item.id}

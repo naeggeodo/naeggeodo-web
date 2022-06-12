@@ -1,15 +1,22 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useCallback } from 'react';
+import { END } from 'redux-saga';
 import styled from 'styled-components';
+import { useSelectLoginStates } from '../hooks/select/useSelectLoginStates';
+import { wrapper } from '../modules';
 import palette from '../styles/palette';
+import { saveCookies } from '../utils/saveCookies';
 
 const RendingPage = () => {
   const router = useRouter();
+  const { buildingCode } = useSelectLoginStates();
 
   const moveToChatRooms = useCallback(() => {
-    router.push('chat-rooms');
-  }, [router]);
+    if (buildingCode) {
+      router.push(`/chat-rooms?buildingCode=${buildingCode}`);
+    } else router.push('/chat-rooms');
+  }, [router, buildingCode]);
 
   return (
     <Container>
@@ -59,6 +66,19 @@ const RendingPage = () => {
     </Container>
   );
 };
+
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) => async (context) => {
+    saveCookies(store, context);
+
+    store.dispatch(END);
+    await store.sagaTask.toPromise();
+
+    return {
+      props: {},
+    };
+  },
+);
 
 const Container = styled.div`
   padding: 88px 30px 0;

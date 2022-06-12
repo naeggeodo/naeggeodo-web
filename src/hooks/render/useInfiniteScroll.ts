@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 
 export function useInfiniteScroll<T>(data: T[]) {
@@ -6,6 +7,7 @@ export function useInfiniteScroll<T>(data: T[]) {
 
   const [skip, setSkip] = useState(0);
   const [dataList, setDataList] = useState<T[]>([]);
+  const router = useRouter();
 
   useEffect(() => {
     if (data) {
@@ -16,7 +18,7 @@ export function useInfiniteScroll<T>(data: T[]) {
         observer && observer.disconnect();
       };
     }
-  }, [data]);
+  }, [data, router]);
 
   useEffect(() => {
     if (data && skip <= data.length) {
@@ -27,7 +29,7 @@ export function useInfiniteScroll<T>(data: T[]) {
       }
       setDataList((prev) => [...prev, ...arr]);
     }
-  }, [skip, data]);
+  }, [skip, data, router]);
 
   const callback = async ([entry], observer: IntersectionObserver) => {
     if (entry.isIntersecting) {

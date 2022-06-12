@@ -10,6 +10,7 @@ import {
   plusMaxCount,
   removeTag,
 } from '../modules/create/actions';
+import { openCompleteModal } from '../modules/modal/actions';
 
 type InputActionType = 'title' | 'place' | 'link';
 
@@ -98,6 +99,10 @@ export function useCreateNaeggeotalk() {
     [dispatch, maxCount],
   );
 
+  const dispatchOpenCompleteModal = useCallback(() => {
+    dispatch(openCompleteModal());
+  }, [dispatch]);
+
   return {
     dispatch,
     title,
@@ -116,5 +121,6 @@ export function useCreateNaeggeotalk() {
     dispatchPlusMaxCount,
     dispatchMinusMaxCount,
     dispatchAddTag,
+    dispatchOpenCompleteModal,
   };
 }
