@@ -12,6 +12,7 @@ import {
   INSERT_PLACE,
   SAVE_USER_ID,
   SAVE_BUILDING_CODE,
+  INITIALIZE_CREATE_CHATROOM_STATES,
 } from './actions';
 import {
   CreateStates,
@@ -140,7 +141,15 @@ export const createStates = createReducer<CreateStates>(initialCreateStates, {
       buildingCode: action.payload.buildingCode,
     },
   }),
-  [CREATE_CHAT_ROOM_SUCCESS]: (state, action) => {
-    return { ...state };
-  },
+  [CREATE_CHAT_ROOM_SUCCESS]: (state, action) => ({
+    ...state,
+    createChatRoomResponse: {
+      ...state.createChatRoomResponse,
+      chatMain_id: action.payload.chatMain_id,
+    },
+  }),
+  [INITIALIZE_CREATE_CHATROOM_STATES]: (state, action) => ({
+    ...state,
+    createData: initialCreateStates.createData,
+  }),
 });

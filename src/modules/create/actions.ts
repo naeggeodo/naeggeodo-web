@@ -23,6 +23,9 @@ export const CREATE_CHAT_ROOM_REQUEST = namespace + 'CREATE_CHAT_ROOM_REQUEST';
 export const CREATE_CHAT_ROOM_SUCCESS = namespace + 'CREATE_CHAT_ROOM_SUCCESS';
 export const CREATE_CHAT_ROOM_FAILURE = namespace + 'CREATE_CHAT_ROOM_FAILURE';
 
+export const INITIALIZE_CREATE_CHATROOM_STATES =
+  namespace + 'INITIALIZE_CREATE_CHATROOM_STATES';
+
 export const selectOrderTimeType = createAction(
   SELECT_ORDER_TIME_TYPE,
   (orderTimeType: OrderTimeType) => ({ orderTimeType }),
@@ -51,6 +54,10 @@ export const saveBuildingCode = createAction(
   (buildingCode) => ({
     buildingCode,
   }),
+)();
+export const initializeCreateStates = createAction(
+  INITIALIZE_CREATE_CHATROOM_STATES,
+  () => ({}),
 )();
 
 export const createChatRoomActions = createAsyncAction(

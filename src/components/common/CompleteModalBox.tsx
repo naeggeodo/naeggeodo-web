@@ -1,16 +1,21 @@
 import { useRouter } from 'next/router';
 import React, { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { useSelectLoginStates } from '../../hooks/select/useSelectLoginStates';
 import { useCustomRouter } from '../../hooks/utils/useCustomRouter';
-import { closeCompleteModal } from '../../modules/modal/actions';
+import { RootState } from '../../modules';
 import palette from '../../styles/palette';
 
 const CompleteModalBox = () => {
-  const dispatch = useDispatch();
-  const closeModal = useCallback(() => {
-    dispatch(closeCompleteModal());
-  }, [dispatch]);
+  const { buildingCode } = useSelectLoginStates();
+  const chatMain_id = useSelector(
+    (state: RootState) => state.createStates.createChatRoomResponse.chatMain_id,
+  );
+  const shiftPage = useCustomRouter(
+    `/chat-rooms?buildingCode=${buildingCode}`,
+  ).shiftPage;
+  const shiftChatRoom = useCustomRouter(`/chatting/${chatMain_id}`).shiftPage;
 
   return (
     <ModalContainer>
@@ -19,8 +24,8 @@ const CompleteModalBox = () => {
       </TitleWrapper>
 
       <ButtonContainer>
-        <CancelButton onClick={closeModal}>취소</CancelButton>
-        <GoLogin>생성 완료하기</GoLogin>
+        <CancelButton onClick={shiftPage}>홈으로</CancelButton>
+        <GoLogin onClick={shiftChatRoom}>채팅방으로 바로 이동하기</GoLogin>
       </ButtonContainer>
     </ModalContainer>
   );
