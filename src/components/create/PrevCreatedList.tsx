@@ -22,12 +22,20 @@ const PrevCreatedList = () => {
   const { orderTimeType } = useSelector(
     (state: RootState) => state.createStates.createData,
   );
+  const selectedPrevChatRoomData = useSelector(
+    (state: RootState) => state.createStates.selectedPrevChatRoomData,
+  );
 
   // const { target, dataList } = useInfiniteScroll(naeggeotalkList.chatRooms);
 
   const copyPrevChatRoom = useCallback(async () => {
-    // dispatch(copyPrevChatRoomDataActions.request({ id, orderTimeType }));
-  }, [dispatch]);
+    dispatch(
+      copyPrevChatRoomDataActions.request({
+        id: selectedPrevChatRoomData.id,
+        orderTimeType,
+      }),
+    );
+  }, [dispatch, selectedPrevChatRoomData]);
 
   return (
     <React.Fragment>

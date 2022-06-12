@@ -1,6 +1,6 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { CreateService } from '../../service/api/create/CreateService';
-import { openCompleteModal } from '../modal/actions';
+import { openCompleteModal, openCopyCompleteModal } from '../modal/actions';
 import {
   copyPrevChatRoomDataActions,
   COPY_PREV_CHATROOM_DATA_REQUEST,
@@ -52,6 +52,7 @@ function* copyPrevChatRoomDataGenerator(
       action.payload.orderTimeType,
     );
     yield put(copyPrevChatRoomDataActions.success('success'));
+    yield put(openCopyCompleteModal());
   } catch (error) {
     console.log(error);
   }

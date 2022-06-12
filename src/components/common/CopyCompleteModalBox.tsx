@@ -14,7 +14,11 @@ const CopyCompleteModalBox = () => {
   return (
     <ModalContainer>
       <TitleWrapper>
-        <Title>이전에 생성했던 데이터로 채팅방이 생성되었습니다 ✅</Title>
+        <Title>
+          이전에 생성했던 데이터로
+          <br />
+          채팅방이 생성되었습니다 ✅
+        </Title>
       </TitleWrapper>
 
       <ButtonContainer>
