@@ -31,7 +31,9 @@ const SearchResultList = () => {
         />
       ))}
 
-      <div ref={target} />
+      {dataList.length < searchResultList.chatRoom.length && (
+        <div ref={target} />
+      )}
     </Container>
   );
 };

@@ -10,7 +10,6 @@ const ChatRoomList = () => {
   const chatRooms = useSelector(
     (state: RootState) => state.mainPageState.chatRooms,
   );
-  console.log(chatRooms);
   const { target, dataList } =
     useInfiniteScroll<ChatRoomItemResponse>(chatRooms);
 
@@ -29,7 +28,7 @@ const ChatRoomList = () => {
           imgPath={item.imgPath}
         />
       ))}
-      <div ref={target}></div>
+      {dataList.length < chatRooms.length && <div ref={target}></div>}
     </Container>
   );
 };
