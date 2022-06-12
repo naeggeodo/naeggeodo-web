@@ -21,6 +21,8 @@ const SearchTemplate = () => {
     selected,
   } = useSearchChatRoom(dispatch, router);
 
+  console.log(searchResultList);
+
   return (
     <>
       <Container>

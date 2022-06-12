@@ -25,7 +25,9 @@ const CategoryMenuSlide = ({
               onClick={(e) => routeToCategory(e, item)}
               style={{
                 color:
-                  !router.query.category && lowerCaseItem === 'all'
+                  router.query.buildingCode &&
+                  !router.query.category &&
+                  lowerCaseItem === 'all'
                     ? `${palette.mainOrange}`
                     : router.query.category === lowerCaseItem
                     ? `${palette.mainOrange}`

@@ -15,7 +15,7 @@ const ChatRoomList = () => {
 
   return (
     <Container>
-      {dataList.map((item) => (
+      {chatRooms.map((item) => (
         <ChatRoomItem
           id={item.id}
           key={item.id}
@@ -28,7 +28,7 @@ const ChatRoomList = () => {
           imgPath={item.imgPath}
         />
       ))}
-      {dataList.length < chatRooms.length && <div ref={target}></div>}
+      <div ref={target}></div>
     </Container>
   );
 };
