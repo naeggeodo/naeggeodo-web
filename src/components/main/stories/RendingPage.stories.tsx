@@ -8,7 +8,13 @@ export default {
   parameters: {
     layout: 'fullscreen',
   },
-  decorators: [(Story) => <Story />],
+  decorators: [
+    (Story) => (
+      <Provider store={configureStore()}>
+        <Story />
+      </Provider>
+    ),
+  ],
 };
 
 export const RendingPageStory = () => <RendingPage />;

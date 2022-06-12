@@ -7,7 +7,8 @@ export default {
   component: Terms,
   decorators: [
     (Story) => (
-      <div style={{ padding: '30px 0', backgroundColor: '#fff' }}>
+      <div
+        style={{ height: '100vh', padding: '30px 0', backgroundColor: '#fff' }}>
         <Story />
       </div>
     ),
