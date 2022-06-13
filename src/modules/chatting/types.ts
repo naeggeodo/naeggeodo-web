@@ -1,5 +1,3 @@
-import { MessageDataType } from '../../hooks/useChat';
-
 export type ChattingRoomInfoRequest = {
   chattingRoomId: string;
 };
@@ -37,10 +35,10 @@ export type PreviousChattingListRequest = {
 export type PreviousChattingItem = {
   chatMain_id: number;
   contents: string;
-  id?: number;
-  idx?: number;
+  id: number;
+  idx: number;
   regDate: string;
-  type: any;
+  type: string;
   user_id: string;
 };
 

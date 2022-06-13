@@ -1,6 +1,4 @@
 import { ComponentMeta } from '@storybook/react';
-import { Provider } from 'react-redux';
-import { configureStore } from '../../../modules';
 import CompleteDepositButton from '../CompleteDepositButton';
 
 type Args = {
@@ -19,17 +17,15 @@ export default {
   },
   decorators: [
     (Story) => (
-      <Provider store={configureStore()}>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '100vh',
-          }}>
-          <Story />
-        </div>
-      </Provider>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100vh',
+        }}>
+        <Story />
+      </div>
     ),
   ],
 } as ComponentMeta<typeof CompleteDepositButton>;

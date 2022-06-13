@@ -4,6 +4,7 @@ import ChatDrawer from '../ChatDrawer';
 type Args = {
   isDrawerOpen: boolean;
   setIsDrawerOpen: null;
+  stompClient: null;
 };
 
 export default {

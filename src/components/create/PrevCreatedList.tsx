@@ -9,9 +9,6 @@ import palette from '../../styles/palette';
 import TabMenu from '../main/TabMenu';
 import PrevCreatedItem from './PrevCreatedItem';
 
-// TODO 인피니티 스크롤 수정하기
-// const { target, dataList } = useInfiniteScroll(naeggeotalkList.chatRooms);
-
 const PrevCreatedList = () => {
   const { dispatch } = useLoadLib();
   const { chatRooms } = useSelector(
@@ -24,6 +21,8 @@ const PrevCreatedList = () => {
   const { selectedPrevChatRoomData } = useSelector(
     (state: RootState) => state.createStates,
   );
+
+  const { target, dataList } = useInfiniteScroll(chatRooms);
 
   const copyPrevChatRoom = useCallback(async () => {
     dispatch(
@@ -48,7 +47,7 @@ const PrevCreatedList = () => {
             내꺼톡 생성하기 버튼
           </Button>
         </ButtonWrapper>
-        {/* <div ref={target} /> */}
+        {dataList.length < chatRooms.length && <div ref={target} />}
       </Container>
       <TabMenu />
     </React.Fragment>
