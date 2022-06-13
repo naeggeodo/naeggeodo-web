@@ -15,7 +15,7 @@ export const progressStates = createReducer<ProgressStates>(
       ...state,
       progressChatRoomList: {
         ...state.progressChatRoomList,
-        chatRoom: action.payload.chatRooms,
+        chatRoom: action.payload.chatRoom,
       },
     }),
   },
