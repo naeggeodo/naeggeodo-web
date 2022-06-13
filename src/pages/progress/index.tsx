@@ -13,6 +13,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     const rootState: RootState = store.getState();
 
     const accessToken = rootState.loginState.accessToken;
+    const user_id = rootState.loginState.user_id;
 
     store.dispatch(END);
     await store.sagaTask.toPromise();
