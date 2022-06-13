@@ -40,7 +40,7 @@ export interface CreateStates {
   createData: CreateData;
   createChatRoomResponse: CreateChatRoomResponse;
   prevCreatedListResponse: PrevCreatedListResponses;
-  copyPrevChatRoomResponse: 'success' | 'fail';
+  copyPrevChatRoomResponse: number;
   selectedPrevChatRoomData: PrevCreatedListItem | null;
 }
 

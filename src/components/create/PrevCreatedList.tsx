@@ -22,8 +22,8 @@ const PrevCreatedList = () => {
   const { orderTimeType } = useSelector(
     (state: RootState) => state.createStates.createData,
   );
-  const selectedPrevChatRoomData = useSelector(
-    (state: RootState) => state.createStates.selectedPrevChatRoomData,
+  const { selectedPrevChatRoomData } = useSelector(
+    (state: RootState) => state.createStates,
   );
 
   // const { target, dataList } = useInfiniteScroll(naeggeotalkList.chatRooms);
@@ -45,7 +45,11 @@ const PrevCreatedList = () => {
             chatRooms.map((item, i) => <PrevCreatedItem key={i} data={item} />)}
         </Content>
         <ButtonWrapper>
-          <Button onClick={copyPrevChatRoom}>내꺼톡 생성하기 버튼</Button>
+          <Button
+            disabled={selectedPrevChatRoomData ? false : true}
+            onClick={copyPrevChatRoom}>
+            내꺼톡 생성하기 버튼
+          </Button>
         </ButtonWrapper>
         {/* <div ref={target} /> */}
       </Container>

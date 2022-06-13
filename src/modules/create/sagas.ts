@@ -46,12 +46,12 @@ function* copyPrevChatRoomDataGenerator(
   action: ReturnType<typeof copyPrevChatRoomDataActions.request>,
 ) {
   try {
-    yield call(
+    const { data } = yield call(
       CreateService.asyncCopyPrevCreatedData,
       action.payload.id,
       action.payload.orderTimeType,
     );
-    yield put(copyPrevChatRoomDataActions.success('success'));
+    yield put(copyPrevChatRoomDataActions.success(data.chatMain_id));
     yield put(openCopyCompleteModal());
   } catch (error) {
     console.log(error);

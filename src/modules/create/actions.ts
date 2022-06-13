@@ -101,7 +101,7 @@ export const copyPrevChatRoomDataActions = createAsyncAction(
   COPY_PREV_CHATROOM_DATA_REQUEST,
   COPY_PREV_CHATROOM_DATA_SUCCESS,
   COPY_PREV_CHATROOM_DATA_FAILURE,
-)<CopyPrevChatRoomDataRequestParams, string, AxiosError>();
+)<CopyPrevChatRoomDataRequestParams, number, AxiosError>();
 
 export const selectCopyPrevChatRoomData = createAction(
   SELECT_COPY_PREV_CHATROOM_DATA,

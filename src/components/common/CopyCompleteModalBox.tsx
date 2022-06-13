@@ -1,14 +1,23 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { useSelectLoginStates } from '../../hooks/select/useSelectLoginStates';
 import { useCustomRouter } from '../../hooks/utils/useCustomRouter';
+import { RootState } from '../../modules';
 import palette from '../../styles/palette';
 
 const CopyCompleteModalBox = () => {
   const { buildingCode } = useSelectLoginStates();
+  const { copyPrevChatRoomResponse } = useSelector(
+    (state: RootState) => state.createStates,
+  );
 
   const shiftPage = useCustomRouter(
     `/chat-rooms?buildingCode=${buildingCode}`,
+  ).shiftPage;
+
+  const shiftChatRoom = useCustomRouter(
+    `/chatting/${copyPrevChatRoomResponse}`,
   ).shiftPage;
 
   return (
@@ -23,7 +32,7 @@ const CopyCompleteModalBox = () => {
 
       <ButtonContainer>
         <CancelButton onClick={shiftPage}>홈으로</CancelButton>
-        <GoLogin>채팅방으로 바로 이동하기</GoLogin>
+        <GoLogin onClick={shiftChatRoom}>채팅방으로 바로 이동하기</GoLogin>
       </ButtonContainer>
     </ModalContainer>
   );

@@ -65,6 +65,7 @@ const Container = styled.div`
 
   border-bottom: 1px solid ${palette.bgGray};
   transition: 0.2s;
+  cursor: pointer;
 
   &:hover {
     background-color: ${palette.bgGray};
