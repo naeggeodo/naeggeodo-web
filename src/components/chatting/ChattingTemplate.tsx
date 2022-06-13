@@ -19,7 +19,11 @@ import ChattingList from './ChattingList';
 import { useRouter } from 'next/router';
 import ChattingService from '../../service/api/chatting/ChattingService';
 
-const ChattingTemplate = () => {
+const ChattingTemplate = ({
+  previousChatting,
+}: {
+  previousChatting: PreviousChattingListResponse;
+}) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const chatListDivRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
@@ -39,49 +43,33 @@ const ChattingTemplate = () => {
   const socket = new SockJS(`${process.env.NEXT_PUBLIC_API_URL}/chat`);
   const stompClient = Stomp.over(socket);
 
-  function load() {
-    ChattingService.asyncGetPreviousChattingList(
-      '2',
-      'fm0pjVuB1UjMDHPkm19S7jcG2GnQbdEroLcq8weWOEs',
-    );
-  }
-
   useEffect(() => {
     chatListDivRef.current.scroll({
       top: scrollRef.current.offsetTop,
       behavior: 'smooth',
     });
-
     if (!stompClient.connected) {
-      connect(
-        socket,
-        stompClient,
-        router.query.id as string,
-        messageList,
-        setMessageList,
-      );
+      connect(socket, stompClient, router.query.id as string, setMessageList);
     }
     return () => disconnect(stompClient);
-  }, []);
+  }, [messageList]);
 
   return (
     <Container>
-      <button onClick={load}></button>
-      <Header
+      {/* <Header
+        chatRoomInfo={chatRoomInfo}
         isDrawerOpen={isDrawerOpen}
         setIsDrawerOpen={setIsDrawerOpen}
-        chatRoomInfo={chatRoomInfo}
-      />
-      {chatRoomInfo.state !== 'END' && <GoInfoBtn />}
+      /> */}
+      {chatRoomInfo?.state !== 'END' && <GoInfoBtn />}
       <Content ref={chatListDivRef}>
-        {/* <ChattingList messageList={previousChatting.messages} /> */}
+        <ChattingList messageList={previousChatting.messages} />
         <ChattingList messageList={messageList} />
         <div ref={scrollRef} />
       </Content>
       {/* <QuickMessageComp stompClient={stompClient} /> */}
       <SubmitForm stompClient={stompClient} />
       <ChatDrawer
-        stompClient={stompClient}
         isDrawerOpen={isDrawerOpen}
         setIsDrawerOpen={setIsDrawerOpen}
       />

@@ -3,6 +3,8 @@ import GlobalStyle from '../src/styles/GlobalStyle';
 import * as NextImage from 'next/image';
 
 import { RouterContext } from 'next/dist/shared/lib/router-context';
+import { Provider } from 'react-redux';
+import { configureStore } from '../src/modules';
 
 const OriginalNextImage = NextImage.default;
 
@@ -13,10 +15,10 @@ Object.defineProperty(NextImage, 'default', {
 
 export const decorators = [
   (Story) => (
-    <>
+    <Provider store={configureStore()}>
       <GlobalStyle />
       <Story />
-    </>
+    </Provider>
   ),
 ];
 

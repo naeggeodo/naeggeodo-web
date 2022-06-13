@@ -12,8 +12,8 @@ const ConvertToCompletedButton = () => {
   const router = useRouter();
   const { accessToken } = useSelectLoginStates();
 
-  const { chatRoomInfo } = useSelector(
-    (state: RootState) => state.chattingRoomState,
+  const chatRoomInfo = useSelector(
+    (state: RootState) => state.chattingRoomState.chatRoomInfo,
   );
 
   const [isCompleted, setIsCompleted] = useState<boolean>(

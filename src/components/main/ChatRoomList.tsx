@@ -15,7 +15,7 @@ const ChatRoomList = () => {
 
   return (
     <Container>
-      {chatRooms.map((item) => (
+      {dataList.map((item) => (
         <ChatRoomItem
           id={item.id}
           key={item.id}
@@ -26,9 +26,10 @@ const ChatRoomList = () => {
           createDate={item.createDate}
           orderTimeType={item.orderTimeType}
           imgPath={item.imgPath}
+          address={item.address}
         />
       ))}
-      <div ref={target}></div>
+      {dataList.length < chatRooms.length && <div ref={target} />}
     </Container>
   );
 };

@@ -64,7 +64,7 @@ const Header = ({ setIsDrawerOpen, isDrawerOpen, chatRoomInfo }: PropsType) => {
         />
         <Link href={chatRoomInfo.link} passHref>
           <LinkWrapper target='_blank' rel='noopener noreferrer'>
-            <Info name='title'>{title}</Info>
+            <Info name='title'>{chatRoomInfo.title}</Info>
             <Info name='info'>
               인원{chatRoomInfo.currentCount}명/{chatRoomInfo.maxCount}명
             </Info>
