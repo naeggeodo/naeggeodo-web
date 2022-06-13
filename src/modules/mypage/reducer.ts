@@ -1,10 +1,16 @@
 import { createReducer } from 'typesafe-actions';
-import { GET_USER_INFO_IN_MYPAGE_SUCCESS } from './actions';
+import {
+  GET_USER_INFO_IN_MYPAGE_SUCCESS,
+  SET_REPORT_CONFIRM_MODAL,
+  SET_REPORT_MODAL,
+} from './actions';
 
 import { MyPageUserInfoResponse } from './types';
 
 interface MyPageState {
   userInfo: MyPageUserInfoResponse;
+  reportModal: string;
+  reportConfirmModal: string;
 }
 
 const initialState: MyPageState = {
@@ -13,6 +19,8 @@ const initialState: MyPageState = {
     myOrdersCount: null,
     participatingChatCount: null,
   },
+  reportModal: '',
+  reportConfirmModal: '',
 };
 
 export const myPageState = createReducer<MyPageState>(initialState, {
@@ -24,5 +32,13 @@ export const myPageState = createReducer<MyPageState>(initialState, {
       myOrdersCount: action.payload.myOrdersCount,
       participatingChatCount: action.payload.participatingChatCount,
     },
+  }),
+  [SET_REPORT_MODAL]: (state, action) => ({
+    ...state,
+    reportModal: action.payload,
+  }),
+  [SET_REPORT_CONFIRM_MODAL]: (state, action) => ({
+    ...state,
+    reportConfirmModal: action.payload,
   }),
 });

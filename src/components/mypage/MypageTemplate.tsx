@@ -7,12 +7,19 @@ import LoginModal from '../login/LoginModalTemplate';
 import TabMenu from '../main/TabMenu';
 import CustomerServiceSection from './CustomerServiceSection';
 import MypageUserInfo from './MypageUserInfo';
+import ComplainForm from './report/ComplainForm';
+import CompleteAlertModal from './report/CompleteAlertModal';
+import FeedbackForm from './report/FeedbackForm';
 import Terms from './Terms';
 
 // ? 더보기 페이지 (마이페이지)
 // ? url : /mypage
 
 const MypageTemplate = () => {
+  const { reportModal, reportConfirmModal } = useSelector(
+    (state: RootState) => state.myPageState,
+  );
+
   const loginModalIsClicked = useSelector(
     (state: RootState) => state.modalStates.loginModalIsClicked,
   );
@@ -29,7 +36,9 @@ const MypageTemplate = () => {
       </Container>
 
       {loginModalIsClicked && <LoginModal />}
-
+      {reportModal === 'feedback' && <FeedbackForm />}
+      {reportModal === 'complain' && <ComplainForm />}
+      {reportConfirmModal === 'alert' && <CompleteAlertModal />}
       <TabMenu />
     </React.Fragment>
   );
