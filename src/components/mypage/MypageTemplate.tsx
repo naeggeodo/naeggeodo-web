@@ -1,9 +1,7 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { RootState } from '../../modules';
-import { openLoginModal } from '../../modules/modal/actions';
-import { getUserInfoInMypageRequest } from '../../modules/mypage/actions';
 import palette from '../../styles/palette';
 import LoginModal from '../login/LoginModalTemplate';
 import TabMenu from '../main/TabMenu';
@@ -14,30 +12,10 @@ import Terms from './Terms';
 // ? 더보기 페이지 (마이페이지)
 // ? url : /mypage
 
-// TODO : 액세스토큰 useSelector 커스텀훅으로 바꾸기
-// TODO : 서버사이드렌더링 이슈 해결하기(현재 : useEffect data fetching)
-
 const MypageTemplate = () => {
-  const dispatch = useDispatch();
   const loginModalIsClicked = useSelector(
     (state: RootState) => state.modalStates.loginModalIsClicked,
   );
-  const accessToken = useSelector(
-    (state: RootState) => state.loginState.accessToken,
-  );
-
-  const userId = useSelector((state: RootState) => state.loginState.user_id);
-  console.log(userId, '유저아이디');
-
-  // useEffect(() => {
-  //   dispatch(getUserInfoInMypageRequest(userId));
-  // }, [dispatch, userId]);
-
-  useEffect(() => {
-    if (!accessToken) {
-      dispatch(openLoginModal());
-    }
-  }, [accessToken]);
 
   return (
     <React.Fragment>
