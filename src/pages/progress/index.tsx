@@ -1,10 +1,10 @@
 import { END } from 'redux-saga';
-import NaeggeotalkTemplate from '../../components/naeggeotalk/NaeggeotalkTemplate';
+import ProgressTemplate from '../../components/progress/ProgressTemplate';
 import { RootState, wrapper } from '../../modules';
 import { saveCookies } from '../../utils/saveCookies';
 
-const naeggeotalk = () => {
-  return <NaeggeotalkTemplate />;
+const Progress = () => {
+  return <ProgressTemplate />;
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(
@@ -32,4 +32,4 @@ export const getServerSideProps = wrapper.getServerSideProps(
   },
 );
 
-export default naeggeotalk;
+export default Progress;
