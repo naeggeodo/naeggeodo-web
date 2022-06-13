@@ -24,7 +24,7 @@ export type SaveBuildingCodeAction = ReturnType<typeof saveBuildingCode>;
 
 export type OrderTimeType = 'ONE_HOUR' | 'QUICK' | 'FREEDOM';
 
-export interface CreateStates {
+export interface CreateData {
   buildingCode: string;
   category: Category | null; // 카테고리
   link: string; // 카카오페이 링크
@@ -36,6 +36,14 @@ export interface CreateStates {
   maxCount: number;
 }
 
+export interface CreateStates {
+  createData: CreateData;
+  createChatRoomResponse: CreateChatRoomResponse;
+  prevCreatedListResponse: PrevCreatedListResponses;
+  copyPrevChatRoomResponse: number;
+  selectedPrevChatRoomData: PrevCreatedListItem | null;
+}
+
 export interface ButtonValue {
   text: OrderTimeTypeKr | '상관없음 (인원이 모집되는대로)';
   value: OrderTimeType;
@@ -45,4 +53,46 @@ export type CreateChatRoomResponse = {
   chatMain_id: number;
 };
 
+export type BookMarks = 'Y' | 'N';
 export type OrderTimeTypeKr = '1시간 이내' | '최대한 빨리';
+
+export type PrevCreatedListItem = {
+  buildingCode: string;
+  address: string;
+  link?: string;
+  title: string;
+  maxCount: number;
+  tags: string[];
+  bookmarks: BookMarks;
+  user_id: string;
+  currentCount: 0;
+  bookmarksDate: string;
+  id: number;
+  state: string;
+  imgPath: string;
+  place: string;
+  endData: string | null;
+  category: string;
+  idx: number;
+  createDate: string;
+  orderTimeType: string;
+};
+
+export type PrevCreatedListResponses = {
+  chatRooms: PrevCreatedListItem[];
+};
+
+export type CopyPrevChatRoomDataRequestParams = {
+  id: number;
+  orderTimeType: OrderTimeType | '';
+};
+
+export type PrevChatRoomBookMarkRequestParams = {
+  chatMainId: number;
+  userId: string;
+};
+
+export type PatchBookMarkResponse = {
+  chatMain_id: number;
+  bookmarks: BookMarks;
+};

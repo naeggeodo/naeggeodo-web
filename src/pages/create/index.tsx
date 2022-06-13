@@ -2,8 +2,11 @@ import React from 'react';
 import { END } from 'redux-saga';
 import CreateTemplate from '../../components/create/CreateTemplate';
 import { RootState, wrapper } from '../../modules';
-import { saveBuildingCode, saveUserId } from '../../modules/create/actions';
-import { getNaeggeotalkListActions } from '../../modules/naeggeotalk/actions';
+import {
+  getPrevCreatedListActions,
+  saveBuildingCode,
+  saveUserId,
+} from '../../modules/create/actions';
 import { saveCookies } from '../../utils/saveCookies';
 
 const create = () => {
@@ -16,9 +19,10 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
     const rootState: RootState = store.getState();
     const accessToken = rootState.loginState.accessToken;
+    const user_id = rootState.loginState.user_id;
 
     if (accessToken) {
-      store.dispatch(getNaeggeotalkListActions.request('1'));
+      store.dispatch(getPrevCreatedListActions.request(user_id));
       store.dispatch(saveUserId(rootState.loginState.user_id));
       store.dispatch(saveBuildingCode(rootState.loginState.buildingCode));
 
@@ -27,9 +31,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
       await store.sagaTask.toPromise();
 
       return {
-        props: {
-          naeggeotalkList: store.getState().naeggeotalkState.naeggeotalkList,
-        },
+        props: {},
       };
     } else {
       return {

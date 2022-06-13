@@ -11,6 +11,7 @@ import SelectCategoryDrawer from './SelectCategoryDrawer';
 import palette from '../../../styles/palette';
 import { convertEngCategoryToKor } from '../../../utils/converEngCategoryToKor';
 import { CsrApiService } from '../../../service/api';
+import { useSelectLoginStates } from '../../../hooks/select/useSelectLoginStates';
 
 // ? 방 생성시 상세 정보 선택하는 페이지
 // ? url : create
@@ -29,8 +30,6 @@ const CreateForm = () => {
     place,
     tagText,
     maxCount,
-    user_id,
-    buildingCode,
     orderTimeType,
     changeTagText,
     dispatchAddTag,
@@ -38,8 +37,9 @@ const CreateForm = () => {
     dispatchInputAction,
     dispatchMinusMaxCount,
     dispatchPlusMaxCount,
-    dispatchOpenCompleteModal,
+    dispatchCreateChatRoom,
   } = useCreateNaeggeotalk();
+  const { user_id, address, buildingCode } = useSelectLoginStates();
 
   const urlRegex = /(http(s)?:\/\/)([a-z0-9\w]+\.*)+[a-z0-9]{2,4}/gi;
   const [isUrl, setIsUrl] = useState<boolean>(false);
@@ -69,6 +69,7 @@ const CreateForm = () => {
 
   const createChatRoom = useCallback(async () => {
     const sendData = {
+      address,
       buildingCode,
       category,
       link,
@@ -79,23 +80,18 @@ const CreateForm = () => {
       maxCount,
       orderTimeType,
     };
-    dispatchOpenCompleteModal();
 
-    // try {
-    //   const json = JSON.stringify(sendData);
-    //   const formData = new FormData();
+    const json = JSON.stringify(sendData);
+    const formData = new FormData();
 
-    //   const blob = new Blob([json], {
-    //     type: 'application/json',
-    //   });
+    const blob = new Blob([json], {
+      type: 'application/json',
+    });
 
-    //   formData.append('chat', blob);
-    //   formData.append('file', imgFile);
+    formData.append('chat', blob);
+    formData.append('file', imgFile);
 
-    //   await CsrApiService.postApi('chat-rooms', formData);
-    // } catch (err) {
-    //   console.log(err);
-    // }
+    dispatchCreateChatRoom(formData);
   }, [
     buildingCode,
     category,
@@ -108,6 +104,7 @@ const CreateForm = () => {
     orderTimeType,
     imgFile,
     imgSrc,
+    address,
   ]);
 
   return (

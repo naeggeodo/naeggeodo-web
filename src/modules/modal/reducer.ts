@@ -1,9 +1,11 @@
 import { createReducer } from 'typesafe-actions';
 import {
   CLOSE_COMPLETE_MODAL,
+  CLOSE_COPY_COMPLETE_MODAL,
   CLOSE_LOGIN_MODAL,
   CLOSE_SEARCH_POST_CODE,
   OPEN_COMPLETE_MODAL,
+  OPEN_COPY_COMPLETE_MODAL,
   OPEN_LOGIN_MODAL,
   OPEN_SEARCH_POST_CODE,
 } from './actions';
@@ -13,6 +15,7 @@ const initialState: ModalStates = {
   loginModalIsClicked: false,
   searchPostCodeIsOpen: false,
   completeModalIsOpen: false,
+  copyCompleteModalIsOpen: false,
 };
 
 export const modalStates = createReducer<ModalStates>(initialState, {
@@ -40,5 +43,13 @@ export const modalStates = createReducer<ModalStates>(initialState, {
   [CLOSE_COMPLETE_MODAL]: (state) => ({
     ...state,
     completeModalIsOpen: false,
+  }),
+  [OPEN_COPY_COMPLETE_MODAL]: (state) => ({
+    ...state,
+    copyCompleteModalIsOpen: true,
+  }),
+  [CLOSE_COPY_COMPLETE_MODAL]: (state) => ({
+    ...state,
+    copyCompleteModalIsOpen: false,
   }),
 });

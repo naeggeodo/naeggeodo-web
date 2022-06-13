@@ -22,7 +22,7 @@ const SelectCategoryDrawer = ({ isOpen, setIsOpen }: PropsType) => {
     (state: RootState) => state.mainPageState.categories,
   );
   const category = useSelector(
-    (state: RootState) => state.createStates.category,
+    (state: RootState) => state.createStates.createData.category,
   );
 
   useEffect(() => {
