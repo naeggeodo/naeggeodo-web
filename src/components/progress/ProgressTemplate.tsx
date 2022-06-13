@@ -1,36 +1,55 @@
 import Image from 'next/image';
 import React from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { RootState } from '../../modules';
 import palette from '../../styles/palette';
+import DateFormatter from '../../utils/DateFormatter';
 import TabMenu from '../main/TabMenu';
 
 const ProgressTemplate = () => {
+  const { chatRoom } = useSelector(
+    (state: RootState) => state.progressStates.progressChatRoomList,
+  );
+
   return (
     <React.Fragment>
       <Container>
         <Title>내꺼톡 리스트</Title>
 
         <ProgressTalkList>
-          <ProgressTalkItem>
-            <ImageContainer>
-              <Image
-                src='/assets/images/hamburger.svg'
-                height={50}
-                width={50}
-              />
-            </ImageContainer>
+          {chatRoom.length > 0 &&
+            chatRoom.map((data) => {
+              const time = new DateFormatter(data.createDate);
 
-            <TextContainer>
-              <TimeTitleWrapper>
-                <p>버거킹 백석 이마트점</p>
-                <p>오후 9:20</p>
-              </TimeTitleWrapper>
+              return (
+                <ProgressTalkItem data-value={data.id} key={String(data.id)}>
+                  <ImageContainer>
+                    <Image
+                      style={{ borderRadius: '10px' }}
+                      src={
+                        data.imgPath
+                          ? data.imgPath
+                          : '/assets/images/hamburger.svg'
+                      }
+                      height={50}
+                      width={50}
+                    />
+                  </ImageContainer>
 
-              <Contents>
-                <p>105동 정문에서 수령하시면 됩니다.</p>
-              </Contents>
-            </TextContainer>
-          </ProgressTalkItem>
+                  <TextContainer>
+                    <TimeTitleWrapper>
+                      <p>{data.title}</p>
+                      <p>{time.formatTime()}</p>
+                    </TimeTitleWrapper>
+
+                    <Contents>
+                      <p>105동 정문에서 수령하시면 됩니다.</p>
+                    </Contents>
+                  </TextContainer>
+                </ProgressTalkItem>
+              );
+            })}
         </ProgressTalkList>
       </Container>
       <TabMenu />
@@ -63,7 +82,9 @@ const ProgressTalkList = styled.ul`
 `;
 
 const ProgressTalkItem = styled.li`
+  all: unset;
   display: flex;
+
   gap: 10px;
 
   padding: 24px;
