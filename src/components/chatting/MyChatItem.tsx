@@ -29,7 +29,9 @@ const MyChatItem = ({
           height={300}
         />
       ) : (
-        <Content>{message.contents}</Content>
+        <Content>
+          {message.type === 'CNT' ? <p>{message.user_id}</p> : message.contents}
+        </Content>
       )}
     </Wrap>
   );

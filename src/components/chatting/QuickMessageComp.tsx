@@ -39,6 +39,7 @@ const QuickMessageComp = ({ stompClient }: { stompClient: CompatClient }) => {
       contents: clickTarget.innerHTML,
       type: 'TEXT',
     };
+
     onSendMessage(stompClient, data);
     slideDown(target);
   };
@@ -53,12 +54,12 @@ const QuickMessageComp = ({ stompClient }: { stompClient: CompatClient }) => {
           height={3}
         />
       </Div>
-      {quickChatList.quickChat &&
+      {/* {quickChatList.quickChat &&
         quickChatList.quickChat.map((quickChat) => (
           <Item key={quickChat.idx} onClick={sendMessage}>
             {quickChat.msg}
           </Item>
-        ))}
+        ))} */}
       <EditBtn>
         <p>편집하기</p>
         <Image

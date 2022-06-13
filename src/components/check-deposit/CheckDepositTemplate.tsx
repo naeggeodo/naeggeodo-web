@@ -62,7 +62,7 @@ const CheckDepositTemplate = () => {
           )}
           {depositYetUsers.length > 0 &&
             depositYetUsers.map((user) => (
-              <CheckDepositItem key={user.idx} user={user} />
+              <CheckDepositItem key={user.user_id} user={user} />
             ))}
         </DepositUserList>
         <DepositYetUsers>

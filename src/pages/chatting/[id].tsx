@@ -7,15 +7,14 @@ import {
   getPreviousChattingListActions,
   getQuickChattingListActions,
 } from '../../modules/chatting/actions';
-import { PreviousChattingListResponse } from '../../modules/chatting/types';
 import { saveCookies } from '../../utils/saveCookies';
+import { useEffect } from 'react';
 
-const chatting = ({
-  previousChatting,
-}: {
-  previousChatting: PreviousChattingListResponse;
-}) => {
-  return <ChattingTemplate previousChatting={previousChatting} />;
+const chatting = ({ previousChatting }: { previousChatting: any }) => {
+  useEffect(() => {
+    console.log(previousChatting, 'asdf');
+  }, []);
+  return <ChattingTemplate />;
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(

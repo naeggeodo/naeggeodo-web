@@ -5,7 +5,7 @@ export default class CheckDepositService {
     try {
       const response = await CsrApiService.patchApi(
         `/chat-rooms/${chattingRoomId}/users/${userId}`,
-        null,
+        {},
       );
       return response.data;
     } catch (err) {
