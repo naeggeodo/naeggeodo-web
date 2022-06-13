@@ -80,6 +80,8 @@ const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  padding: 5px 0;
 `;
 
 const TimeTitleWrapper = styled.div`
