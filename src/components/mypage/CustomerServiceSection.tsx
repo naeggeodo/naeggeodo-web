@@ -1,20 +1,22 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
+import { useLoadLib } from '../../hooks/utils/useLoadLib';
+import { setReportModal } from '../../modules/mypage/actions';
 import palette from '../../styles/palette';
-import ComplainForm from './ComplainForm';
-import FeedbackForm from './FeedbackForm';
 
 const CustomerServiceSection = () => {
-  const [popupState, setPopupState] = useState('');
+  const { dispatch } = useLoadLib();
+
   const openFeedbackPopup = () => {
-    setPopupState('feedback');
+    dispatch(setReportModal('feedback'));
   };
 
   const openComplainPopup = () => {
-    setPopupState('complain');
+    dispatch(setReportModal('complain'));
   };
+
   return (
     <Container>
       <SectionTitle>고객센터</SectionTitle>
@@ -50,12 +52,6 @@ const CustomerServiceSection = () => {
         />
         신고하기
       </MenuItem>
-      {popupState === 'feedback' && (
-        <FeedbackForm setPopupState={setPopupState} />
-      )}
-      {popupState === 'complain' && (
-        <ComplainForm setPopupState={setPopupState} />
-      )}
     </Container>
   );
 };
