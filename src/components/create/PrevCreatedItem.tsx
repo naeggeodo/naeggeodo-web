@@ -1,11 +1,14 @@
 import Image from 'next/image';
-import { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { useSelectLoginStates } from '../../hooks/select/useSelectLoginStates';
 import { RootState } from '../../modules';
-import { selectCopyPrevChatRoomData } from '../../modules/create/actions';
+import {
+  patchPrevChatRoomBookMarkActions,
+  selectCopyPrevChatRoomData,
+} from '../../modules/create/actions';
 import { PrevCreatedListItem } from '../../modules/create/types';
-import { setNaeggeotalkItemBookmarkActions } from '../../modules/naeggeotalk/actions';
 import palette from '../../styles/palette';
 import DateFormatter from '../../utils/DateFormatter';
 
@@ -14,32 +17,29 @@ type StyledType = {
 };
 
 const PrevCreatedItem = ({ data }: { data: PrevCreatedListItem }) => {
-  const [isBookmark, setIsBookmark] = useState(
-    data.bookmarks === 'Y' ? true : false,
-  );
-  const dispatch = useDispatch();
-  const selectedPrevChatRoomData = useSelector(
-    (state: RootState) => state.createStates.selectedPrevChatRoomData,
-  );
   const chatDate = useMemo(
     () => new DateFormatter(data.createDate),
     [data.createDate],
+  );
+  const dispatch = useDispatch();
+  const { user_id } = useSelectLoginStates();
+
+  const selectedPrevChatRoomData = useSelector(
+    (state: RootState) => state.createStates.selectedPrevChatRoomData,
   );
 
   const selectPrevData = useCallback(() => {
     dispatch(selectCopyPrevChatRoomData(data));
   }, [dispatch]);
 
-  // TODO book마크 기능 추가
-  const onBookmarkHandler = () => {
+  const onBookmarkHandler = useCallback(() => {
     dispatch(
-      setNaeggeotalkItemBookmarkActions.request({
-        chatMainId: String(data.id),
-        userId: '1',
+      patchPrevChatRoomBookMarkActions.request({
+        chatMainId: data.id,
+        userId: user_id,
       }),
     );
-    setIsBookmark((prev) => !prev);
-  };
+  }, [dispatch, data, user_id]);
 
   return (
     <Container
@@ -58,7 +58,7 @@ const PrevCreatedItem = ({ data }: { data: PrevCreatedListItem }) => {
             <Date>{`${chatDate.formatDate()}  ${chatDate.formatTime()}`}</Date>
           </div>
         </InfoBox>
-        {isBookmark === true ? (
+        {data.bookmarks === 'Y' ? (
           <BookmarkButton onClick={onBookmarkHandler}>
             <Image
               src='/assets/images/yellowstar.svg'

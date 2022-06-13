@@ -17,6 +17,8 @@ import {
   COPY_PREV_CHATROOM_DATA_SUCCESS,
   SELECT_COPY_PREV_CHATROOM_DATA,
   selectCopyPrevChatRoomData,
+  PATCH_PREV_CHATROOM_BOOKMARK_SUCCESS,
+  patchPrevChatRoomBookMarkActions,
 } from './actions';
 import {
   CreateStates,
@@ -181,5 +183,20 @@ export const createStates = createReducer<CreateStates>(initialCreateStates, {
   ) => ({
     ...state,
     selectedPrevChatRoomData: action.payload.data,
+  }),
+
+  [PATCH_PREV_CHATROOM_BOOKMARK_SUCCESS]: (
+    state,
+    action: ReturnType<typeof patchPrevChatRoomBookMarkActions.success>,
+  ) => ({
+    ...state,
+    prevCreatedListResponse: {
+      ...state.prevCreatedListResponse,
+      chatRooms: state.prevCreatedListResponse.chatRooms.map((chatRoom, _) =>
+        chatRoom.id === action.payload.chatMain_id
+          ? { ...chatRoom, bookmarks: action.payload.bookmarks }
+          : chatRoom,
+      ),
+    },
   }),
 });

@@ -23,4 +23,14 @@ export class CreateService {
       },
     );
   }
+
+  static async asyncPatchPrevChatRoomBookmark(
+    chatMainId: number,
+    userId: string,
+  ) {
+    return CsrApiService.patchApi(
+      `/chat-rooms/${chatMainId}/bookmarks/${userId}`,
+      null,
+    );
+  }
 }

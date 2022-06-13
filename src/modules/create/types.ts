@@ -53,6 +53,7 @@ export type CreateChatRoomResponse = {
   chatMain_id: number;
 };
 
+export type BookMarks = 'Y' | 'N';
 export type OrderTimeTypeKr = '1시간 이내' | '최대한 빨리';
 
 export type PrevCreatedListItem = {
@@ -62,7 +63,7 @@ export type PrevCreatedListItem = {
   title: string;
   maxCount: number;
   tags: string[];
-  bookmarks: string;
+  bookmarks: BookMarks;
   user_id: string;
   currentCount: 0;
   bookmarksDate: string;
@@ -84,4 +85,14 @@ export type PrevCreatedListResponses = {
 export type CopyPrevChatRoomDataRequestParams = {
   id: number;
   orderTimeType: OrderTimeType | '';
+};
+
+export type PrevChatRoomBookMarkRequestParams = {
+  chatMainId: number;
+  userId: string;
+};
+
+export type PatchBookMarkResponse = {
+  chatMain_id: number;
+  bookmarks: BookMarks;
 };

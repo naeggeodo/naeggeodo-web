@@ -16,7 +16,6 @@ import { loginSaga } from './login/sagas';
 import { loginState } from './login/reducers';
 import { modalStates } from './modal/reducer';
 import { searchPostCodeSaga } from './search-post-code/sagas';
-import { getNaeggeotalkSaga } from './naeggeotalk/sagas';
 import { getCheckDepositPageInfoSaga } from './check-deposit/sagas';
 import { checkDepositState } from './check-deposit/reducer';
 import { getMypageInfoSaga } from './mypage/sagas';
@@ -44,7 +43,6 @@ export function* rootSaga() {
     fork(getSearchPageInfoSaga),
     fork(loginSaga),
     fork(searchPostCodeSaga),
-    fork(getNaeggeotalkSaga),
     fork(getCheckDepositPageInfoSaga),
     fork(getMypageInfoSaga),
     fork(createChatRoomSaga),

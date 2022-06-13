@@ -1,17 +1,16 @@
 import React, { useCallback } from 'react';
-import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { useInfiniteScroll } from '../../hooks/render/useInfiniteScroll';
 import { useLoadLib } from '../../hooks/utils/useLoadLib';
 import { RootState } from '../../modules';
 import { copyPrevChatRoomDataActions } from '../../modules/create/actions';
-import { PrevCreatedListItem } from '../../modules/create/types';
 import palette from '../../styles/palette';
 import TabMenu from '../main/TabMenu';
 import PrevCreatedItem from './PrevCreatedItem';
 
 // TODO 인피니티 스크롤 수정하기
+// const { target, dataList } = useInfiniteScroll(naeggeotalkList.chatRooms);
 
 const PrevCreatedList = () => {
   const { dispatch } = useLoadLib();
@@ -25,8 +24,6 @@ const PrevCreatedList = () => {
   const { selectedPrevChatRoomData } = useSelector(
     (state: RootState) => state.createStates,
   );
-
-  // const { target, dataList } = useInfiniteScroll(naeggeotalkList.chatRooms);
 
   const copyPrevChatRoom = useCallback(async () => {
     dispatch(

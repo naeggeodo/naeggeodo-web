@@ -5,6 +5,8 @@ import {
   CopyPrevChatRoomDataRequestParams,
   CreateChatRoomResponse,
   OrderTimeType,
+  PatchBookMarkResponse,
+  PrevChatRoomBookMarkRequestParams,
   PrevCreatedListResponses,
 } from './types';
 
@@ -107,3 +109,19 @@ export const selectCopyPrevChatRoomData = createAction(
   SELECT_COPY_PREV_CHATROOM_DATA,
   (data) => ({ data }),
 )();
+
+// ? 이전 내역 북마크
+export const PATCH_PREV_CHATROOM_BOOKMARK_REQUEST =
+  namespace + 'PATCH_PREV_CHATROOM_BOOKMARK_REQUEST';
+
+export const PATCH_PREV_CHATROOM_BOOKMARK_SUCCESS =
+  namespace + 'PATCH_PREV_CHATROOM_BOOKMARK_SUCCESS';
+
+export const PATCH_PREV_CHATROOM_BOOKMARK_FAILURE =
+  namespace + 'PATCH_PREV_CHATROOM_BOOKMARK_FAILURE';
+
+export const patchPrevChatRoomBookMarkActions = createAsyncAction(
+  PATCH_PREV_CHATROOM_BOOKMARK_REQUEST,
+  PATCH_PREV_CHATROOM_BOOKMARK_SUCCESS,
+  PATCH_PREV_CHATROOM_BOOKMARK_FAILURE,
+)<PrevChatRoomBookMarkRequestParams, PatchBookMarkResponse, AxiosError>();

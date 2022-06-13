@@ -9,6 +9,8 @@ import {
   getPrevCreatedListActions,
   GET_PREV_CREATED_LIST_REQUEST,
   initializeCreateStates,
+  patchPrevChatRoomBookMarkActions,
+  PATCH_PREV_CHATROOM_BOOKMARK_REQUEST,
 } from './actions';
 import { CreateChatRoomResponse, PrevCreatedListResponses } from './types';
 
@@ -42,6 +44,7 @@ function* getPrevCreatedListGenerator(
   }
 }
 
+// ** 이전내역 복사 기능
 function* copyPrevChatRoomDataGenerator(
   action: ReturnType<typeof copyPrevChatRoomDataActions.request>,
 ) {
@@ -58,10 +61,27 @@ function* copyPrevChatRoomDataGenerator(
   }
 }
 
+// ** bookmark 기능
+function* patchPrevChatRoomBookMarkGenerator(
+  action: ReturnType<typeof patchPrevChatRoomBookMarkActions.request>,
+) {
+  const { data }: { data: { bookmarks: 'Y' | 'N'; chatMain_id: number } } =
+    yield call(
+      CreateService.asyncPatchPrevChatRoomBookmark,
+      action.payload.chatMainId,
+      action.payload.userId,
+    );
+  yield put(patchPrevChatRoomBookMarkActions.success(data));
+}
+
 export function* createChatRoomSaga() {
   yield* [
     takeLatest(CREATE_CHAT_ROOM_REQUEST, createChatRoomGenerator),
     takeLatest(GET_PREV_CREATED_LIST_REQUEST, getPrevCreatedListGenerator),
     takeLatest(COPY_PREV_CHATROOM_DATA_REQUEST, copyPrevChatRoomDataGenerator),
+    takeLatest(
+      PATCH_PREV_CHATROOM_BOOKMARK_REQUEST,
+      patchPrevChatRoomBookMarkGenerator,
+    ),
   ];
 }
