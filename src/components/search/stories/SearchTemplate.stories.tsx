@@ -18,15 +18,5 @@ export default {
   },
 } as ComponentMeta<typeof SearchTemplate>;
 
-const SearchTabStory = (args) => <SearchTemplate {...args} />;
-
-export const SearchTabTemplate = SearchTabStory.bind({});
-
-SearchTabTemplate.args = {
-  tags: [
-    { msg: '치킨', idx: 0 },
-    { msg: '피자', idx: 1 },
-  ],
-};
-
-SearchTabTemplate.storyName = '검색 탭 페이지';
+export const SearchTabStory = () => <SearchTemplate />;
+SearchTabStory.storyName = '검색 탭 페이지';

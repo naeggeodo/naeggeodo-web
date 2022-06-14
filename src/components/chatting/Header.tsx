@@ -18,7 +18,7 @@ type PropsType = {
   chatRoomInfo: ChattingRoomInfoResponse;
 };
 
-const Header = ({ setIsDrawerOpen, isDrawerOpen, chatRoomInfo }: PropsType) => {
+const Header = ({ setIsDrawerOpen, isDrawerOpen }: PropsType) => {
   const { routeBack } = useCustomRouter();
   const currentCount = useSelector(
     (state: RootState) => state.chattingRoomState.chatRoomInfo.currentCount,
@@ -54,19 +54,15 @@ const Header = ({ setIsDrawerOpen, isDrawerOpen, chatRoomInfo }: PropsType) => {
           />
         </PrevButton>
         <StyledImage
-          src={
-            chatRoomInfo.imgPath
-              ? chatRoomInfo.imgPath
-              : '/assets/images/hamburger.svg'
-          }
+          src={imgPath ? imgPath : '/assets/images/hamburger.svg'}
           width={44}
           height={44}
         />
-        <Link href={chatRoomInfo.link} passHref>
+        <Link href={link} passHref>
           <LinkWrapper target='_blank' rel='noopener noreferrer'>
-            <Info name='title'>{chatRoomInfo.title}</Info>
+            <Info name='title'>{title}</Info>
             <Info name='info'>
-              인원{chatRoomInfo.currentCount}명/{chatRoomInfo.maxCount}명
+              인원{currentCount}명/{maxCount}명
             </Info>
           </LinkWrapper>
         </Link>

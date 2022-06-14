@@ -1,4 +1,6 @@
 import { ComponentMeta } from '@storybook/react';
+import { Provider } from 'react-redux';
+import { configureStore } from '../../../modules';
 import CheckDepositItem from '../CheckDepositItem';
 
 type Args = {
@@ -17,15 +19,9 @@ export default {
   },
   decorators: [
     (Story) => (
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '100vh',
-        }}>
+      <Provider store={configureStore()}>
         <Story />
-      </div>
+      </Provider>
     ),
   ],
 } as ComponentMeta<typeof CheckDepositItem>;

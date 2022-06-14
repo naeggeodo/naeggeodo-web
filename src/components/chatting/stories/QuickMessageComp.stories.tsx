@@ -1,14 +1,35 @@
 import { ComponentMeta } from '@storybook/react';
+import { Provider } from 'react-redux';
+import { action } from 'typesafe-actions';
+import { configureStore } from '../../../modules';
 import QuickMessageComp from '../QuickMessageComp';
 
 type Args = {
   stompClient: null;
 };
 
+// const store = {
+//   getState: () => {
+//     return {
+//       chattingRoomState: {
+//         quickChatList: [{ msg: '교촌먹고싶어요', idx: '1층으로 와주세요' }],
+//       },
+//     };
+//   },
+//   subscribe: () => 0,
+//   dispatch: action('dispatch'),
+// };
+
 export default {
   title: 'chatting/컴포넌트',
   component: QuickMessageComp,
-  decorators: [(Story) => <Story />],
+  decorators: [
+    (Story) => (
+      <Provider store={configureStore()}>
+        <Story />
+      </Provider>
+    ),
+  ],
   parameters: {
     layout: 'fullscreen',
   },

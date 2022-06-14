@@ -12,11 +12,13 @@ export function useReport() {
   const submitReport = async (body: ReportRequestBody) => {
     const response = await MypageService.asyncSubmitReport(body);
     const data = await response.data;
-    dispatch(dispatch(setReportModal('')));
-    dispatch(dispatch(setReportConfirmModal('alert')));
-    setTimeout(() => {
-      dispatch(dispatch(setReportConfirmModal('')));
-    }, 1500);
+    if (data) {
+      dispatch(dispatch(setReportModal('')));
+      dispatch(dispatch(setReportConfirmModal('alert')));
+      setTimeout(() => {
+        dispatch(dispatch(setReportConfirmModal('')));
+      }, 1500);
+    }
     return data;
   };
   return { submitReport };

@@ -1,5 +1,38 @@
 import { ComponentMeta } from '@storybook/react';
+import { Provider } from 'react-redux';
+import { action } from 'typesafe-actions';
 import ConvertToCompletedButton from '../ConvertToCompletedButton';
+
+const store = {
+  getState: () => {
+    return {
+      loginState: {
+        accessToken: 'sampleToken',
+      },
+      chattingRoomState: {
+        chatRoomInfo: {
+          imgPath: '/assets/images/hamburger.svg',
+          link: 'string',
+          title: '햄버거 먹을분',
+          maxCount: 3,
+          currentCount: 1,
+          chatUser: ['호랑이'],
+          endDate: '2021-04-19T14:02:18.809Z',
+          id: 1,
+          state: 'string',
+          place: '아파트 1층',
+          address: '서울',
+          category: '치킨',
+          dealHistory: 'null',
+          user: '유저',
+          createDate: '2021-04-19T14:02:18.809Z',
+        },
+      },
+    };
+  },
+  subscribe: () => 0,
+  dispatch: action('dispatch'),
+};
 
 export default {
   title: 'check-deposit/컴포넌트',
@@ -9,15 +42,9 @@ export default {
   },
   decorators: [
     (Story) => (
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '100vh',
-        }}>
+      <Provider store={store}>
         <Story />
-      </div>
+      </Provider>
     ),
   ],
 } as ComponentMeta<typeof ConvertToCompletedButton>;
