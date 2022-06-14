@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios';
-import { createAsyncAction } from 'typesafe-actions';
+import { createAction, createAsyncAction } from 'typesafe-actions';
 import {
   ChattingListRequest,
   ChattingListResponse,
@@ -12,6 +12,7 @@ import {
 
 const namespace = 'chatting/';
 
+//? 채팅방 정보 불러오기 actions
 export const GET_CURRENT_CHATROOM_INFO_REQUEST =
   namespace + 'GET_CURRENT_CHATROOM_INFO_REQUEST';
 
@@ -21,14 +22,20 @@ export const GET_CURRENT_CHATROOM_INFO_SUCCESS =
 export const GET_CURRENT_CHATROOM_INFO_FAILURE =
   namespace + 'GET_CURRENT_CHATROOM_INFO_FAILURE';
 
+//? 채팅 관련 actions
 export const GET_CHATTING_LIST_REQUEST =
-  namespace + 'GET_CHATTING_LIST_REQUEST';
+  namespace + 'GET_PREVIOUS_CHATTING_LIST_REQUEST';
 
 export const GET_CHATTING_LIST_SUCCESS =
-  namespace + 'GET_CHATTING_LIST_SUCCESS';
+  namespace + 'GET_PREVIOUS_CHATTING_LIST_SUCCESS';
 
 export const GET_CHATTING_LIST_FAILURE =
   namespace + 'GET_CHATTING_LIST_FAILURE';
+
+export const GET_REAL_TIME_MESSAGE_FROM_SERVER =
+  namespace + 'GET_REAL_TIME_MESSAGE_FROM_SERVER';
+
+//************************************************ */
 
 export const GET_QUICK_MESSAGE_LIST_REQUEST =
   namespace + 'GET_QUICK_MESSAGE_LIST_REQUEST';
@@ -60,6 +67,11 @@ export const getChattingListActions = createAsyncAction(
   GET_CHATTING_LIST_SUCCESS,
   GET_CHATTING_LIST_FAILURE,
 )<ChattingListRequest, ChattingListResponse, AxiosError>();
+
+export const getRealTimeMessageFromServer = createAction(
+  GET_REAL_TIME_MESSAGE_FROM_SERVER,
+  (data) => data,
+)();
 
 export const getQuickChattingListActions = createAsyncAction(
   GET_QUICK_MESSAGE_LIST_REQUEST,

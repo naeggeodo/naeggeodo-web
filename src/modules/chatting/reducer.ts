@@ -3,6 +3,7 @@ import {
   GET_CURRENT_CHAT_USER_LIST_SUCCESS,
   GET_CHATTING_LIST_SUCCESS,
   GET_QUICK_MESSAGE_LIST_SUCCESS,
+  GET_REAL_TIME_MESSAGE_FROM_SERVER,
 } from './actions';
 import {
   ChattingRoomInfoResponse,
@@ -44,6 +45,13 @@ export const chattingRoomState = createReducer<ChattingRoomState>(
     [GET_CURRENT_CHAT_USER_LIST_SUCCESS]: (state, action) => ({
       ...state,
       currentChatUserList: action.payload,
+    }),
+    [GET_REAL_TIME_MESSAGE_FROM_SERVER]: (state, action) => ({
+      ...state,
+      chattingList: {
+        ...state.chattingList,
+        messages: [...state.chattingList.messages, action.payload.messages],
+      },
     }),
   },
 );

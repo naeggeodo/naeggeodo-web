@@ -3,17 +3,16 @@ import { END } from 'redux-saga';
 import { RootState, wrapper } from '../../modules';
 import ChattingTemplate from '../../components/chatting/ChattingTemplate';
 import {
+  getChattingListActions,
   getCurrentChatRoomAsyncActions,
-  getPreviousChattingListActions,
-  getQuickChattingListActions,
 } from '../../modules/chatting/actions';
-import { PreviousChattingListResponse } from '../../modules/chatting/types';
 import { saveCookies } from '../../utils/saveCookies';
+import { ChattingListResponse } from '../../modules/chatting/types';
 
 const chatting = ({
   previousChatting,
 }: {
-  previousChatting: PreviousChattingListResponse;
+  previousChatting: ChattingListResponse;
 }) => {
   return <ChattingTemplate previousChatting={previousChatting} />;
 };
@@ -31,7 +30,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
       }),
     );
     store.dispatch(
-      getPreviousChattingListActions.request({
+      getChattingListActions.request({
         chattingRoomId: context.params.id as string,
         userId: user_id,
       }),
@@ -48,7 +47,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
     return {
       props: {
-        previousChatting: store.getState().chattingRoomState.previousChatting,
+        previousChatting: rootState.chattingRoomState.chattingList,
       },
     };
   },
