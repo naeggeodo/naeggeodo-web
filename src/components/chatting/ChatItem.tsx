@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { ChattingListItem } from '../../modules/chatting/types';
 import palette from '../../styles/palette';
@@ -11,7 +12,12 @@ const ChatItem = ({
   message: ChattingListItem;
   date?: string;
 }) => {
-  const chatDate = new DateFormatter(date);
+  // TODO 오늘 날짜는 안나오기
+  const chatDate = useMemo(() => new DateFormatter(date), [date]);
+  const currentDate = new Date();
+  const today = `${currentDate.getFullYear()}-${
+    currentDate.getMonth() + 1
+  }-${currentDate.getDate()}`;
 
   return (
     <Container>
@@ -30,9 +36,10 @@ const ChatItem = ({
         />
       ) : (
         // TODO CNT일떄 카운트 늘려주기
-        <Content>
-          {message.type === 'CNT' ? <p>{message.user_id}</p> : message.contents}
-        </Content>
+        <React.Fragment>
+          <div>신길동 호랭이</div>
+          <Content>{message.type === 'CNT' || message.contents}</Content>
+        </React.Fragment>
       )}
 
       <Time>

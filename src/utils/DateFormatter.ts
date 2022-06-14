@@ -2,7 +2,7 @@ type AMPM = '오전' | '오후';
 
 export default class DateFormatter {
   private stringDate: string;
-  private date: string;
+  public date: string;
   private hour: number;
   private minute: number;
 
