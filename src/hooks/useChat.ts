@@ -56,6 +56,14 @@ export function useChat() {
         );
         enter(stompClient, roomId);
       },
+      (e) => {
+        // 에러콜백
+        if (e.headers.message) {
+          console.log(e.header.message);
+        }
+        alert('나가세요');
+        location.href = '/';
+      },
     );
   };
 
