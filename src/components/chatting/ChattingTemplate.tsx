@@ -100,7 +100,12 @@ const ChattingTemplate = () => {
         );
         onEnter();
       },
-      onError,
+      () => {
+        if (!stompClient.isConnected) {
+          connect(socket);
+        }
+      },
+      // onError,
     );
   };
 
