@@ -90,39 +90,3 @@ const Contents = styled.textarea`
   resize: none;
   outline: none;
 `;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-`;
-
-const CompleteButton = styled.button`
-  width: 60%;
-
-  background: ${palette.mainOrange};
-  color: #fff;
-
-  outline: none;
-  border: none;
-  cursor: pointer;
-
-  border-radius: 10px;
-  padding: 6px;
-  margin: 0 auto;
-`;
-
-const CancelButton = styled.button`
-  width: 40%;
-
-  background-color: ${palette.bgGray};
-  border-radius: 10px;
-
-  outline: none;
-  border: none;
-  cursor: pointer;
-
-  padding: 6px;
-  margin: 0 auto;
-`;

@@ -1,6 +1,8 @@
 import Image from 'next/image';
+import { useCallback } from 'react';
 import styled from 'styled-components';
 import { useProgress } from '../../hooks/progress/useProgress';
+import { useCustomRouter } from '../../hooks/utils/useCustomRouter';
 
 import palette from '../../styles/palette';
 
@@ -30,8 +32,15 @@ const ProgressTalkItem = ({
     inputRefs,
   } = useProgress(title, id);
 
+  const { shiftPage } = useCustomRouter(`/chatting/${id}`);
+
+  const enterChatRoom = useCallback((e) => {
+    e.stopPropagation();
+    shiftPage();
+  }, []);
+
   return (
-    <Container data-value={id} key={String(id)}>
+    <Container data-value={id} key={String(id)} onClick={enterChatRoom}>
       <ImageContainer>
         <Image
           style={{ borderRadius: '10px' }}
