@@ -10,7 +10,7 @@ export function useInfiniteScroll<T>(data: T[]) {
   const router = useRouter();
 
   useEffect(() => {
-    if (data) {
+    if (data && data.length > 0) {
       const observer = new IntersectionObserver(callback, { threshold: 0.5 });
       observer.observe(target.current);
       return () => {
