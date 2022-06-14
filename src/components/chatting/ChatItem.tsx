@@ -27,7 +27,7 @@ const ChatItem = ({
         height={35}
         layout='fixed'
       />
-      {message.contents.includes('data:image/') ? (
+      {message.contents?.includes('data:image/') ? (
         <StyledImg
           src={message.contents}
           alt='채팅 이미지'

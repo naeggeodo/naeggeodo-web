@@ -35,6 +35,7 @@
     "sourceType": "module"
   },
   "rules": {
+    "no-var": "off",
     "quotes": ["error", "single"],
     "react/react-in-jsx-scope": "off",
     "react/jsx-filename-extension": [

@@ -32,8 +32,8 @@ export const GET_CHATTING_LIST_SUCCESS =
 export const GET_CHATTING_LIST_FAILURE =
   namespace + 'GET_CHATTING_LIST_FAILURE';
 
-export const GET_REAL_TIME_MESSAGE_FROM_SERVER =
-  namespace + 'GET_REAL_TIME_MESSAGE_FROM_SERVER';
+export const SET_CURRENT_CHATTING_LIST =
+  namespace + 'SET_CURRENT_CHATTING_LIST';
 
 //************************************************ */
 
@@ -68,8 +68,8 @@ export const getChattingListActions = createAsyncAction(
   GET_CHATTING_LIST_FAILURE,
 )<ChattingListRequest, ChattingListResponse, AxiosError>();
 
-export const getRealTimeMessageFromServer = createAction(
-  GET_REAL_TIME_MESSAGE_FROM_SERVER,
+export const setCurrentChattingList = createAction(
+  SET_CURRENT_CHATTING_LIST,
   (data) => data,
 )();
 

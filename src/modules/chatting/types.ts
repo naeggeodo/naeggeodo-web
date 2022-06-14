@@ -27,6 +27,10 @@ export type ChattingSubmitBody = {
   type: string;
 };
 
+export type CurrentChattingList = {
+  messages: ChattingSubmitBody[];
+};
+
 export type ChattingListRequest = {
   chattingRoomId: string;
   userId: string;
@@ -45,11 +49,11 @@ export type MessageTypes =
 export type ChattingListItem = {
   chatMain_id: number;
   contents: string;
-  id: number;
-  idx: number;
+  id?: number;
+  idx?: number;
   regDate: string;
   type: MessageTypes;
-  user_id: string;
+  user_id?: string;
 };
 
 export type ChattingListResponse = {

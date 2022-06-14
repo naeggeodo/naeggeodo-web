@@ -1,39 +1,32 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
-import { CompatClient, Stomp } from '@stomp/stompjs';
+import { Stomp } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Header from '../chatting/Header';
 import GoInfoBtn from '../chatting/GoInfoBtn';
 import SubmitForm from '../chatting/SubmitForm';
-import {
-  ChattingListItem,
-  ChattingListResponse,
-} from '../../modules/chatting/types';
-import { useChat } from '../../hooks/useChat';
 import ChatDrawer from './ChatDrawer';
-import { useSelector } from 'react-redux';
 import { RootState } from '../../modules';
 import ChattingList from './ChattingList';
-import { useRouter } from 'next/router';
 import { useSelectLoginStates } from '../../hooks/select/useSelectLoginStates';
+import { setCurrentChattingList } from '../../modules/chatting/actions';
+import DateFormatter from '../../utils/DateFormatter';
 
-var stompClient: CompatClient;
+var stompClient;
 
-const ChattingTemplate = ({
-  previousChatting,
-}: {
-  previousChatting: ChattingListResponse;
-}) => {
+const ChattingTemplate = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const chatListDivRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const { user_id, accessToken } = useSelectLoginStates();
-  const [messageList, setMessageList] = useState<ChattingListItem[]>([]);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-  const socket = new SockJS(`${process.env.NEXT_PUBLIC_API_URL}/chat`);
-  const { chatRoomInfo } = useSelector(
+  const dispatch = useDispatch();
+
+  const { chatRoomInfo, chattingList } = useSelector(
     (state: RootState) => state.chattingRoomState,
   );
 
@@ -73,8 +66,14 @@ const ChattingTemplate = ({
           `/topic/${router.query.id}`,
           (data) => {
             const newMessage = JSON.parse(data.body);
-
-            setMessageList((prev) => prev.concat(newMessage));
+            const body = {
+              chatMain_id: newMessage.chatMain_id,
+              contents: newMessage.contents,
+              regDate: DateFormatter.getNowDate(),
+              type: newMessage.type,
+              user_id: newMessage.sender,
+            };
+            dispatch(setCurrentChattingList(body));
           },
           { chatMain_id: router.query.id as string },
         );
@@ -93,9 +92,13 @@ const ChattingTemplate = ({
       top: scrollRef.current.offsetTop,
       behavior: 'smooth',
     });
+  }, [chattingList.messages]);
+
+  useEffect(() => {
+    const socket = new SockJS(`${process.env.NEXT_PUBLIC_API_URL}/chat`);
     connect(socket);
     return () => disconnect();
-  }, [messageList]);
+  }, []);
 
   return (
     <Container>
@@ -106,8 +109,7 @@ const ChattingTemplate = ({
       />
       {chatRoomInfo?.state !== 'END' && <GoInfoBtn />}
       <Content ref={chatListDivRef}>
-        <ChattingList messageList={previousChatting.messages} />
-        {/* <ChattingList messageList={messageList} /> */}
+        <ChattingList messageList={chattingList.messages} />
         <div ref={scrollRef} />
       </Content>
       {/* <QuickMessageComp stompClient={stompClient} /> */}

@@ -3,13 +3,15 @@ import {
   GET_CURRENT_CHAT_USER_LIST_SUCCESS,
   GET_CHATTING_LIST_SUCCESS,
   GET_QUICK_MESSAGE_LIST_SUCCESS,
-  GET_REAL_TIME_MESSAGE_FROM_SERVER,
+  SET_CURRENT_CHATTING_LIST,
 } from './actions';
 import {
   ChattingRoomInfoResponse,
   CurrentChatUserListResponse,
   ChattingListResponse,
   QuickChattingListResponse,
+  ChattingSubmitBody,
+  CurrentChattingList,
 } from './types';
 import { createReducer } from 'typesafe-actions';
 
@@ -46,11 +48,11 @@ export const chattingRoomState = createReducer<ChattingRoomState>(
       ...state,
       currentChatUserList: action.payload,
     }),
-    [GET_REAL_TIME_MESSAGE_FROM_SERVER]: (state, action) => ({
+    [SET_CURRENT_CHATTING_LIST]: (state, action) => ({
       ...state,
       chattingList: {
         ...state.chattingList,
-        messages: [...state.chattingList.messages, action.payload.messages],
+        messages: [...state.chattingList.messages, action.payload],
       },
     }),
   },

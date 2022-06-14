@@ -16,29 +16,22 @@ const ChattingList = ({ messageList }: { messageList: ChattingListItem[] }) => {
         messageList.map((message, i) => {
           if (message.type === 'WELCOME')
             return (
-              <WelcomeMessage
-                key={message.user_id + message.idx}
-                message={message}
-              />
+              <WelcomeMessage key={message.user_id + i} message={message} />
             );
           else if (message.user_id === user_id)
             return (
               <MyChatItem
-                key={message.user_id + message.idx}
+                key={message.user_id + i}
                 message={message}
-                date={
-                  message.regDate ? message.regDate : DateFormatter.getNowDate()
-                }
+                date={message.regDate}
               />
             );
           else
             return (
               <ChatItem
-                key={message.user_id + message.idx}
+                key={message.user_id + i}
                 message={message}
-                date={
-                  message.regDate ? message.regDate : DateFormatter.getNowDate()
-                }
+                date={message.regDate}
               />
             );
         })}
