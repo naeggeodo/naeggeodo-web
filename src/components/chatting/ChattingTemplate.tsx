@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { Stomp } from '@stomp/stompjs';
+import { CompatClient, Stomp } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 
 import Header from '../chatting/Header';
@@ -11,13 +11,14 @@ import {
   ChattingListResponse,
 } from '../../modules/chatting/types';
 import { useChat } from '../../hooks/useChat';
-import QuickMessageComp from './QuickMessageComp';
 import ChatDrawer from './ChatDrawer';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../modules';
 import ChattingList from './ChattingList';
 import { useRouter } from 'next/router';
-import ChattingService from '../../service/api/chatting/ChattingService';
+import { useSelectLoginStates } from '../../hooks/select/useSelectLoginStates';
+
+var stompClient: CompatClient;
 
 const ChattingTemplate = ({
   previousChatting,
@@ -27,31 +28,73 @@ const ChattingTemplate = ({
   const scrollRef = useRef<HTMLDivElement>(null);
   const chatListDivRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const { user_id, accessToken } = useSelectLoginStates();
+  const [messageList, setMessageList] = useState<ChattingListItem[]>([]);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
+  const socket = new SockJS(`${process.env.NEXT_PUBLIC_API_URL}/chat`);
   const { chatRoomInfo } = useSelector(
     (state: RootState) => state.chattingRoomState,
   );
 
-  const { connect, disconnect } = useChat();
+  const onError = (e) => {
+    if (e.headers.message) {
+      console.log(e.header.message);
+    }
+    alert('나가세요');
+    location.href = '/';
+  };
 
-  const [messageList, setMessageList] = useState<ChattingListItem[]>([]);
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  function onEnter() {
+    const sendData = {
+      chatMain_id: router.query.id,
+      sender: user_id,
+      contents: '님이 입장하셨습니다.',
+      type: 'WELCOME',
+    };
 
-  // const stompClient = Stomp.over(
-  //   () => new SockJS(`${process.env.NEXT_PUBLIC_API_URL}/chat`),
-  // );
-  const socket = new SockJS(`${process.env.NEXT_PUBLIC_API_URL}/chat`);
-  const stompClient = Stomp.over(socket);
+    stompClient.send('/app/chat/enter', {}, JSON.stringify(sendData));
+  }
+
+  const connect = (socket) => {
+    stompClient = Stomp.over(socket);
+    stompClient.connect(
+      {
+        chatMain_id: router.query.id,
+        sender: user_id,
+        Authorization: `Bearer ${accessToken}`,
+      },
+      () => {
+        const sessionId = /\/([^\\/]+)\/websocket/.exec(
+          socket._transport.url,
+        )[1];
+
+        stompClient.subscribe(
+          `/topic/${router.query.id}`,
+          (data) => {
+            const newMessage = JSON.parse(data.body);
+
+            setMessageList((prev) => prev.concat(newMessage));
+          },
+          { chatMain_id: router.query.id as string },
+        );
+        onEnter();
+      },
+      onError,
+    );
+  };
+
+  const disconnect = () => {
+    stompClient.disconnect();
+  };
 
   useEffect(() => {
     chatListDivRef.current.scroll({
       top: scrollRef.current.offsetTop,
       behavior: 'smooth',
     });
-    if (!stompClient.connected) {
-      connect(socket, stompClient, router.query.id as string, setMessageList);
-    }
-    return () => disconnect(stompClient);
+    connect(socket);
+    return () => disconnect();
   }, [messageList]);
 
   return (

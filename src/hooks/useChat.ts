@@ -16,56 +16,46 @@ export function useChat() {
   const { user_id } = useSelectLoginStates();
 
   //** 입장시 실행할 함수
-  function enter(stompClient: CompatClient, chatMain_id: string) {
-    const sendData = {
-      chatMain_id: chatMain_id,
-      sender: user_id,
-      contents: '님이 입장하셨습니다.',
-      type: 'WELCOME',
-    };
 
-    stompClient.send('/app/chat/enter', {}, JSON.stringify(sendData));
-  }
+  // const connect = (
+  //   socket: any,
+  //   stompClient: CompatClient,
+  //   roomId: string,
+  //   setMessageList: React.Dispatch<React.SetStateAction<ChattingListItem[]>>,
+  // ) => {
+  //   stompClient.connect(
+  //     {
+  //       chatMain_id: roomId,
+  //       sender: user_id,
+  //       Authorization: `Bearer ${accessToken}`,
+  //     },
+  //     () => {
+  //       const sessionId = /\/([^\\/]+)\/websocket/.exec(
+  //         socket._transport.url,
+  //       )[1];
 
-  const connect = (
-    socket: any,
-    stompClient: CompatClient,
-    roomId: string,
-    setMessageList: React.Dispatch<React.SetStateAction<ChattingListItem[]>>,
-  ) => {
-    stompClient.connect(
-      {
-        chatMain_id: roomId,
-        sender: user_id,
-        Authorization: `Bearer ${accessToken}`,
-      },
-      () => {
-        const sessionId = /\/([^\\/]+)\/websocket/.exec(
-          socket._transport.url,
-        )[1];
+  //       stompClient.subscribe(
+  //         `/topic/${roomId}`,
+  //         (data) => {
+  //           const newMessage = JSON.parse(data.body);
+  //           dispatch(getRealTimeMessageFromServer(newMessage));
 
-        stompClient.subscribe(
-          `/topic/${roomId}`,
-          (data) => {
-            const newMessage = JSON.parse(data.body);
-            dispatch(getRealTimeMessageFromServer(newMessage));
-
-            setMessageList((prev) => prev.concat(newMessage));
-          },
-          { chatMain_id: roomId },
-        );
-        enter(stompClient, roomId);
-      },
-      (e) => {
-        // 에러콜백
-        if (e.headers.message) {
-          console.log(e.header.message);
-        }
-        alert('나가세요');
-        location.href = '/';
-      },
-    );
-  };
+  //           setMessageList((prev) => prev.concat(newMessage));
+  //         },
+  //         { chatMain_id: roomId },
+  //       );
+  //       enter(stompClient, roomId);
+  //     },
+  //     (e) => {
+  //       // 에러콜백
+  //       if (e.headers.message) {
+  //         console.log(e.header.message);
+  //       }
+  //       alert('나가세요');
+  //       location.href = '/';
+  //     },
+  //   );
+  // };
 
   const onSendMessage = (
     stompClient: CompatClient,
@@ -76,13 +66,7 @@ export function useChat() {
     }
   };
 
-  const disconnect = (stompClient: CompatClient) => {
-    stompClient.disconnect();
-  };
-
   return {
-    connect,
-    disconnect,
     onSendMessage,
   };
 }
