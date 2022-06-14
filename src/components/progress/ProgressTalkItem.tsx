@@ -103,6 +103,8 @@ const ImageContainer = styled.div`
 
   border: 1px solid ${palette.LineGray};
   border-radius: 10px;
+
+  cursor: pointer;
 `;
 
 const TextContainer = styled.div`
@@ -110,12 +112,15 @@ const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  cursor: pointer;
 `;
 
 const TimeTitleWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
+  cursor: pointer;
 
   // ** 채팅방 제목 **
   form {
@@ -133,6 +138,7 @@ const TimeTitleWrapper = styled.div`
     border-radius: 5px;
     outline: none;
     border: none;
+    cursor: pointer;
 
     &:disabled {
       background-color: transparent;
@@ -144,6 +150,7 @@ const TimeTitleWrapper = styled.div`
     font-weight: 500;
     font-size: 0.75rem;
     color: ${palette.TextGray};
+    cursor: pointer;
   }
 `;
 
@@ -155,6 +162,7 @@ const Contents = styled.div`
     padding: 0 5px;
     font-size: 0.875rem;
     line-height: 150%;
+    cursor: pointer;
 
     color: ${palette.DarkGray};
   }
@@ -162,6 +170,7 @@ const Contents = styled.div`
 
 const ModifyButton = styled.button`
   all: unset;
+  cursor: pointer;
 `;
 
 export default ProgressTalkItem;
