@@ -21,6 +21,8 @@ import { checkDepositState } from './check-deposit/reducer';
 import { getMypageInfoSaga } from './mypage/sagas';
 import { myPageState } from './mypage/reducer';
 import { createChatRoomSaga } from './create/sagas';
+import { progressStates } from './progress/reducer';
+import { progressingChatRoomSaga } from './progress/sagas';
 
 //** RootReducer */
 export const rootReducer = combineReducers({
@@ -33,6 +35,7 @@ export const rootReducer = combineReducers({
   modalStates,
   checkDepositState,
   myPageState,
+  progressStates,
 });
 
 //** RootSaga */
@@ -46,6 +49,7 @@ export function* rootSaga() {
     fork(getCheckDepositPageInfoSaga),
     fork(getMypageInfoSaga),
     fork(createChatRoomSaga),
+    fork(progressingChatRoomSaga),
   ]);
 }
 
