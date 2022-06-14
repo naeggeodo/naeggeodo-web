@@ -7,8 +7,8 @@ import Header from '../chatting/Header';
 import GoInfoBtn from '../chatting/GoInfoBtn';
 import SubmitForm from '../chatting/SubmitForm';
 import {
-  PreviousChattingItem,
-  PreviousChattingListResponse,
+  ChattingListItem,
+  ChattingListResponse,
 } from '../../modules/chatting/types';
 import { useChat } from '../../hooks/useChat';
 import QuickMessageComp from './QuickMessageComp';
@@ -22,7 +22,7 @@ import ChattingService from '../../service/api/chatting/ChattingService';
 const ChattingTemplate = ({
   previousChatting,
 }: {
-  previousChatting: PreviousChattingListResponse;
+  previousChatting: ChattingListResponse;
 }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const chatListDivRef = useRef<HTMLDivElement>(null);
@@ -34,7 +34,7 @@ const ChattingTemplate = ({
 
   const { connect, disconnect } = useChat();
 
-  const [messageList, setMessageList] = useState<PreviousChattingItem[]>([]);
+  const [messageList, setMessageList] = useState<ChattingListItem[]>([]);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   // const stompClient = Stomp.over(
@@ -64,7 +64,7 @@ const ChattingTemplate = ({
       {chatRoomInfo?.state !== 'END' && <GoInfoBtn />}
       <Content ref={chatListDivRef}>
         <ChattingList messageList={previousChatting.messages} />
-        <ChattingList messageList={messageList} />
+        {/* <ChattingList messageList={messageList} /> */}
         <div ref={scrollRef} />
       </Content>
       {/* <QuickMessageComp stompClient={stompClient} /> */}

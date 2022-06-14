@@ -27,12 +27,12 @@ export type ChattingSubmitBody = {
   type: string;
 };
 
-export type PreviousChattingListRequest = {
+export type ChattingListRequest = {
   chattingRoomId: string;
   userId: string;
 };
 
-export type PreviousChattingItem = {
+export type ChattingListItem = {
   chatMain_id: number;
   contents: string;
   id: number;
@@ -42,8 +42,8 @@ export type PreviousChattingItem = {
   user_id: string;
 };
 
-export type PreviousChattingListResponse = {
-  messages: PreviousChattingItem[];
+export type ChattingListResponse = {
+  messages: ChattingListItem[];
 };
 
 export type UserId = {

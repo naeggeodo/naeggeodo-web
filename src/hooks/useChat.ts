@@ -3,7 +3,7 @@ import { Cookies } from 'react-cookie';
 import { TOKEN_NAME } from '../constant/Login';
 import {
   ChattingSubmitBody,
-  PreviousChattingItem,
+  ChattingListItem,
 } from '../modules/chatting/types';
 import { useSelectLoginStates } from './select/useSelectLoginStates';
 
@@ -16,9 +16,7 @@ export function useChat() {
     socket: any,
     stompClient: CompatClient,
     roomId: string,
-    setMessageList: React.Dispatch<
-      React.SetStateAction<PreviousChattingItem[]>
-    >,
+    setMessageList: React.Dispatch<React.SetStateAction<ChattingListItem[]>>,
   ) => {
     stompClient.connect(
       {
@@ -27,7 +25,7 @@ export function useChat() {
         Authorization: `Bearer ${accessToken}`,
       },
       () => {
-        const sessionId = /\/([^\/]+)\/websocket/.exec(
+        const sessionId = /\/([^\\/]+)\/websocket/.exec(
           socket._transport.url,
         )[1];
 

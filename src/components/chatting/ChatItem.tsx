@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import styled from 'styled-components';
-import { PreviousChattingItem } from '../../modules/chatting/types';
+import { ChattingListItem } from '../../modules/chatting/types';
 import palette from '../../styles/palette';
 import DateFormatter from '../../utils/DateFormatter';
 
@@ -8,7 +8,7 @@ const ChatItem = ({
   message,
   date,
 }: {
-  message: PreviousChattingItem;
+  message: ChattingListItem;
   date?: string;
 }) => {
   const chatDate = new DateFormatter(date);
@@ -30,7 +30,9 @@ const ChatItem = ({
         />
       ) : (
         // TODO CNT일떄 카운트 늘려주기
-        <Content>{message.type === 'CNT' && message.chatMain_id}</Content>
+        <Content>
+          {message.type === 'CNT' ? <p>{message.user_id}</p> : message.contents}
+        </Content>
       )}
 
       <Time>

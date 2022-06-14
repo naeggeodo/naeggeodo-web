@@ -54,7 +54,7 @@ const SubmitForm = ({ stompClient }: { stompClient: CompatClient }) => {
   }, []);
 
   const changeMessage = useCallback<
-    (e: React.ChangeEvent<HTMLTextAreaElement>) => void
+    (e: React.ChangeEvent<HTMLInputElement>) => void
   >(
     (e) => {
       setMessage(e.target.value);
@@ -110,7 +110,7 @@ const ContentWrap = styled.form`
   margin: 0 auto;
 `;
 
-const TextField = styled.textarea`
+const TextField = styled.input`
   width: 90%;
   max-height: 70%;
 
