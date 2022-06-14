@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import styled, { css } from 'styled-components';
 
 type StyledType = {
@@ -7,13 +8,24 @@ type StyledType = {
 };
 
 type PropsType = {
+  exit: any;
   setIsDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
   isDrawerOpen: boolean;
 };
 
-const ChatDrawer = ({ setIsDrawerOpen, isDrawerOpen }: PropsType) => {
+const ChatDrawer = ({ exit, setIsDrawerOpen, isDrawerOpen }: PropsType) => {
+  const router = useRouter();
+
   const closeDrawer = () => {
     setIsDrawerOpen(false);
+  };
+
+  const exitChatRoom = () => {
+    if (window.confirm('나가겠습니까?')) {
+      console.log('방나감');
+      exit();
+      router.replace('/');
+    }
   };
 
   return (
@@ -73,7 +85,7 @@ const ChatDrawer = ({ setIsDrawerOpen, isDrawerOpen }: PropsType) => {
         </div>
       </Content>
       <Footer>
-        <Button onClick={closeDrawer}>
+        <Button onClick={exitChatRoom}>
           <Image
             src='/assets/images/drawerclosebtn.svg'
             width={20}
@@ -81,7 +93,7 @@ const ChatDrawer = ({ setIsDrawerOpen, isDrawerOpen }: PropsType) => {
             alt='서랍 닫기'
           />
         </Button>
-        <Button>
+        <Button onClick={closeDrawer}>
           <Image
             src='/assets/images/settingblack.svg'
             width={18}

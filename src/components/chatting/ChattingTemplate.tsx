@@ -49,6 +49,16 @@ const ChattingTemplate = () => {
     stompClient.send('/app/chat/enter', {}, JSON.stringify(sendData));
   }
 
+  function exit() {
+    const data = {
+      chatMain_id: router.query.id,
+      sender: user_id,
+      contents: '님이 퇴장하셨습니다.',
+      type: 'EXIT',
+    };
+    stompClient.send('/app/chat/exit', {}, JSON.stringify(data));
+  }
+
   const connect = (socket) => {
     stompClient = Stomp.over(socket);
     stompClient.connect(
@@ -115,6 +125,7 @@ const ChattingTemplate = () => {
       {/* <QuickMessageComp stompClient={stompClient} /> */}
       <SubmitForm stompClient={stompClient} />
       <ChatDrawer
+        exit={exit}
         isDrawerOpen={isDrawerOpen}
         setIsDrawerOpen={setIsDrawerOpen}
       />
