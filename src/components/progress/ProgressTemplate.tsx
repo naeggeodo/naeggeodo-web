@@ -1,16 +1,40 @@
 import Image from 'next/image';
-import React from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { RootState } from '../../modules';
 import palette from '../../styles/palette';
-import DateFormatter from '../../utils/DateFormatter';
 import TabMenu from '../main/TabMenu';
 
 const ProgressTemplate = () => {
   const { chatRoom } = useSelector(
     (state: RootState) => state.progressStates.progressChatRoomList,
   );
+  const [elementId, setElementId] = useState<string>(null);
+  const inputRefs = useRef([]);
+
+  const handleModifyButtonClick = useCallback<
+    (e: React.MouseEvent<HTMLButtonElement>) => void
+  >(
+    (e) => {
+      e.stopPropagation();
+      const id = e.currentTarget.getAttribute('id');
+      setElementId(id);
+    },
+    [elementId],
+  );
+
+  useLayoutEffect(() => {
+    inputRefs.current.map((v) =>
+      v.id === elementId ? (v.disabled = false) : (v.disabled = true),
+    );
+  }, [elementId]);
 
   return (
     <React.Fragment>
@@ -19,9 +43,7 @@ const ProgressTemplate = () => {
 
         <ProgressTalkList>
           {chatRoom.length > 0 &&
-            chatRoom.map((data) => {
-              const time = new DateFormatter(data.createDate);
-
+            chatRoom.map((data, index) => {
               return (
                 <ProgressTalkItem data-value={data.id} key={String(data.id)}>
                   <ImageContainer>
@@ -39,8 +61,24 @@ const ProgressTemplate = () => {
 
                   <TextContainer>
                     <TimeTitleWrapper>
-                      <p>{data.title}</p>
-                      <p>{time.formatTime()}</p>
+                      <form>
+                        <input
+                          onChange={() => {}}
+                          type='text'
+                          value={data.title}
+                          disabled
+                          ref={(el) => (inputRefs.current[index] = el)}
+                          id={String(data.id)}
+                        />
+                      </form>
+                      <ModifyButton
+                        onClick={handleModifyButtonClick}
+                        id={String(data.id)}>
+                        <Image
+                          src='/assets/images/pencilicon.svg'
+                          width={18}
+                          height={18}></Image>
+                      </ModifyButton>
                     </TimeTitleWrapper>
 
                     <Contents>
@@ -107,13 +145,30 @@ const TextContainer = styled.div`
 
 const TimeTitleWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
 
   // ** 채팅방 제목 **
-  & > p:first-child {
+
+  form {
+    width: 100%;
+  }
+
+  form > input:first-child {
+    width: 100%;
+
     font-family: 'SpoqaBold';
     font-size: 0.9375rem;
+    padding: 5px;
     color: #000000;
+    background-color: green;
+    border-radius: 5px;
+    border: 1px solid ${palette.bgGray};
+    outline: none;
+
+    &:disabled {
+      background-color: red;
+    }
   }
 
   // ** 시간 **
@@ -126,7 +181,6 @@ const TimeTitleWrapper = styled.div`
 
 const Contents = styled.div`
   display: flex;
-  justify-content: space-between;
 
   // ** 마지막 채팅 내용 **
   & > p {
@@ -135,6 +189,10 @@ const Contents = styled.div`
 
     color: ${palette.DarkGray};
   }
+`;
+
+const ModifyButton = styled.button`
+  all: unset;
 `;
 
 export default ProgressTemplate;
