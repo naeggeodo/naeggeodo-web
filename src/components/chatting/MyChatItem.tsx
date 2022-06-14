@@ -25,8 +25,8 @@ const MyChatItem = ({
         <StyledImg
           src={message.contents}
           alt='채팅 이미지'
-          width={400}
-          height={300}
+          width={150}
+          height={150}
         />
       ) : (
         <Content>

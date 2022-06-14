@@ -6,7 +6,7 @@ const WelcomeMessage = ({ message }: { message: ChattingListItem }) => {
   return (
     <Container>
       <Content>
-        {message.user_id} {message.contents}
+        {message.nickname} {message.contents}
       </Content>
     </Container>
   );

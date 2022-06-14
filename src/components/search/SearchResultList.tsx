@@ -17,21 +17,24 @@ const SearchResultList = () => {
 
   return (
     <Container>
-      {dataList.map((data, i) => (
-        <ChatRoomItem
-          id={data.id}
-          key={i}
-          title={data.title}
-          link={data.link}
-          maxCount={data.maxCount}
-          createDate={data.createDate}
-          currentCount={data.currentCount}
-          orderTimeType={data.orderTimeType}
-          imgPath={data.imgPath}
-          address={data.address}
-        />
-      ))}
-
+      {dataList.length > 0 ? (
+        dataList.map((data, i) => (
+          <ChatRoomItem
+            id={data.id}
+            key={i}
+            title={data.title}
+            link={data.link}
+            maxCount={data.maxCount}
+            createDate={data.createDate}
+            currentCount={data.currentCount}
+            orderTimeType={data.orderTimeType}
+            imgPath={data.imgPath}
+            address={data.address}
+          />
+        ))
+      ) : (
+        <p>검색 결과가 없습니다😥</p>
+      )}
       {dataList.length < searchResultList.chatRoom.length && (
         <div ref={target} />
       )}

@@ -23,6 +23,7 @@ function* KakaoLoginGenerator(action: getkakaoTokenRequestAction) {
       LoginService.asyncGetKakaoToken,
       action.payload,
     );
+    console.log('카카오 로그인', response.data);
     yield put(getKakaoTokenSuccess(response.data));
 
     cookies.set('accessToken', response.data.accessToken, {

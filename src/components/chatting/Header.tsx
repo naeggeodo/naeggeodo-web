@@ -16,6 +16,8 @@ type PropsType = {
   chatRoomInfo: ChattingRoomInfoResponse;
 };
 
+//TODO chatRoomInfo 를 낱개로
+
 const Header = ({ setIsDrawerOpen, isDrawerOpen, chatRoomInfo }: PropsType) => {
   const { routeBack } = useCustomRouter();
 

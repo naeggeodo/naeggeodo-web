@@ -80,6 +80,7 @@ export type CurrentChatUser = {
   user_id: string;
   idx: number;
   remittanceState: 'N' | 'Y';
+  nickname: string;
 };
 
 export type CurrentChatUserListResponse = { users: CurrentChatUser[] };

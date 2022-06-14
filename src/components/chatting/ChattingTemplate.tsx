@@ -14,21 +14,30 @@ import ChattingList from './ChattingList';
 import { useSelectLoginStates } from '../../hooks/select/useSelectLoginStates';
 import { setCurrentChattingList } from '../../modules/chatting/actions';
 import DateFormatter from '../../utils/DateFormatter';
+import { useChat } from '../../hooks/useChat';
 
 var stompClient;
 
 const ChattingTemplate = () => {
+  const { onSendMessage } = useChat();
+
   const scrollRef = useRef<HTMLDivElement>(null);
   const chatListDivRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const { user_id, accessToken } = useSelectLoginStates();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
+  const [message, setMessage] = useState('');
+
   const dispatch = useDispatch();
 
   const { chatRoomInfo, chattingList, nickname } = useSelector(
     (state: RootState) => state.chattingRoomState,
   );
+
+  const changeMessage = (e) => {
+    setMessage(e.target.value);
+  };
 
   const onError = (e) => {
     if (e.headers.message) {
@@ -46,7 +55,6 @@ const ChattingTemplate = () => {
       type: 'WELCOME',
       nickname,
     };
-
     stompClient.send('/app/chat/enter', {}, JSON.stringify(sendData));
   }
 
@@ -100,6 +108,40 @@ const ChattingTemplate = () => {
     stompClient.disconnect();
   };
 
+  const sendMessage = (e) => {
+    e.preventDefault();
+    if (!message) return;
+
+    const data = {
+      chatMain_id: String(router.query.id),
+      sender: user_id,
+      contents: message,
+      type: 'TEXT',
+      nickname: nickname,
+    };
+    onSendMessage(stompClient, data);
+    setMessage('');
+  };
+
+  const sendImage = (e) => {
+    const fileReader = new FileReader();
+    const imgFile = e.target.files[0];
+    console.log('타겟', imgFile);
+    fileReader.readAsDataURL(imgFile);
+    fileReader.onload = (e) => {
+      const result = e.target.result;
+      const data = {
+        chatMain_id: String(router.query.id),
+        sender: user_id,
+        contents: result as string,
+        type: 'IMAGE',
+        nickname: nickname,
+      };
+      onSendMessage(stompClient, data);
+    };
+    e.target.value = '';
+  };
+
   useEffect(() => {
     chatListDivRef.current.scroll({
       top: scrollRef.current.offsetTop,
@@ -126,7 +168,12 @@ const ChattingTemplate = () => {
         <div ref={scrollRef} />
       </Content>
       {/* <QuickMessageComp stompClient={stompClient} /> */}
-      <SubmitForm stompClient={stompClient} />
+      <SubmitForm
+        changeMessage={changeMessage}
+        message={message}
+        sendMessage={sendMessage}
+        sendImage={sendImage}
+      />
       <ChatDrawer
         exit={exit}
         isDrawerOpen={isDrawerOpen}

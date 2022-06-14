@@ -33,8 +33,8 @@ const ChatItem = ({
           <StyledImg
             src={message.contents}
             alt='채팅 이미지'
-            width={400}
-            height={400}
+            width={150}
+            height={150}
           />
         ) : (
           // TODO CNT일떄 카운트 늘려주기

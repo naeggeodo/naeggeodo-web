@@ -49,7 +49,7 @@ const SearchTemplate = () => {
             onChange={handleChangeSearchValue}
           />
         </SearchForm>
-        {searchResultList && searchResultList?.chatRoom.length > 0 ? (
+        {searchResultList ? (
           <SearchResultList />
         ) : (
           <SearchTagContainer>

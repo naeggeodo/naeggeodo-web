@@ -8,67 +8,63 @@ import { useSelectLoginStates } from '../../hooks/select/useSelectLoginStates';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../modules';
 
-const SubmitForm = ({ stompClient }: { stompClient: CompatClient }) => {
-  const { onSendMessage } = useChat();
+const SubmitForm = ({
+  changeMessage,
+  message,
+  sendMessage,
+  sendImage,
+}: any) => {
+  // const { onSendMessage } = useChat();
 
-  const [message, setMessage] = useState('');
-  const router = useRouter();
-  const { user_id } = useSelectLoginStates();
+  // const [message, setMessage] = useState('');
+  // const router = useRouter();
+  // const { user_id } = useSelectLoginStates();
 
-  const { nickname } = useSelector(
-    (state: RootState) => state.chattingRoomState,
-  );
+  // const { nickname } = useSelector(
+  //   (state: RootState) => state.chattingRoomState,
+  // );
 
-  const sendMessage = useCallback<
-    (e: React.FormEvent<HTMLFormElement>) => void
-  >(
-    (e) => {
-      e.preventDefault();
+  // const sendMessage = useCallback<
+  //   (e: React.FormEvent<HTMLFormElement>) => void
+  // >(
+  //   (e) => {
+  //     e.preventDefault();
 
-      if (!message) return;
+  //     if (!message) return;
 
-      const data = {
-        chatMain_id: String(router.query.id),
-        sender: user_id,
-        contents: message,
-        type: 'TEXT',
-        nickname,
-      };
-      onSendMessage(stompClient, data);
-      setMessage('');
-    },
-    [message],
-  );
+  //     const data = {
+  //       chatMain_id: String(router.query.id),
+  //       sender: user_id,
+  //       contents: message,
+  //       type: 'TEXT',
+  //       nickname: nickname,
+  //     };
+  //     onSendMessage(stompClient, data);
+  //     setMessage('');
+  //   },
+  //   [message],
+  // );
 
-  const sendImage = useCallback<
-    (e: React.ChangeEvent<HTMLInputElement>) => void
-  >((e) => {
-    const fileReader = new FileReader();
-    const imgFile = e.target.files[0];
-
-    fileReader.readAsDataURL(imgFile);
-    fileReader.onload = (e) => {
-      const result = e.target.result;
-
-      const data = {
-        chatMain_id: String(router.query.id),
-        sender: user_id,
-        contents: result as string,
-        type: 'TEXT',
-        nickname,
-      };
-      onSendMessage(stompClient, data);
-    };
-  }, []);
-
-  const changeMessage = useCallback<
-    (e: React.ChangeEvent<HTMLInputElement>) => void
-  >(
-    (e) => {
-      setMessage(e.target.value);
-    },
-    [message],
-  );
+  // const sendImage = useCallback<
+  //   (e: React.ChangeEvent<HTMLInputElement>) => void
+  // >((e) => {
+  //   const fileReader = new FileReader();
+  //   const imgFile = e.target.files[0];
+  //   console.log('타겟', imgFile);
+  //   fileReader.readAsDataURL(imgFile);
+  //   fileReader.onload = (e) => {
+  //     const result = e.target.result;
+  //     const data = {
+  //       chatMain_id: String(router.query.id),
+  //       sender: user_id,
+  //       contents: result as string,
+  //       type: 'IMAGE',
+  //       nickname: nickname,
+  //     };
+  //     onSendMessage(stompClient, data);
+  //   };
+  //   e.target.value = '';
+  // }, []);
 
   return (
     <Container>

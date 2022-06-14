@@ -26,7 +26,7 @@ const initialChattingRoomState: ChattingRoomState = {
   chatRoomInfo: null,
   chattingList: { messages: [] },
   quickChatList: null,
-  currentChatUserList: null,
+  currentChatUserList: { users: [] },
   nickname: null,
 };
 

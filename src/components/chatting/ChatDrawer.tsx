@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
+import { RootState } from '../../modules';
 
 type StyledType = {
   isMe?: boolean;
@@ -16,8 +18,13 @@ type PropsType = {
 const ChatDrawer = ({ exit, setIsDrawerOpen, isDrawerOpen }: PropsType) => {
   const router = useRouter();
 
+  const { users } = useSelector(
+    (state: RootState) => state.chattingRoomState.currentChatUserList,
+  );
+
   const closeDrawer = () => {
     setIsDrawerOpen(false);
+    console.log(users);
   };
 
   const exitChatRoom = () => {
@@ -79,20 +86,26 @@ const ChatDrawer = ({ exit, setIsDrawerOpen, isDrawerOpen }: PropsType) => {
                 alt='프로필'
                 objectFit='contain'
               />
-              <Nickname isMe={true}>신길동 호랑이</Nickname>
+              {users.length > 0 &&
+                users.map((user, i) => (
+                  <Nickname isMe={true} key={i}>
+                    {user.nickname}
+                  </Nickname>
+                ))}
             </MemberItem>
           </div>
         </div>
       </Content>
       <Footer>
-        <Button onClick={exitChatRoom}>
+        <ExitButton onClick={exitChatRoom}>
           <Image
             src='/assets/images/drawerclosebtn.svg'
             width={20}
             height={24}
             alt='서랍 닫기'
           />
-        </Button>
+          <span>나가기</span>
+        </ExitButton>
         <Button onClick={closeDrawer}>
           <Image
             src='/assets/images/settingblack.svg'
@@ -168,10 +181,6 @@ const ImageList = styled.div`
   overflow-y: hidden;
 `;
 
-const StyledImage = styled(Image)`
-  border-radius: 5px 0px 0px 5px;
-`;
-
 const MemberItem = styled.div`
   display: flex;
   align-items: center;
@@ -217,6 +226,12 @@ const Button = styled.button`
   border: none;
   background: #fff;
   cursor: pointer;
+`;
+
+const ExitButton = styled(Button)`
+  display: flex;
+  align-items: center;
+  gap: 3px;
 `;
 
 export default ChatDrawer;
