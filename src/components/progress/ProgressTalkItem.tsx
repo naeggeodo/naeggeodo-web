@@ -1,21 +1,14 @@
 import Image from 'next/image';
-import React, {
-  FormEvent,
-  FormEventHandler,
-  useCallback,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'react';
 import styled from 'styled-components';
-import { useSelectLoginStates } from '../../hooks/select/useSelectLoginStates';
+import { useProgress } from '../../hooks/progress/useProgress';
+
 import palette from '../../styles/palette';
 
 interface Props {
   id: string;
   imgPath: string;
   index: number;
-  lastestMessage: string;
+  latestMessage: string;
   title: string;
   user_id: string;
 }
@@ -25,39 +18,17 @@ const ProgressTalkItem = ({
   imgPath,
   index,
   title,
-  lastestMessage,
+  latestMessage,
   user_id,
 }: Props) => {
-  const [elementId, setElementId] = useState<string>(null);
-  const inputRefs = useRef([]);
-
-  const myId = useSelectLoginStates().user_id;
-
-  const handleModifyButtonClick = useCallback<
-    (e: React.MouseEvent<HTMLButtonElement>) => void
-  >(
-    (e) => {
-      e.stopPropagation();
-      const id = e.currentTarget.getAttribute('id');
-      setElementId(id);
-    },
-    [elementId],
-  );
-
-  useLayoutEffect(() => {
-    inputRefs.current.map((input, _) => {
-      if (input.id === elementId) {
-        input.disabled = false;
-        input.focus();
-      } else {
-        input.disabled = true;
-      }
-    });
-  }, [elementId]);
-
-  const changeTitle = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-  };
+  const {
+    handleModifyButtonClick,
+    onChangeTitle,
+    onSaveTitle,
+    myId,
+    chatTitle,
+    inputRefs,
+  } = useProgress(title, id);
 
   return (
     <Container data-value={id} key={String(id)}>
@@ -72,11 +43,11 @@ const ProgressTalkItem = ({
 
       <TextContainer>
         <TimeTitleWrapper className='target'>
-          <form onSubmit={changeTitle}>
+          <form onSubmit={onSaveTitle}>
             <input
-              onChange={() => {}}
+              onChange={onChangeTitle}
               type='text'
-              value={title}
+              value={chatTitle}
               disabled
               ref={(el) => (inputRefs.current[index] = el)}
               id={String(id)}
@@ -93,7 +64,7 @@ const ProgressTalkItem = ({
         </TimeTitleWrapper>
 
         <Contents>
-          <p>{lastestMessage}</p>
+          <p>{latestMessage}</p>
         </Contents>
       </TextContainer>
     </Container>

@@ -25,9 +25,14 @@ export interface ProgressChatRoomItem {
   category: Category;
   idx: number;
   createDate: string;
-  lastestMessage: string;
+  latestMessage: string;
 }
 
 export interface ProgressChatRoomList {
   chatRoom: ProgressChatRoomItem[];
 }
+
+export type ProgressingChatRoomTitleRequest = {
+  chatMain_id: string;
+  title: string;
+};

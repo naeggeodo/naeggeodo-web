@@ -30,7 +30,7 @@ const ProgressTemplate = () => {
                   imgPath={data.imgPath}
                   title={data.title}
                   index={index}
-                  lastestMessage={data.lastestMessage}
+                  latestMessage={data.latestMessage}
                 />
               );
             })}
