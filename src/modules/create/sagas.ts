@@ -1,7 +1,11 @@
 import Router from 'next/router';
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { call, delay, put, takeLatest } from 'redux-saga/effects';
 import { CreateService } from '../../service/api/create/CreateService';
-import { openCopyCompleteModal } from '../modal/actions';
+import {
+  closeCompleteModal,
+  openCompleteModal,
+  openCopyCompleteModal,
+} from '../modal/actions';
 import {
   copyPrevChatRoomDataActions,
   COPY_PREV_CHATROOM_DATA_REQUEST,
@@ -24,8 +28,13 @@ function* createChatRoomGenerator(
       action.payload,
     );
     yield put(createChatRoomActions.success(data));
-    yield call(Router.push, `/chatting/${data.chatMain_id}`);
+
+    yield put(openCompleteModal());
+    yield delay(2500);
+    put(closeCompleteModal());
+
     yield put(initializeCreateStates());
+    yield call(Router.push, `/chatting/${data.chatMain_id}`);
   } catch (error) {
     console.log(error);
   }
@@ -56,6 +65,11 @@ function* copyPrevChatRoomDataGenerator(
       action.payload.orderTimeType,
     );
     yield put(copyPrevChatRoomDataActions.success(data.chatMain_id));
+
+    yield put(openCompleteModal());
+    yield delay(2500);
+    put(closeCompleteModal());
+
     yield call(Router.push, `/chatting/${data.chatMain_id}`);
   } catch (error) {
     console.log(error);

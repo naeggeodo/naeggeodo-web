@@ -15,7 +15,9 @@ const ProgressTemplate = () => {
   return (
     <React.Fragment>
       <Container>
-        <Title>내꺼톡 리스트</Title>
+        <Title>
+          참여중인 <Emphasize>내꺼톡</Emphasize> 리스트
+        </Title>
 
         <ProgressTalkList>
           {chatRoom.length > 0 &&
@@ -50,6 +52,10 @@ const Title = styled.h2`
 
   letter-spacing: -0.5px;
   color: ${palette.black};
+`;
+
+const Emphasize = styled.span`
+  color: ${palette.mainOrange};
 `;
 
 const ProgressTalkList = styled.ul`
