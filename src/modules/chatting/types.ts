@@ -32,13 +32,23 @@ export type ChattingListRequest = {
   userId: string;
 };
 
+export type MessageTypes =
+  | 'TEXT'
+  | 'IMAGE'
+  | 'WELCOME'
+  | 'EXIT'
+  | 'CNT'
+  | 'BAN'
+  | 'ALERT'
+  | 'SYSTEM';
+
 export type ChattingListItem = {
   chatMain_id: number;
   contents: string;
   id: number;
   idx: number;
   regDate: string;
-  type: string;
+  type: MessageTypes;
   user_id: string;
 };
 

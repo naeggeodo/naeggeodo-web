@@ -14,6 +14,7 @@ const chatting = ({
 }: {
   previousChatting: ChattingListResponse;
 }) => {
+  console.log(previousChatting, 'eeee');
   return <ChattingTemplate previousChatting={previousChatting} />;
 };
 
@@ -47,7 +48,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
     return {
       props: {
-        previousChatting: rootState.chattingRoomState.chattingList,
+        previousChatting: store.getState().chattingRoomState.chattingList,
       },
     };
   },

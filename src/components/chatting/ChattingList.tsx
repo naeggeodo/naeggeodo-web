@@ -1,15 +1,12 @@
 import React from 'react';
 import ChatItem from '../chatting/ChatItem';
 import MyChatItem from '../chatting/MyChatItem';
-import { PreviousChattingItem } from '../../modules/chatting/types';
 import DateFormatter from '../../utils/DateFormatter';
 import { useSelectLoginStates } from '../../hooks/select/useSelectLoginStates';
+import { ChattingListItem } from '../../modules/chatting/types';
+import WelcomeMessage from './WelcomeMessage';
 
-const ChattingList = ({
-  messageList,
-}: {
-  messageList: PreviousChattingItem[];
-}) => {
+const ChattingList = ({ messageList }: { messageList: ChattingListItem[] }) => {
   const { user_id } = useSelectLoginStates();
 
   return (
@@ -17,7 +14,9 @@ const ChattingList = ({
       {messageList &&
         messageList.length > 0 &&
         messageList.map((message, i) => {
-          if (message.user_id === user_id)
+          if (message.type === 'WELCOME')
+            return <WelcomeMessage message={message} />;
+          else if (message.user_id === user_id)
             return (
               <MyChatItem
                 key={i}
