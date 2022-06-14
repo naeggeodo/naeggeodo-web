@@ -5,17 +5,16 @@ import styled from 'styled-components';
 import { RootState } from '../../../modules';
 import palette from '../../../styles/palette';
 import ReportModalTemplate from './ReportModalTemplate';
-import { useReport } from '../../../hooks/useReport';
 import ConfirmModal from './ConfirmModal';
 import ControllButtons from './ControllButtons';
 import { useLoadLib } from '../../../hooks/utils/useLoadLib';
 import {
   setReportConfirmModal,
   setReportModal,
+  submitReportActions,
 } from '../../../modules/mypage/actions';
 
 const ComplainForm = () => {
-  const { submitReport } = useReport();
   const { dispatch } = useLoadLib();
 
   const { reportConfirmModal } = useSelector(
@@ -55,9 +54,7 @@ const ComplainForm = () => {
   };
 
   const onCompleteReport = () => {
-    submitReport(complainBody).then((res) => {
-      console.log(res);
-    });
+    dispatch(submitReportActions.request(complainBody));
   };
 
   return (

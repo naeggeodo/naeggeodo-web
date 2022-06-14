@@ -3,14 +3,16 @@ import {
   GET_USER_INFO_IN_MYPAGE_SUCCESS,
   SET_REPORT_CONFIRM_MODAL,
   SET_REPORT_MODAL,
+  SUBMIT_REPORT_SUCCESS,
 } from './actions';
 
-import { MyPageUserInfoResponse } from './types';
+import { MyPageUserInfoResponse, ReportRequestBody } from './types';
 
 interface MyPageState {
   userInfo: MyPageUserInfoResponse;
   reportModal: string;
   reportConfirmModal: string;
+  reportInfo: ReportRequestBody | null;
 }
 
 const initialState: MyPageState = {
@@ -21,6 +23,7 @@ const initialState: MyPageState = {
   },
   reportModal: '',
   reportConfirmModal: '',
+  reportInfo: null,
 };
 
 export const myPageState = createReducer<MyPageState>(initialState, {
@@ -40,5 +43,9 @@ export const myPageState = createReducer<MyPageState>(initialState, {
   [SET_REPORT_CONFIRM_MODAL]: (state, action) => ({
     ...state,
     reportConfirmModal: action.payload,
+  }),
+  [SUBMIT_REPORT_SUCCESS]: (state, action) => ({
+    ...state,
+    reportInfo: action.payload,
   }),
 });

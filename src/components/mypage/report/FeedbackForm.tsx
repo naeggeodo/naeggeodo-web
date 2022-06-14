@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import { useReport } from '../../../hooks/useReport';
 import { useLoadLib } from '../../../hooks/utils/useLoadLib';
 import { RootState } from '../../../modules';
 import {
   setReportConfirmModal,
   setReportModal,
+  submitReportActions,
 } from '../../../modules/mypage/actions';
 import palette from '../../../styles/palette';
 import ConfirmModal from './ConfirmModal';
@@ -15,7 +15,6 @@ import ControllButtons from './ControllButtons';
 import ReportModalTemplate from './ReportModalTemplate';
 
 const FeedbackForm = () => {
-  const { submitReport } = useReport();
   const { dispatch } = useLoadLib();
 
   const { reportConfirmModal } = useSelector(
@@ -50,9 +49,7 @@ const FeedbackForm = () => {
   };
 
   const onCompleteReport = () => {
-    submitReport(feedbackBody).then((res) => {
-      console.log(res);
-    });
+    dispatch(submitReportActions.request(feedbackBody));
   };
 
   return (
