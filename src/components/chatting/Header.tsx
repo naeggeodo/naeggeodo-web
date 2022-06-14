@@ -1,8 +1,6 @@
 import React, { useCallback } from 'react';
-import { useSelector } from 'react-redux';
 import Image from 'next/image';
 import styled, { css } from 'styled-components';
-import { RootState } from '../../modules';
 import palette from '../../styles/palette';
 import Link from 'next/link';
 import { ChattingRoomInfoResponse } from '../../modules/chatting/types';
@@ -18,25 +16,8 @@ type PropsType = {
   chatRoomInfo: ChattingRoomInfoResponse;
 };
 
-const Header = ({ setIsDrawerOpen, isDrawerOpen }: PropsType) => {
+const Header = ({ setIsDrawerOpen, isDrawerOpen, chatRoomInfo }: PropsType) => {
   const { routeBack } = useCustomRouter();
-  const currentCount = useSelector(
-    (state: RootState) => state.chattingRoomState.chatRoomInfo.currentCount,
-  );
-
-  const link = useSelector(
-    (state: RootState) => state.chattingRoomState.chatRoomInfo.link,
-  );
-
-  const title = useSelector(
-    (state: RootState) => state.chattingRoomState.chatRoomInfo.title,
-  );
-  const maxCount = useSelector(
-    (state: RootState) => state.chattingRoomState.chatRoomInfo.maxCount,
-  );
-  const imgPath = useSelector(
-    (state: RootState) => state.chattingRoomState.chatRoomInfo.imgPath,
-  );
 
   const openDrawer = useCallback(() => {
     setIsDrawerOpen(true);
@@ -54,15 +35,19 @@ const Header = ({ setIsDrawerOpen, isDrawerOpen }: PropsType) => {
           />
         </PrevButton>
         <StyledImage
-          src={imgPath ? imgPath : '/assets/images/hamburger.svg'}
+          src={
+            chatRoomInfo.imgPath
+              ? chatRoomInfo.imgPath
+              : '/assets/images/hamburger.svg'
+          }
           width={44}
           height={44}
         />
-        <Link href={link} passHref>
+        <Link href={chatRoomInfo.link} passHref>
           <LinkWrapper target='_blank' rel='noopener noreferrer'>
-            <Info name='title'>{title}</Info>
+            <Info name='title'>{chatRoomInfo.title}</Info>
             <Info name='info'>
-              인원{currentCount}명/{maxCount}명
+              인원{chatRoomInfo.currentCount}명/{chatRoomInfo.maxCount}명
             </Info>
           </LinkWrapper>
         </Link>

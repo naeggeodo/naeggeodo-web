@@ -26,13 +26,13 @@ const ChattingTemplate = () => {
 
   const dispatch = useDispatch();
 
-  const { chatRoomInfo, chattingList } = useSelector(
+  const { chatRoomInfo, chattingList, nickname } = useSelector(
     (state: RootState) => state.chattingRoomState,
   );
 
   const onError = (e) => {
     if (e.headers.message) {
-      console.log(e.header.message);
+      console.log(e.headers.message);
     }
     alert('나가세요');
     location.href = '/';
@@ -44,6 +44,7 @@ const ChattingTemplate = () => {
       sender: user_id,
       contents: '님이 입장하셨습니다.',
       type: 'WELCOME',
+      nickname,
     };
 
     stompClient.send('/app/chat/enter', {}, JSON.stringify(sendData));
@@ -55,6 +56,7 @@ const ChattingTemplate = () => {
       sender: user_id,
       contents: '님이 퇴장하셨습니다.',
       type: 'EXIT',
+      nickname,
     };
     stompClient.send('/app/chat/exit', {}, JSON.stringify(data));
   }
@@ -82,6 +84,7 @@ const ChattingTemplate = () => {
               regDate: DateFormatter.getNowDate(),
               type: newMessage.type,
               user_id: newMessage.sender,
+              nickname: newMessage.nickname,
             };
             dispatch(setCurrentChattingList(body));
           },

@@ -20,6 +20,10 @@ const QuickMessageComp = ({ stompClient }: { stompClient: CompatClient }) => {
   const { slideEvent, slideDown } = useSlideMessage();
   const router = useRouter();
 
+  const { nickname } = useSelector(
+    (state: RootState) => state.chattingRoomState,
+  );
+
   const quickChatList: QuickChattingListResponse = useSelector(
     (state: RootState) => state.chattingRoomState.quickChatList,
   );
@@ -38,6 +42,7 @@ const QuickMessageComp = ({ stompClient }: { stompClient: CompatClient }) => {
       sender: user_id,
       contents: clickTarget.innerHTML,
       type: 'TEXT',
+      nickname,
     };
 
     onSendMessage(stompClient, data);

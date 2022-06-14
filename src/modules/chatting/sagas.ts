@@ -5,10 +5,12 @@ import {
   getCurrentChatRoomAsyncActions,
   getCurrentChatUserListActions,
   getQuickChattingListActions,
+  getUserNicknameActions,
   GET_CHATTING_LIST_REQUEST,
   GET_CURRENT_CHATROOM_INFO_REQUEST,
   GET_CURRENT_CHAT_USER_LIST_REQUEST,
   GET_QUICK_MESSAGE_LIST_REQUEST,
+  GET_USER_NICKNAME_REQUEST,
 } from './actions';
 import {
   ChattingListResponse,
@@ -63,6 +65,16 @@ export function* getCurrentChatUserListGenerator(
   yield put(getCurrentChatUserListActions.success(data));
 }
 
+export function* getUserNicknameGenerator(
+  action: ReturnType<typeof getUserNicknameActions.request>,
+) {
+  const { data }: { data: any } = yield call(
+    ChattingService.asyncGetUserNickname,
+    action.payload,
+  );
+  yield put(getUserNicknameActions.success(data.nickname));
+}
+
 export function* getChattingRoomInfoSaga() {
   yield* [
     takeLatest(GET_CURRENT_CHATROOM_INFO_REQUEST, getChattingRoomInfoGenerator),
@@ -72,5 +84,6 @@ export function* getChattingRoomInfoSaga() {
       GET_CURRENT_CHAT_USER_LIST_REQUEST,
       getCurrentChatUserListGenerator,
     ),
+    takeLatest(GET_USER_NICKNAME_REQUEST, getUserNicknameGenerator),
   ];
 }

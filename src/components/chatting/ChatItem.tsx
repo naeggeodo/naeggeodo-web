@@ -20,33 +20,32 @@ const ChatItem = ({
   }-${currentDate.getDate()}`;
 
   return (
-    <Container>
-      <StyledImage
-        src='/assets/images/hamburger.svg'
-        width={35}
-        height={35}
-        layout='fixed'
-      />
-      {message.contents?.includes('data:image/') ? (
-        <StyledImg
-          src={message.contents}
-          alt='채팅 이미지'
-          width={400}
-          height={400}
+    <>
+      <Nickname>{message.nickname}</Nickname>
+      <Container>
+        <StyledImage
+          src='/assets/images/hamburger.svg'
+          width={35}
+          height={35}
+          layout='fixed'
         />
-      ) : (
-        // TODO CNT일떄 카운트 늘려주기
-        <React.Fragment>
-          <div>신길동 호랭이</div>
+        {message.contents?.includes('data:image/') ? (
+          <StyledImg
+            src={message.contents}
+            alt='채팅 이미지'
+            width={400}
+            height={400}
+          />
+        ) : (
+          // TODO CNT일떄 카운트 늘려주기
           <Content>{message.type === 'CNT' || message.contents}</Content>
-        </React.Fragment>
-      )}
-
-      <Time>
-        <span>{chatDate.formatDate()}</span>
-        <span>{chatDate.formatTime()}</span>
-      </Time>
-    </Container>
+        )}
+        <Time>
+          <span>{chatDate.formatDate()}</span>
+          <span>{chatDate.formatTime()}</span>
+        </Time>
+      </Container>
+    </>
   );
 };
 
@@ -67,9 +66,12 @@ const StyledImage = styled(Image)`
   object-fit: cover;
 `;
 
-const Content = styled.p`
-  max-width: 70%;
+const Nickname = styled.p`
+  margin-left: 10px;
+  font-size: 0.8125rem;
+`;
 
+const Content = styled.p`
   display: flex;
   flex-wrap: wrap;
 

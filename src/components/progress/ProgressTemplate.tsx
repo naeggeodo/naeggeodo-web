@@ -59,7 +59,7 @@ const Emphasize = styled.span`
 `;
 
 const ProgressTalkList = styled.ul`
-  padding: 5px 0;
+  padding: 5px 0 60px;
 `;
 
 export default ProgressTemplate;

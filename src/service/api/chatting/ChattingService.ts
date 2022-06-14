@@ -25,4 +25,8 @@ export default class ChattingService {
   static async asyncGetCurrentChatUserList(chattingRoomId: string) {
     return await ApiService.getApi(`/chat-rooms/${chattingRoomId}/users`);
   }
+
+  static async asyncGetUserNickname(userId: string) {
+    return await ApiService.getApi(`/user/${userId}/nickname`);
+  }
 }

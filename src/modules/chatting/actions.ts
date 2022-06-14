@@ -55,6 +55,13 @@ export const GET_CURRENT_CHAT_USER_LIST_SUCCESS =
 export const GET_CURRENT_CHAT_USER_LIST_FAILURE =
   namespace + 'GET_CURRENT_CHAT_USER_LIST_FAILURE';
 
+export const GET_USER_NICKNAME_REQUEST =
+  namespace + 'GET_USER_NICKNAME_REQUEST';
+export const GET_USER_NICKNAME_SUCCESS =
+  namespace + 'GET_USER_NICKNAME_SUCCESS';
+export const GET_USER_NICKNAME_FAILURE =
+  namespace + 'GET_USER_NICKNAME_FAILURE';
+
 // action creators
 export const getCurrentChatRoomAsyncActions = createAsyncAction(
   GET_CURRENT_CHATROOM_INFO_REQUEST,
@@ -84,3 +91,9 @@ export const getCurrentChatUserListActions = createAsyncAction(
   GET_CURRENT_CHAT_USER_LIST_SUCCESS,
   GET_CURRENT_CHAT_USER_LIST_FAILURE,
 )<ChattingRoomInfoRequest, CurrentChatUserListResponse, AxiosError>();
+
+export const getUserNicknameActions = createAsyncAction(
+  GET_USER_NICKNAME_REQUEST,
+  GET_USER_NICKNAME_SUCCESS,
+  GET_USER_NICKNAME_FAILURE,
+)<string, string, AxiosError>();

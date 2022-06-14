@@ -5,6 +5,8 @@ import Image from 'next/image';
 import { useChat } from '../../hooks/useChat';
 import { useRouter } from 'next/router';
 import { useSelectLoginStates } from '../../hooks/select/useSelectLoginStates';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../modules';
 
 const SubmitForm = ({ stompClient }: { stompClient: CompatClient }) => {
   const { onSendMessage } = useChat();
@@ -12,6 +14,10 @@ const SubmitForm = ({ stompClient }: { stompClient: CompatClient }) => {
   const [message, setMessage] = useState('');
   const router = useRouter();
   const { user_id } = useSelectLoginStates();
+
+  const { nickname } = useSelector(
+    (state: RootState) => state.chattingRoomState,
+  );
 
   const sendMessage = useCallback<
     (e: React.FormEvent<HTMLFormElement>) => void
@@ -26,6 +32,7 @@ const SubmitForm = ({ stompClient }: { stompClient: CompatClient }) => {
         sender: user_id,
         contents: message,
         type: 'TEXT',
+        nickname,
       };
       onSendMessage(stompClient, data);
       setMessage('');
@@ -48,6 +55,7 @@ const SubmitForm = ({ stompClient }: { stompClient: CompatClient }) => {
         sender: user_id,
         contents: result as string,
         type: 'TEXT',
+        nickname,
       };
       onSendMessage(stompClient, data);
     };

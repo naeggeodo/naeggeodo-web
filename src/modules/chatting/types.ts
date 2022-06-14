@@ -25,6 +25,7 @@ export type ChattingSubmitBody = {
   contents: string;
   chatMain_id: string;
   type: string;
+  nickname: string;
 };
 
 export type CurrentChattingList = {
@@ -54,6 +55,7 @@ export type ChattingListItem = {
   regDate: string;
   type: MessageTypes;
   user_id?: string;
+  nickname?: string;
 };
 
 export type ChattingListResponse = {

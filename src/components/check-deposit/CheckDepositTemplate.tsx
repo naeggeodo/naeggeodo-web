@@ -17,22 +17,17 @@ const CheckDepositTemplate = () => {
     (state: RootState) => state.chattingRoomState,
   );
 
-  const { users } = currentChatUserList;
-
   const [depositYetUsers, setDepositYetUsers] = useState<CurrentChatUser[]>([]);
   const [depositUsers, setDepositUsers] = useState<CurrentChatUser[]>([]);
 
   useEffect(() => {
-    if (!users) return;
-    setDepositYetUsers([]);
-    setDepositUsers([]);
-    for (let i = 0; i < users.length; i++) {
-      if (users[i].remittanceState === 'N') {
-        setDepositYetUsers([...depositYetUsers, users[i]]);
-      } else {
-        setDepositUsers([...depositUsers, users[i]]);
-      }
-    }
+    if (!currentChatUserList?.users) return;
+    setDepositYetUsers(
+      currentChatUserList.users.filter((v) => v.remittanceState === 'N'),
+    );
+    setDepositUsers(
+      currentChatUserList.users.filter((v) => v.remittanceState === 'Y'),
+    );
   }, [currentChatUserList]);
 
   return (

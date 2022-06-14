@@ -1,7 +1,6 @@
 import React from 'react';
 import ChatItem from '../chatting/ChatItem';
 import MyChatItem from '../chatting/MyChatItem';
-import DateFormatter from '../../utils/DateFormatter';
 import { useSelectLoginStates } from '../../hooks/select/useSelectLoginStates';
 import { ChattingListItem } from '../../modules/chatting/types';
 import WelcomeMessage from './WelcomeMessage';

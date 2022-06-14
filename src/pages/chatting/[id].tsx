@@ -5,17 +5,12 @@ import ChattingTemplate from '../../components/chatting/ChattingTemplate';
 import {
   getChattingListActions,
   getCurrentChatRoomAsyncActions,
+  getUserNicknameActions,
 } from '../../modules/chatting/actions';
 import { saveCookies } from '../../utils/saveCookies';
-import { ChattingListResponse } from '../../modules/chatting/types';
 
-const chatting = ({
-  previousChatting,
-}: {
-  previousChatting: ChattingListResponse;
-}) => {
-  console.log(previousChatting, 'eeee');
-  return <ChattingTemplate previousChatting={previousChatting} />;
+const chatting = () => {
+  return <ChattingTemplate />;
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(
@@ -36,6 +31,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
         userId: user_id,
       }),
     );
+    store.dispatch(getUserNicknameActions.request(user_id));
 
     // store.dispatch(
     //   getQuickChattingListActions.request({
