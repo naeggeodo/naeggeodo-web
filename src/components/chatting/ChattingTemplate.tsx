@@ -211,6 +211,7 @@ const Container = styled.div`
 const Content = styled.div`
   display: flex;
   flex-direction: column;
+  padding: 15px;
   gap: 15px;
 
   position: relative;

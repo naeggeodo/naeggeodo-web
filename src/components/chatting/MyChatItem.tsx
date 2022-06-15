@@ -16,7 +16,7 @@ const MyChatItem = ({
   const chatDate = useMemo(() => new DateFormatter(date), [date]);
 
   return (
-    <Wrap>
+    <Container>
       <Time>
         <span>{chatDate.formatDate()}</span>
         <span>{chatDate.formatTime()}</span>
@@ -33,11 +33,11 @@ const MyChatItem = ({
           {message.type === 'CNT' ? <p>{message.user_id}</p> : message.contents}
         </Content>
       )}
-    </Wrap>
+    </Container>
   );
 };
 
-const Wrap = styled.div`
+const Container = styled.div`
   width: 100%;
 
   display: flex;
@@ -68,7 +68,8 @@ const Content = styled.p`
 
   font-size: 0.9375rem;
   line-height: 1.2em;
-  background-color: #fff;
+  background-color: ${palette.mainOrange};
+  color: #fff;
   border-radius: 10px 10px 0px 10px;
 `;
 

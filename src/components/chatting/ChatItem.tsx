@@ -38,7 +38,13 @@ const ChatItem = ({
           />
         ) : (
           // TODO CNT일떄 카운트 늘려주기
-          <Content>{message.type === 'CNT' || message.contents}</Content>
+          <Content>
+            {message.type === 'CNT' ? (
+              <div>메시지 없음</div>
+            ) : (
+              <div>{message.contents}</div>
+            )}
+          </Content>
         )}
         <Time>
           <span>{chatDate.formatDate()}</span>
@@ -71,7 +77,7 @@ const Nickname = styled.p`
   font-size: 0.8125rem;
 `;
 
-const Content = styled.p`
+const Content = styled.div`
   display: flex;
   flex-wrap: wrap;
 
@@ -79,8 +85,9 @@ const Content = styled.p`
 
   font-size: 0.9375rem;
   line-height: 1.2em;
-  color: #fff;
-  background-color: ${palette.mainOrange};
+
+  color: ${palette.black};
+  background-color: #fff;
   border-radius: 10px 10px 10px 0px;
 `;
 
