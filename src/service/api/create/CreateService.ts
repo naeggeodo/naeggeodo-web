@@ -1,5 +1,5 @@
 import { ApiService, CsrApiService } from '..';
-import { OrderTimeType } from '../../../modules/create/types';
+import { OrderTimeType } from '../../../modules/common/types';
 
 export class CreateService {
   static async asyncCreateChatRoom(body: any) {

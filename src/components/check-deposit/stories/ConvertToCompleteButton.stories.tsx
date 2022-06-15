@@ -1,6 +1,7 @@
 import { ComponentMeta } from '@storybook/react';
 import { Provider } from 'react-redux';
 import { action } from 'typesafe-actions';
+import { configureStore } from '../../../modules';
 import ConvertToCompletedButton from '../ConvertToCompletedButton';
 
 const store = {
@@ -42,7 +43,7 @@ export default {
   },
   decorators: [
     (Story) => (
-      <Provider store={store}>
+      <Provider store={configureStore()}>
         <Story />
       </Provider>
     ),

@@ -1,3 +1,5 @@
+import { ChatDetailType, Bookmarks, RemittanceState } from '../common/types';
+
 export type ChattingRoomInfoRequest = {
   chattingRoomId: string;
 };
@@ -11,7 +13,7 @@ export type ChattingRoomInfoResponse = {
   title: string;
   maxCount: number;
   tags: [];
-  bookmarks: 'Y' | 'N';
+  bookmarks: Bookmarks;
   user_id: string;
   imgPath: string;
   currentCount: number;
@@ -40,23 +42,13 @@ export type ChattingListRequest = {
   userId: string;
 };
 
-export type MessageTypes =
-  | 'TEXT'
-  | 'IMAGE'
-  | 'WELCOME'
-  | 'EXIT'
-  | 'CNT'
-  | 'BAN'
-  | 'ALERT'
-  | 'SYSTEM';
-
 export type ChattingListItem = {
   chatMain_id: number;
   contents: string;
   id?: number;
   idx?: number;
   regDate: string;
-  type: MessageTypes;
+  type: ChatDetailType;
   user_id?: string;
   nickname?: string;
 };
@@ -82,7 +74,7 @@ export type QuickChattingListResponse = {
 export type CurrentChatUser = {
   user_id: string;
   idx: number;
-  remittanceState: 'N' | 'Y';
+  remittanceState: RemittanceState;
   nickname: string;
 };
 

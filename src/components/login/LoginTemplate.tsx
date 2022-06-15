@@ -3,8 +3,6 @@ import Image from 'next/image';
 import KaKaoLoginBtn from '../login/KaKaoLoginBtn';
 import NaverLoginBtn from '../login/NaverLoginBtn';
 import palette from '../../styles/palette';
-import { useCallback } from 'react';
-import { useRouter } from 'next/router';
 import { useCustomRouter } from '../../hooks/utils/useCustomRouter';
 
 type StyledProps = {

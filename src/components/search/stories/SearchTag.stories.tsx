@@ -21,17 +21,37 @@ export default {
 export const SearchTags = () => {
   return (
     <>
-      <SearchTag selected='피자' dataValue='피자' handleClick={() => {}}>
+      <SearchTag
+        selected='피자'
+        dataValue='피자'
+        handleClick={() => {
+          console.log('pizza');
+        }}>
         피자
       </SearchTag>
-      <SearchTag selected='치킨' dataValue='치킨' handleClick={() => {}}>
+      <SearchTag
+        selected='치킨'
+        dataValue='치킨'
+        handleClick={() => {
+          console.log('pizza');
+        }}>
         치킨
       </SearchTag>
 
-      <SearchTag selected='버거' dataValue='스크류바' handleClick={() => {}}>
+      <SearchTag
+        selected='버거'
+        dataValue='스크류바'
+        handleClick={() => {
+          console.log('pizza');
+        }}>
         햄버거
       </SearchTag>
-      <SearchTag selected='콤보' dataValue='스크류바' handleClick={() => {}}>
+      <SearchTag
+        selected='콤보'
+        dataValue='스크류바'
+        handleClick={() => {
+          console.log('pizza');
+        }}>
         허니콤보
       </SearchTag>
     </>

@@ -22,11 +22,11 @@ export default {
   },
 } as ComponentMeta<typeof ChatDrawer>;
 
-const ChatDrawerStory = (args: Args) => <ChatDrawer {...args} />;
-export const ChatDrawerComp = ChatDrawerStory.bind({});
+// const ChatDrawerStory = (args: Args) => <ChatDrawer {...args} />;
+// export const ChatDrawerComp = ChatDrawerStory.bind({});
 
-ChatDrawerComp.args = {
-  isDrawerOpen: true,
-};
+// ChatDrawerComp.args = {
+//   isDrawerOpen: true,
+// };
 
-ChatDrawerComp.storyName = '채팅 서랍';
+// ChatDrawerComp.storyName = '채팅 서랍';

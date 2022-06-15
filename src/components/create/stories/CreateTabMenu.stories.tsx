@@ -1,25 +1,27 @@
 import { ComponentMeta } from '@storybook/react';
 import CreateTabMenu from '../CreateTabMenu';
 
-export default {
-  title: 'create/컴포넌트',
-  component: CreateTabMenu,
-  decorators: [
-    (Story) => (
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'flex-start',
-          height: '100vh',
-          paddingTop: '30px',
-        }}>
-        <Story />
-      </div>
-    ),
-  ],
-} as ComponentMeta<typeof CreateTabMenu>;
+// TODO
 
-export const CreateTabMenuStory = () => <CreateTabMenu />;
+// export default {
+//   title: 'create/컴포넌트',
+//   component: CreateTabMenu,
+//   decorators: [
+//     (Story) => (
+//       <div
+//         style={{
+//           display: 'flex',
+//           justifyContent: 'center',
+//           alignItems: 'flex-start',
+//           height: '100vh',
+//           paddingTop: '30px',
+//         }}>
+//         <Story />
+//       </div>
+//     ),
+//   ],
+// } as ComponentMeta<typeof CreateTabMenu>;
 
-CreateTabMenuStory.storyName = '내꺼톡 생성 헤더 탭메뉴';
+// export const CreateTabMenuStory = () => <CreateTabMenu />;
+
+// CreateTabMenuStory.storyName = '내꺼톡 생성 헤더 탭메뉴';

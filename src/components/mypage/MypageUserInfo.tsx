@@ -2,7 +2,6 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { RootState } from '../../modules';
-import { MyPageUserInfoResponse } from '../../modules/mypage/types';
 import palette from '../../styles/palette';
 
 type StyledType = {

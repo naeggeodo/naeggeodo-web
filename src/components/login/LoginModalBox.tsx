@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import { useLoadLib } from '../../hooks/utils/useLoadLib';
 import { closeLoginModal } from '../../modules/modal/actions';
 import palette from '../../styles/palette';

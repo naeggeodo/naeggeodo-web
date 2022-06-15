@@ -1,7 +1,6 @@
-import React, { useCallback, useLayoutEffect, useRef, useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { useCustomRouter } from '../../hooks/utils/useCustomRouter';
 import { RootState } from '../../modules';
 import palette from '../../styles/palette';
 import TabMenu from '../main/TabMenu';

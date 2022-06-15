@@ -32,7 +32,7 @@ export default {
 const datas = ['치킨', '피자', '중식', '고기', '해산물'];
 
 export const TagButtonStory = () => {
-  return datas.map((data) => <TagButton item={data} />);
+  return datas.map((data) => <TagButton key={data} item={data} />);
 };
 
 TagButtonStory.storyName = '태그 버튼';

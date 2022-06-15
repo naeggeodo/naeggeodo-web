@@ -24,7 +24,12 @@ export default {
 } as ComponentMeta<typeof CreateButton>;
 
 const Template = (args: Args) => (
-  <CreateButton handleClick={() => {}} {...args} />
+  <CreateButton
+    handleClick={() => {
+      console.log(args);
+    }}
+    {...args}
+  />
 );
 export const CreateButtonStory = Template.bind({});
 

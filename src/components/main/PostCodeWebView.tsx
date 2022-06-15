@@ -17,7 +17,7 @@ const PostCodeWebView = ({ closeWebView }: { closeWebView: () => void }) => {
   const { user_id } = useSelectLoginStates();
 
   const handleComplete = (data: Address) => {
-    let fullAddress = data.address;
+    // let fullAddress = data.address;
     let extraAddress = '';
 
     const addressInfo: PatchBuildingCodeRequestData = {
@@ -34,7 +34,7 @@ const PostCodeWebView = ({ closeWebView }: { closeWebView: () => void }) => {
         extraAddress +=
           extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName;
       }
-      fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
+      // fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
     }
 
     if (data.apartment === 'N') {

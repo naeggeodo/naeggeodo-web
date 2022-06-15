@@ -1,8 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 import CategoryMenuSlide from './CategoryMenuSlide';
-import ChatRoomItem from './ChatRoomItem';
 import TabMenu from './TabMenu';
 import SearchPostCode from './SearchPostCode';
 import PostCodeWebView from './PostCodeWebView';

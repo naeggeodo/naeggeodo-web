@@ -5,7 +5,7 @@ import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { ChatRoomItemProps } from '../../modules/main/types';
 import palette from '../../styles/palette';
-import { converOrderTimeType } from '../../utils/convertOrderTimeType';
+import { convertOrderTimeType } from '../../utils/convertOrderTimeType';
 import TimeCalculator from '../../utils/TimeCalculator';
 import RegisterTime from './RegisterTime';
 
@@ -44,7 +44,7 @@ const ChatRoomItem = ({
             <RegisterTime>
               {timeCalculator.calculateCreateMinute()}
             </RegisterTime>
-            <p>{converOrderTimeType(orderTimeType)}</p>
+            <p>{convertOrderTimeType(orderTimeType)}</p>
           </OrderTimeTypeWrapper>
 
           {router.route === '/chat-rooms' ? (

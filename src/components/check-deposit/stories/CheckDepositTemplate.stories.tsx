@@ -1,6 +1,7 @@
 import { ComponentMeta } from '@storybook/react';
 import { Provider } from 'react-redux';
 import { action } from 'typesafe-actions';
+import { configureStore } from '../../../modules';
 import CheckDepositTemplate from '../CheckDepositTemplate';
 
 const store = {
@@ -26,7 +27,7 @@ export default {
   },
   decorators: [
     (Story) => (
-      <Provider store={store}>
+      <Provider store={configureStore()}>
         <Story />
       </Provider>
     ),

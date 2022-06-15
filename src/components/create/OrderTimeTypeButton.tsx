@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { OrderTimeType } from '../../modules/create/types';
+import { OrderTimeType } from '../../modules/common/types';
 
 type StyledType = {
   isActive: boolean;

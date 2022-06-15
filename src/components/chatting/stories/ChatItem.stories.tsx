@@ -1,9 +1,9 @@
 import { ComponentMeta } from '@storybook/react';
-import { PreviousChattingItem } from '../../../modules/chatting/types';
+import { ChattingListItem } from '../../../modules/chatting/types';
 import ChatItem from '../ChatItem';
 
 type Args = {
-  message: PreviousChattingItem;
+  message: ChattingListItem;
   date: string;
 };
 

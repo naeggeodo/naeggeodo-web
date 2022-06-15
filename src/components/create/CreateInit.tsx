@@ -4,12 +4,13 @@ import styled from 'styled-components';
 
 import { useLoadLib } from '../../hooks/utils/useLoadLib';
 import { RootState } from '../../modules';
-import { ButtonValue, OrderTimeType } from '../../modules/create/types';
+import { ButtonValue } from '../../modules/create/types';
 import { selectOrderTimeType } from '../../modules/create/actions';
 
 import { openLoginModal } from '../../modules/modal/actions';
 import OrderTimeTypeButton from './OrderTimeTypeButton';
 import palette from '../../styles/palette';
+import { OrderTimeType } from '../../modules/common/types';
 
 const buttonValue: ButtonValue[] = [
   {

@@ -1,14 +1,9 @@
 import Image from 'next/image';
 import React from 'react';
-import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { useSelectLoginStates } from '../../hooks/select/useSelectLoginStates';
-import { RootState } from '../../modules';
 import palette from '../../styles/palette';
-import {
-  filterLocation,
-  filterLocationInSearchPage,
-} from '../../utils/filterLocation';
+import { filterLocationInSearchPage } from '../../utils/filterLocation';
 
 const CurrentLocation = () => {
   const { address, accessToken } = useSelectLoginStates();
