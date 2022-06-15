@@ -11,7 +11,7 @@ import {
 import { saveCookies } from '../../../utils/saveCookies';
 import ChattingTemplate from '../ChattingTemplate';
 
-// TODO
+// TODO loaders해도 안되는듯
 export default {
   title: 'chatting/페이지',
   component: ChattingTemplate,
@@ -40,8 +40,6 @@ export const ChattingPageStory = () => <ChattingTemplate />;
 ChattingPageStory.loaders = [
   async () => {
     wrapper.getServerSideProps((store) => async (context) => {
-      saveCookies(store, context);
-
       store.dispatch(
         getCurrentChatRoomAsyncActions.request({
           chattingRoomId: '276',
@@ -53,26 +51,17 @@ ChattingPageStory.loaders = [
           userId: '다혜',
         }),
       );
-
       store.dispatch(
         getCurrentChatUserListActions.request({
           chattingRoomId: '276',
         }),
       );
-
       store.dispatch(getUserNicknameActions.request('다혜'));
-
-      // store.dispatch(
-      //   getQuickChattingListActions.request({
-      //     userId: String(context.params.id),
-      //   }),
-      // );
-
       store.dispatch(END);
       await store.sagaTask.toPromise();
       return {
         props: {
-          previousChatting: store.getState().chattingRoomState.chattingList,
+          chattingList: store.getState().chattingRoomState.chattingList,
         },
       };
     });

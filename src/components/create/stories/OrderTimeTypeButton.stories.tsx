@@ -4,7 +4,7 @@ import OrderTimeTypeButton from '../OrderTimeTypeButton';
 
 type Args = {
   children: string;
-  handleClick: null;
+  handleClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
   isActive: boolean;
   dataValue: OrderTimeType;
 };

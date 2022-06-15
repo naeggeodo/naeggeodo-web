@@ -1,23 +1,7 @@
 import { ComponentMeta } from '@storybook/react';
 import { Provider } from 'react-redux';
-import { action } from 'typesafe-actions';
 import { configureStore } from '../../../modules';
 import CheckDepositTemplate from '../CheckDepositTemplate';
-
-const store = {
-  getState: () => {
-    return {
-      chattingRoomState: {
-        currentChatUserList: {
-          //   users: [{ user_id: '뚱이', idx: 1, remittanceState: 'N' }],
-          users: null,
-        },
-      },
-    };
-  },
-  subscribe: () => 0,
-  dispatch: action('dispatch'),
-};
 
 export default {
   title: 'check-deposit/페이지',
