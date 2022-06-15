@@ -141,7 +141,7 @@ const CreateForm = () => {
             <TitleText>가게 링크</TitleText>
             <InputWrapper>
               <Input
-                type='text'
+                type='url'
                 placeholder='가게 링크를 입력해주세요'
                 value={link}
                 onChange={(e) => {

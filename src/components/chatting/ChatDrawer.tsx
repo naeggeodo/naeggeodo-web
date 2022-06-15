@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import React, { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { RootState } from '../../modules';
@@ -17,26 +18,37 @@ type PropsType = {
 
 const ChatDrawer = ({ exit, setIsDrawerOpen, isDrawerOpen }: PropsType) => {
   const router = useRouter();
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const { users } = useSelector(
     (state: RootState) => state.chattingRoomState.currentChatUserList,
   );
 
-  const closeDrawer = () => {
-    setIsDrawerOpen(false);
-    console.log(users);
-  };
+  const closeDrawer = useCallback<(e: MouseEvent) => void>(
+    (e) => {
+      setIsDrawerOpen(false);
+    },
+    [isDrawerOpen],
+  );
 
   const exitChatRoom = () => {
-    if (window.confirm('나가겠습니까?')) {
-      console.log('방나감');
+    if (window.confirm('정말 채팅방에서 나가시겠습니까?')) {
       exit();
       router.replace('/');
     }
   };
 
+  useEffect(() => {
+    if (isDrawerOpen) {
+      document.addEventListener('click', closeDrawer);
+    }
+    return () => {
+      document.removeEventListener('click', closeDrawer);
+    };
+  }, [isDrawerOpen]);
+
   return (
-    <Container isDrawerOpen={isDrawerOpen}>
+    <Container isDrawerOpen={isDrawerOpen} ref={containerRef}>
       <Content>
         <Title>내꺼톡 서랍</Title>
         <div>
@@ -106,14 +118,6 @@ const ChatDrawer = ({ exit, setIsDrawerOpen, isDrawerOpen }: PropsType) => {
           />
           <span>나가기</span>
         </ExitButton>
-        <Button onClick={closeDrawer}>
-          <Image
-            src='/assets/images/settingblack.svg'
-            width={18}
-            height={24}
-            alt='서랍 설정'
-          />
-        </Button>
       </Footer>
     </Container>
   );
@@ -222,8 +226,7 @@ const Footer = styled.div`
 `;
 
 const Button = styled.button`
-  outline: none;
-  border: none;
+  all: unset;
   background: #fff;
   cursor: pointer;
 `;
@@ -231,7 +234,7 @@ const Button = styled.button`
 const ExitButton = styled(Button)`
   display: flex;
   align-items: center;
-  gap: 3px;
+  gap: 5px;
 `;
 
 export default ChatDrawer;

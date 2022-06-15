@@ -133,7 +133,6 @@ const ChattingTemplate = () => {
   const sendImage = (e) => {
     const fileReader = new FileReader();
     const imgFile = e.target.files[0];
-    console.log('타겟', imgFile);
     fileReader.readAsDataURL(imgFile);
     fileReader.onload = (e) => {
       const result = e.target.result;
@@ -154,9 +153,6 @@ const ChattingTemplate = () => {
     connect(socket);
     return () => disconnect();
   }, []);
-
-  console.log(user_id, 123);
-  console.log(chatRoomInfo);
 
   return (
     <Container>

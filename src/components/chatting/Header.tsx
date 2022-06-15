@@ -3,7 +3,6 @@ import Image from 'next/image';
 import styled, { css } from 'styled-components';
 import palette from '../../styles/palette';
 import Link from 'next/link';
-import { ChattingRoomInfoResponse } from '../../modules/chatting/types';
 import { useCustomRouter } from '../../hooks/utils/useCustomRouter';
 
 type StyledType = {

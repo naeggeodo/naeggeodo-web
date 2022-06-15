@@ -22,7 +22,7 @@ const CreateInit = () => {
         <Title>주문하실건가요?</Title>
       </div>
       <Content>
-        {buttonValue.map((item, i) => (
+        {buttonValue.map((item) => (
           <OrderTimeTypeButton
             handleClick={selectOrderTypeTimeInComponent}
             key={item.text}
