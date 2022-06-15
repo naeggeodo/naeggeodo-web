@@ -10,9 +10,13 @@ export function useCustomRouter(url?: string) {
     router.back();
   }, [router]);
 
+  const routeReload = useCallback(() => {
+    router.reload();
+  }, [router]);
+
   const shiftPage = useCallback(() => {
     router.push(url);
   }, [router]);
 
-  return { routeBack, shiftPage };
+  return { routeBack, shiftPage, routeReload };
 }
