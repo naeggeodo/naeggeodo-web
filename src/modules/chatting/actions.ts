@@ -66,6 +66,8 @@ export const CHANGE_CURRENT_COUNT_IN_CHATTING =
 export const SET_IMAGE_LIST_IN_CHATTING =
   namespace + 'SET_IMAGE_LIST_IN_CHATTING';
 
+export const SET_PARTICIPATING_USERS = namespace + 'SET_PARTICIPATING_USERS';
+
 // action creators
 export const getCurrentChatRoomAsyncActions = createAsyncAction(
   GET_CURRENT_CHATROOM_INFO_REQUEST,
@@ -110,4 +112,9 @@ export const changeCurrentCountInChatting = createAction(
 export const setImageListInChatting = createAction(
   SET_IMAGE_LIST_IN_CHATTING,
   (image) => ({ image }),
+)();
+
+export const setParticipatingUsers = createAction(
+  SET_PARTICIPATING_USERS,
+  (data) => data,
 )();

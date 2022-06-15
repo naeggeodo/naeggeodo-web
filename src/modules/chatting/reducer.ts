@@ -8,6 +8,7 @@ import {
   CHANGE_CURRENT_COUNT_IN_CHATTING,
   SET_IMAGE_LIST_IN_CHATTING,
   setImageListInChatting,
+  SET_PARTICIPATING_USERS,
 } from './actions';
 import {
   ChattingRoomInfoResponse,
@@ -117,6 +118,13 @@ export const chattingRoomState = createReducer<ChattingRoomState>(
     ) => ({
       ...state,
       imageList: [...state.imageList, action.payload.image],
+    }),
+    [SET_PARTICIPATING_USERS]: (state, action) => ({
+      ...state,
+      currentChatUserList: {
+        ...state.currentChatUserList,
+        users: action.payload,
+      },
     }),
   },
 );

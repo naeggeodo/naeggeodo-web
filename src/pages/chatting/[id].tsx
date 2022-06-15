@@ -5,7 +5,6 @@ import ChattingTemplate from '../../components/chatting/ChattingTemplate';
 import {
   getChattingListActions,
   getCurrentChatRoomAsyncActions,
-  getCurrentChatUserListActions,
   getUserNicknameActions,
 } from '../../modules/chatting/actions';
 import { saveCookies } from '../../utils/saveCookies';
@@ -30,12 +29,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
       getChattingListActions.request({
         chattingRoomId: context.params.id as string,
         userId: user_id,
-      }),
-    );
-
-    store.dispatch(
-      getCurrentChatUserListActions.request({
-        chattingRoomId: String(context.params.id),
       }),
     );
 

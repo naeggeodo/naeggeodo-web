@@ -15,6 +15,7 @@ import {
   changeCurrentCountInChatting,
   setCurrentChattingList,
   setImageListInChatting,
+  setParticipatingUsers,
 } from '../../modules/chatting/actions';
 import DateFormatter from '../../utils/DateFormatter';
 import { useChat } from '../../hooks/useChat';
@@ -113,6 +114,9 @@ const ChattingTemplate = () => {
                 changeCurrentCountInChatting(
                   JSON.parse(newMessage.contents).currentCount,
                 ),
+              );
+              dispatch(
+                setParticipatingUsers(JSON.parse(newMessage.contents).users),
               );
             } else if (newMessage.type === 'IMAGE') {
               dispatch(setImageListInChatting(newMessage.contents));

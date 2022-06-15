@@ -113,7 +113,7 @@ const ChatDrawer = ({
           <MemberItemWrapper>
             {users.map((user) => {
               return (
-                <React.Fragment>
+                <React.Fragment key={user.user_id}>
                   <MemberItem key={user.user_id}>
                     <FlexWrapper>
                       <Image
