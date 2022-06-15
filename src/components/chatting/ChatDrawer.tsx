@@ -14,9 +14,15 @@ type PropsType = {
   exit: any;
   setIsDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
   isDrawerOpen: boolean;
+  currentCount: number;
 };
 
-const ChatDrawer = ({ exit, setIsDrawerOpen, isDrawerOpen }: PropsType) => {
+const ChatDrawer = ({
+  exit,
+  setIsDrawerOpen,
+  isDrawerOpen,
+  currentCount,
+}: PropsType) => {
   const router = useRouter();
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -60,14 +66,6 @@ const ChatDrawer = ({ exit, setIsDrawerOpen, isDrawerOpen }: PropsType) => {
               alt='사진 아이콘'
             />
             사진
-            <NextButton>
-              <Image
-                src='/assets/images/nextbtn.svg'
-                width={15}
-                height={15}
-                alt='다음 버튼'
-              />
-            </NextButton>
           </SubTitle>
           <ImageList>
             <Image
@@ -87,25 +85,25 @@ const ChatDrawer = ({ exit, setIsDrawerOpen, isDrawerOpen }: PropsType) => {
               height={15}
               alt='사진 아이콘'
             />
-            참여자(4)
+            참여자({currentCount})
           </SubTitle>
-          <div>
-            <MemberItem>
-              <Image
-                src='/assets/images/profile.svg'
-                width={40}
-                height={40}
-                alt='프로필'
-                objectFit='contain'
-              />
-              {users.length > 0 &&
-                users.map((user, i) => (
-                  <Nickname isMe={true} key={i}>
-                    {user.nickname}
-                  </Nickname>
-                ))}
-            </MemberItem>
-          </div>
+
+          <MemberItemWrapper>
+            {users.map((user) => {
+              return (
+                <MemberItem key={user.user_id}>
+                  <Image
+                    src='/assets/images/profile.svg'
+                    width={40}
+                    height={40}
+                    alt='프로필'
+                    objectFit='contain'
+                  />
+                  <Nickname>{user.nickname}</Nickname>
+                </MemberItem>
+              );
+            })}
+          </MemberItemWrapper>
         </div>
       </Content>
       <Footer>
@@ -186,10 +184,18 @@ const ImageList = styled.div`
   overflow-y: hidden;
 `;
 
+const MemberItemWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
 const MemberItem = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
+
+  cursor: pointer;
 `;
 
 const Nickname = styled.p<StyledType>`

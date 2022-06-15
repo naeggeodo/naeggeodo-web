@@ -192,6 +192,7 @@ const ChattingTemplate = () => {
         sendImage={sendImage}
       />
       <ChatDrawer
+        currentCount={currentCount}
         exit={exit}
         isDrawerOpen={isDrawerOpen}
         setIsDrawerOpen={setIsDrawerOpen}
