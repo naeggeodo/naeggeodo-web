@@ -5,8 +5,7 @@ import {
   GET_QUICK_MESSAGE_LIST_SUCCESS,
   SET_CURRENT_CHATTING_LIST,
   GET_USER_NICKNAME_SUCCESS,
-  PLUS_CURRENT_COUNT_IN_CHATTING,
-  MINUS_CURRENT_COUNT_IN_CHATTING,
+  CHANGE_CURRENT_COUNT_IN_CHATTING,
 } from './actions';
 import {
   ChattingRoomInfoResponse,
@@ -101,18 +100,11 @@ export const chattingRoomState = createReducer<ChattingRoomState>(
       ...state,
       nickname: action.payload,
     }),
-    [PLUS_CURRENT_COUNT_IN_CHATTING]: (state, action) => ({
+    [CHANGE_CURRENT_COUNT_IN_CHATTING]: (state, action) => ({
       ...state,
       chatRoomInfo: {
         ...state.chatRoomInfo,
-        currentCount: state.chatRoomInfo.currentCount + 1,
-      },
-    }),
-    [MINUS_CURRENT_COUNT_IN_CHATTING]: (state, action) => ({
-      ...state,
-      chatRoomInfo: {
-        ...state.chatRoomInfo,
-        currentCount: state.chatRoomInfo.currentCount - 1,
+        currentCount: action.payload.currentCount,
       },
     }),
   },

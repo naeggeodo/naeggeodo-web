@@ -12,8 +12,7 @@ import { RootState } from '../../modules';
 import ChattingList from './ChattingList';
 import { useSelectLoginStates } from '../../hooks/select/useSelectLoginStates';
 import {
-  minusCurrentCountInChatting,
-  plusCurrentCountInChatting,
+  changeCurrentCountInChatting,
   setCurrentChattingList,
 } from '../../modules/chatting/actions';
 import DateFormatter from '../../utils/DateFormatter';
@@ -66,7 +65,6 @@ const ChattingTemplate = () => {
       type: 'WELCOME',
       nickname,
     };
-    dispatch(plusCurrentCountInChatting());
     stompClient.send('/app/chat/enter', {}, JSON.stringify(sendData));
   }
 
@@ -78,7 +76,6 @@ const ChattingTemplate = () => {
       type: 'EXIT',
       nickname,
     };
-    dispatch(minusCurrentCountInChatting());
     stompClient.send('/app/chat/exit', {}, JSON.stringify(data));
   }
 
@@ -99,6 +96,7 @@ const ChattingTemplate = () => {
           `/topic/${router.query.id}`,
           (data) => {
             const newMessage = JSON.parse(data.body);
+
             const body = {
               chatMain_id: newMessage.chatMain_id,
               contents: newMessage.contents,
@@ -108,6 +106,14 @@ const ChattingTemplate = () => {
               nickname: newMessage.nickname,
             };
             dispatch(setCurrentChattingList(body));
+
+            if (newMessage.type === 'CNT') {
+              dispatch(
+                changeCurrentCountInChatting(
+                  JSON.parse(newMessage.contents).currentCount,
+                ),
+              );
+            }
           },
           { chatMain_id: router.query.id as string },
         );

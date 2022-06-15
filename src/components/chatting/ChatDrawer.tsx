@@ -38,14 +38,14 @@ const ChatDrawer = ({ exit, setIsDrawerOpen, isDrawerOpen }: PropsType) => {
     }
   };
 
-  useEffect(() => {
-    if (isDrawerOpen) {
-      document.addEventListener('click', closeDrawer);
-    }
-    return () => {
-      document.removeEventListener('click', closeDrawer);
-    };
-  }, [isDrawerOpen]);
+  // useEffect(() => {
+  //   if (isDrawerOpen) {
+  //     document.addEventListener('click', closeDrawer);
+  //   }
+  //   return () => {
+  //     document.removeEventListener('click', closeDrawer);
+  //   };
+  // }, [isDrawerOpen]);
 
   return (
     <Container isDrawerOpen={isDrawerOpen} ref={containerRef}>
@@ -118,6 +118,7 @@ const ChatDrawer = ({ exit, setIsDrawerOpen, isDrawerOpen }: PropsType) => {
           />
           <span>나가기</span>
         </ExitButton>
+        <button onClick={() => setIsDrawerOpen(false)}>닫기</button>
       </Footer>
     </Container>
   );
