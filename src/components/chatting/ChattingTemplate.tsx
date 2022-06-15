@@ -197,6 +197,7 @@ const ChattingTemplate = () => {
         sendImage={sendImage}
       />
       <ChatDrawer
+        masterId={chatRoomInfo.user_id}
         currentCount={currentCount}
         exit={exit}
         isDrawerOpen={isDrawerOpen}

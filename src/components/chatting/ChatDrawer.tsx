@@ -16,6 +16,7 @@ type PropsType = {
   setIsDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
   isDrawerOpen: boolean;
   currentCount: number;
+  masterId: string;
 };
 
 const ChatDrawer = ({
@@ -23,6 +24,7 @@ const ChatDrawer = ({
   setIsDrawerOpen,
   isDrawerOpen,
   currentCount,
+  masterId,
 }: PropsType) => {
   const router = useRouter();
   const containerRef = useRef<HTMLDivElement>(null);
@@ -111,18 +113,30 @@ const ChatDrawer = ({
           <MemberItemWrapper>
             {users.map((user) => {
               return (
-                <MemberItem key={user.user_id}>
-                  <Image
-                    src='/assets/images/profile.svg'
-                    width={40}
-                    height={40}
-                    alt='프로필'
-                    objectFit='contain'
-                  />
-                  <Nickname isMe={user.user_id === my_id}>
-                    {user.nickname}
-                  </Nickname>
-                </MemberItem>
+                <React.Fragment>
+                  <MemberItem key={user.user_id}>
+                    <FlexWrapper>
+                      <Image
+                        src='/assets/images/profile.svg'
+                        width={40}
+                        height={40}
+                        alt='프로필'
+                        objectFit='contain'
+                      />
+
+                      <Nickname isMe={user.user_id === my_id}>
+                        {user.nickname}
+                      </Nickname>
+                    </FlexWrapper>
+
+                    {masterId === user.user_id && (
+                      <Image
+                        src='/assets/images/king.svg'
+                        width={25}
+                        height={25}></Image>
+                    )}
+                  </MemberItem>
+                </React.Fragment>
               );
             })}
           </MemberItemWrapper>
@@ -204,7 +218,9 @@ const MemberItemWrapper = styled.div`
 
 const MemberItem = styled.div`
   display: flex;
+  justify-content: space-between;
   align-items: center;
+  padding-right: 10px;
   gap: 10px;
 
   background-color: ${palette.LightGray2};
@@ -213,6 +229,11 @@ const MemberItem = styled.div`
   cursor: pointer;
 `;
 
+const FlexWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
 const Nickname = styled.p<StyledType>`
   font-size: 0.9375rem;
   ${(props) =>
