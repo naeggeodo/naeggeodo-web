@@ -21,6 +21,7 @@ import DateFormatter from '../../utils/DateFormatter';
 import { useChat } from '../../hooks/useChat';
 import { useSelectChatRoomInfo } from '../../hooks/select/useSelectChatRoomInfo';
 import { useLoadLib } from '../../hooks/utils/useLoadLib';
+import ExitModalTemplate from './ExitModalTemplate';
 
 var stompClient;
 
@@ -35,6 +36,9 @@ const ChattingTemplate = () => {
     useSelectChatRoomInfo();
   const { chatRoomInfo, chattingList, nickname } = useSelector(
     (state: RootState) => state.chattingRoomState,
+  );
+  const exitModalIsOpen = useSelector(
+    (state: RootState) => state.modalStates.exitModalIsOpen,
   );
 
   const [message, setMessage] = useState('');
@@ -203,10 +207,10 @@ const ChattingTemplate = () => {
       <ChatDrawer
         masterId={chatRoomInfo.user_id}
         currentCount={currentCount}
-        exit={exit}
         isDrawerOpen={isDrawerOpen}
         setIsDrawerOpen={setIsDrawerOpen}
       />
+      {exitModalIsOpen ? <ExitModalTemplate exit={exit} /> : null}
     </Container>
   );
 };

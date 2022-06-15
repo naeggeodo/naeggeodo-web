@@ -3,7 +3,9 @@ import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
+import { useLoadLib } from '../../hooks/utils/useLoadLib';
 import { RootState } from '../../modules';
+import { openExitModal } from '../../modules/modal/actions';
 import palette from '../../styles/palette';
 
 type StyledType = {
@@ -12,7 +14,6 @@ type StyledType = {
 };
 
 type PropsType = {
-  exit: any;
   setIsDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
   isDrawerOpen: boolean;
   currentCount: number;
@@ -20,13 +21,12 @@ type PropsType = {
 };
 
 const ChatDrawer = ({
-  exit,
   setIsDrawerOpen,
   isDrawerOpen,
   currentCount,
   masterId,
 }: PropsType) => {
-  const router = useRouter();
+  const { dispatch, router } = useLoadLib();
   const containerRef = useRef<HTMLDivElement>(null);
 
   const { users } = useSelector(
@@ -46,21 +46,9 @@ const ChatDrawer = ({
     [isDrawerOpen],
   );
 
-  const exitChatRoom = () => {
-    if (window.confirm('정말 채팅방에서 나가시겠습니까?')) {
-      exit();
-      router.replace('/');
-    }
-  };
-
-  // useEffect(() => {
-  //   if (isDrawerOpen) {
-  //     document.addEventListener('click', closeDrawer);
-  //   }
-  //   return () => {
-  //     document.removeEventListener('click', closeDrawer);
-  //   };
-  // }, [isDrawerOpen]);
+  const exitChatRoom = useCallback(() => {
+    dispatch(openExitModal());
+  }, [dispatch]);
 
   return (
     <Container isDrawerOpen={isDrawerOpen} ref={containerRef}>

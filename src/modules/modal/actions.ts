@@ -15,6 +15,9 @@ export const OPEN_COPY_COMPLETE_MODAL = namespace + 'OPEN_COPY_COMPLETE_MODAL';
 export const CLOSE_COPY_COMPLETE_MODAL =
   namespace + 'CLOSE_COPY_COMPLETE_MODAL';
 
+export const OPEN_EXIT_MODAL = namespace + 'OPEN_EXIT_MODAL';
+export const CLOSE_EXIT_MODAL = namespace + 'CLOSE_EXIT_MODAL';
+
 export const openLoginModal = createAction(OPEN_LOGIN_MODAL, () => ({}))();
 export const closeLoginModal = createAction(CLOSE_LOGIN_MODAL, () => ({}))();
 
@@ -44,3 +47,6 @@ export const closeCopyCompleteModal = createAction(
   CLOSE_COPY_COMPLETE_MODAL,
   () => ({}),
 )();
+
+export const openExitModal = createAction(OPEN_EXIT_MODAL, () => ({}))();
+export const closeExitModal = createAction(CLOSE_EXIT_MODAL, () => ({}))();
