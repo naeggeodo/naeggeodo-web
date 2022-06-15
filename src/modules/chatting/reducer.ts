@@ -18,7 +18,7 @@ import { createReducer } from 'typesafe-actions';
 type ChattingRoomState = {
   chatRoomInfo: ChattingRoomInfoResponse | null;
   chattingList: ChattingListResponse;
-  quickChatList: QuickChattingListResponse | null;
+  quickChatList: QuickChattingListResponse;
   currentChatUserList: CurrentChatUserListResponse | null;
   nickname: string | null;
 };
@@ -45,7 +45,10 @@ const initialChattingRoomState: ChattingRoomState = {
     createDate: '',
   },
   chattingList: { messages: [] },
-  quickChatList: null,
+  quickChatList: {
+    quickChat: [],
+    user_id: '',
+  },
   currentChatUserList: { users: [] },
   nickname: null,
 };

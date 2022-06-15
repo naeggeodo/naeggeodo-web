@@ -1,18 +1,19 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { CompatClient } from '@stomp/stompjs';
 import { useSelector } from 'react-redux';
 import Image from 'next/image';
 
-import { useChat } from '../../hooks/useChat';
-import { useSlideMessage } from '../../hooks/useSlideMessage';
-import palette from '../../styles/palette';
-import { RootState } from '../../modules';
-import { QuickChattingListResponse } from '../../modules/chatting/types';
+import { useChat } from '../../../hooks/useChat';
+import { useSlideMessage } from '../../../hooks/useSlideMessage';
+import palette from '../../../styles/palette';
+import { RootState } from '../../../modules';
+import { QuickChattingListResponse } from '../../../modules/chatting/types';
 import { useRouter } from 'next/router';
-import { useSelectLoginStates } from '../../hooks/select/useSelectLoginStates';
+import { useSelectLoginStates } from '../../../hooks/select/useSelectLoginStates';
+import QuickChatListEditModal from './QuickChatListEditModal';
 
-const QuickMessageComp = ({ stompClient }: { stompClient: CompatClient }) => {
+const QuickChatList = ({ stompClient }: { stompClient: CompatClient }) => {
   const target = useRef<HTMLDivElement>(null);
   const slideBar = useRef<HTMLDivElement>(null);
 
@@ -28,6 +29,9 @@ const QuickMessageComp = ({ stompClient }: { stompClient: CompatClient }) => {
     (state: RootState) => state.chattingRoomState.quickChatList,
   );
   const { user_id } = useSelectLoginStates();
+
+  const [isQuickChatEditModalOpen, setIsQuickChatEditModalOpen] =
+    useState(false);
 
   useEffect(() => {
     slideEvent(slideBar, target);
@@ -49,6 +53,9 @@ const QuickMessageComp = ({ stompClient }: { stompClient: CompatClient }) => {
     slideDown(target);
   };
 
+  const openQuickChatEditModal = () => {
+    setIsQuickChatEditModalOpen(true);
+  };
   return (
     <Container ref={target}>
       <Div ref={slideBar}>
@@ -59,13 +66,13 @@ const QuickMessageComp = ({ stompClient }: { stompClient: CompatClient }) => {
           height={3}
         />
       </Div>
-      {/* {quickChatList.quickChat &&
+      {quickChatList.quickChat &&
         quickChatList.quickChat.map((quickChat) => (
           <Item key={quickChat.idx} onClick={sendMessage}>
             {quickChat.msg}
           </Item>
-        ))} */}
-      <EditBtn>
+        ))}
+      <EditBtn onClick={openQuickChatEditModal}>
         <p>편집하기</p>
         <Image
           src='/assets/images/setting.svg'
@@ -74,6 +81,7 @@ const QuickMessageComp = ({ stompClient }: { stompClient: CompatClient }) => {
           height={20}
         />
       </EditBtn>
+      {isQuickChatEditModalOpen && <QuickChatListEditModal />}
     </Container>
   );
 };
@@ -129,4 +137,4 @@ const EditBtn = styled.button`
   border: none;
 `;
 
-export default QuickMessageComp;
+export default QuickChatList;

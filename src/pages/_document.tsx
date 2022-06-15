@@ -57,6 +57,7 @@ export default class MyDocument extends Document {
           <div id='webviewPortal'></div>
           <div id='loginPortal'></div>
           <div id='reportPortal'></div>
+          <div id='chattingPortal'></div>
           <Main />
           <NextScript />
         </body>

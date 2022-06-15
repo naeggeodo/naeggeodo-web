@@ -19,6 +19,7 @@ import DateFormatter from '../../utils/DateFormatter';
 import { useChat } from '../../hooks/useChat';
 import { useSelectChatRoomInfo } from '../../hooks/select/useSelectChatRoomInfo';
 import { useLoadLib } from '../../hooks/utils/useLoadLib';
+import QuickChatList from './quickChat/QuickChatList';
 
 var stompClient;
 
@@ -184,7 +185,7 @@ const ChattingTemplate = () => {
         <ChattingList messageList={chattingList.messages} />
         <div ref={scrollRef} />
       </Content>
-      {/* <QuickMessageComp stompClient={stompClient} /> */}
+      <QuickChatList stompClient={stompClient} />
       <SubmitForm
         changeMessage={changeMessage}
         message={message}

@@ -67,7 +67,7 @@ export type UserId = {
   userId: string;
 };
 
-type QuickChatting = {
+export type QuickChatting = {
   msg: string;
   idx: number;
 };

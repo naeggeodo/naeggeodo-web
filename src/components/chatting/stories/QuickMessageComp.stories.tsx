@@ -1,7 +1,7 @@
 import { ComponentMeta } from '@storybook/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '../../../modules';
-import QuickMessageComp from '../QuickMessageComp';
+import QuickChatList from '../quickChat/QuickChatList';
 
 type Args = {
   stompClient: null;
@@ -21,7 +21,7 @@ type Args = {
 
 export default {
   title: 'chatting/컴포넌트',
-  component: QuickMessageComp,
+  component: QuickChatList,
   decorators: [
     (Story) => (
       <Provider store={configureStore()}>
@@ -32,9 +32,9 @@ export default {
   parameters: {
     layout: 'fullscreen',
   },
-} as ComponentMeta<typeof QuickMessageComp>;
+} as ComponentMeta<typeof QuickChatList>;
 
-const Template = (args: Args) => <QuickMessageComp {...args} />;
+const Template = (args: Args) => <QuickChatList {...args} />;
 export const QuickMessageStory = Template.bind({});
 
 QuickMessageStory.storyName = '빠른 메시지 전송';
