@@ -66,10 +66,17 @@ const ProgressTalkItem = ({
             {user_id === myId ? (
               <Image
                 src='/assets/images/pencilicon.svg'
-                width={23}
-                height={23}></Image>
+                width={26}
+                height={26}></Image>
             ) : null}
           </ModifyButton>
+
+          <ConfirmButton>
+            <Image
+              src='/assets/images/check.svg'
+              width={26}
+              height={26}></Image>
+          </ConfirmButton>
         </TimeTitleWrapper>
 
         <Contents>
@@ -169,6 +176,11 @@ const Contents = styled.div`
 `;
 
 const ModifyButton = styled.button`
+  all: unset;
+  cursor: pointer;
+`;
+
+const ConfirmButton = styled.button`
   all: unset;
   cursor: pointer;
 `;

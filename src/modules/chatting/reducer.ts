@@ -16,7 +16,7 @@ import {
   ChattingListResponse,
   QuickChattingListResponse,
 } from './types';
-import { action, createReducer } from 'typesafe-actions';
+import { createReducer } from 'typesafe-actions';
 
 type ChattingRoomState = {
   chatRoomInfo: ChattingRoomInfoResponse | null;
