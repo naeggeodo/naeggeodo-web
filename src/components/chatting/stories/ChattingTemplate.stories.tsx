@@ -1,7 +1,7 @@
 import { ComponentMeta } from '@storybook/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '../../../modules';
-import { ChattingListResponse } from '../../../modules/chatting/types';
+import { getServerSideProps } from '../../../pages/chatting/[id]';
 import ChattingTemplate from '../ChattingTemplate';
 
 // TODO
@@ -20,27 +20,14 @@ export default {
   },
 } as ComponentMeta<typeof ChattingTemplate>;
 
-// const ChattingPageStory = (args: {
-//   previousChatting: ChattingListResponse;
-// }) => <ChattingTemplate {...args} />;
+export const ChattingPageStory = () => <ChattingTemplate />;
 
-// export const ChattingPage = ChattingPageStory.bind({});
+ChattingPageStory.loaders = [
+  async (context) => {
+    console.log('context', context);
+    const data = await getServerSideProps(context);
+    return data;
+  },
+];
 
-// ChattingPage.args = {
-//   previousChatting: {
-//     messages: [
-//       {
-//         user_id: 1,
-//         id: 1,
-//         idx: 1,
-//         chatMain_id: 1,
-//         regDate: '2022-05-13T15:52:52',
-//         sender: 2,
-//         contents: '교촌치킨 먹고싶어요',
-//         type: 'TEXT',
-//       },
-//     ],
-//   },
-// };
-
-// ChattingPage.storyName = '채팅 페이지';
+ChattingPageStory.storyName = '채팅 페이지';

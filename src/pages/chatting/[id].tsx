@@ -23,19 +23,22 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
     store.dispatch(
       getCurrentChatRoomAsyncActions.request({
-        chattingRoomId: context.params.id as string,
+        // chattingRoomId: context.params.id as string,
+        chattingRoomId: '276',
       }),
     );
     store.dispatch(
       getChattingListActions.request({
-        chattingRoomId: context.params.id as string,
+        // chattingRoomId: context.params.id as string,
+        chattingRoomId: '276',
         userId: user_id,
       }),
     );
 
     store.dispatch(
       getCurrentChatUserListActions.request({
-        chattingRoomId: String(context.params.id),
+        // chattingRoomId: String(context.params.id),
+        chattingRoomId: '276',
       }),
     );
 
