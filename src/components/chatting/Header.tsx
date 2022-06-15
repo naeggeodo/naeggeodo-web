@@ -8,6 +8,9 @@ import { useCustomRouter } from '../../hooks/utils/useCustomRouter';
 type StyledType = {
   name: 'title' | 'info';
 };
+type StyledProps = {
+  max: string;
+};
 
 type PropsType = {
   setIsDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -54,7 +57,10 @@ const Header = ({
           <LinkWrapper target='_blank' rel='noopener noreferrer'>
             <Info name='title'>{title}</Info>
             <Info name='info'>
-              인원{currentCount}명/{maxCount}명
+              <StyledCurrent max={currentCount === maxCount ? 'true' : 'false'}>
+                현재 {currentCount}명
+              </StyledCurrent>
+              /{maxCount}명
             </Info>
           </LinkWrapper>
         </Link>
@@ -142,6 +148,16 @@ const HambergurButton = styled.button`
   right: 0;
 
   padding: 10px;
+`;
+
+const StyledCurrent = styled.span<StyledProps>`
+  color: ${palette.naverGreen};
+
+  ${(props) =>
+    props.max === 'true' &&
+    css`
+      color: red;
+    `}
 `;
 
 export default Header;
