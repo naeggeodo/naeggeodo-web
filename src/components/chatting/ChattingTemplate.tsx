@@ -11,7 +11,11 @@ import ChatDrawer from './ChatDrawer';
 import { RootState } from '../../modules';
 import ChattingList from './ChattingList';
 import { useSelectLoginStates } from '../../hooks/select/useSelectLoginStates';
-import { setCurrentChattingList } from '../../modules/chatting/actions';
+import {
+  minusCurrentCountInChatting,
+  plusCurrentCountInChatting,
+  setCurrentChattingList,
+} from '../../modules/chatting/actions';
 import DateFormatter from '../../utils/DateFormatter';
 import { useChat } from '../../hooks/useChat';
 import { useSelectChatRoomInfo } from '../../hooks/select/useSelectChatRoomInfo';
@@ -50,7 +54,7 @@ const ChattingTemplate = () => {
     if (e.headers.message) {
       console.log(e.headers.message);
     }
-    alert('나가세요');
+    alert('문제가 발생하여 채팅방에서 나가집니다.');
     location.href = '/';
   };
 
@@ -62,6 +66,7 @@ const ChattingTemplate = () => {
       type: 'WELCOME',
       nickname,
     };
+    dispatch(plusCurrentCountInChatting());
     stompClient.send('/app/chat/enter', {}, JSON.stringify(sendData));
   }
 
@@ -73,6 +78,7 @@ const ChattingTemplate = () => {
       type: 'EXIT',
       nickname,
     };
+    dispatch(minusCurrentCountInChatting());
     stompClient.send('/app/chat/exit', {}, JSON.stringify(data));
   }
 

@@ -5,6 +5,8 @@ import {
   GET_QUICK_MESSAGE_LIST_SUCCESS,
   SET_CURRENT_CHATTING_LIST,
   GET_USER_NICKNAME_SUCCESS,
+  PLUS_CURRENT_COUNT_IN_CHATTING,
+  MINUS_CURRENT_COUNT_IN_CHATTING,
 } from './actions';
 import {
   ChattingRoomInfoResponse,
@@ -23,7 +25,26 @@ type ChattingRoomState = {
 };
 
 const initialChattingRoomState: ChattingRoomState = {
-  chatRoomInfo: null,
+  chatRoomInfo: {
+    address: '',
+    endDate: null,
+    buildingCode: '',
+    link: '',
+    orderTimeType: '',
+    title: '',
+    maxCount: 0,
+    tags: [],
+    bookmarks: null,
+    user_id: '',
+    imgPath: '',
+    currentCount: 0,
+    bookmarksDate: '',
+    id: 0,
+    state: null,
+    place: '',
+    category: null,
+    createDate: '',
+  },
   chattingList: { messages: [] },
   quickChatList: null,
   currentChatUserList: { users: [] },
@@ -35,7 +56,27 @@ export const chattingRoomState = createReducer<ChattingRoomState>(
   {
     [GET_CURRENT_CHATROOM_INFO_SUCCESS]: (state, action) => ({
       ...state,
-      chatRoomInfo: action.payload,
+      chatRoomInfo: {
+        ...state.chatRoomInfo,
+        address: action.payload.address,
+        endDate: action.payload.endDate,
+        buildingCode: action.payload.buildingCode,
+        link: action.payload.link,
+        orderTimeType: action.payload.orderTimeType,
+        title: action.payload.title,
+        maxCount: action.payload.maxCount,
+        tag: action.payload.tags,
+        bookmarks: action.payload.bookmarks,
+        user_id: action.payload.user_id,
+        imgPath: action.payload.imgPath,
+        currentCount: action.payload.currentCount,
+        bookmarkDate: action.payload.bookmarksDate,
+        id: action.payload.id,
+        state: action.payload.state,
+        place: action.payload.place,
+        category: action.payload.category,
+        createDate: action.payload.createDate,
+      },
     }),
     [GET_CHATTING_LIST_SUCCESS]: (state, action) => ({
       ...state,
@@ -59,6 +100,20 @@ export const chattingRoomState = createReducer<ChattingRoomState>(
     [GET_USER_NICKNAME_SUCCESS]: (state, action) => ({
       ...state,
       nickname: action.payload,
+    }),
+    [PLUS_CURRENT_COUNT_IN_CHATTING]: (state, action) => ({
+      ...state,
+      chatRoomInfo: {
+        ...state.chatRoomInfo,
+        currentCount: state.chatRoomInfo.currentCount + 1,
+      },
+    }),
+    [MINUS_CURRENT_COUNT_IN_CHATTING]: (state, action) => ({
+      ...state,
+      chatRoomInfo: {
+        ...state.chatRoomInfo,
+        currentCount: state.chatRoomInfo.currentCount - 1,
+      },
     }),
   },
 );

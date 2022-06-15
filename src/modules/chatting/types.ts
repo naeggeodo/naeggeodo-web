@@ -1,4 +1,10 @@
-import { ChatDetailType, Bookmarks, RemittanceState } from '../common/types';
+import {
+  ChatDetailType,
+  Bookmarks,
+  RemittanceState,
+  ChatState,
+  Category,
+} from '../common/types';
 
 export type ChattingRoomInfoRequest = {
   chattingRoomId: string;
@@ -17,11 +23,11 @@ export type ChattingRoomInfoResponse = {
   user_id: string;
   imgPath: string;
   currentCount: number;
-  bookmarkDate: string;
+  bookmarksDate: string;
   id: number;
-  state: string;
+  state: ChatState;
   place: string;
-  category: string;
+  category: Category;
   createDate: string;
 };
 

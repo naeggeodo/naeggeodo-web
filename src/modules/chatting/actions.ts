@@ -62,6 +62,11 @@ export const GET_USER_NICKNAME_SUCCESS =
 export const GET_USER_NICKNAME_FAILURE =
   namespace + 'GET_USER_NICKNAME_FAILURE';
 
+export const PLUS_CURRENT_COUNT_IN_CHATTING =
+  namespace + 'PLUS_CURRENT_COUNT_IN_CHATTING';
+export const MINUS_CURRENT_COUNT_IN_CHATTING =
+  namespace + 'MINUS_CURRENT_COUNT_IN_CHATTING';
+
 // action creators
 export const getCurrentChatRoomAsyncActions = createAsyncAction(
   GET_CURRENT_CHATROOM_INFO_REQUEST,
@@ -97,3 +102,13 @@ export const getUserNicknameActions = createAsyncAction(
   GET_USER_NICKNAME_SUCCESS,
   GET_USER_NICKNAME_FAILURE,
 )<string, string, AxiosError>();
+
+export const plusCurrentCountInChatting = createAction(
+  PLUS_CURRENT_COUNT_IN_CHATTING,
+  () => ({}),
+)();
+
+export const minusCurrentCountInChatting = createAction(
+  MINUS_CURRENT_COUNT_IN_CHATTING,
+  () => ({}),
+)();
