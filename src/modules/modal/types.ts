@@ -3,4 +3,5 @@ export interface ModalStates {
   searchPostCodeIsOpen: boolean;
   completeModalIsOpen: boolean;
   copyCompleteModalIsOpen: boolean;
+  exitModalIsOpen: boolean;
 }

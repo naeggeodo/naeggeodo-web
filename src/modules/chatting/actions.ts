@@ -35,8 +35,6 @@ export const GET_CHATTING_LIST_FAILURE =
 export const SET_CURRENT_CHATTING_LIST =
   namespace + 'SET_CURRENT_CHATTING_LIST';
 
-//************************************************ */
-
 export const GET_QUICK_MESSAGE_LIST_REQUEST =
   namespace + 'GET_QUICK_MESSAGE_LIST_REQUEST';
 
@@ -64,6 +62,11 @@ export const GET_USER_NICKNAME_FAILURE =
 
 export const CHANGE_CURRENT_COUNT_IN_CHATTING =
   namespace + 'CHANGE_CURRENT_COUNT_IN_CHATTING';
+
+export const SET_IMAGE_LIST_IN_CHATTING =
+  namespace + 'SET_IMAGE_LIST_IN_CHATTING';
+
+export const SET_PARTICIPATING_USERS = namespace + 'SET_PARTICIPATING_USERS';
 
 // action creators
 export const getCurrentChatRoomAsyncActions = createAsyncAction(
@@ -104,4 +107,14 @@ export const getUserNicknameActions = createAsyncAction(
 export const changeCurrentCountInChatting = createAction(
   CHANGE_CURRENT_COUNT_IN_CHATTING,
   (currentCount) => ({ currentCount }),
+)();
+
+export const setImageListInChatting = createAction(
+  SET_IMAGE_LIST_IN_CHATTING,
+  (image) => ({ image }),
+)();
+
+export const setParticipatingUsers = createAction(
+  SET_PARTICIPATING_USERS,
+  (data) => data,
 )();

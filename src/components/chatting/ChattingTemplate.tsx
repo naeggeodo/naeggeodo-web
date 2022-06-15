@@ -14,12 +14,15 @@ import { useSelectLoginStates } from '../../hooks/select/useSelectLoginStates';
 import {
   changeCurrentCountInChatting,
   setCurrentChattingList,
+  setImageListInChatting,
+  setParticipatingUsers,
 } from '../../modules/chatting/actions';
 import DateFormatter from '../../utils/DateFormatter';
 import { useChat } from '../../hooks/useChat';
 import { useSelectChatRoomInfo } from '../../hooks/select/useSelectChatRoomInfo';
 import { useLoadLib } from '../../hooks/utils/useLoadLib';
 import QuickChatList from './quickChat/QuickChatList';
+import ExitModalTemplate from './ExitModalTemplate';
 
 var stompClient;
 
@@ -34,6 +37,9 @@ const ChattingTemplate = () => {
     useSelectChatRoomInfo();
   const { chatRoomInfo, chattingList, nickname } = useSelector(
     (state: RootState) => state.chattingRoomState,
+  );
+  const exitModalIsOpen = useSelector(
+    (state: RootState) => state.modalStates.exitModalIsOpen,
   );
 
   const [message, setMessage] = useState('');
@@ -114,6 +120,11 @@ const ChattingTemplate = () => {
                   JSON.parse(newMessage.contents).currentCount,
                 ),
               );
+              dispatch(
+                setParticipatingUsers(JSON.parse(newMessage.contents).users),
+              );
+            } else if (newMessage.type === 'IMAGE') {
+              dispatch(setImageListInChatting(newMessage.contents));
             }
           },
           { chatMain_id: router.query.id as string },
@@ -164,7 +175,9 @@ const ChattingTemplate = () => {
   useEffect(() => {
     const socket = new SockJS(`${process.env.NEXT_PUBLIC_API_URL}/chat`);
     connect(socket);
-    return () => disconnect();
+    return () => {
+      disconnect();
+    };
   }, []);
 
   return (
@@ -193,11 +206,12 @@ const ChattingTemplate = () => {
         sendImage={sendImage}
       />
       <ChatDrawer
+        masterId={chatRoomInfo.user_id}
         currentCount={currentCount}
-        exit={exit}
         isDrawerOpen={isDrawerOpen}
         setIsDrawerOpen={setIsDrawerOpen}
       />
+      {exitModalIsOpen ? <ExitModalTemplate exit={exit} /> : null}
     </Container>
   );
 };
