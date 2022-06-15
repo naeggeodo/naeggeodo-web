@@ -12,7 +12,7 @@ export type ChattingRoomInfoResponse = {
   orderTimeType: string;
   title: string;
   maxCount: number;
-  tags: [];
+  tags: string[];
   bookmarks: Bookmarks;
   user_id: string;
   imgPath: string;

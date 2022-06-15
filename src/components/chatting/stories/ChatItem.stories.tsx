@@ -10,7 +10,20 @@ type Args = {
 export default {
   title: 'chatting/컴포넌트',
   component: ChatItem,
-  decorators: [(Story) => <Story />],
+  decorators: [
+    (Story) => (
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100vh',
+          width: '100vw',
+        }}>
+        <Story />
+      </div>
+    ),
+  ],
   parameters: {
     layout: 'fullscreen',
   },

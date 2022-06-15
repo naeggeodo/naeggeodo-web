@@ -9,6 +9,9 @@ type Args = {
 export default {
   title: 'create/컴포넌트',
   component: CreateButton,
+  parameters: {
+    layout: 'fullscreen',
+  },
   decorators: [
     (Story) => (
       <div
