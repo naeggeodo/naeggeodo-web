@@ -12,12 +12,15 @@ const ChatItem = ({
   message: ChattingListItem;
   date?: string;
 }) => {
-  // TODO 오늘 날짜는 안나오기
   const chatDate = useMemo(() => new DateFormatter(date), [date]);
   const currentDate = new Date();
-  const today = `${currentDate.getFullYear()}-${
-    currentDate.getMonth() + 1
-  }-${currentDate.getDate()}`;
+  const today = useMemo(
+    () =>
+      `${currentDate.getFullYear()}-${String(
+        currentDate.getMonth() + 1,
+      ).padStart(2, '0')}-${currentDate.getDate()}`,
+    [currentDate],
+  );
 
   return (
     <>
@@ -47,7 +50,9 @@ const ChatItem = ({
           </Content>
         )}
         <Time>
-          <span>{chatDate.formatDate()}</span>
+          {today === chatDate.date ? null : (
+            <span>{chatDate.formatDate()}</span>
+          )}
           <span>{chatDate.formatTime()}</span>
         </Time>
       </Container>

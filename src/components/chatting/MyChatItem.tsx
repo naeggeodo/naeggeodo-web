@@ -14,11 +14,19 @@ const MyChatItem = ({
   date?: string;
 }) => {
   const chatDate = useMemo(() => new DateFormatter(date), [date]);
+  const currentDate = new Date();
+  const today = useMemo(
+    () =>
+      `${currentDate.getFullYear()}-${String(
+        currentDate.getMonth() + 1,
+      ).padStart(2, '0')}-${currentDate.getDate()}`,
+    [currentDate],
+  );
 
   return (
     <Container>
       <Time>
-        <span>{chatDate.formatDate()}</span>
+        {today === chatDate.date ? null : <span>{chatDate.formatDate()}</span>}
         <span>{chatDate.formatTime()}</span>
       </Time>
       {message.contents.includes('data:image/') ? (
