@@ -12,7 +12,14 @@ export default {
   component: ChatItem,
   decorators: [
     (Story) => (
-      <div style={{ margin: '20px' }}>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100vh',
+          width: '100vw',
+        }}>
         <Story />
       </div>
     ),

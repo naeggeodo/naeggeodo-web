@@ -1,11 +1,12 @@
 import { ComponentMeta } from '@storybook/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '../../../modules';
-import SearchTemplate from '../SearchTemplate';
+import CompleteAlertModal from '../report/CompleteAlertModal';
+//TODO 아무것도 안나옴
 
 export default {
-  title: 'search/페이지',
-  component: SearchTemplate,
+  title: 'mypage/컴포넌트',
+  component: CompleteAlertModal,
   decorators: [
     (Story) => (
       <Provider store={configureStore()}>
@@ -16,8 +17,8 @@ export default {
   parameters: {
     layout: 'fullscreen',
   },
-} as ComponentMeta<typeof SearchTemplate>;
+} as ComponentMeta<typeof CompleteAlertModal>;
 
-export const SearchTabStory = () => <SearchTemplate />;
+export const CompleteAlertModalStory = () => <CompleteAlertModal />;
 
-SearchTabStory.storyName = '검색 탭 페이지';
+CompleteAlertModalStory.storyName = '완료 팝업';

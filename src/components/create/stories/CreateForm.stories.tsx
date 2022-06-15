@@ -22,4 +22,4 @@ export default {
 
 export const CreateFormStory = () => <CreateForm />;
 
-CreateFormStory.storyName = '내꺼톡 생성 페이지';
+CreateFormStory.storyName = '내꺼톡 생성 페이지 폼';
