@@ -39,6 +39,7 @@ const NotFound = () => {
 
 const Container = styled.div`
   height: 100vh;
+  background-color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
