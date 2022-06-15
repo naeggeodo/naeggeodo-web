@@ -1,11 +1,7 @@
 import Router from 'next/router';
 import { call, delay, put, takeLatest } from 'redux-saga/effects';
 import { CreateService } from '../../service/api/create/CreateService';
-import {
-  closeCompleteModal,
-  openCompleteModal,
-  openCopyCompleteModal,
-} from '../modal/actions';
+import { closeCompleteModal, openCompleteModal } from '../modal/actions';
 import {
   copyPrevChatRoomDataActions,
   COPY_PREV_CHATROOM_DATA_REQUEST,
@@ -19,6 +15,7 @@ import {
 } from './actions';
 import { CreateChatRoomResponse, PrevCreatedListResponses } from './types';
 
+// ** 정보 입력해서 생성하는 기능
 function* createChatRoomGenerator(
   action: ReturnType<typeof createChatRoomActions.request>,
 ) {
@@ -30,7 +27,7 @@ function* createChatRoomGenerator(
     yield put(createChatRoomActions.success(data));
 
     yield put(openCompleteModal());
-    yield delay(2500);
+    yield delay(2000);
     put(closeCompleteModal());
 
     yield put(initializeCreateStates());
@@ -40,6 +37,7 @@ function* createChatRoomGenerator(
   }
 }
 
+// ** 이전 생성 내용 불러오기 api SSR
 function* getPrevCreatedListGenerator(
   action: ReturnType<typeof getPrevCreatedListActions.request>,
 ) {
@@ -67,7 +65,7 @@ function* copyPrevChatRoomDataGenerator(
     yield put(copyPrevChatRoomDataActions.success(data.chatMain_id));
 
     yield put(openCompleteModal());
-    yield delay(2500);
+    yield delay(2000);
     put(closeCompleteModal());
 
     yield call(Router.push, `/chatting/${data.chatMain_id}`);

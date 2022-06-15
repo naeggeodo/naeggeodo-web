@@ -1,61 +1,19 @@
-import React, { useCallback, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React from 'react';
 import styled from 'styled-components';
-
 import { useLoadLib } from '../../hooks/utils/useLoadLib';
-import { RootState } from '../../modules';
-import { ButtonValue } from '../../modules/create/types';
-import { selectOrderTimeType } from '../../modules/create/actions';
-
-import { openLoginModal } from '../../modules/modal/actions';
-import OrderTimeTypeButton from './OrderTimeTypeButton';
 import palette from '../../styles/palette';
-import { OrderTimeType } from '../../modules/common/types';
 
-const buttonValue: ButtonValue[] = [
-  {
-    text: '1시간 이내',
-    value: 'ONE_HOUR',
-  },
-  {
-    text: '최대한 빨리',
-    value: 'QUICK',
-  },
-  {
-    text: '상관없음 (인원이 모집되는대로)',
-    value: 'FREEDOM',
-  },
-];
+import OrderTimeTypeButton from './OrderTimeTypeButton';
+import { buttonValue } from './data/data';
+import { useCreateInit } from '../../hooks/create/useCreateInit';
 
 const CreateInit = () => {
-  const [selectedOrderTimeType, setSelectedOrderTimeType] =
-    useState<OrderTimeType>();
-  const { router, dispatch } = useLoadLib();
-
-  const accessToken = useSelector(
-    (state: RootState) => state.loginState.accessToken,
-  );
-
-  const selectOrderTypeTimeInComponent = useCallback<
-    (e: React.MouseEvent<HTMLButtonElement>) => void
-  >(
-    (e) => {
-      if (!accessToken) {
-        dispatch(openLoginModal());
-      } else {
-        const orderTimeType = e.currentTarget.getAttribute(
-          'data-value',
-        ) as OrderTimeType;
-
-        setSelectedOrderTimeType(orderTimeType);
-      }
-    },
-    [dispatch, selectedOrderTimeType],
-  );
-
-  const dispatchOrderTimeType = useCallback(() => {
-    dispatch(selectOrderTimeType(selectedOrderTimeType));
-  }, [dispatch, selectedOrderTimeType]);
+  const { dispatch } = useLoadLib();
+  const {
+    selectOrderTypeTimeInComponent,
+    dispatchOrderTimeType,
+    selectedOrderTimeType,
+  } = useCreateInit(dispatch);
 
   return (
     <Container>

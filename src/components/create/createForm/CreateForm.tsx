@@ -10,7 +10,6 @@ import CreateButton from '../CreateButton';
 import SelectCategoryDrawer from './SelectCategoryDrawer';
 import palette from '../../../styles/palette';
 import { convertEngCategoryToKor } from '../../../utils/converEngCategoryToKor';
-import { CsrApiService } from '../../../service/api';
 import { useSelectLoginStates } from '../../../hooks/select/useSelectLoginStates';
 
 // ? 방 생성시 상세 정보 선택하는 페이지
