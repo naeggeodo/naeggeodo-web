@@ -1,5 +1,6 @@
 import {
   FormEvent,
+  MouseEvent,
   useCallback,
   useLayoutEffect,
   useRef,
@@ -23,7 +24,7 @@ export function useProgress(initialTitle: string, id: string) {
   >(
     (e) => {
       e.stopPropagation();
-      const id = e.currentTarget.getAttribute('id');
+      const id = e.currentTarget.getAttribute('data-id');
       setElementId(id);
     },
     [elementId],
@@ -44,8 +45,11 @@ export function useProgress(initialTitle: string, id: string) {
     setChatTitle(e.target.value);
   };
 
-  const onSaveTitle = (e: FormEvent<HTMLFormElement>) => {
+  const onSaveTitle = (
+    e: FormEvent<HTMLFormElement> | MouseEvent<HTMLButtonElement>,
+  ) => {
     e.preventDefault();
+    e.stopPropagation();
     dispatch(
       setProgressingChatRoomTitleActions.request({
         chatMain_id: String(id),
@@ -68,5 +72,6 @@ export function useProgress(initialTitle: string, id: string) {
     myId,
     chatTitle,
     inputRefs,
+    elementId,
   };
 }

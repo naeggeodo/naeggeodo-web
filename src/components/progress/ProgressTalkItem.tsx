@@ -1,5 +1,6 @@
 import Image from 'next/image';
-import { useCallback } from 'react';
+import { useRouter } from 'next/router';
+import { MouseEvent, useCallback } from 'react';
 import styled from 'styled-components';
 import { useProgress } from '../../hooks/progress/useProgress';
 import { useCustomRouter } from '../../hooks/utils/useCustomRouter';
@@ -30,17 +31,16 @@ const ProgressTalkItem = ({
     myId,
     chatTitle,
     inputRefs,
+    elementId,
   } = useProgress(title, id);
 
   const { shiftPage } = useCustomRouter(`/chatting/${id}`);
 
-  const enterChatRoom = useCallback((e) => {
-    e.stopPropagation();
-    shiftPage();
-  }, []);
-
   return (
-    <Container data-value={id} key={String(id)} onClick={enterChatRoom}>
+    <Container
+      data-value={id}
+      key={String(id)}
+      onClick={elementId !== id ? shiftPage : null}>
       <ImageContainer>
         <Image
           style={{ borderRadius: '10px' }}
@@ -62,21 +62,22 @@ const ProgressTalkItem = ({
               id={String(id)}
             />
           </form>
-          <ModifyButton onClick={handleModifyButtonClick} id={String(id)}>
-            {user_id === myId ? (
+          <ModifyButton onClick={handleModifyButtonClick} data-id={String(id)}>
+            {user_id === myId && elementId !== id ? (
               <Image
                 src='/assets/images/pencilicon.svg'
                 width={26}
                 height={26}></Image>
             ) : null}
           </ModifyButton>
-
-          <ConfirmButton>
-            <Image
-              src='/assets/images/check.svg'
-              width={26}
-              height={26}></Image>
-          </ConfirmButton>
+          {elementId === id && (
+            <ConfirmButton onClick={onSaveTitle}>
+              <Image
+                src='/assets/images/check.svg'
+                width={26}
+                height={26}></Image>
+            </ConfirmButton>
+          )}
         </TimeTitleWrapper>
 
         <Contents>
