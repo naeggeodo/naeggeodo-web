@@ -15,6 +15,7 @@ import { useSelectLoginStates } from '../../hooks/select/useSelectLoginStates';
 import { setCurrentChattingList } from '../../modules/chatting/actions';
 import DateFormatter from '../../utils/DateFormatter';
 import { useChat } from '../../hooks/useChat';
+import { useSelectChatRoomInfo } from '../../hooks/select/useSelectChatRoomInfo';
 
 var stompClient;
 
@@ -34,6 +35,9 @@ const ChattingTemplate = () => {
   const { chatRoomInfo, chattingList, nickname } = useSelector(
     (state: RootState) => state.chattingRoomState,
   );
+
+  const { link, imgPath, currentCount, maxCount, title } =
+    useSelectChatRoomInfo();
 
   const changeMessage = (e) => {
     setMessage(e.target.value);
@@ -163,9 +167,13 @@ const ChattingTemplate = () => {
   return (
     <Container>
       <Header
-        chatRoomInfo={chatRoomInfo}
+        imgPath={imgPath}
+        currentCount={currentCount}
+        maxCount={maxCount}
+        link={link}
         isDrawerOpen={isDrawerOpen}
         setIsDrawerOpen={setIsDrawerOpen}
+        title={title}
       />
       {chatRoomInfo?.state !== 'END' && <GoInfoBtn />}
       <Content ref={chatListDivRef}>

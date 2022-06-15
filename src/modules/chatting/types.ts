@@ -4,7 +4,7 @@ export type ChattingRoomInfoRequest = {
 
 export type ChattingRoomInfoResponse = {
   imgPath: string;
-  link: string | null;
+  link: string;
   title: string;
   maxCount: number;
   currentCount: number;

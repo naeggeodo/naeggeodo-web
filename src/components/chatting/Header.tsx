@@ -13,12 +13,22 @@ type StyledType = {
 type PropsType = {
   setIsDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
   isDrawerOpen: boolean;
-  chatRoomInfo: ChattingRoomInfoResponse;
+  currentCount: number;
+  maxCount: number;
+  link: string;
+  imgPath: string;
+  title: string;
 };
 
-//TODO chatRoomInfo 를 낱개로
-
-const Header = ({ setIsDrawerOpen, isDrawerOpen, chatRoomInfo }: PropsType) => {
+const Header = ({
+  setIsDrawerOpen,
+  isDrawerOpen,
+  currentCount,
+  maxCount,
+  link,
+  imgPath,
+  title,
+}: PropsType) => {
   const { routeBack } = useCustomRouter();
 
   const openDrawer = useCallback(() => {
@@ -37,19 +47,15 @@ const Header = ({ setIsDrawerOpen, isDrawerOpen, chatRoomInfo }: PropsType) => {
           />
         </PrevButton>
         <StyledImage
-          src={
-            chatRoomInfo.imgPath
-              ? chatRoomInfo.imgPath
-              : '/assets/images/hamburger.svg'
-          }
+          src={imgPath ? imgPath : '/assets/images/hamburger.svg'}
           width={44}
           height={44}
         />
-        <Link href={chatRoomInfo.link} passHref>
+        <Link href={link || 'http://naeggeodo.com'} passHref>
           <LinkWrapper target='_blank' rel='noopener noreferrer'>
-            <Info name='title'>{chatRoomInfo.title}</Info>
+            <Info name='title'>{title}</Info>
             <Info name='info'>
-              인원{chatRoomInfo.currentCount}명/{chatRoomInfo.maxCount}명
+              인원{currentCount}명/{maxCount}명
             </Info>
           </LinkWrapper>
         </Link>
