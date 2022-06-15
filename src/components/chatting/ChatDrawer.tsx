@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { RootState } from '../../modules';
+import palette from '../../styles/palette';
 
 type StyledType = {
   isMe?: boolean;
@@ -29,8 +30,14 @@ const ChatDrawer = ({
   const { users } = useSelector(
     (state: RootState) => state.chattingRoomState.currentChatUserList,
   );
+  const imageList = useSelector(
+    (state: RootState) => state.chattingRoomState.imageList,
+  );
+  const my_id = useSelector((state: RootState) => state.loginState.user_id);
 
-  const closeDrawer = useCallback<(e: MouseEvent) => void>(
+  const closeDrawer = useCallback<
+    (e: React.MouseEvent<HTMLButtonElement>) => void
+  >(
     (e) => {
       setIsDrawerOpen(false);
     },
@@ -56,7 +63,9 @@ const ChatDrawer = ({
   return (
     <Container isDrawerOpen={isDrawerOpen} ref={containerRef}>
       <Content>
-        <Title>내꺼톡 서랍</Title>
+        <Title>
+          <span style={{ color: `${palette.mainOrange}` }}>내꺼톡</span> 서랍
+        </Title>
         <div>
           <SubTitle>
             <Image
@@ -68,15 +77,26 @@ const ChatDrawer = ({
             사진
           </SubTitle>
           <ImageList>
-            <Image
-              src='/assets/images/pizzabg.svg'
-              width={55}
-              height={55}
-              alt='이미지'
-              objectFit='contain'
-            />
+            {imageList.length === 0 ? (
+              <PhotoText>업로드된 최신 사진이 없습니다.</PhotoText>
+            ) : (
+              imageList.map((image) => {
+                return (
+                  <Image
+                    style={{
+                      backgroundColor: `${palette.Gray}`,
+                      borderRadius: '10px',
+                    }}
+                    src={image}
+                    width={60}
+                    height={50}
+                  />
+                );
+              })
+            )}
           </ImageList>
         </div>
+
         <div>
           <SubTitle>
             <Image
@@ -99,7 +119,9 @@ const ChatDrawer = ({
                     alt='프로필'
                     objectFit='contain'
                   />
-                  <Nickname>{user.nickname}</Nickname>
+                  <Nickname isMe={user.user_id === my_id}>
+                    {user.nickname}
+                  </Nickname>
                 </MemberItem>
               );
             })}
@@ -107,6 +129,9 @@ const ChatDrawer = ({
         </div>
       </Content>
       <Footer>
+        <CloseButton onClick={closeDrawer}>
+          <Image src='/assets/images/close.svg' width={20} height={20}></Image>
+        </CloseButton>
         <ExitButton onClick={exitChatRoom}>
           <Image
             src='/assets/images/drawerclosebtn.svg'
@@ -116,7 +141,6 @@ const ChatDrawer = ({
           />
           <span>나가기</span>
         </ExitButton>
-        <button onClick={() => setIsDrawerOpen(false)}>닫기</button>
       </Footer>
     </Container>
   );
@@ -165,23 +189,11 @@ const SubTitle = styled.p`
   font-size: 0.9375rem;
 `;
 
-const NextButton = styled.button`
-  position: absolute;
-  right: 20px;
-
-  outline: none;
-  border: none;
-  background: #fff;
-  cursor: pointer;
-`;
-
 const ImageList = styled.div`
-  height: 55px;
-
   display: flex;
-  gap: 2px;
-
-  overflow-y: hidden;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
 `;
 
 const MemberItemWrapper = styled.div`
@@ -194,6 +206,9 @@ const MemberItem = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
+
+  background-color: ${palette.LightGray2};
+  border-radius: 0 10px 10px 0;
 
   cursor: pointer;
 `;
@@ -225,6 +240,7 @@ const Footer = styled.div`
   bottom: 0;
 
   display: flex;
+  align-items: center;
   justify-content: space-between;
 
   padding: 20px;
@@ -242,6 +258,16 @@ const ExitButton = styled(Button)`
   display: flex;
   align-items: center;
   gap: 5px;
+`;
+
+const PhotoText = styled.div`
+  font-size: 0.8125rem;
+  color: ${palette.black};
+`;
+
+const CloseButton = styled.button`
+  all: unset;
+  cursor: pointer;
 `;
 
 export default ChatDrawer;

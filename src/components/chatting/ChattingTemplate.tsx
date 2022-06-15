@@ -14,6 +14,7 @@ import { useSelectLoginStates } from '../../hooks/select/useSelectLoginStates';
 import {
   changeCurrentCountInChatting,
   setCurrentChattingList,
+  setImageListInChatting,
 } from '../../modules/chatting/actions';
 import DateFormatter from '../../utils/DateFormatter';
 import { useChat } from '../../hooks/useChat';
@@ -113,6 +114,8 @@ const ChattingTemplate = () => {
                   JSON.parse(newMessage.contents).currentCount,
                 ),
               );
+            } else if (newMessage.type === 'IMAGE') {
+              dispatch(setImageListInChatting(newMessage.contents));
             }
           },
           { chatMain_id: router.query.id as string },
@@ -163,7 +166,9 @@ const ChattingTemplate = () => {
   useEffect(() => {
     const socket = new SockJS(`${process.env.NEXT_PUBLIC_API_URL}/chat`);
     connect(socket);
-    return () => disconnect();
+    return () => {
+      disconnect();
+    };
   }, []);
 
   return (

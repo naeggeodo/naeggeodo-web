@@ -6,6 +6,8 @@ import {
   SET_CURRENT_CHATTING_LIST,
   GET_USER_NICKNAME_SUCCESS,
   CHANGE_CURRENT_COUNT_IN_CHATTING,
+  SET_IMAGE_LIST_IN_CHATTING,
+  setImageListInChatting,
 } from './actions';
 import {
   ChattingRoomInfoResponse,
@@ -13,7 +15,7 @@ import {
   ChattingListResponse,
   QuickChattingListResponse,
 } from './types';
-import { createReducer } from 'typesafe-actions';
+import { action, createReducer } from 'typesafe-actions';
 
 type ChattingRoomState = {
   chatRoomInfo: ChattingRoomInfoResponse | null;
@@ -21,6 +23,7 @@ type ChattingRoomState = {
   quickChatList: QuickChattingListResponse | null;
   currentChatUserList: CurrentChatUserListResponse | null;
   nickname: string | null;
+  imageList: string[];
 };
 
 const initialChattingRoomState: ChattingRoomState = {
@@ -48,6 +51,7 @@ const initialChattingRoomState: ChattingRoomState = {
   quickChatList: null,
   currentChatUserList: { users: [] },
   nickname: null,
+  imageList: [],
 };
 
 export const chattingRoomState = createReducer<ChattingRoomState>(
@@ -106,6 +110,13 @@ export const chattingRoomState = createReducer<ChattingRoomState>(
         ...state.chatRoomInfo,
         currentCount: action.payload.currentCount,
       },
+    }),
+    [SET_IMAGE_LIST_IN_CHATTING]: (
+      state,
+      action: ReturnType<typeof setImageListInChatting>,
+    ) => ({
+      ...state,
+      imageList: [...state.imageList, action.payload.image],
     }),
   },
 );
