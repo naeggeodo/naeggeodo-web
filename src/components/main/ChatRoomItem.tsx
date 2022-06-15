@@ -1,4 +1,6 @@
 import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { ChatRoomItemProps } from '../../modules/main/types';
@@ -21,6 +23,7 @@ const ChatRoomItem = ({
     () => new TimeCalculator(createDate),
     [createDate],
   );
+  const router = useRouter();
 
   return (
     <Container>
@@ -31,6 +34,7 @@ const ChatRoomItem = ({
       />
       <FlexRight>
         <Title>{title}</Title>
+
         <NumberOfPeople>
           인원 {currentCount}명 / {maxCount}명
         </NumberOfPeople>
@@ -43,9 +47,22 @@ const ChatRoomItem = ({
             <p>{converOrderTimeType(orderTimeType)}</p>
           </OrderTimeTypeWrapper>
 
-          <div>
-            <p>{address}</p>
-          </div>
+          {router.route === '/chat-rooms' ? (
+            <Link href={`/chatting/${id}`} passHref>
+              <StyledLink>
+                <p>함께주문하기</p>
+                <Image
+                  src='/assets/images/arrowright.svg'
+                  width={14}
+                  height={14}
+                />
+              </StyledLink>
+            </Link>
+          ) : (
+            <TitleContainer>
+              <p>{address}</p>
+            </TitleContainer>
+          )}
         </TimeOrderLinkContainer>
       </FlexRight>
     </Container>
@@ -83,6 +100,11 @@ const FlexRight = styled.div`
   gap: 5px;
 
   width: 100%;
+`;
+
+const TitleContainer = styled.div`
+  font-size: 0.8125rem;
+  color: ${palette.DarkGray};
 `;
 
 const Title = styled.p`
@@ -123,9 +145,13 @@ const StyledLink = styled.a`
   text-decoration: none;
   cursor: pointer;
 
-  & > span {
+  & > p {
     font-size: 0.75rem;
     color: ${palette.black};
+  }
+
+  &:hover {
+    border-bottom: 1px solid black;
   }
 `;
 
