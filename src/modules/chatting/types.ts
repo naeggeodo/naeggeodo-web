@@ -3,21 +3,24 @@ export type ChattingRoomInfoRequest = {
 };
 
 export type ChattingRoomInfoResponse = {
-  imgPath: string;
+  address: string;
+  endDate: null;
+  buildingCode: string;
   link: string;
+  orderTimeType: string;
   title: string;
   maxCount: number;
+  tags: [];
+  bookmarks: 'Y' | 'N';
+  user_id: string;
+  imgPath: string;
   currentCount: number;
-  chatUser: string[];
-  endDate: null;
+  bookmarkDate: string;
   id: number;
   state: string;
   place: string;
-  address: string;
   category: string;
-  dealHistory: null;
-  user: null;
-  createDate: Date;
+  createDate: string;
 };
 
 export type ChattingSubmitBody = {

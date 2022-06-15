@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { Stomp } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import Header from '../chatting/Header';
 import GoInfoBtn from '../chatting/GoInfoBtn';
@@ -16,32 +15,36 @@ import { setCurrentChattingList } from '../../modules/chatting/actions';
 import DateFormatter from '../../utils/DateFormatter';
 import { useChat } from '../../hooks/useChat';
 import { useSelectChatRoomInfo } from '../../hooks/select/useSelectChatRoomInfo';
+import { useLoadLib } from '../../hooks/utils/useLoadLib';
 
 var stompClient;
 
 const ChattingTemplate = () => {
   const { onSendMessage } = useChat();
-
+  const { dispatch, router } = useLoadLib();
+  const { user_id, accessToken } = useSelectLoginStates();
   const scrollRef = useRef<HTMLDivElement>(null);
   const chatListDivRef = useRef<HTMLDivElement>(null);
-  const router = useRouter();
-  const { user_id, accessToken } = useSelectLoginStates();
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-  const [message, setMessage] = useState('');
-
-  const dispatch = useDispatch();
-
+  const { link, imgPath, currentCount, maxCount, title } =
+    useSelectChatRoomInfo();
   const { chatRoomInfo, chattingList, nickname } = useSelector(
     (state: RootState) => state.chattingRoomState,
   );
 
-  const { link, imgPath, currentCount, maxCount, title } =
-    useSelectChatRoomInfo();
+  const [message, setMessage] = useState('');
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const changeMessage = (e) => {
     setMessage(e.target.value);
   };
+
+  useEffect(() => {
+    chatListDivRef.current.scroll({
+      top: scrollRef.current.offsetTop,
+      behavior: 'smooth',
+    });
+  }, [chattingList.messages]);
 
   const onError = (e) => {
     if (e.headers.message) {
@@ -104,12 +107,7 @@ const ChattingTemplate = () => {
         );
         onEnter();
       },
-      () => {
-        if (!stompClient.isConnected) {
-          connect(socket);
-        }
-      },
-      // onError,
+      onError,
     );
   };
 
@@ -152,17 +150,13 @@ const ChattingTemplate = () => {
   };
 
   useEffect(() => {
-    chatListDivRef.current.scroll({
-      top: scrollRef.current.offsetTop,
-      behavior: 'smooth',
-    });
-  }, [chattingList.messages]);
-
-  useEffect(() => {
     const socket = new SockJS(`${process.env.NEXT_PUBLIC_API_URL}/chat`);
     connect(socket);
     return () => disconnect();
   }, []);
+
+  console.log(user_id, 123);
+  console.log(chatRoomInfo);
 
   return (
     <Container>
@@ -175,7 +169,9 @@ const ChattingTemplate = () => {
         setIsDrawerOpen={setIsDrawerOpen}
         title={title}
       />
-      {chatRoomInfo?.state !== 'END' && <GoInfoBtn />}
+      {chatRoomInfo?.state !== 'END' && chatRoomInfo?.user_id === user_id && (
+        <GoInfoBtn />
+      )}
       <Content ref={chatListDivRef}>
         <ChattingList messageList={chattingList.messages} />
         <div ref={scrollRef} />

@@ -1,10 +1,9 @@
 import { AxiosError } from 'axios';
 import { createAction, createAsyncAction } from 'typesafe-actions';
-import { Category } from '../main/types';
+import { Category, OrderTimeType } from '../common/types';
 import {
   CopyPrevChatRoomDataRequestParams,
   CreateChatRoomResponse,
-  OrderTimeType,
   PatchBookMarkResponse,
   PrevChatRoomBookMarkRequestParams,
   PrevCreatedListResponses,

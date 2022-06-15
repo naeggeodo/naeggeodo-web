@@ -1,5 +1,5 @@
 import { ApiService } from '..';
-import { Category, ChatRoomRequestPayload } from '../../../modules/main/types';
+import { Category } from '../../../modules/common/types';
 
 export default class MainService {
   static async asyncGetCategories() {

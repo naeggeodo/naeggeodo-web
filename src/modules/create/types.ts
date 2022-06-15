@@ -1,4 +1,9 @@
-import { Category } from '../main/types';
+import {
+  Bookmarks,
+  Category,
+  OrderTimeType,
+  OrderTimeTypeKr,
+} from '../common/types';
 import {
   addTag,
   insertLink,
@@ -21,8 +26,6 @@ export type RemoveTagAction = ReturnType<typeof removeTag>;
 export type InsertPlaceAction = ReturnType<typeof insertPlace>;
 export type SaveUserIdAction = ReturnType<typeof saveUserId>;
 export type SaveBuildingCodeAction = ReturnType<typeof saveBuildingCode>;
-
-export type OrderTimeType = 'ONE_HOUR' | 'QUICK' | 'FREEDOM';
 
 export interface CreateData {
   buildingCode: string;
@@ -53,9 +56,6 @@ export type CreateChatRoomResponse = {
   chatMain_id: number;
 };
 
-export type BookMarks = 'Y' | 'N';
-export type OrderTimeTypeKr = '1시간 이내' | '최대한 빨리';
-
 export type PrevCreatedListItem = {
   buildingCode: string;
   address: string;
@@ -63,7 +63,7 @@ export type PrevCreatedListItem = {
   title: string;
   maxCount: number;
   tags: string[];
-  bookmarks: BookMarks;
+  bookmarks: Bookmarks;
   user_id: string;
   currentCount: 0;
   bookmarksDate: string;
@@ -94,5 +94,5 @@ export type PrevChatRoomBookMarkRequestParams = {
 
 export type PatchBookMarkResponse = {
   chatMain_id: number;
-  bookmarks: BookMarks;
+  bookmarks: Bookmarks;
 };

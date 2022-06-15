@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
-import { Category } from '../../modules/main/types';
+import { Category } from '../../modules/common/types';
 import palette from '../../styles/palette';
 
 const CreateButton = ({

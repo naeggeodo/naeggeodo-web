@@ -1,20 +1,4 @@
-import { OrderTimeType } from '../create/types';
-
-export type Category =
-  | 'ALL'
-  | 'CHICKEN'
-  | 'JAPANESE'
-  | 'CHINESE'
-  | 'KOREAN'
-  | 'SNACKS'
-  | 'STEW'
-  | 'PIZZA'
-  | 'WESTERN'
-  | 'GRILLED_MEAT'
-  | 'PORK_FEET'
-  | 'DESSERT'
-  | 'FASTFOOD'
-  | 'HAMBURGER';
+import { Category, OrderTimeType } from '../common/types';
 
 export interface ChatRoomRequestPayload {
   buildingCode: string | string[];

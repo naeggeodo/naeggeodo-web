@@ -1,4 +1,4 @@
-import { Category } from '../modules/main/types';
+import { Category } from '../modules/common/types';
 
 export const convertEngCategoryToKor = (category: Category) => {
   switch (category) {

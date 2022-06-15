@@ -1,5 +1,4 @@
-import { BookMarks, OrderTimeType } from '../create/types';
-import { Category } from '../main/types';
+import { Bookmarks, Category, ChatState, OrderTimeType } from '../common/types';
 
 export interface ProgressStates {
   progressChatRoomList: ProgressChatRoomList;
@@ -14,13 +13,13 @@ export interface ProgressChatRoomItem {
   title: string;
   maxCount: number;
   tags: string[];
-  bookmarks: BookMarks;
+  bookmarks: Bookmarks;
   user_id: string;
   imgPath: string;
   currentCount: number;
   bookmarksDate: string;
   id: number;
-  state: 'CREATE' | 'PROGRESS' | 'END' | 'FULL';
+  state: ChatState;
   place: string;
   category: Category;
   idx: number;
