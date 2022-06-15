@@ -17,6 +17,7 @@ const ChattingList = ({ messageList }: { messageList: ChattingListItem[] }) => {
             return (
               <WelcomeMessage key={message.user_id + i} message={message} />
             );
+          else if (message.type === 'CNT') return null;
           else if (message.user_id === user_id)
             return (
               <MyChatItem

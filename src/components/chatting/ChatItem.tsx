@@ -40,13 +40,8 @@ const ChatItem = ({
             height={150}
           />
         ) : (
-          // TODO CNT일떄 카운트 늘려주기
           <Content>
-            {message.type === 'CNT' ? (
-              <div>메시지 없음</div>
-            ) : (
-              <div>{message.contents}</div>
-            )}
+            <div>{message.contents}</div>
           </Content>
         )}
         <Time>
