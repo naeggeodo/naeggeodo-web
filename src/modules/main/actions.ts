@@ -1,6 +1,6 @@
 import { AxiosError } from 'axios';
 import { createAction, createAsyncAction } from 'typesafe-actions';
-import { CategoriesResponse } from './types';
+import { CategoriesResponse } from '../common/types';
 
 const namespace = 'main/';
 

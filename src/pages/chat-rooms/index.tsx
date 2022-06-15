@@ -1,12 +1,12 @@
 import { END } from 'redux-saga';
 import MainTemplate from '../../components/main/MainTemplate';
 import { RootState, wrapper } from '../../modules';
+import { CategoriesResponse } from '../../modules/common/types';
 import {
   getAllChatRoomsListRequest,
   getChatRoomListWithCategoryRequest,
   getFoodCategoriesActions,
 } from '../../modules/main/actions';
-import { CategoriesResponse } from '../../modules/main/types';
 import { saveCookies } from '../../utils/saveCookies';
 
 const ChatRooms = ({

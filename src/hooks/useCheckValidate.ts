@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../modules';
-import { CategoriesResponse } from '../modules/main/types';
+import { CategoriesResponse } from '../modules/common/types';
 import {
   closeSearchPostCode,
   openLoginModal,

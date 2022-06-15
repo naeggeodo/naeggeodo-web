@@ -1,9 +1,9 @@
 import { createReducer } from 'typesafe-actions';
+import { CategoriesResponse, ChatRoomItemResponse } from '../common/types';
 import {
   GET_CHAT_ROOMS_LIST_SUCCESS,
   GET_FOOD_CATEGORIES_SUCCESS,
 } from './actions';
-import { CategoriesResponse, ChatRoomItemResponse } from './types';
 
 interface MainPageState {
   categories: CategoriesResponse[] | null;

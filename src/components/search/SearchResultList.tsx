@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { useInfiniteScroll } from '../../hooks/render/useInfiniteScroll';
 import { RootState } from '../../modules';
-import { ChatRoomItemResponse } from '../../modules/main/types';
+import { ChatRoomItemResponse } from '../../modules/common/types';
 import ChatRoomItem from '../main/ChatRoomItem';
 
 const SearchResultList = () => {

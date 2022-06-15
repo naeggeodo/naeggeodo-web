@@ -1,6 +1,7 @@
 import { AxiosResponse } from 'axios';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import MainService from '../../service/api/main/MainService';
+import { CategoriesResponse, ChatRoomItemResponse } from '../common/types';
 import {
   getAllChatRoomsListRequest,
   getChatRoomListWithCategoryRequest,
@@ -10,7 +11,6 @@ import {
   GET_CHAT_ROOMS_LIST_WITH_CATEGORY_REQUEST,
   GET_FOOD_CATEGORIES_REQUEST,
 } from './actions';
-import { CategoriesResponse, ChatRoomItemResponse } from './types';
 
 function* getFoodCategoriesGenerator(
   action: ReturnType<typeof getFoodCategoriesActions.request>,

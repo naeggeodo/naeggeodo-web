@@ -24,6 +24,10 @@ export type Category =
   | 'DESSERT'
   | 'FASTFOOD'
   | 'HAMBURGER';
+export interface CategoriesResponse {
+  idx: number;
+  category: Category;
+}
 
 export type ChatDetailType =
   | 'TEXT'
@@ -36,3 +40,25 @@ export type ChatDetailType =
   | 'SYSTEM';
 
 export type ReportType = 'CHATMAIN' | 'CHATDETAIL' | 'FEEDBACK';
+
+export interface ChatRoomItemResponse {
+  address: string | null;
+  endDate: string | null;
+  buildingCode: string;
+  link: string | null;
+  orderTimeType: OrderTimeType;
+  title: string;
+  maxCount: number;
+  tags: string[];
+  bookmarks: Bookmarks;
+  user_id: string;
+  imgPath: string;
+  currentCount: number;
+  bookmarksDate: string;
+  id: number;
+  state: ChatState;
+  place: string;
+  category: Category;
+  idx: number;
+  createDate: string;
+}

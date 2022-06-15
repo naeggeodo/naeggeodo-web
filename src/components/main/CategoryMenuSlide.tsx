@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useCheckValidate } from '../../hooks/useCheckValidate';
 import { useSlideTransform } from '../../hooks/useSlideTransform';
-import { CategoriesResponse } from '../../modules/main/types';
+import { CategoriesResponse } from '../../modules/common/types';
 import palette from '../../styles/palette';
 import { convertEngCategoryToKor } from '../../utils/converEngCategoryToKor';
 

@@ -1,4 +1,4 @@
-import { ChatRoomItemResponse } from '../main/types';
+import { ChatRoomItemResponse } from '../common/types';
 
 type Tag = {
   msg: string;

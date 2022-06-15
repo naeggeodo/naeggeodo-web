@@ -7,7 +7,6 @@ import SearchPostCode from './SearchPostCode';
 import PostCodeWebView from './PostCodeWebView';
 import LoginModal from '../login/LoginModalTemplate';
 
-import { CategoriesResponse } from '../../modules/main/types';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../modules';
 import { useCheckValidate } from '../../hooks/useCheckValidate';
@@ -16,6 +15,7 @@ import NoItemText from './NoItemText';
 import { useLoadLib } from '../../hooks/utils/useLoadLib';
 import { useSelectLoginStates } from '../../hooks/select/useSelectLoginStates';
 import ChatRoomList from './ChatRoomList';
+import { CategoriesResponse } from '../../modules/common/types';
 
 const MainTemplate = ({
   foodCategories,
