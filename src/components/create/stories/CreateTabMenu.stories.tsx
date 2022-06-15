@@ -1,27 +1,27 @@
 import { ComponentMeta } from '@storybook/react';
 import CreateTabMenu from '../CreateTabMenu';
 
-// TODO
+// TODO 암거도 안나옴
+type Args = {
+  isShowCreateForm: boolean;
+  setIsShowCreateForm: null;
+};
 
-// export default {
-//   title: 'create/컴포넌트',
-//   component: CreateTabMenu,
-//   decorators: [
-//     (Story) => (
-//       <div
-//         style={{
-//           display: 'flex',
-//           justifyContent: 'center',
-//           alignItems: 'flex-start',
-//           height: '100vh',
-//           paddingTop: '30px',
-//         }}>
-//         <Story />
-//       </div>
-//     ),
-//   ],
-// } as ComponentMeta<typeof CreateTabMenu>;
+export default {
+  title: 'create/컴포넌트',
+  component: CreateTabMenu,
+  parameters: {
+    layout: 'fullscreen',
+  },
+  decorators: [(Story) => <Story />],
+} as ComponentMeta<typeof CreateTabMenu>;
 
-// export const CreateTabMenuStory = () => <CreateTabMenu />;
+const Template = (args: Args) => <CreateTabMenu {...args} />;
 
-// CreateTabMenuStory.storyName = '내꺼톡 생성 헤더 탭메뉴';
+export const CreateTabMenuStory = () => Template.bind({});
+
+CreateTabMenuStory.args = {
+  isShowCreateForm: false,
+};
+
+CreateTabMenuStory.storyName = '내꺼톡 생성 헤더 탭메뉴';

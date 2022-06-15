@@ -13,16 +13,10 @@ Object.defineProperty(NextImage, 'default', {
 
 export const decorators = [
   (Story) => (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh',
-      }}>
+    <>
       <GlobalStyle />
       <Story />
-    </div>
+    </>
   ),
 ];
 

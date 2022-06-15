@@ -1,6 +1,5 @@
 import { ComponentMeta } from '@storybook/react';
 import { Provider } from 'react-redux';
-import { action } from 'typesafe-actions';
 import { configureStore } from '../../../modules';
 import QuickMessageComp from '../QuickMessageComp';
 

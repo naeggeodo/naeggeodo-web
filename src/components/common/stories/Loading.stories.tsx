@@ -2,7 +2,7 @@ import { ComponentMeta } from '@storybook/react';
 import Loading from '../Loading';
 
 export default {
-  title: 'main/컴포넌트',
+  title: 'common/컴포넌트',
   component: Loading,
   decorators: [
     (Story) => (

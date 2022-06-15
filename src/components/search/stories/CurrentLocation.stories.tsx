@@ -1,19 +1,21 @@
 import { ComponentMeta } from '@storybook/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '../../../modules';
-import CustomerServiceSection from '../CustomerServiceSection';
+import CurrentLocation from '../CurrentLocation';
 
 export default {
-  title: 'mypage/컴포넌트',
-  component: CustomerServiceSection,
+  title: 'search/페이지',
+  component: CurrentLocation,
   decorators: [
     (Story) => (
       <Provider store={configureStore()}>
         <div
           style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '100vw',
             height: '100vh',
-            backgroundColor: '#fff',
-            padding: '30px 0',
           }}>
           <Story />
         </div>
@@ -23,8 +25,8 @@ export default {
   parameters: {
     layout: 'fullscreen',
   },
-} as ComponentMeta<typeof CustomerServiceSection>;
+} as ComponentMeta<typeof CurrentLocation>;
 
-export const CustomerServiceStory = () => <CustomerServiceSection />;
+export const CurrentLocationStory = () => <CurrentLocation />;
 
-CustomerServiceStory.storyName = '고객센터';
+CurrentLocationStory.storyName = '현재 장소';
