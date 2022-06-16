@@ -6,6 +6,7 @@ import { axiosInstance } from '../service/api';
 import cookies from 'next-cookies';
 import { createCustomHeader } from '../utils/createCustomHeader';
 import AppLayout from '../components/common/AppLayout';
+import palette from '../styles/palette';
 
 const app = ({ Component, pageProps }) => {
   return (
@@ -20,6 +21,21 @@ const app = ({ Component, pageProps }) => {
     </AppLayout>
   );
 };
+
+console.log(
+  `
+%c███╗   ██╗ █████╗ ███████╗ ██████╗  ██████╗ ███████╗ ██████╗ ██████╗  ██████╗ 
+%c████╗  ██║██╔══██╗██╔════╝██╔════╝ ██╔════╝ ██╔════╝██╔═══██╗██╔══██╗██╔═══██╗
+%c██╔██╗ ██║███████║█████╗  ██║  ███╗██║  ███╗█████╗  ██║   ██║██║  ██║██║   ██║
+%c██║╚██╗██║██╔══██║██╔══╝  ██║   ██║██║   ██║██╔══╝  ██║   ██║██║  ██║██║   ██║
+%c██║ ╚████║██║  ██║███████╗╚██████╔╝╚██████╔╝███████╗╚██████╔╝██████╔╝╚██████╔╝
+%c╚═╝  ╚═══╝╚═╝  ╚═╝╚══════╝ ╚═════╝  ╚═════╝ ╚══════╝ ╚═════╝ ╚═════╝  ╚═════╝`,
+  `color:${palette.mainOrange}`,
+  `color:${palette.mainOrange}`,
+  `color:${palette.mainOrange}`,
+  `color:${palette.mainOrange}`,
+  `color:${palette.mainOrange}`,
+);
 
 app.getInitialProps = wrapper.getInitialAppProps(
   (store) => async (context: AppContext) => {

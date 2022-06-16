@@ -1,5 +1,4 @@
 import { AxiosResponse } from 'axios';
-import Router from 'next/router';
 import { Cookies } from 'react-cookie';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { LoginService } from '../../service/api/login/LoginService';
