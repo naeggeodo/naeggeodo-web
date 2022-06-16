@@ -46,4 +46,4 @@ const Container = styled.div`
   padding-bottom: 50px;
 `;
 
-export default SearchResultList;
+export default React.memo(SearchResultList);

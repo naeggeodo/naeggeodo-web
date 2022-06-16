@@ -141,7 +141,8 @@ const TimeTitleWrapper = styled.div`
     font-family: 'SpoqaBold';
     font-size: 0.9375rem;
     color: #000000;
-    background-color: #fdefe7;
+    background-color: #ffb458;
+    color: #fff;
     padding: 10px 5px;
     border-radius: 5px;
     outline: none;
@@ -149,6 +150,7 @@ const TimeTitleWrapper = styled.div`
     cursor: pointer;
 
     &:disabled {
+      color: #000000;
       background-color: transparent;
     }
   }

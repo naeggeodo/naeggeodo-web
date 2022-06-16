@@ -27,10 +27,11 @@ const ChatRoomItem = ({
 
   return (
     <Container>
-      <StyledImage
+      <Image
         src={imgPath ? imgPath : '/assets/images/pizza.svg'}
         width={70}
         height={70}
+        alt={title + '이미지'}
       />
       <FlexRight>
         <Title>{title}</Title>
@@ -49,12 +50,13 @@ const ChatRoomItem = ({
 
           {router.route === '/chat-rooms' ? (
             <Link href={`/chatting/${id}`} passHref>
-              <StyledLink>
+              <StyledLink rel='noreferrer noopener'>
                 <p>함께주문하기</p>
                 <Image
                   src='/assets/images/arrowright.svg'
                   width={14}
                   height={14}
+                  alt='채팅하러가기 버튼'
                 />
               </StyledLink>
             </Link>
@@ -87,11 +89,6 @@ const Container = styled.div`
   &:hover {
     background-color: ${palette.bgGray};
   }
-`;
-
-const StyledImage = styled(Image)`
-  border: 1px solid ${palette.LineGray};
-  border-radius: 10px;
 `;
 
 const FlexRight = styled.div`
@@ -132,6 +129,7 @@ const OrderTimeTypeWrapper = styled.div`
   gap: 10px;
 
   & > p:nth-child(2) {
+    font-family: 'SpoqaBold';
     font-size: 0.75rem;
     color: ${palette.mainOrange};
   }
