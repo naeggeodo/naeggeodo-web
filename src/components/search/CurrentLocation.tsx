@@ -52,6 +52,7 @@ const FlexRow = styled.div`
 `;
 
 const AddressText = styled.p`
+  font-family: 'SpoqaBold';
   font-size: 0.875rem;
 
   color: ${palette.black};

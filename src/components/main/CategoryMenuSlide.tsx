@@ -82,7 +82,6 @@ const LinkButton = styled.button`
 
   cursor: pointer;
   white-space: nowrap;
-  text-decoration: none;
 `;
 
 export default CategoryMenuSlide;

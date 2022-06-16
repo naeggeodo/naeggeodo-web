@@ -31,7 +31,7 @@ export default class MyDocument extends Document {
 
   render() {
     return (
-      <Html>
+      <Html lang='ko'>
         <Head>
           <meta charSet='UTF-8' />
           <meta property='og:title' content='내꺼 배달비 반띵하러 가기 🛵' />
