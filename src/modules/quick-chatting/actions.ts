@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios';
 import { createAsyncAction } from 'typesafe-actions';
 import { UserId } from '../chatting/types';
-import { QuickChattingListResponse } from './types';
+import { QuickChattingListRequest, QuickChattingListResponse } from './types';
 
 const namespace = 'quick-chatting/';
 
@@ -35,4 +35,4 @@ export const patchQuickChattingListActions = createAsyncAction(
   PATCH_QUICK_CHAT_LIST_REQUEST,
   PATCH_QUICK_CHAT_LIST_SUCCESS,
   PATCH_QUICK_CHAT_LIST_FAILURE,
-)<any, void, AxiosError>();
+)<QuickChattingListRequest, QuickChattingListResponse, AxiosError>();

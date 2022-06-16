@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { CompatClient } from '@stomp/stompjs';
 import { useSelector } from 'react-redux';
@@ -31,13 +31,20 @@ const QuickChatList = ({
     (state: RootState) => state.chattingRoomState,
   );
 
-  const quickChatList: QuickChattingListResponse = useSelector(
+  const { quickChat }: QuickChattingListResponse = useSelector(
     (state: RootState) => state.quickChatStates.quickChatResponse,
   );
   const { user_id } = useSelectLoginStates();
 
   const [isQuickChatEditModalOpen, setIsQuickChatEditModalOpen] =
     useState(false);
+
+  const [validQuickChat, setValidQuickChat] = useState([]);
+
+  useEffect(() => {
+    const validArr = quickChat.filter((v) => v.msg !== '');
+    setValidQuickChat(validArr);
+  }, [quickChat]);
 
   const sendMessage = (
     e: React.MouseEvent<HTMLParagraphElement, MouseEvent>,
@@ -59,15 +66,17 @@ const QuickChatList = ({
   }, [isQuickChatEditModalOpen]);
 
   return (
-    <Container
-      isActive={isQuickChatOpen}
-      length={quickChatList.quickChat.length}>
-      {quickChatList.quickChat &&
-        quickChatList.quickChat.map((quickChat) => (
-          <Item key={quickChat.idx} onClick={sendMessage}>
-            {quickChat.msg}
-          </Item>
-        ))}
+    <Container isActive={isQuickChatOpen} length={validQuickChat.length}>
+      {quickChat &&
+        quickChat.map(
+          (quickChat) =>
+            quickChat.msg !== '' && (
+              <Item key={quickChat.idx} onClick={sendMessage}>
+                {quickChat.msg}
+              </Item>
+            ),
+        )}
+
       <EditBtn onClick={openQuickChatEditModal}>
         <p>편집하기</p>
         <Image
@@ -77,7 +86,12 @@ const QuickChatList = ({
           height={20}
         />
       </EditBtn>
-      {isQuickChatEditModalOpen && <QuickChatListEditModal />}
+      {isQuickChatEditModalOpen && (
+        <QuickChatListEditModal
+          setIsQuickChatEditModalOpen={setIsQuickChatEditModalOpen}
+          isQuickChatEditModalOpen={isQuickChatEditModalOpen}
+        />
+      )}
     </Container>
   );
 };
@@ -91,9 +105,14 @@ const Container = styled.div<StyledType>`
   justify-content: center;
 
   width: 100%;
-  height: ${(props) => (props.isActive ? `${65 * props.length}px` : '0')};
+  height: ${(props) =>
+    props.isActive
+      ? props.length > 0
+        ? `${65 * props.length}px`
+        : '60px'
+      : '0px'};
 
-  padding: 0 6% 10px;
+  padding: 0 6% 0px;
 
   transition: 0.3s;
 
