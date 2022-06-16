@@ -16,8 +16,6 @@ const QuickChatModalTemplate = ({
   );
 };
 
-export default QuickChatModalTemplate;
-
 const Background = styled.div`
   position: fixed;
   top: 0;
@@ -48,3 +46,5 @@ const ModalContainer = styled.div`
   background: #fff;
   padding: 20px;
 `;
+
+export default QuickChatModalTemplate;

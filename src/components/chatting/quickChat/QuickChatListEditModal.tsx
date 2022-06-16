@@ -48,8 +48,6 @@ const QuickChatListEditModal = () => {
   );
 };
 
-export default QuickChatListEditModal;
-
 const Wrap = styled.div`
   display: flex;
   flex-direction: column;
@@ -88,3 +86,5 @@ const AddButton = styled.button`
   font-size: 0.9375rem;
   padding: 0 10px;
 `;
+
+export default QuickChatListEditModal;

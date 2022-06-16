@@ -47,6 +47,7 @@ const ProgressTalkItem = ({
           src={imgPath ? imgPath : '/assets/images/hamburger.svg'}
           height={60}
           width={60}
+          alt='채팅방 이미지'
         />
       </ImageContainer>
 
@@ -56,6 +57,7 @@ const ProgressTalkItem = ({
             <input
               onChange={onChangeTitle}
               type='text'
+              name='title'
               value={chatTitle}
               disabled
               ref={(el) => (inputRefs.current[index] = el)}
@@ -67,7 +69,9 @@ const ProgressTalkItem = ({
               <Image
                 src='/assets/images/pencilicon.svg'
                 width={26}
-                height={26}></Image>
+                height={26}
+                alt='제목수정 아이콘'
+              />
             ) : null}
           </ModifyButton>
           {elementId === id && (
@@ -75,7 +79,9 @@ const ProgressTalkItem = ({
               <Image
                 src='/assets/images/check.svg'
                 width={26}
-                height={26}></Image>
+                height={26}
+                alt='체크 아이콘'
+              />
             </ConfirmButton>
           )}
         </TimeTitleWrapper>

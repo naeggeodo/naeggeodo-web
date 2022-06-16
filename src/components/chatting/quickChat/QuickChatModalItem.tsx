@@ -14,8 +14,6 @@ const QuickChatModalItem = ({ quickChat }: { quickChat: QuickChatting }) => {
   );
 };
 
-export default QuickChatModalItem;
-
 const Wrap = styled.div`
   display: flex;
   justify-content: space-between;
@@ -30,3 +28,5 @@ const RemoveButton = styled.button`
   outline: none;
   background: none;
 `;
+
+export default QuickChatModalItem;

@@ -48,7 +48,7 @@ function* getQuickChattingListGenerator(
       ChattingService.asyncGetQuickChattingList,
       action.payload.userId,
     );
-    console.log(action.payload.userId, 'jayden');
+    console.log(data, 'jayden');
     yield put(getQuickChattingListActions.success(data));
   } catch (error) {
     console.log(error);

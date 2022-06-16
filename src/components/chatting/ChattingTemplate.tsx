@@ -198,8 +198,9 @@ const ChattingTemplate = () => {
         <ChattingList messageList={chattingList.messages} />
         <div ref={scrollRef} />
       </Content>
-      <QuickChatList stompClient={stompClient} />
+      {/* <QuickChatList stompClient={stompClient} /> */}
       <SubmitForm
+        stompClient={stompClient}
         changeMessage={changeMessage}
         message={message}
         sendMessage={sendMessage}

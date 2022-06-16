@@ -1,11 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useState } from 'react';
 import styled from 'styled-components';
 import { CompatClient } from '@stomp/stompjs';
 import { useSelector } from 'react-redux';
 import Image from 'next/image';
 
 import { useChat } from '../../../hooks/useChat';
-import { useSlideMessage } from '../../../hooks/useSlideMessage';
 import palette from '../../../styles/palette';
 import { RootState } from '../../../modules';
 import { QuickChattingListResponse } from '../../../modules/chatting/types';
@@ -13,12 +12,19 @@ import { useRouter } from 'next/router';
 import { useSelectLoginStates } from '../../../hooks/select/useSelectLoginStates';
 import QuickChatListEditModal from './QuickChatListEditModal';
 
-const QuickChatList = ({ stompClient }: { stompClient: CompatClient }) => {
-  const target = useRef<HTMLDivElement>(null);
-  const slideBar = useRef<HTMLDivElement>(null);
+type StyledType = {
+  isActive: boolean;
+  length: number;
+};
 
+const QuickChatList = ({
+  stompClient,
+  isQuickChatOpen,
+}: {
+  stompClient: CompatClient;
+  isQuickChatOpen: boolean;
+}) => {
   const { onSendMessage } = useChat();
-  const { slideEvent, slideDown } = useSlideMessage();
   const router = useRouter();
 
   const { nickname } = useSelector(
@@ -33,10 +39,6 @@ const QuickChatList = ({ stompClient }: { stompClient: CompatClient }) => {
   const [isQuickChatEditModalOpen, setIsQuickChatEditModalOpen] =
     useState(false);
 
-  useEffect(() => {
-    slideEvent(slideBar, target);
-  }, []);
-
   const sendMessage = (
     e: React.MouseEvent<HTMLParagraphElement, MouseEvent>,
   ) => {
@@ -50,15 +52,17 @@ const QuickChatList = ({ stompClient }: { stompClient: CompatClient }) => {
     };
 
     onSendMessage(stompClient, data);
-    slideDown(target);
   };
 
-  const openQuickChatEditModal = () => {
+  const openQuickChatEditModal = useCallback(() => {
     setIsQuickChatEditModalOpen(true);
-  };
+  }, [isQuickChatEditModalOpen]);
+
   return (
-    <Container ref={target}>
-      <Div ref={slideBar}>
+    <Container
+      isActive={isQuickChatOpen}
+      length={quickChatList.quickChat.length}>
+      <Div>
         <Image
           src='/assets/images/slidedown.svg'
           alt='icon'
@@ -86,11 +90,14 @@ const QuickChatList = ({ stompClient }: { stompClient: CompatClient }) => {
   );
 };
 
-const Container = styled.div`
+const Container = styled.div<StyledType>`
   position: fixed;
-  bottom: 6%;
+  bottom: 52px;
   width: 100%;
   background-color: #fff;
+
+  height: ${(props) => (props.isActive ? `${65 * props.length}px` : '0px')};
+  transition: 0.3s;
 
   border-bottom: 1px solid ${palette.LineGray};
   border-radius: 20px 20px 0px 0px;
