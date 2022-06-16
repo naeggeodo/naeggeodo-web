@@ -1,8 +1,6 @@
 import { ComponentMeta } from '@storybook/react';
 import { Provider } from 'react-redux';
-import { END } from 'redux-saga';
 import { configureStore, wrapper } from '../../../modules';
-import { getResultByTagActions } from '../../../modules/search/actions';
 import SearchResultList from '../SearchResultList';
 
 //TODO 안댐,,
