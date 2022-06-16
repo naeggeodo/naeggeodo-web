@@ -8,7 +8,7 @@ const QuickChatModalTemplate = ({
   children: JSX.Element | JSX.Element[];
 }) => {
   return (
-    <Portal selector='chattingPortal'>
+    <Portal selector='loginPortal'>
       <Background>
         <ModalContainer>{children}</ModalContainer>
       </Background>

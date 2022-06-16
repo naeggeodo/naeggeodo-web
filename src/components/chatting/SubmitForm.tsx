@@ -133,10 +133,10 @@ const QuickChatButton = styled.button<StyledType>`
   ${(props) =>
     props.isActive
       ? css`
-          transform: rotate(-180deg);
+          transform: rotate(180deg);
         `
       : css`
-          transform: rotate(360deg);
+          transform: rotate(0deg);
         `}
   transition: 0.3s;
 `;

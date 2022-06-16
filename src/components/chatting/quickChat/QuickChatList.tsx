@@ -62,14 +62,6 @@ const QuickChatList = ({
     <Container
       isActive={isQuickChatOpen}
       length={quickChatList.quickChat.length}>
-      <Div>
-        <Image
-          src='/assets/images/slidedown.svg'
-          alt='icon'
-          width={36}
-          height={3}
-        />
-      </Div>
       {quickChatList.quickChat &&
         quickChatList.quickChat.map((quickChat) => (
           <Item key={quickChat.idx} onClick={sendMessage}>
@@ -91,33 +83,30 @@ const QuickChatList = ({
 };
 
 const Container = styled.div<StyledType>`
-  position: fixed;
-  bottom: 52px;
-  width: 100%;
-  background-color: #fff;
+  position: absolute;
+  bottom: 50px;
 
-  height: ${(props) => (props.isActive ? `${65 * props.length}px` : '0px')};
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  width: 100%;
+  height: ${(props) => (props.isActive ? `${65 * props.length}px` : '0')};
+
+  padding: 0 6% 10px;
+
   transition: 0.3s;
 
   border-bottom: 1px solid ${palette.LineGray};
   border-radius: 20px 20px 0px 0px;
   overflow: hidden;
-  padding: 0 6% 14px;
 
-  touch-action: none;
+  background-color: #fff;
 
   & > img {
     display: block;
     margin: 0 auto;
   }
-`;
-
-const Div = styled.div`
-  padding: 10px 0 22px;
-
-  text-align: center;
-  cursor: grab;
-  touch-action: none;
 `;
 
 const Item = styled.p`
