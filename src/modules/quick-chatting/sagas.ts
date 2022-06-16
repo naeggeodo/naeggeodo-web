@@ -26,12 +26,11 @@ function* patchQuickChattingListGenerator(
   action: ReturnType<typeof patchQuickChattingListActions.request>,
 ) {
   try {
-    const response = yield call(
+    const { data } = yield call(
       QuickChatService.asyncPatchQuickChattingList,
-      action.payload.userId,
-      action.payload.data,
+      action.payload,
     );
-    console.log(response);
+    yield put(patchQuickChattingListActions.success(data));
   } catch (error) {
     console.log(error);
   }
