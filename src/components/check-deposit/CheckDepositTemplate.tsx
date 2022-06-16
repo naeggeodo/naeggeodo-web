@@ -33,12 +33,13 @@ const CheckDepositTemplate = () => {
   return (
     <Container>
       <TitleContainer>
-        <PrevButton onClick={routeBack}>
+        <PrevButton onClick={routeBack} title='뒤로가기 버튼'>
           <Image
             src='/assets/images/prevbtn.svg'
             width={11}
             height={24}
             layout='fixed'
+            alt='뒤로가기 버튼'
           />
         </PrevButton>
         <Title>돈을 받으셨나요?</Title>
@@ -107,7 +108,7 @@ const P = styled.p`
 
   &::before {
     content: '수령완료 ';
-    color: ${palette.mainOrange};
+    color: ${palette.black};
   }
 `;
 
@@ -130,7 +131,7 @@ const Title = styled.p`
 `;
 
 const Notice = styled.p`
-  color: ${palette.Gray};
+  color: #db0202;
 `;
 
 const DepositUserList = styled.div`
