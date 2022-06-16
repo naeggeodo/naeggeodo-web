@@ -1,6 +1,7 @@
 import Image from 'next/image';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
-import { PreviousChattingItemResponse } from '../../modules/chatting/types';
+import { ChattingListItem } from '../../modules/chatting/types';
 import palette from '../../styles/palette';
 import DateFormatter from '../../utils/DateFormatter';
 
@@ -8,39 +9,53 @@ const ChatItem = ({
   message,
   date,
 }: {
-  message: PreviousChattingItemResponse;
+  message: ChattingListItem;
   date?: string;
 }) => {
-  const chatDate = new DateFormatter(date);
+  const chatDate = useMemo(() => new DateFormatter(date), [date]);
+  const currentDate = new Date();
+  const today = useMemo(
+    () =>
+      `${currentDate.getFullYear()}-${String(
+        currentDate.getMonth() + 1,
+      ).padStart(2, '0')}-${currentDate.getDate()}`,
+    [currentDate],
+  );
 
   return (
-    <Wrap>
-      <StyledImage
-        src='/assets/images/hamburger.svg'
-        width={35}
-        height={35}
-        layout='fixed'
-      />
-      {message.contents.includes('data:image/') ? (
-        <StyledImg
-          src={message.contents}
-          alt='채팅 이미지'
-          width={400}
-          height={400}
+    <>
+      <Nickname>{message.nickname}</Nickname>
+      <Container>
+        <StyledImage
+          src='/assets/images/hamburger.svg'
+          width={35}
+          height={35}
+          layout='fixed'
         />
-      ) : (
-        <Content>{message.contents}</Content>
-      )}
-
-      <Time>
-        <span>{chatDate.formatDate()}</span>
-        <span>{chatDate.formatTime()}</span>
-      </Time>
-    </Wrap>
+        {message.contents?.includes('data:image/') ? (
+          <StyledImg
+            src={message.contents}
+            alt='채팅 이미지'
+            width={150}
+            height={150}
+          />
+        ) : (
+          <Content>
+            <div>{message.contents}</div>
+          </Content>
+        )}
+        <Time>
+          {today === chatDate.date ? null : (
+            <span>{chatDate.formatDate()}</span>
+          )}
+          <span>{chatDate.formatTime()}</span>
+        </Time>
+      </Container>
+    </>
   );
 };
 
-const Wrap = styled.div`
+const Container = styled.div`
   display: flex;
   align-items: flex-end;
   gap: 5px;
@@ -57,9 +72,12 @@ const StyledImage = styled(Image)`
   object-fit: cover;
 `;
 
-const Content = styled.p`
-  max-width: 70%;
+const Nickname = styled.p`
+  margin-left: 10px;
+  font-size: 0.8125rem;
+`;
 
+const Content = styled.div`
   display: flex;
   flex-wrap: wrap;
 
@@ -67,8 +85,9 @@ const Content = styled.p`
 
   font-size: 0.9375rem;
   line-height: 1.2em;
-  color: #fff;
-  background-color: ${palette.mainOrange};
+
+  color: ${palette.black};
+  background-color: #fff;
   border-radius: 10px 10px 10px 0px;
 `;
 

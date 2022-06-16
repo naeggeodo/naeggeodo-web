@@ -1,41 +1,39 @@
 import Image from 'next/image';
-import { FormEvent, PointerEvent, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import TabMenu from '../../components/main/TabMenu';
-
-import { RootState } from '../../modules';
-import {
-  getResultByInputActions,
-  getResultByTagActions,
-} from '../../modules/search/actions';
-import { SearchTagListResponse } from '../../modules/search/types';
 import palette from '../../styles/palette';
-import ChatRoomItem from '../main/ChatRoomItem';
 
-const SearchTemplate = ({ tags }: SearchTagListResponse) => {
-  const dispatch = useDispatch();
+import TabMenu from '../../components/main/TabMenu';
+import SearchTag from './SearchTag';
+import SearchResultList from './SearchResultList';
 
-  const [keyWord, setKeyWord] = useState('');
+import { useLoadLib } from '../../hooks/utils/useLoadLib';
+import { useSearchChatRoom } from '../../hooks/search/useSearchChatRoom';
+import CurrentLocation from './CurrentLocation';
+import LoginModal from '../login/LoginModalTemplate';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../modules';
 
-  const { searchResultList } = useSelector(
-    (state: RootState) => state.searchPageState,
+const SearchTemplate = () => {
+  const { router, dispatch } = useLoadLib();
+  const {
+    searchValue,
+    handleChangeSearchValue,
+    getSearchListByTag,
+    getSearchListByInput,
+    tags,
+    searchResultList,
+    selected,
+  } = useSearchChatRoom(dispatch, router);
+
+  const loginModalIsClicked = useSelector(
+    (state: RootState) => state.modalStates.loginModalIsClicked,
   );
-
-  const onSearchClick = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    dispatch(getResultByInputActions.request(keyWord));
-  };
-
-  const onTagClick = (e: PointerEvent<HTMLSpanElement>) => {
-    const target = e.target as HTMLSpanElement;
-    dispatch(getResultByTagActions.request(target.innerText));
-  };
 
   return (
     <>
-      <Wrap>
-        <SearchForm onSubmit={onSearchClick}>
+      <Container>
+        <CurrentLocation />
+        <SearchForm onSubmit={getSearchListByInput}>
           <Button>
             <Image
               src='/assets/images/searchgray.svg'
@@ -46,43 +44,39 @@ const SearchTemplate = ({ tags }: SearchTagListResponse) => {
           </Button>
           <Input
             type='text'
-            value={keyWord}
+            value={searchValue}
             placeholder='검색어를 입력해주세요'
-            onChange={(e) => {
-              setKeyWord(e.target.value);
-            }}
+            onChange={handleChangeSearchValue}
           />
         </SearchForm>
         {searchResultList ? (
-          <ResultList>
-            {searchResultList.chatRoom.map((v, i) => (
-              <ChatRoomItem
-                key={i}
-                title={v.title}
-                link={v.link}
-                maxCount={v.maxCount}
-                createDate={v.createDate}
-                currentCount={v.currentCount}
-              />
-            ))}
-          </ResultList>
+          <SearchResultList />
         ) : (
-          <SearchTagList>
-            {tags &&
-              tags.map((v, i) => (
-                <SearchTag key={i} onPointerDown={onTagClick}>
-                  {v.msg}
-                </SearchTag>
-              ))}
-          </SearchTagList>
+          <SearchTagContainer>
+            <SearchTagTitle>많이 검색한 태그</SearchTagTitle>
+            <SearchTagList>
+              {tags?.length > 0 &&
+                tags.map((tag, i) => (
+                  <SearchTag
+                    key={i}
+                    handleClick={getSearchListByTag}
+                    selected={selected}
+                    dataValue={tag.msg}>
+                    {tag.msg}
+                  </SearchTag>
+                ))}
+            </SearchTagList>
+          </SearchTagContainer>
         )}
-      </Wrap>
+      </Container>
+      {loginModalIsClicked && <LoginModal />}
+
       <TabMenu />
     </>
   );
 };
 
-const Wrap = styled.div`
+const Container = styled.div`
   width: 100%;
   height: 100vh;
   background-color: #fff;
@@ -117,21 +111,21 @@ const Button = styled.button`
   border: none;
 `;
 
-const SearchTagList = styled.div`
+const SearchTagContainer = styled.div`
   width: 100%;
   margin-bottom: 20px;
 `;
 
-const SearchTag = styled.span`
-  display: inline-block;
-
-  background: #f5f5f5;
-  margin: 5px;
-  padding: 10px;
-  border-radius: 5px;
-  font-size: 0.9375rem;
+const SearchTagTitle = styled.p`
+  font-size: 1rem;
+  font-family: 'SpoqaBold';
 `;
 
-const ResultList = styled.div``;
+const SearchTagList = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+`;
 
 export default SearchTemplate;

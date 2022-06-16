@@ -1,47 +1,74 @@
-import { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
 import { CompatClient } from '@stomp/stompjs';
 import Image from 'next/image';
 import { useChat } from '../../hooks/useChat';
+import { useRouter } from 'next/router';
+import { useSelectLoginStates } from '../../hooks/select/useSelectLoginStates';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../modules';
 
-const SubmitForm = ({ stompClient }: { stompClient: CompatClient }) => {
-  const [message, setMessage] = useState('');
-  const { onSendMessage } = useChat();
+const SubmitForm = ({
+  changeMessage,
+  message,
+  sendMessage,
+  sendImage,
+}: any) => {
+  // const { onSendMessage } = useChat();
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!message) return;
-    const data = {
-      chatMain_id: 1,
-      sender: 2,
-      contents: message,
-      type: 'TEXT',
-    };
-    onSendMessage(stompClient, data);
-    setMessage('');
-  };
+  // const [message, setMessage] = useState('');
+  // const router = useRouter();
+  // const { user_id } = useSelectLoginStates();
 
-  const onImgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const fileReader = new FileReader();
-    const imgFile = e.target.files[0];
+  // const { nickname } = useSelector(
+  //   (state: RootState) => state.chattingRoomState,
+  // );
 
-    fileReader.readAsDataURL(imgFile);
-    fileReader.onload = (e) => {
-      const result = e.target.result;
+  // const sendMessage = useCallback<
+  //   (e: React.FormEvent<HTMLFormElement>) => void
+  // >(
+  //   (e) => {
+  //     e.preventDefault();
 
-      const data = {
-        chatMain_id: 1,
-        sender: 2,
-        contents: result as string,
-        type: 'TEXT',
-      };
-      onSendMessage(stompClient, data);
-    };
-  };
+  //     if (!message) return;
+
+  //     const data = {
+  //       chatMain_id: String(router.query.id),
+  //       sender: user_id,
+  //       contents: message,
+  //       type: 'TEXT',
+  //       nickname: nickname,
+  //     };
+  //     onSendMessage(stompClient, data);
+  //     setMessage('');
+  //   },
+  //   [message],
+  // );
+
+  // const sendImage = useCallback<
+  //   (e: React.ChangeEvent<HTMLInputElement>) => void
+  // >((e) => {
+  //   const fileReader = new FileReader();
+  //   const imgFile = e.target.files[0];
+  //   console.log('타겟', imgFile);
+  //   fileReader.readAsDataURL(imgFile);
+  //   fileReader.onload = (e) => {
+  //     const result = e.target.result;
+  //     const data = {
+  //       chatMain_id: String(router.query.id),
+  //       sender: user_id,
+  //       contents: result as string,
+  //       type: 'IMAGE',
+  //       nickname: nickname,
+  //     };
+  //     onSendMessage(stompClient, data);
+  //   };
+  //   e.target.value = '';
+  // }, []);
 
   return (
-    <Wrap>
-      <ContentWrap onSubmit={onSubmit}>
+    <Container>
+      <ContentWrap onSubmit={sendMessage}>
         <ImgAddLabel htmlFor='image'>
           <Image
             src='/assets/images/imgaddbtn.svg'
@@ -54,12 +81,9 @@ const SubmitForm = ({ stompClient }: { stompClient: CompatClient }) => {
           type='file'
           accept='image/*'
           id='image'
-          onChange={onImgChange}
+          onChange={sendImage}
         />
-        <TextField
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-        />
+        <TextField value={message} onChange={changeMessage} />
         <Button>
           <Image
             src='/assets/images/submitbtn.svg'
@@ -69,13 +93,12 @@ const SubmitForm = ({ stompClient }: { stompClient: CompatClient }) => {
           />
         </Button>
       </ContentWrap>
-    </Wrap>
+    </Container>
   );
 };
 
-const Wrap = styled.div`
+const Container = styled.div`
   width: 100%;
-  height: 6%;
   background: #fff;
 `;
 
@@ -91,7 +114,7 @@ const ContentWrap = styled.form`
   margin: 0 auto;
 `;
 
-const TextField = styled.textarea`
+const TextField = styled.input`
   width: 90%;
   max-height: 70%;
 

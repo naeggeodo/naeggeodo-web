@@ -3,11 +3,15 @@ import CreateButton from '../CreateButton';
 
 type Args = {
   storeName: string;
+  handleClick: null;
 };
 
 export default {
   title: 'create/컴포넌트',
   component: CreateButton,
+  parameters: {
+    layout: 'fullscreen',
+  },
   decorators: [
     (Story) => (
       <div
@@ -22,7 +26,14 @@ export default {
   ],
 } as ComponentMeta<typeof CreateButton>;
 
-const Template = (args: Args) => <CreateButton {...args} />;
+const Template = (args: Args) => (
+  <CreateButton
+    handleClick={() => {
+      console.log(args);
+    }}
+    {...args}
+  />
+);
 export const CreateButtonStory = Template.bind({});
 
 CreateButtonStory.args = {

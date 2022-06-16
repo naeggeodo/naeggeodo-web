@@ -3,24 +3,27 @@ import Image from 'next/image';
 import KaKaoLoginBtn from '../login/KaKaoLoginBtn';
 import NaverLoginBtn from '../login/NaverLoginBtn';
 import palette from '../../styles/palette';
+import { useCustomRouter } from '../../hooks/utils/useCustomRouter';
 
 type StyledProps = {
   name: 'header' | 'content' | 'buttons';
 };
 
 const LoginTemplate = () => {
+  const { routeBack } = useCustomRouter();
+
   return (
     <Container>
       <ContentWrap>
         <TextWrapper>
-          <StyledWrapper name='header'>
+          <PrevButton onClick={routeBack}>
             <Image
               src='/assets/images/prevbtn.svg'
               alt='prev button'
               width={14}
               height={24}
             />
-          </StyledWrapper>
+          </PrevButton>
 
           <StyledWrapper name='content'>
             <Title>로그인하여</Title>
@@ -43,6 +46,8 @@ const Container = styled.div`
   width: 100vw;
   height: 100vh;
   padding: 25px 0 34px;
+
+  background-color: #fff;
 `;
 
 const ContentWrap = styled.div`
@@ -77,14 +82,14 @@ const P = styled.p`
   margin-top: 30px;
 `;
 
+const PrevButton = styled.button`
+  all: unset;
+  height: 10%;
+  cursor: pointer;
+`;
+
 const StyledWrapper = styled.div<StyledProps>`
   width: 100%;
-
-  ${(props) =>
-    props.name === 'header' &&
-    css`
-      height: 10%;
-    `};
 
   ${(props) =>
     props.name === 'content' &&

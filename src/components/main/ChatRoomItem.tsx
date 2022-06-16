@@ -1,45 +1,70 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import { useRouter } from 'next/router';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { ChatRoomItemProps } from '../../modules/main/types';
 import palette from '../../styles/palette';
+import { convertOrderTimeType } from '../../utils/convertOrderTimeType';
 import TimeCalculator from '../../utils/TimeCalculator';
+import RegisterTime from './RegisterTime';
 
 const ChatRoomItem = ({
+  id,
   title,
   maxCount,
   createDate,
   currentCount,
+  orderTimeType,
+  imgPath,
+  address,
 }: ChatRoomItemProps) => {
-  const timeCalculator = new TimeCalculator(createDate);
+  const timeCalculator = useMemo(
+    () => new TimeCalculator(createDate),
+    [createDate],
+  );
+  const router = useRouter();
 
   return (
     <Container>
-      <StyledImage src='/assets/images/pizza.svg' width={70} height={70} />
+      <Image
+        src={imgPath ? imgPath : '/assets/images/pizza.svg'}
+        width={70}
+        height={70}
+        alt={title + '이미지'}
+      />
       <FlexRight>
         <Title>{title}</Title>
+
         <NumberOfPeople>
           인원 {currentCount}명 / {maxCount}명
         </NumberOfPeople>
 
         <TimeOrderLinkContainer>
-          <RegisteredTime>
-            {timeCalculator.calculateCreateMinute()}
-          </RegisteredTime>
-          <div>
-            <Link href='/' passHref>
-              <StyledLink>
-                <span>함께 주문하기</span>
+          <OrderTimeTypeWrapper>
+            <RegisterTime>
+              {timeCalculator.calculateCreateMinute()}
+            </RegisterTime>
+            <p>{convertOrderTimeType(orderTimeType)}</p>
+          </OrderTimeTypeWrapper>
+
+          {router.route === '/chat-rooms' ? (
+            <Link href={`/chatting/${id}`} passHref>
+              <StyledLink rel='noreferrer noopener'>
+                <p>함께주문하기</p>
                 <Image
                   src='/assets/images/arrowright.svg'
-                  alt='더보기 화살표'
                   width={14}
-                  height={20}
+                  height={14}
+                  alt='채팅하러가기 버튼'
                 />
               </StyledLink>
             </Link>
-          </div>
+          ) : (
+            <TitleContainer>
+              <p>{address}</p>
+            </TitleContainer>
+          )}
         </TimeOrderLinkContainer>
       </FlexRight>
     </Container>
@@ -58,11 +83,12 @@ const Container = styled.div`
   background-color: #ffffff;
 
   border-bottom: 1px solid ${palette.bgGray};
-`;
+  transition: 0.2s;
+  cursor: pointer;
 
-const StyledImage = styled(Image)`
-  border: 1px solid ${palette.LineGray};
-  border-radius: 10px;
+  &:hover {
+    background-color: ${palette.bgGray};
+  }
 `;
 
 const FlexRight = styled.div`
@@ -71,6 +97,11 @@ const FlexRight = styled.div`
   gap: 5px;
 
   width: 100%;
+`;
+
+const TitleContainer = styled.div`
+  font-size: 0.8125rem;
+  color: ${palette.DarkGray};
 `;
 
 const Title = styled.p`
@@ -83,29 +114,25 @@ const NumberOfPeople = styled.p`
   color: ${palette.DarkGray};
 `;
 
-const RegisteredTime = styled.p`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  min-width: 40px;
-  height: 20px;
-
-  font-size: 0.75rem;
-  color: ${palette.DarkGray};
-
-  background-color: ${palette.LightGray};
-
-  padding: 0 4px;
-  border-radius: 3px;
-`;
-
 const TimeOrderLinkContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
 
   width: 100%;
+`;
+
+const OrderTimeTypeWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  & > p:nth-child(2) {
+    font-family: 'SpoqaBold';
+    font-size: 0.75rem;
+    color: ${palette.mainOrange};
+  }
 `;
 
 const StyledLink = styled.a`
@@ -116,10 +143,14 @@ const StyledLink = styled.a`
   text-decoration: none;
   cursor: pointer;
 
-  & > span {
+  & > p {
     font-size: 0.75rem;
     color: ${palette.black};
   }
+
+  &:hover {
+    border-bottom: 1px solid black;
+  }
 `;
 
-export default ChatRoomItem;
+export default React.memo(ChatRoomItem);

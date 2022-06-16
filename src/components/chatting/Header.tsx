@@ -1,33 +1,46 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useCallback } from 'react';
 import Image from 'next/image';
 import styled, { css } from 'styled-components';
-import { RootState } from '../../modules';
 import palette from '../../styles/palette';
-import { useRouter } from 'next/router';
+import Link from 'next/link';
+import { useCustomRouter } from '../../hooks/utils/useCustomRouter';
 
 type StyledType = {
   name: 'title' | 'info';
 };
-
-type PropsType = {
-  setDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
+type StyledProps = {
+  max: string;
 };
 
-const Header = ({ setDrawerOpen }: PropsType) => {
-  const router = useRouter();
+type PropsType = {
+  setIsDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isDrawerOpen: boolean;
+  currentCount: number;
+  maxCount: number;
+  link: string;
+  imgPath: string;
+  title: string;
+};
 
-  const { chatRoomInfo } = useSelector(
-    (state: RootState) => state.chattingRoomState,
-  );
+const Header = ({
+  setIsDrawerOpen,
+  isDrawerOpen,
+  currentCount,
+  maxCount,
+  link,
+  imgPath,
+  title,
+}: PropsType) => {
+  const { routeBack } = useCustomRouter();
+
+  const openDrawer = useCallback(() => {
+    setIsDrawerOpen(true);
+  }, [isDrawerOpen]);
 
   return (
     <Container>
       <ContentWrap>
-        <PrevButton
-          onClick={() => {
-            router.push('/');
-          }}>
+        <PrevButton onClick={routeBack}>
           <Image
             src='/assets/images/prevbtn.svg'
             alt='prev button'
@@ -36,18 +49,22 @@ const Header = ({ setDrawerOpen }: PropsType) => {
           />
         </PrevButton>
         <StyledImage
-          src='/assets/images/hamburger.svg'
+          src={imgPath ? imgPath : '/assets/images/hamburger.svg'}
           width={44}
           height={44}
         />
-        <Div>
-          <Info name='title'>{chatRoomInfo?.title}</Info>
-          <Info name='info'>인원2명/{chatRoomInfo?.maxCount}명</Info>
-        </Div>
-        <HambergurButton
-          onClick={() => {
-            setDrawerOpen(true);
-          }}>
+        <Link href={link || 'http://naeggeodo.com'} passHref>
+          <LinkWrapper target='_blank' rel='noopener noreferrer'>
+            <Info name='title'>{title}</Info>
+            <Info name='info'>
+              <StyledCurrent max={currentCount === maxCount ? 'true' : 'false'}>
+                현재 {currentCount}명
+              </StyledCurrent>
+              /{maxCount}명
+            </Info>
+          </LinkWrapper>
+        </Link>
+        <HambergurButton onClick={openDrawer}>
           <Image
             src='/assets/images/hambergurbar.svg'
             width={22}
@@ -85,6 +102,8 @@ const PrevButton = styled.button`
   outline: none;
   background: transparent;
   padding: 0;
+
+  cursor: pointer;
 `;
 
 const StyledImage = styled(Image)`
@@ -94,10 +113,12 @@ const StyledImage = styled(Image)`
   background-color: #fff;
 `;
 
-const Div = styled.div`
+const LinkWrapper = styled.a`
   display: flex;
   flex-direction: column;
+
   gap: 5px;
+  text-decoration: none;
 `;
 
 const Info = styled.p<StyledType>`
@@ -127,6 +148,16 @@ const HambergurButton = styled.button`
   right: 0;
 
   padding: 10px;
+`;
+
+const StyledCurrent = styled.span<StyledProps>`
+  color: ${palette.naverGreen};
+
+  ${(props) =>
+    props.max === 'true' &&
+    css`
+      color: red;
+    `}
 `;
 
 export default Header;

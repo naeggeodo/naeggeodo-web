@@ -1,0 +1,53 @@
+import React from 'react';
+import styled from 'styled-components';
+
+import Portal from '../../common/Portal';
+
+const ConfirmModalTemplate = ({
+  children,
+}: {
+  children: JSX.Element | JSX.Element[];
+}) => {
+  return (
+    <Portal selector='reportPortal'>
+      <Background>
+        <ModalContainer>{children}</ModalContainer>
+      </Background>
+    </Portal>
+  );
+};
+
+export default ConfirmModalTemplate;
+
+const Background = styled.div`
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+
+  background-color: rgba(0, 0, 0, 0.7);
+
+  z-index: 1;
+
+  overflow: hidden;
+  touch-action: none;
+`;
+
+const ModalContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 70px;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  border-radius: 5px;
+
+  width: 70%;
+  background: #fff;
+  padding: 30px;
+`;

@@ -1,8 +1,26 @@
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
+import { Category } from '../../modules/common/types';
 import palette from '../../styles/palette';
 
-const CreateButton = ({ storeName }: { storeName: string }) => {
-  return <Button disabled={storeName.length < 2}>내꺼톡 생성하기</Button>;
+const CreateButton = ({
+  maxCount,
+  category,
+  storeName,
+  handleClick,
+}: {
+  maxCount?: number;
+  category?: Category;
+  storeName?: string;
+  handleClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+}) => {
+  return (
+    <Button
+      onClick={handleClick}
+      disabled={storeName.length < 2 || !category || maxCount <= 1}>
+      내꺼톡 생성하기
+    </Button>
+  );
 };
 
 const Button = styled.button`

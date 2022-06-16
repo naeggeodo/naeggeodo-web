@@ -1,9 +1,9 @@
 import { ComponentMeta } from '@storybook/react';
-import { PreviousChattingItemResponse } from '../../../modules/chatting/types';
+import { ChattingListItem } from '../../../modules/chatting/types';
 import ChatItem from '../ChatItem';
 
 type Args = {
-  message: PreviousChattingItemResponse;
+  message: ChattingListItem;
   date: string;
 };
 
@@ -12,7 +12,14 @@ export default {
   component: ChatItem,
   decorators: [
     (Story) => (
-      <div style={{ margin: '20px' }}>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100vh',
+          width: '100vw',
+        }}>
         <Story />
       </div>
     ),

@@ -1,8 +1,17 @@
 import { ComponentMeta } from '@storybook/react';
 import { Provider } from 'react-redux';
-import { configureStore } from '../../../modules';
+import { END } from 'redux-saga';
+import { configureStore, wrapper } from '../../../modules';
+import {
+  getChattingListActions,
+  getCurrentChatRoomAsyncActions,
+  getCurrentChatUserListActions,
+  getUserNicknameActions,
+} from '../../../modules/chatting/actions';
+import { saveCookies } from '../../../utils/saveCookies';
 import ChattingTemplate from '../ChattingTemplate';
 
+// TODO loaders해도 안되는듯
 export default {
   title: 'chatting/페이지',
   component: ChattingTemplate,
@@ -18,24 +27,45 @@ export default {
   },
 } as ComponentMeta<typeof ChattingTemplate>;
 
-const ChattingPageStory = (args) => <ChattingTemplate {...args} />;
-// export const ChattingPage = ChattingPageStory.bind({});
+export const ChattingPageStory = () => <ChattingTemplate />;
 
-// ChattingPage.args = {
-//   previousChatting: {
-//     messages: [
-//       {
-//         user_id: 1,
-//         id: 1,
-//         idx: 1,
-//         chatMain_id: 1,
-//         regDate: '2022-05-13T15:52:52',
-//         sender: 2,
-//         contents: '교촌치킨 먹고싶어요',
-//         type: 'TEXT',
-//       },
-//     ],
+// ChattingPageStory.loaders = [
+//   async (context) => {
+//     console.log('context', context);
+//     const data = await getServerSideProps(context);
+//     return data;
 //   },
-// };
+// ];
 
-// ChattingPage.storyName = '채팅 페이지';
+ChattingPageStory.loaders = [
+  async () => {
+    wrapper.getServerSideProps((store) => async (context) => {
+      store.dispatch(
+        getCurrentChatRoomAsyncActions.request({
+          chattingRoomId: '276',
+        }),
+      );
+      store.dispatch(
+        getChattingListActions.request({
+          chattingRoomId: '276',
+          userId: '다혜',
+        }),
+      );
+      store.dispatch(
+        getCurrentChatUserListActions.request({
+          chattingRoomId: '276',
+        }),
+      );
+      store.dispatch(getUserNicknameActions.request('다혜'));
+      store.dispatch(END);
+      await store.sagaTask.toPromise();
+      return {
+        props: {
+          chattingList: store.getState().chattingRoomState.chattingList,
+        },
+      };
+    });
+  },
+];
+
+ChattingPageStory.storyName = '채팅 페이지';

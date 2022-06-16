@@ -1,68 +1,202 @@
 import { createReducer } from 'typesafe-actions';
 import {
   ADD_TAG,
+  INSERT_TITLE,
+  INSERT_LINK,
   MINUS_MAX_COUNT,
   PLUS_MAX_COUNT,
   REMOVE_TAG,
-  SELECT_ORDER_TYPE,
-  TYPE_STORE_LINK,
-  TYPE_STORE_NAME,
+  SELECT_ORDER_TIME_TYPE,
+  SELECT_CATEGORY,
+  CREATE_CHAT_ROOM_SUCCESS,
+  INSERT_PLACE,
+  SAVE_USER_ID,
+  SAVE_BUILDING_CODE,
+  INITIALIZE_CREATE_CHATROOM_STATES,
+  GET_PREV_CREATED_LIST_SUCCESS,
+  COPY_PREV_CHATROOM_DATA_SUCCESS,
+  SELECT_COPY_PREV_CHATROOM_DATA,
+  selectCopyPrevChatRoomData,
+  PATCH_PREV_CHATROOM_BOOKMARK_SUCCESS,
+  patchPrevChatRoomBookMarkActions,
 } from './actions';
-import { CreateStates } from './types';
+import {
+  CreateStates,
+  InsertLinkAction,
+  InsertTitleAction,
+  SelectOrderTimeTypeAction,
+  SelectCategoryAction,
+  AddTagAction,
+  RemoveTagAction,
+  InsertPlaceAction,
+  SaveUserIdAction,
+  SaveBuildingCodeAction,
+} from './types';
 
 const initialCreateStates: CreateStates = {
-  orderType: '',
-  storeName: '',
-  storeLink: 'http://',
-  tags: [],
-  maxCount: 1,
+  createData: {
+    buildingCode: '',
+    category: null,
+    link: 'http://',
+    place: '',
+    title: '',
+    user_id: '',
+    tag: [],
+    maxCount: 1,
+    orderTimeType: '',
+  },
+  createChatRoomResponse: {
+    chatMain_id: null,
+  },
+  prevCreatedListResponse: {
+    chatRooms: [],
+  },
+  copyPrevChatRoomResponse: null,
+  selectedPrevChatRoomData: null,
 };
 
 export const createStates = createReducer<CreateStates>(initialCreateStates, {
-  [SELECT_ORDER_TYPE]: (state, action) => ({
+  [SELECT_ORDER_TIME_TYPE]: (state, action: SelectOrderTimeTypeAction) => ({
     ...state,
-    orderType: action.payload,
+    createData: {
+      ...state.createData,
+      orderTimeType: action.payload.orderTimeType,
+    },
   }),
-  [TYPE_STORE_NAME]: (state, action) => ({
+  [INSERT_TITLE]: (state, action: InsertTitleAction) => ({
     ...state,
-    storeName: action.payload,
+    createData: {
+      ...state.createData,
+      title: action.payload.title,
+    },
   }),
-  [TYPE_STORE_LINK]: (state, action) => ({
+  [INSERT_LINK]: (state, action: InsertLinkAction) => ({
     ...state,
-    storeLink: action.payload,
+    createData: {
+      ...state.createData,
+      link: action.payload.link,
+    },
   }),
-  [ADD_TAG]: (state, action) => {
-    if (state.tags.length >= 5) return state;
+  [SELECT_CATEGORY]: (state, action: SelectCategoryAction) => ({
+    ...state,
+    createData: {
+      ...state.createData,
+      category: action.payload.category,
+    },
+  }),
+  [ADD_TAG]: (state, action: AddTagAction) => {
+    if (state.createData.tag.length >= 5) return state;
     else {
       return {
         ...state,
-        tags: [...state.tags, action.payload],
+        createData: {
+          ...state.createData,
+          tag: [...state.createData.tag, action.payload.keyword],
+        },
       };
     }
   },
-  [REMOVE_TAG]: (state, action) => ({
+  [REMOVE_TAG]: (state, action: RemoveTagAction) => ({
     ...state,
-    tags: state.tags.filter((_, index) => index !== action.payload),
+    createData: {
+      ...state.createData,
+      tag: state.createData.tag.filter(
+        (_, index) => index !== action.payload.index,
+      ),
+    },
   }),
-
   [PLUS_MAX_COUNT]: (state, _) => {
-    if (state.maxCount >= 5) {
+    if (state.createData.maxCount >= 5) {
       return state;
     } else {
       return {
         ...state,
-        maxCount: state.maxCount + 1,
+        createData: {
+          ...state.createData,
+          maxCount: state.createData.maxCount + 1,
+        },
       };
     }
   },
   [MINUS_MAX_COUNT]: (state, _) => {
-    if (state.maxCount <= 1) {
+    if (state.createData.maxCount <= 1) {
       return state;
     } else {
       return {
         ...state,
-        maxCount: state.maxCount - 1,
+        createData: {
+          ...state.createData,
+          maxCount: state.createData.maxCount - 1,
+        },
       };
     }
   },
+  [INSERT_PLACE]: (state, action: InsertPlaceAction) => ({
+    ...state,
+    createData: {
+      ...state.createData,
+      place: action.payload.place,
+    },
+  }),
+  [SAVE_USER_ID]: (state, action: SaveUserIdAction) => ({
+    ...state,
+    createData: {
+      ...state.createData,
+      user_id: action.payload.user_id,
+    },
+  }),
+  [SAVE_BUILDING_CODE]: (state, action: SaveBuildingCodeAction) => ({
+    ...state,
+    createData: {
+      ...state.createData,
+      buildingCode: action.payload.buildingCode,
+    },
+  }),
+  [CREATE_CHAT_ROOM_SUCCESS]: (state, action) => ({
+    ...state,
+    createChatRoomResponse: {
+      ...state.createChatRoomResponse,
+      chatMain_id: action.payload.chatMain_id,
+    },
+  }),
+  [INITIALIZE_CREATE_CHATROOM_STATES]: (state, action) => ({
+    ...state,
+    createData: initialCreateStates.createData,
+  }),
+
+  [GET_PREV_CREATED_LIST_SUCCESS]: (state, action) => ({
+    ...state,
+    prevCreatedListResponse: {
+      ...state.prevCreatedListResponse,
+      chatRooms: action.payload.chatRooms,
+    },
+  }),
+
+  [COPY_PREV_CHATROOM_DATA_SUCCESS]: (state, action) => ({
+    ...state,
+    copyPrevChatRoomResponse: action.payload,
+  }),
+
+  [SELECT_COPY_PREV_CHATROOM_DATA]: (
+    state,
+    action: ReturnType<typeof selectCopyPrevChatRoomData>,
+  ) => ({
+    ...state,
+    selectedPrevChatRoomData: action.payload.data,
+  }),
+
+  [PATCH_PREV_CHATROOM_BOOKMARK_SUCCESS]: (
+    state,
+    action: ReturnType<typeof patchPrevChatRoomBookMarkActions.success>,
+  ) => ({
+    ...state,
+    prevCreatedListResponse: {
+      ...state.prevCreatedListResponse,
+      chatRooms: state.prevCreatedListResponse.chatRooms.map((chatRoom, _) =>
+        chatRoom.id === action.payload.chatMain_id
+          ? { ...chatRoom, bookmarks: action.payload.bookmarks }
+          : chatRoom,
+      ),
+    },
+  }),
 });

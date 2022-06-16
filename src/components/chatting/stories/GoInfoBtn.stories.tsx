@@ -1,4 +1,6 @@
 import { ComponentMeta } from '@storybook/react';
+import { Provider } from 'react-redux';
+import { configureStore } from '../../../modules';
 import GoInfoBtn from '../GoInfoBtn';
 
 export default {
@@ -6,9 +8,11 @@ export default {
   component: GoInfoBtn,
   decorators: [
     (Story) => (
-      <div style={{ height: '8vh', width: '100vw' }}>
-        <Story />
-      </div>
+      <Provider store={configureStore()}>
+        <div style={{ height: '8vh', width: '100vw' }}>
+          <Story />
+        </div>
+      </Provider>
     ),
   ],
   parameters: {

@@ -1,62 +1,62 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 import CategoryMenuSlide from './CategoryMenuSlide';
-import ChatRoomItem from './ChatRoomItem';
 import TabMenu from './TabMenu';
 import SearchPostCode from './SearchPostCode';
-
 import PostCodeWebView from './PostCodeWebView';
-import {
-  CategoriesResponse,
-  ChatRoomItemResponse,
-} from '../../modules/main/types';
-import LoginModalTemplate from '../login/LoginModalTemplate';
+import LoginModal from '../login/LoginModalTemplate';
+
+import { useSelector } from 'react-redux';
+import { RootState } from '../../modules';
+import { useCheckValidate } from '../../hooks/useCheckValidate';
+import { getBuildingCodeRequest } from '../../modules/search-post-code/actions';
+import NoItemText from './NoItemText';
+import { useLoadLib } from '../../hooks/utils/useLoadLib';
+import { useSelectLoginStates } from '../../hooks/select/useSelectLoginStates';
+import ChatRoomList from './ChatRoomList';
+import { CategoriesResponse } from '../../modules/common/types';
 
 const MainTemplate = ({
   foodCategories,
-  chatRooms,
 }: {
   foodCategories: CategoriesResponse[];
-  chatRooms: ChatRoomItemResponse[];
 }) => {
-  const [webViewIsOpen, setWebViewIsOpen] = useState(false);
+  const chatRooms = useSelector(
+    (state: RootState) => state.mainPageState.chatRooms,
+  );
+  const { dispatch, router } = useLoadLib();
 
-  const openWebView = () => {
-    setWebViewIsOpen(true);
-  };
+  const { checkTokenAndRedirection, openWebView, closeWebView } =
+    useCheckValidate();
 
-  const closeWebView = () => {
-    setWebViewIsOpen(false);
-  };
+  const { user_id, accessToken } = useSelectLoginStates();
 
-  const [login, setLogin] = useState(false);
+  const loginModalIsClicked = useSelector(
+    (state: RootState) => state.modalStates.loginModalIsClicked,
+  );
+  const searchPostCodeIsOpen = useSelector(
+    (state: RootState) => state.modalStates.searchPostCodeIsOpen,
+  );
 
-  const openLogin = () => {
-    setLogin(!login);
-  };
+  useEffect(() => {
+    if (accessToken) {
+      dispatch(getBuildingCodeRequest(user_id));
+    }
+  }, [dispatch, user_id, accessToken, router]);
 
   return (
     <Container>
       <SearchPostCode openWebView={openWebView} />
       <CategoryMenuSlide foodCategories={foodCategories} />
-      <StyledUl>
-        {chatRooms.map((item) => (
-          <ChatRoomItem
-            key={item.id}
-            title={item.title}
-            link={item.link}
-            maxCount={item.maxCount}
-            currentCount={item.currentCount}
-            createDate={item.createDate}
-          />
-        ))}
-      </StyledUl>
+      {chatRooms.length <= 0 ? (
+        <NoItemText checkTokenAndRedirection={checkTokenAndRedirection} />
+      ) : (
+        <ChatRoomList />
+      )}
+      {loginModalIsClicked && <LoginModal />}
+      {searchPostCodeIsOpen && <PostCodeWebView closeWebView={closeWebView} />}
       <TabMenu />
-      {webViewIsOpen && <PostCodeWebView closeWebView={closeWebView} />}
-      {login && <LoginModalTemplate />}
-
-      <button onClick={openLogin}>로그인</button>
     </Container>
   );
 };
@@ -66,9 +66,4 @@ const Container = styled.div`
   background-color: #ffffff;
 `;
 
-const StyledUl = styled.ul`
-  padding: 10px 16px 50px;
-  background-color: #ffffff;
-`;
-
-export default MainTemplate;
+export default React.memo(MainTemplate);

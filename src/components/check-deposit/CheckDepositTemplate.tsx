@@ -6,45 +6,34 @@ import palette from '../../styles/palette';
 import responsive from '../../styles/responsive';
 import CheckDepositItem from './CheckDepositItem';
 import ConvertToCompletedButton from './ConvertToCompletedButton';
-import {
-  CurrentChatUser,
-  CurrentChatUserListResponse,
-} from '../../modules/chatting/types';
-import { useRouter } from 'next/router';
+import { CurrentChatUser } from '../../modules/chatting/types';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../modules';
+import { useCustomRouter } from '../../hooks/utils/useCustomRouter';
 
 const CheckDepositTemplate = () => {
-  const router = useRouter();
-
+  const { routeBack } = useCustomRouter();
   const { currentChatUserList } = useSelector(
     (state: RootState) => state.chattingRoomState,
   );
-  const { users } = currentChatUserList;
 
   const [depositYetUsers, setDepositYetUsers] = useState<CurrentChatUser[]>([]);
   const [depositUsers, setDepositUsers] = useState<CurrentChatUser[]>([]);
 
   useEffect(() => {
-    if (!users) return;
-    setDepositYetUsers([]);
-    setDepositUsers([]);
-    for (let i = 0; i < users.length; i++) {
-      if (users[i].remittanceState === 'N') {
-        setDepositYetUsers((prev) => prev.concat(users[i]));
-      } else {
-        setDepositUsers((prev) => prev.concat(users[i]));
-      }
-    }
+    if (!currentChatUserList?.users) return;
+    setDepositYetUsers(
+      currentChatUserList.users.filter((v) => v.remittanceState === 'N'),
+    );
+    setDepositUsers(
+      currentChatUserList.users.filter((v) => v.remittanceState === 'Y'),
+    );
   }, [currentChatUserList]);
 
   return (
     <Container>
       <TitleContainer>
-        <PrevButton
-          onClick={() => {
-            router.push(`/chatting/${router.query.id}`);
-          }}>
+        <PrevButton onClick={routeBack}>
           <Image
             src='/assets/images/prevbtn.svg'
             width={11}
@@ -53,11 +42,11 @@ const CheckDepositTemplate = () => {
           />
         </PrevButton>
         <Title>돈을 받으셨나요?</Title>
-        <p style={{ lineHeight: 1.5 }}>
-          수정완료 버튼을 누르면
+        <P>
+          버튼을 누르면
           <br />
           참여멤버의 안심번호를 확인할 수 있어요.
-        </p>
+        </P>
         <Notice>수령체크 후 미수령으로 전환이 어렵습니다.</Notice>
       </TitleContainer>
 
@@ -67,8 +56,8 @@ const CheckDepositTemplate = () => {
             <SmallTitle>아직 못받았어요.</SmallTitle>
           )}
           {depositYetUsers.length > 0 &&
-            depositYetUsers.map((v) => (
-              <CheckDepositItem key={v.idx} user={v} />
+            depositYetUsers.map((user) => (
+              <CheckDepositItem key={user.user_id} user={user} />
             ))}
         </DepositUserList>
         <DepositYetUsers>
@@ -79,9 +68,11 @@ const CheckDepositTemplate = () => {
               '돈을 보낸 멤버들'}
           </SmallTitle>
           {depositUsers.length > 0 &&
-            depositUsers.map((v) => <CheckDepositItem key={v.idx} user={v} />)}
+            depositUsers.map((user) => (
+              <CheckDepositItem key={user.idx} user={user} />
+            ))}
         </DepositYetUsers>
-        <ConvertToCompletedButton />
+        {depositUsers.length > 0 && <ConvertToCompletedButton />}
       </div>
     </Container>
   );
@@ -111,12 +102,23 @@ const TitleContainer = styled.div`
   gap: 15px;
 `;
 
+const P = styled.p`
+  line-height: 1.5;
+
+  &::before {
+    content: '수령완료 ';
+    color: ${palette.mainOrange};
+  }
+`;
+
 const PrevButton = styled.button`
   width: 40px;
   text-align: left;
-  border: none;
+  background-color: #fff;
+
   outline: none;
-  background: #fff;
+  border: none;
+  cursor: pointer;
 `;
 
 const Title = styled.p`

@@ -3,38 +3,49 @@ import Image from 'next/image';
 import palette from '../../styles/palette';
 import DateFormatter from '../../utils/DateFormatter';
 
-import { PreviousChattingItemResponse } from '../../modules/chatting/types';
+import { ChattingListItem } from '../../modules/chatting/types';
+import { useMemo } from 'react';
 
 const MyChatItem = ({
   message,
   date,
 }: {
-  message: PreviousChattingItemResponse;
+  message: ChattingListItem;
   date?: string;
 }) => {
-  const chatDate = new DateFormatter(date);
+  const chatDate = useMemo(() => new DateFormatter(date), [date]);
+  const currentDate = new Date();
+  const today = useMemo(
+    () =>
+      `${currentDate.getFullYear()}-${String(
+        currentDate.getMonth() + 1,
+      ).padStart(2, '0')}-${currentDate.getDate()}`,
+    [currentDate],
+  );
 
   return (
-    <Wrap>
+    <Container>
       <Time>
-        <span>{chatDate.formatDate()}</span>
+        {today === chatDate.date ? null : <span>{chatDate.formatDate()}</span>}
         <span>{chatDate.formatTime()}</span>
       </Time>
       {message.contents.includes('data:image/') ? (
         <StyledImg
           src={message.contents}
           alt='채팅 이미지'
-          width={400}
-          height={300}
+          width={150}
+          height={150}
         />
       ) : (
-        <Content>{message.contents}</Content>
+        <Content>
+          {message.type === 'CNT' ? <p>{message.user_id}</p> : message.contents}
+        </Content>
       )}
-    </Wrap>
+    </Container>
   );
 };
 
-const Wrap = styled.div`
+const Container = styled.div`
   width: 100%;
 
   display: flex;
@@ -65,7 +76,8 @@ const Content = styled.p`
 
   font-size: 0.9375rem;
   line-height: 1.2em;
-  background-color: #fff;
+  background-color: ${palette.mainOrange};
+  color: #fff;
   border-radius: 10px 10px 0px 10px;
 `;
 

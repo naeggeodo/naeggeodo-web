@@ -4,18 +4,14 @@ import palette from '../../styles/palette';
 import Image from 'next/image';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../modules';
+import { filterLocation } from '../../utils/filterLocation';
 
 const SearchPostCode = ({ openWebView }: { openWebView: () => void }) => {
-  const { address, apartment } = useSelector(
-    (state: RootState) => state.postCodeState,
-  );
+  const address = useSelector((state: RootState) => state.loginState.address);
 
-  const checkIsApartment = () => {
-    if (!address) return '현재 본인의 위치를 입력해주세요.';
-    else if (address && apartment === 'Y') return address;
-    else if (address && apartment === 'N')
-      return '아파트나 빌라 같은 공동주택만 선택 가능합니다.';
-  };
+  const apartment: 'Y' | 'N' | '' = useSelector(
+    (state: RootState) => state.postCodeState.apartment,
+  );
 
   return (
     <Container onClick={openWebView}>
@@ -27,7 +23,7 @@ const SearchPostCode = ({ openWebView }: { openWebView: () => void }) => {
             src='/assets/images/location.svg'
             alt='위치 이미지'
           />
-          <AddressText>{checkIsApartment()}</AddressText>
+          <AddressText>{filterLocation(apartment, address)}</AddressText>
         </FlexRow>
 
         <Image
@@ -75,8 +71,7 @@ const FlexRow = styled.div`
 `;
 
 const AddressText = styled.p`
-  font-weight: 400;
-  font-size: 0.75rem;
+  font-size: 0.875rem;
 
   color: ${palette.black};
 `;

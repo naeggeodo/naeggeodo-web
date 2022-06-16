@@ -1,42 +1,31 @@
+import axios from 'axios';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { useDeposit } from '../../hooks/useDeposit';
-import { getCurrentChatUserListActions } from '../../modules/chatting/actions';
+
 import { CurrentChatUser } from '../../modules/chatting/types';
+import { setCheckDepositActions } from '../../modules/check-deposit/actions';
 import palette from '../../styles/palette';
 import responsive from '../../styles/responsive';
 
-type StyledType = {
-  isDeposit: boolean;
-};
-
 const CompleteDepositButton = ({ user }: { user: CurrentChatUser }) => {
-  const { onDepositHandler } = useDeposit();
   const router = useRouter();
   const dispatch = useDispatch();
 
   const onClick = () => {
-    onDepositHandler(router.query.id as string, user.user_id).then(() => {
-      dispatch(
-        getCurrentChatUserListActions.request({
-          chattingRoomId: router.query.id as string,
-        }),
-      );
-    });
+    dispatch(
+      setCheckDepositActions.request({
+        chattingRoomId: router.query.id as string,
+        userId: user.user_id,
+      }),
+    );
   };
 
-  return (
-    <Button
-      isDeposit={user.remittanceState === 'Y' ? true : false}
-      onClick={onClick}>
-      {user.remittanceState === 'Y' ? '안심번호' : '수령완료'}
-    </Button>
-  );
+  return <Button onClick={onClick}>수령완료</Button>;
 };
 
-const Button = styled.button<StyledType>`
+const Button = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -47,15 +36,13 @@ const Button = styled.button<StyledType>`
   min-width: 80px;
 
   font-size: 1.0625rem;
-  color: ${(props) => (props.isDeposit ? palette.mainOrange : '#fff')};
-  background-color: ${(props) =>
-    props.isDeposit ? '#fff' : palette.mainOrange};
+  color: #fff;
+  background-color: ${palette.mainOrange};
 
   border-radius: 10px;
-  border: ${(props) =>
-    props.isDeposit ? `2px solid ${palette.bgGray}` : 'none'};
-
+  border: none;
   outline: none;
+  cursor: pointer;
 
   @media ${responsive.compact} {
     font-size: 0.9375rem;
