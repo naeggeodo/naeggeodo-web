@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
@@ -73,6 +72,7 @@ const ChatDrawer = ({
               imageList.map((image) => {
                 return (
                   <Image
+                    key={image}
                     style={{
                       backgroundColor: `${palette.Gray}`,
                       borderRadius: '10px',
