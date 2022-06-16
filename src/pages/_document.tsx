@@ -52,6 +52,7 @@ export default class MyDocument extends Document {
             property='og:image'
             content='/public/assets/images/hamburger.svg'
           />
+         
         </Head>
         <body>
           <div id='webviewPortal'></div>
