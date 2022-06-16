@@ -1,4 +1,3 @@
-import cookies from 'next-cookies';
 import React from 'react';
 import { END } from 'redux-saga';
 import MypageTemplate from '../../components/mypage/MypageTemplate';

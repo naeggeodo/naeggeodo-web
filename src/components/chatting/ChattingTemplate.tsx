@@ -85,8 +85,12 @@ const ChattingTemplate = () => {
     stompClient.send('/app/chat/exit', {}, JSON.stringify(data));
   }
 
-  const connect = (socket) => {
-    stompClient = Stomp.over(socket);
+  const connect = () => {
+    // stompClient = Stomp.over(socket);
+    // const socket = new SockJS();
+    stompClient = Stomp.over(
+      () => new SockJS(`${process.env.NEXT_PUBLIC_API_URL}/chat`),
+    );
     stompClient.connect(
       {
         chatMain_id: router.query.id,
@@ -94,9 +98,9 @@ const ChattingTemplate = () => {
         Authorization: `Bearer ${accessToken}`,
       },
       () => {
-        const sessionId = /\/([^\\/]+)\/websocket/.exec(
-          socket._transport.url,
-        )[1];
+        // const sessionId = /\/([^\\/]+)\/websocket/.exec(
+        //   socket._transport.url,
+        // )[1];
 
         stompClient.subscribe(
           `/topic/${router.query.id}`,
@@ -156,6 +160,7 @@ const ChattingTemplate = () => {
   const sendImage = (e) => {
     const fileReader = new FileReader();
     const imgFile = e.target.files[0];
+    console.log(imgFile);
     fileReader.readAsDataURL(imgFile);
     fileReader.onload = (e) => {
       const result = e.target.result;
@@ -168,12 +173,11 @@ const ChattingTemplate = () => {
       };
       onSendMessage(stompClient, data);
     };
-    e.target.value = '';
+    // e.target.value = '';
   };
 
   useEffect(() => {
-    const socket = new SockJS(`${process.env.NEXT_PUBLIC_API_URL}/chat`);
-    connect(socket);
+    connect();
     return () => {
       disconnect();
     };

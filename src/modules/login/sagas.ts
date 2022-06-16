@@ -42,7 +42,7 @@ function* KakaoLoginGenerator(action: getkakaoTokenRequestAction) {
       path: '/',
     });
 
-    window.location.href = '/';
+    // window.location.href = '/';
   } catch (error) {
     console.log(error);
   }

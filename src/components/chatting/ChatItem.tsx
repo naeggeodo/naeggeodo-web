@@ -25,11 +25,12 @@ const ChatItem = ({
   return (
     <>
       <Nickname>{message.nickname}</Nickname>
+
       <Container>
         <StyledImage
-          src='/assets/images/hamburger.svg'
-          width={35}
-          height={35}
+          src='/assets/images/usericon.svg'
+          width={45}
+          height={45}
           layout='fixed'
           alt='유저 프로필 사진'
         />
@@ -37,13 +38,11 @@ const ChatItem = ({
           <StyledImg
             src={message.contents}
             alt='채팅 이미지'
-            width={150}
-            height={150}
+            width={250}
+            height={350}
           />
         ) : (
-          <Content>
-            <div>{message.contents}</div>
-          </Content>
+          <Content>{message.contents}</Content>
         )}
         <Time>
           {today === chatDate.date ? null : (
@@ -68,7 +67,7 @@ const Container = styled.div`
 `;
 
 const StyledImage = styled(Image)`
-  background-color: ${palette.DarkGray};
+  background-color: #fff;
   border-radius: 10px 10px 0px 10px;
   object-fit: cover;
 `;
@@ -79,8 +78,8 @@ const Nickname = styled.p`
 `;
 
 const Content = styled.div`
-  display: flex;
-  flex-wrap: wrap;
+  max-width: 50%;
+  word-break: break-all;
 
   padding: 6px 10px;
 
