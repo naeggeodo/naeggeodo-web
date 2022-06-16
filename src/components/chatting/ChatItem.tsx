@@ -31,6 +31,7 @@ const ChatItem = ({
           width={35}
           height={35}
           layout='fixed'
+          alt='유저 프로필 사진'
         />
         {message.contents?.includes('data:image/') ? (
           <StyledImg

@@ -42,6 +42,7 @@ const CheckDepositTemplate = () => {
             alt='뒤로가기 버튼'
           />
         </PrevButton>
+
         <Title>돈을 받으셨나요?</Title>
         <P>
           버튼을 누르면
