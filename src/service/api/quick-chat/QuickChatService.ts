@@ -1,21 +1,16 @@
-import { ApiService } from '..';
-
-interface UpdateData {
-  quickChat: string[];
-}
+import { ApiService, CsrApiService } from '..';
+import { QuickChattingListRequest } from '../../../modules/quick-chatting/types';
 
 export default class QuickChatService {
   static async asyncGetQuickChattingList(userId: string) {
     return await ApiService.getApi(`/user/${userId}/quick-chatting`);
   }
 
-  static async asyncPatchQuickChattingList(
-    userId: string,
-    updateData: UpdateData,
-  ) {
-    return await ApiService.patchApi(
-      `/user/${userId}/quick-chatting`,
-      updateData,
+  static async asyncPatchQuickChattingList(data: QuickChattingListRequest) {
+    console.log('data: ', data);
+    return await CsrApiService.patchApi(
+      `/user/${data.user_id}/quick-chatting`,
+      { quickChat: data.quickChat },
     );
   }
 }

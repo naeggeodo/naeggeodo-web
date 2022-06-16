@@ -1,4 +1,7 @@
-import { GET_QUICK_MESSAGE_LIST_SUCCESS } from './actions';
+import {
+  GET_QUICK_MESSAGE_LIST_SUCCESS,
+  PATCH_QUICK_CHAT_LIST_SUCCESS,
+} from './actions';
 
 import { createReducer } from 'typesafe-actions';
 import { QuickChattingListResponse } from './types';
@@ -19,7 +22,17 @@ export const quickChatStates = createReducer<QuickChatStates>(
   {
     [GET_QUICK_MESSAGE_LIST_SUCCESS]: (state, action) => ({
       ...state,
-      quickChatResponse: action.payload,
+      quickChatResponse: {
+        ...state.quickChatResponse,
+        quickChat: action.payload.quickChat,
+      },
+    }),
+    [PATCH_QUICK_CHAT_LIST_SUCCESS]: (state, action) => ({
+      ...state,
+      quickChatResponse: {
+        ...state.quickChatResponse,
+        quickChat: action.payload.quickChat,
+      },
     }),
   },
 );

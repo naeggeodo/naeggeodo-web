@@ -1,16 +1,34 @@
-import React, { useCallback, useState } from 'react';
-import { useSelector } from 'react-redux';
+import Image from 'next/image';
+import React, {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { useSelectLoginStates } from '../../../hooks/select/useSelectLoginStates';
 import { RootState } from '../../../modules';
+import { patchQuickChattingListActions } from '../../../modules/quick-chatting/actions';
 import { QuickChattingListResponse } from '../../../modules/quick-chatting/types';
 import palette from '../../../styles/palette';
 import QuickChatModalItem from './QuickChatModalItem';
 import QuickChatModalTemplate from './QuickChatModalTemplate';
 
-const QuickChatListEditModal = () => {
+const QuickChatListEditModal = ({
+  setIsQuickChatEditModalOpen,
+  isQuickChatEditModalOpen,
+}: {
+  setIsQuickChatEditModalOpen: Dispatch<SetStateAction<boolean>>;
+  isQuickChatEditModalOpen: boolean;
+}) => {
+  const dispatch = useDispatch();
+  const { user_id } = useSelectLoginStates();
+
   const [newChatValue, setNewChatValue] = useState('');
 
-  const quickChatList: QuickChattingListResponse = useSelector(
+  const { quickChat }: QuickChattingListResponse = useSelector(
     (state: RootState) => state.quickChatStates.quickChatResponse,
   );
 
@@ -21,24 +39,57 @@ const QuickChatListEditModal = () => {
     [newChatValue],
   );
 
-  const onAddChat = useCallback(
+  const onAddQuickChat = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
+      const validArr = [];
+      for (let i = 0; i < quickChat.length; i++) {
+        if (quickChat[i].msg) {
+          validArr.push(quickChat[i].msg);
+        }
+      }
+      if (validArr.length >= 5) return alert('개수를 초과하였습니다');
       if (!newChatValue) return;
+
+      const newDataList = [...validArr, newChatValue];
+      for (let i = newDataList.length; i < 5; i++) {
+        newDataList.push('');
+      }
+
+      const patchBody = {
+        quickChat: newDataList,
+        user_id: user_id,
+      };
+
+      dispatch(patchQuickChattingListActions.request(patchBody));
     },
-    [newChatValue],
+    [newChatValue, quickChat],
   );
+
+  const onQuickChatModalClose = useCallback(() => {
+    setIsQuickChatEditModalOpen(false);
+  }, [isQuickChatEditModalOpen]);
 
   return (
     <QuickChatModalTemplate>
       <TitleContentWrapper>
-        <Title>자주쓰는 문구</Title>
+        <Header>
+          <Title>자주쓰는 문구</Title>
+          <CloseButton onClick={onQuickChatModalClose}>
+            <Image
+              src={'/assets/images/close.svg'}
+              width={20}
+              height={20}
+              alt='닫기버튼'
+            />
+          </CloseButton>
+        </Header>
         <Wrap>
-          {quickChatList.quickChat.map((chatItem, i) => (
-            <QuickChatModalItem key={chatItem.msg + i} quickChat={chatItem} />
+          {quickChat.map((chatItem) => (
+            <QuickChatModalItem key={chatItem.idx} quickChat={chatItem} />
           ))}
         </Wrap>
-        <AddForm onSubmit={onAddChat}>
+        <AddForm onSubmit={onAddQuickChat}>
           <AddInput
             type='text'
             placeholder='문구를 입력해주세요'
@@ -64,9 +115,18 @@ const Wrap = styled.div`
   gap: 22px;
 `;
 
+const Header = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`;
 const Title = styled.h3`
   font-family: 'SpoqaBold';
   color: ${palette.mainOrange};
+`;
+
+const CloseButton = styled.button`
+  all: unset;
 `;
 
 const AddForm = styled.form`
@@ -79,12 +139,10 @@ const AddForm = styled.form`
 `;
 
 const AddInput = styled.input`
-  width: 100%;
+  min-width: 80%;
 
   outline: none;
   border: none;
-
-  border: 1px solid red;
 `;
 
 const AddButton = styled.button`
