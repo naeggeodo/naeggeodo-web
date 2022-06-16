@@ -18,10 +18,6 @@ export default class ChattingService {
     );
   }
 
-  static async asyncGetQuickChattingList(userId: string) {
-    return await ApiService.getApi(`/user/${userId}/quick-chatting`);
-  }
-
   static async asyncGetCurrentChatUserList(chattingRoomId: string) {
     return await ApiService.getApi(`/chat-rooms/${chattingRoomId}/users`);
   }

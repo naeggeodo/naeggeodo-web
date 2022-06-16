@@ -31,8 +31,8 @@ export const PATCH_QUICK_CHAT_LIST_SUCCESS =
 export const PATCH_QUICK_CHAT_LIST_FAILURE =
   namespace + 'PATCH_QUICK_CHAT_LIST_FAILURE';
 
-export const getCurrentChatUserListActions = createAsyncAction(
+export const patchQuickChattingListActions = createAsyncAction(
   PATCH_QUICK_CHAT_LIST_REQUEST,
   PATCH_QUICK_CHAT_LIST_SUCCESS,
   PATCH_QUICK_CHAT_LIST_FAILURE,
-)<void, void, AxiosError>();
+)<any, void, AxiosError>();

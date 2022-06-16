@@ -3,6 +3,8 @@ import QuickChatService from '../../service/api/quick-chat/QuickChatService';
 import {
   getQuickChattingListActions,
   GET_QUICK_MESSAGE_LIST_REQUEST,
+  patchQuickChattingListActions,
+  PATCH_QUICK_CHAT_LIST_REQUEST,
 } from './actions';
 import { QuickChattingListResponse } from './types';
 
@@ -20,8 +22,24 @@ function* getQuickChattingListGenerator(
   }
 }
 
+function* patchQuickChattingListGenerator(
+  action: ReturnType<typeof patchQuickChattingListActions.request>,
+) {
+  try {
+    const response = yield call(
+      QuickChatService.asyncPatchQuickChattingList,
+      action.payload.userId,
+      action.payload.data,
+    );
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export function* quickChatSaga() {
   yield* [
     takeLatest(GET_QUICK_MESSAGE_LIST_REQUEST, getQuickChattingListGenerator),
+    takeLatest(PATCH_QUICK_CHAT_LIST_REQUEST, patchQuickChattingListGenerator),
   ];
 }
