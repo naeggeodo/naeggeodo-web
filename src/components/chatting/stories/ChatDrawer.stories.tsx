@@ -24,7 +24,17 @@ export default {
   },
 } as ComponentMeta<typeof ChatDrawer>;
 
-const ChatDrawerStory = (args: Args) => <ChatDrawer {...args} />;
+const ChatDrawerStory = (args: Args) => (
+  <ChatDrawer
+    setIsDrawerOpen={() => {
+      console.log('test');
+    }}
+    isDrawerOpen={true}
+    currentCount={1}
+    masterId='abcdefghi'
+    {...args}
+  />
+);
 export const ChatDrawerComp = ChatDrawerStory.bind({});
 
 ChatDrawerComp.args = {
