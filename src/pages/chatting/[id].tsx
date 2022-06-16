@@ -5,10 +5,10 @@ import ChattingTemplate from '../../components/chatting/ChattingTemplate';
 import {
   getChattingListActions,
   getCurrentChatRoomAsyncActions,
-  getQuickChattingListActions,
   getUserNicknameActions,
 } from '../../modules/chatting/actions';
 import { saveCookies } from '../../utils/saveCookies';
+import { getQuickChattingListActions } from '../../modules/quick-chatting/actions';
 
 const chatting = () => {
   return <ChattingTemplate />;

@@ -67,16 +67,6 @@ export type UserId = {
   userId: string;
 };
 
-export type QuickChatting = {
-  msg: string;
-  idx: number;
-};
-
-export type QuickChattingListResponse = {
-  quickChat: QuickChatting[];
-  user_id: string;
-};
-
 export type CurrentChatUser = {
   user_id: string;
   idx: number;

@@ -4,19 +4,16 @@ import {
   getChattingListActions,
   getCurrentChatRoomAsyncActions,
   getCurrentChatUserListActions,
-  getQuickChattingListActions,
   getUserNicknameActions,
   GET_CHATTING_LIST_REQUEST,
   GET_CURRENT_CHATROOM_INFO_REQUEST,
   GET_CURRENT_CHAT_USER_LIST_REQUEST,
-  GET_QUICK_MESSAGE_LIST_REQUEST,
   GET_USER_NICKNAME_REQUEST,
 } from './actions';
 import {
   ChattingListResponse,
   ChattingRoomInfoResponse,
   CurrentChatUserListResponse,
-  QuickChattingListResponse,
 } from './types';
 
 function* getChattingRoomInfoGenerator(
@@ -38,21 +35,6 @@ function* getPreviousChattingListGenerator(
     action.payload.userId,
   );
   yield put(getChattingListActions.success(data));
-}
-
-function* getQuickChattingListGenerator(
-  action: ReturnType<typeof getQuickChattingListActions.request>,
-) {
-  try {
-    const { data }: { data: QuickChattingListResponse } = yield call(
-      ChattingService.asyncGetQuickChattingList,
-      action.payload.userId,
-    );
-    console.log(data, 'jayden');
-    yield put(getQuickChattingListActions.success(data));
-  } catch (error) {
-    console.log(error);
-  }
 }
 
 export function* getCurrentChatUserListGenerator(
@@ -79,7 +61,6 @@ export function* getChattingRoomInfoSaga() {
   yield* [
     takeLatest(GET_CURRENT_CHATROOM_INFO_REQUEST, getChattingRoomInfoGenerator),
     takeLatest(GET_CHATTING_LIST_REQUEST, getPreviousChattingListGenerator),
-    takeLatest(GET_QUICK_MESSAGE_LIST_REQUEST, getQuickChattingListGenerator),
     takeLatest(
       GET_CURRENT_CHAT_USER_LIST_REQUEST,
       getCurrentChatUserListGenerator,

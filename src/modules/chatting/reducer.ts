@@ -2,7 +2,6 @@ import {
   GET_CURRENT_CHATROOM_INFO_SUCCESS,
   GET_CURRENT_CHAT_USER_LIST_SUCCESS,
   GET_CHATTING_LIST_SUCCESS,
-  GET_QUICK_MESSAGE_LIST_SUCCESS,
   SET_CURRENT_CHATTING_LIST,
   GET_USER_NICKNAME_SUCCESS,
   CHANGE_CURRENT_COUNT_IN_CHATTING,
@@ -14,14 +13,12 @@ import {
   ChattingRoomInfoResponse,
   CurrentChatUserListResponse,
   ChattingListResponse,
-  QuickChattingListResponse,
 } from './types';
 import { createReducer } from 'typesafe-actions';
 
 type ChattingRoomState = {
   chatRoomInfo: ChattingRoomInfoResponse | null;
   chattingList: ChattingListResponse;
-  quickChatList: QuickChattingListResponse;
   currentChatUserList: CurrentChatUserListResponse | null;
   nickname: string | null;
   imageList: string[];
@@ -49,10 +46,7 @@ const initialChattingRoomState: ChattingRoomState = {
     createDate: '',
   },
   chattingList: { messages: [] },
-  quickChatList: {
-    quickChat: [],
-    user_id: '',
-  },
+
   currentChatUserList: { users: [] },
   nickname: null,
   imageList: [],
@@ -89,10 +83,7 @@ export const chattingRoomState = createReducer<ChattingRoomState>(
       ...state,
       chattingList: action.payload,
     }),
-    [GET_QUICK_MESSAGE_LIST_SUCCESS]: (state, action) => ({
-      ...state,
-      quickChatList: action.payload,
-    }),
+
     [GET_CURRENT_CHAT_USER_LIST_SUCCESS]: (state, action) => ({
       ...state,
       currentChatUserList: action.payload,

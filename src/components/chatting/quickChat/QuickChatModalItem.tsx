@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 import styled from 'styled-components';
-import { QuickChatting } from '../../../modules/chatting/types';
+import { QuickChatting } from '../../../modules/quick-chatting/types';
 
 const QuickChatModalItem = ({ quickChat }: { quickChat: QuickChatting }) => {
   return (
@@ -17,7 +17,7 @@ const QuickChatModalItem = ({ quickChat }: { quickChat: QuickChatting }) => {
 const Wrap = styled.div`
   display: flex;
   justify-content: space-between;
-  gap: 4px;
+  align-items: center;
 `;
 
 const Message = styled.p``;

@@ -6,8 +6,6 @@ import {
   ChattingRoomInfoRequest,
   ChattingRoomInfoResponse,
   CurrentChatUserListResponse,
-  QuickChattingListResponse,
-  UserId,
 } from './types';
 
 const namespace = 'chatting/';
@@ -34,15 +32,6 @@ export const GET_CHATTING_LIST_FAILURE =
 
 export const SET_CURRENT_CHATTING_LIST =
   namespace + 'SET_CURRENT_CHATTING_LIST';
-
-export const GET_QUICK_MESSAGE_LIST_REQUEST =
-  namespace + 'GET_QUICK_MESSAGE_LIST_REQUEST';
-
-export const GET_QUICK_MESSAGE_LIST_SUCCESS =
-  namespace + 'GET_QUICK_MESSAGE_LIST_SUCCESS';
-
-export const GET_QUICK_MESSAGE_LIST_FAILURE =
-  namespace + 'GET_QUICK_MESSAGE_LIST_FAILURE';
 
 export const GET_CURRENT_CHAT_USER_LIST_REQUEST =
   namespace + 'GET_CURRENT_CHAT_USER_LIST_REQUEST';
@@ -85,12 +74,6 @@ export const setCurrentChattingList = createAction(
   SET_CURRENT_CHATTING_LIST,
   (data) => data,
 )();
-
-export const getQuickChattingListActions = createAsyncAction(
-  GET_QUICK_MESSAGE_LIST_REQUEST,
-  GET_QUICK_MESSAGE_LIST_SUCCESS,
-  GET_QUICK_MESSAGE_LIST_FAILURE,
-)<UserId, QuickChattingListResponse, AxiosError>();
 
 export const getCurrentChatUserListActions = createAsyncAction(
   GET_CURRENT_CHAT_USER_LIST_REQUEST,

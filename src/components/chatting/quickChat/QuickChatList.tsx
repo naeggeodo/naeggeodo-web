@@ -7,10 +7,10 @@ import Image from 'next/image';
 import { useChat } from '../../../hooks/useChat';
 import palette from '../../../styles/palette';
 import { RootState } from '../../../modules';
-import { QuickChattingListResponse } from '../../../modules/chatting/types';
 import { useRouter } from 'next/router';
 import { useSelectLoginStates } from '../../../hooks/select/useSelectLoginStates';
 import QuickChatListEditModal from './QuickChatListEditModal';
+import { QuickChattingListResponse } from '../../../modules/quick-chatting/types';
 
 type StyledType = {
   isActive: boolean;
@@ -32,7 +32,7 @@ const QuickChatList = ({
   );
 
   const quickChatList: QuickChattingListResponse = useSelector(
-    (state: RootState) => state.chattingRoomState.quickChatList,
+    (state: RootState) => state.quickChatStates.quickChatResponse,
   );
   const { user_id } = useSelectLoginStates();
 
