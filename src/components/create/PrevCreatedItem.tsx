@@ -1,3 +1,4 @@
+import axios from 'axios';
 import Image from 'next/image';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -5,6 +6,7 @@ import styled from 'styled-components';
 import { useSelectLoginStates } from '../../hooks/select/useSelectLoginStates';
 import { RootState } from '../../modules';
 import {
+  deletePrevChatRoomActions,
   patchPrevChatRoomBookMarkActions,
   selectCopyPrevChatRoomData,
 } from '../../modules/create/actions';
@@ -40,6 +42,15 @@ const PrevCreatedItem = ({ data }: { data: PrevCreatedListItem }) => {
       }),
     );
   }, [dispatch, data, user_id]);
+
+  const onDeleteItem = useCallback(() => {
+    dispatch(
+      deletePrevChatRoomActions.request({
+        userId: user_id,
+        chatMainId: data.id,
+      }),
+    );
+  }, [dispatch, data, user_id, data.id]);
 
   return (
     <Container
@@ -77,6 +88,14 @@ const PrevCreatedItem = ({ data }: { data: PrevCreatedListItem }) => {
             />
           </BookmarkButton>
         )}
+        <DeleteButton onClick={onDeleteItem}>
+          <Image
+            src='/assets/images/close.svg'
+            width={18}
+            height={24}
+            layout='fixed'
+          />
+        </DeleteButton>
       </Content>
     </Container>
   );
@@ -124,6 +143,13 @@ const Date = styled.span`
   padding: 2px 5px;
   margin-right: 5px;
   border-radius: 3px;
+`;
+
+const DeleteButton = styled.button`
+  all: unset;
+
+  padding: 6px;
+  margin-left: 6px;
 `;
 
 export default PrevCreatedItem;

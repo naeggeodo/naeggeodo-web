@@ -31,7 +31,7 @@ const CreateTabMenu = ({
         새로입력
       </Button>
       <Button isActive={!isShowCreateForm} onClick={onMenuClick}>
-        이전 주문내역 불러오기
+        이전 생성내역 불러오기
       </Button>
     </Container>
   );
