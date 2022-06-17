@@ -33,13 +33,11 @@ const MyChatItem = ({
         <StyledImg
           src={message.contents}
           alt='채팅 이미지'
-          width={150}
-          height={150}
+          width={250}
+          height={250}
         />
       ) : (
-        <Content>
-          {message.type === 'CNT' ? <p>{message.user_id}</p> : message.contents}
-        </Content>
+        <Content>{message.contents}</Content>
       )}
     </Container>
   );
@@ -67,10 +65,8 @@ const Time = styled.p`
 `;
 
 const Content = styled.p`
-  max-width: 70%;
-
-  display: flex;
-  flex-wrap: wrap;
+  word-break: break-all;
+  max-width: 50%;
 
   padding: 6px 10px;
 

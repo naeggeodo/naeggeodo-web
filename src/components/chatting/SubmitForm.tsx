@@ -27,19 +27,22 @@ const SubmitForm = ({
         isQuickChatOpen={isQuickChatOpen}
       />
       <FormContainer>
-        <QuickChatButton isActive={isQuickChatOpen} onClick={onQuickChatOpen}>
+        <QuickChatButton
+          isActive={isQuickChatOpen}
+          onClick={onQuickChatOpen}
+          title='채팅 빠르게 보내기 버튼'>
           <Image
             src='/assets/images/toparrow.svg'
-            alt='submit button'
+            alt='채팅 빠르게 보내기 버튼'
             width={30}
             height={30}
           />
         </QuickChatButton>
         <ContentWrap onSubmit={sendMessage}>
-          <ImgAddLabel htmlFor='image'>
+          <ImgAddLabel htmlFor='image' title='이미지 추가 아이콘'>
             <Image
               src='/assets/images/imgaddbtn.svg'
-              alt='img add icon'
+              alt='이미지 추가 아이콘'
               width={19}
               height={24}
             />
@@ -50,11 +53,15 @@ const SubmitForm = ({
             id='image'
             onChange={sendImage}
           />
-          <TextField value={message} onChange={changeMessage} />
-          <SubmitButton>
+          <TextField
+            value={message}
+            onChange={changeMessage}
+            title='채팅 텍스트 전송 input'
+          />
+          <SubmitButton title='채팅 전송 버튼'>
             <Image
               src='/assets/images/submitbtn.svg'
-              alt='submit button'
+              alt='전송 버튼'
               width={23}
               height={24}
             />

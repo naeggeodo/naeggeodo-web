@@ -1,7 +1,7 @@
 import { END } from 'redux-saga';
 
 import CheckDepositTemplate from '../../components/check-deposit/CheckDepositTemplate';
-import { wrapper } from '../../modules';
+import { RootState, wrapper } from '../../modules';
 import {
   getCurrentChatRoomAsyncActions,
   getCurrentChatUserListActions,
@@ -30,11 +30,28 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
     await store.sagaTask.toPromise();
 
-    return {
-      props: {
-        chatRoomInfo: store.getState().chattingRoomState.chatRoomInfo,
-      },
-    };
+    const master_id = store.getState().chattingRoomState.chatRoomInfo.user_id;
+    const user_id = store.getState().loginState.user_id;
+
+    if (master_id !== user_id) {
+      return {
+        props: {
+          chatRoomInfo: store.getState().chattingRoomState.chatRoomInfo,
+        },
+        redirect: {
+          permanent: false,
+          destination: '/chat-rooms',
+        },
+      };
+    }
+    console.log(master_id === user_id, 'eddy');
+
+    if (master_id)
+      return {
+        props: {
+          chatRoomInfo: store.getState().chattingRoomState.chatRoomInfo,
+        },
+      };
   },
 );
 

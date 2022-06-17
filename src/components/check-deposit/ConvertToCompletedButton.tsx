@@ -38,7 +38,7 @@ const ConvertToCompletedButton = () => {
   }, [isCompleted, accessToken]);
 
   return !isCompleted ? (
-    <Button onPointerDown={handleCompleted}>완료된 거래로 전환하기</Button>
+    <Button onPointerDown={handleCompleted}>채팅방 종료하기</Button>
   ) : (
     <CompletedButton>거래가 완료되었습니다.</CompletedButton>
   );

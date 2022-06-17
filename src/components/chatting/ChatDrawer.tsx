@@ -80,6 +80,7 @@ const ChatDrawer = ({
                     src={image}
                     width={60}
                     height={50}
+                    alt='방에서 주고 받은 이미지'
                   />
                 );
               })
@@ -121,7 +122,9 @@ const ChatDrawer = ({
                       <Image
                         src='/assets/images/king.svg'
                         width={25}
-                        height={25}></Image>
+                        height={25}
+                        alt='방장 표시 아이콘'
+                      />
                     )}
                   </MemberItem>
                 </React.Fragment>
@@ -131,15 +134,20 @@ const ChatDrawer = ({
         </div>
       </Content>
       <Footer>
-        <CloseButton onClick={closeDrawer}>
-          <Image src='/assets/images/close.svg' width={20} height={20}></Image>
+        <CloseButton onClick={closeDrawer} title='채팅 서랍 닫기 버튼'>
+          <Image
+            src='/assets/images/close.svg'
+            width={20}
+            height={20}
+            alt='닫기 버튼'
+          />
         </CloseButton>
-        <ExitButton onClick={exitChatRoom}>
+        <ExitButton onClick={exitChatRoom} title='채팅방 나가기 버튼'>
           <Image
             src='/assets/images/drawerclosebtn.svg'
             width={20}
             height={24}
-            alt='서랍 닫기'
+            alt='채팅방 나가기 이미지'
           />
           <span>나가기</span>
         </ExitButton>
