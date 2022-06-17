@@ -7,6 +7,8 @@ import {
   COPY_PREV_CHATROOM_DATA_REQUEST,
   createChatRoomActions,
   CREATE_CHAT_ROOM_REQUEST,
+  deletePrevChatRoomActions,
+  DELETE_PREV_CREATED_CHATROOM_REQUEST,
   getPrevCreatedListActions,
   GET_PREV_CREATED_LIST_REQUEST,
   initializeCreateStates,
@@ -74,6 +76,27 @@ function* copyPrevChatRoomDataGenerator(
   }
 }
 
+// ** 이전내역 아이템 삭제
+function* deletePrevChatRoomGenerator(
+  action: ReturnType<typeof deletePrevChatRoomActions.request>,
+) {
+  try {
+    yield call(
+      CreateService.asyncDeletePrevCreatedChatRoom,
+      action.payload.chatMainId,
+    );
+    const { data }: { data: PrevCreatedListResponses } = yield call(
+      CreateService.asyncCsrGetPrevCreatedList,
+      action.payload.userId,
+    );
+    yield put(getPrevCreatedListActions.success(data));
+
+    //TODO 다시 이전생성내역 불러오기
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 // ** bookmark 기능
 function* patchPrevChatRoomBookMarkGenerator(
   action: ReturnType<typeof patchPrevChatRoomBookMarkActions.request>,
@@ -95,6 +118,10 @@ export function* createChatRoomSaga() {
     takeLatest(
       PATCH_PREV_CHATROOM_BOOKMARK_REQUEST,
       patchPrevChatRoomBookMarkGenerator,
+    ),
+    takeLatest(
+      DELETE_PREV_CREATED_CHATROOM_REQUEST,
+      deletePrevChatRoomGenerator,
     ),
   ];
 }

@@ -44,7 +44,7 @@ const PrevCreatedList = () => {
           <Button
             disabled={selectedPrevChatRoomData ? false : true}
             onClick={copyPrevChatRoom}>
-            내꺼톡 생성하기 버튼
+            내꺼톡 생성하기
           </Button>
         </ButtonWrapper>
         {dataList.length < chatRooms.length && <div ref={target} />}
