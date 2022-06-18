@@ -2,14 +2,13 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { RootState } from '../../../modules';
-
 import Portal from '../../common/Portal';
 
 type StyledType = {
   isActive: boolean;
 };
 
-const ConfirmModalTemplate = ({
+const ConfirmAlertModalTemplate = ({
   children,
 }: {
   children: JSX.Element | JSX.Element[];
@@ -17,6 +16,7 @@ const ConfirmModalTemplate = ({
   const { isModalAnimationStart } = useSelector(
     (state: RootState) => state.myPageState,
   );
+
   return (
     <Portal selector='reportPortal'>
       <Background isActive={isModalAnimationStart}>
@@ -26,7 +26,7 @@ const ConfirmModalTemplate = ({
   );
 };
 
-export default ConfirmModalTemplate;
+export default ConfirmAlertModalTemplate;
 
 const Background = styled.div<StyledType>`
   position: fixed;
@@ -38,9 +38,7 @@ const Background = styled.div<StyledType>`
   opacity: ${(props) => (props.isActive ? 0 : 1)};
 
   background-color: rgba(0, 0, 0, 0.7);
-
   z-index: 1;
-
   overflow: hidden;
   touch-action: none;
 

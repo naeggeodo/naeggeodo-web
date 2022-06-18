@@ -9,6 +9,7 @@ import ConfirmModal from './ConfirmModal';
 import ControllButtons from './ControllButtons';
 import { useLoadLib } from '../../../hooks/utils/useLoadLib';
 import {
+  closeReportConfirmModalActions,
   setReportConfirmModal,
   setReportModal,
   submitReportActions,
@@ -41,16 +42,11 @@ const ComplainForm = () => {
     if (!complainBody.contents) {
       return;
     }
-    dispatch(dispatch(setReportConfirmModal('complete')));
+    dispatch(setReportConfirmModal('complete'));
   };
 
   const onCancelClick = () => {
-    dispatch(dispatch(setReportConfirmModal('cancel')));
-  };
-
-  const onAllModalClose = () => {
-    dispatch(dispatch(setReportConfirmModal('')));
-    dispatch(dispatch(setReportModal('')));
+    dispatch(setReportConfirmModal('cancel'));
   };
 
   const onCompleteReport = () => {
@@ -74,9 +70,6 @@ const ComplainForm = () => {
         onAgreeClick={onCompleteClick}
         activeText={'완료'}
       />
-      {reportConfirmModal === 'cancel' && (
-        <ConfirmModal onAgree={onAllModalClose} />
-      )}
       {reportConfirmModal === 'complete' && (
         <ConfirmModal onAgree={onCompleteReport} />
       )}

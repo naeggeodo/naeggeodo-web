@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { useLoadLib } from '../../../hooks/utils/useLoadLib';
 import { RootState } from '../../../modules';
 import {
+  closeReportConfirmModalActions,
   setReportConfirmModal,
   setReportModal,
   submitReportActions,
@@ -43,10 +44,6 @@ const FeedbackForm = () => {
   const onCancelClick = () => {
     dispatch(dispatch(setReportConfirmModal('cancel')));
   };
-  const onAllModalClose = () => {
-    dispatch(dispatch(setReportConfirmModal('')));
-    dispatch(dispatch(setReportModal('')));
-  };
 
   const onCompleteReport = () => {
     dispatch(submitReportActions.request(feedbackBody));
@@ -65,9 +62,6 @@ const FeedbackForm = () => {
         onAgreeClick={onCompleteClick}
         activeText={'완료'}
       />
-      {reportConfirmModal === 'cancel' && (
-        <ConfirmModal onAgree={onAllModalClose} />
-      )}
       {reportConfirmModal === 'complete' && (
         <ConfirmModal onAgree={onCompleteReport} />
       )}

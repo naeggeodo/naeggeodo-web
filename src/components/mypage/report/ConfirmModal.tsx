@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 import { useLoadLib } from '../../../hooks/utils/useLoadLib';
 import { RootState } from '../../../modules';
-import { setReportConfirmModal } from '../../../modules/mypage/actions';
+import { closeReportConfirmModalActions } from '../../../modules/mypage/actions';
 import ConfirmModalTemplate from './ConfirmModalTemplate';
 import ControllButtons from './ControllButtons';
 
@@ -14,7 +14,7 @@ const ConfirmModal = ({ onAgree }: { onAgree: () => void }) => {
   );
 
   const onCloseModal = () => {
-    dispatch(setReportConfirmModal(''));
+    dispatch(closeReportConfirmModalActions.request());
   };
 
   return (
