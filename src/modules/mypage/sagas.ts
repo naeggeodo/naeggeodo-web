@@ -1,10 +1,13 @@
 import { AxiosResponse } from 'axios';
-import { call, delay, put, takeLatest } from 'redux-saga/effects';
+import { call, delay, put, take, takeLatest } from 'redux-saga/effects';
 import { MypageService } from '../../service/api/mypage/MypageService';
 import {
+  closeReportConfirmModalActions,
+  CLOSE_REPORT_CONFIRM_MODAL_REQUEST,
   getUserInfoInMypageRequest,
   getUserInfoInMypageSuccess,
   GET_USER_INFO_IN_MYPAGE_REQUEST,
+  setModalAnimationStart,
   setReportConfirmModal,
   setReportModal,
   submitReportActions,
@@ -34,8 +37,24 @@ function* submitReportGenerator(
     yield put(submitReportActions.success(action.payload));
     yield put(setReportModal(''));
     yield put(setReportConfirmModal('alert'));
-    yield delay(1500);
+    yield delay(1000);
+    yield put(setModalAnimationStart(true));
+    yield delay(500);
     yield put(setReportConfirmModal(''));
+    yield put(setModalAnimationStart(false));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function* closeReportConfirmModalGenerator(
+  action: ReturnType<typeof closeReportConfirmModalActions.request>,
+) {
+  try {
+    yield put(setModalAnimationStart(true));
+    yield delay(1000);
+    yield put(setReportConfirmModal(''));
+    yield put(setModalAnimationStart(false));
   } catch (error) {
     console.log(error);
   }
@@ -47,4 +66,8 @@ export function* getMypageInfoSaga() {
     getUserInfoInMypageGenerator,
   );
   yield takeLatest(SUBMIT_REPORT_REQUEST, submitReportGenerator);
+  yield takeLatest(
+    CLOSE_REPORT_CONFIRM_MODAL_REQUEST,
+    closeReportConfirmModalGenerator,
+  );
 }

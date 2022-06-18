@@ -1,11 +1,11 @@
 import React from 'react';
-import ConfirmModalTemplate from './ConfirmModalTemplate';
+import ConfirmAlertModalTemplate from './ConfirmAlertModalTemplate';
 
 const CompleteAlertModal = () => {
   return (
-    <ConfirmModalTemplate>
+    <ConfirmAlertModalTemplate>
       <p>완료되었습니다.</p>
-    </ConfirmModalTemplate>
+    </ConfirmAlertModalTemplate>
   );
 };
 
