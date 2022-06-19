@@ -1,5 +1,6 @@
 {
   "env": {
+    "node": true,
     "browser": true,
     "es2021": true,
     "jest": true
@@ -37,6 +38,7 @@
   "rules": {
     "arrow-parens": 0,
     "no-var": "off",
+    "@typescript-eslint/no-var-requires": 0,
     "react/react-in-jsx-scope": "off",
     "react/jsx-filename-extension": [
       1,

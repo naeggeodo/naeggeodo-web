@@ -25,6 +25,7 @@ export const openSearchPostCode = createAction(
   OPEN_SEARCH_POST_CODE,
   () => ({}),
 )();
+
 export const closeSearchPostCode = createAction(
   CLOSE_SEARCH_POST_CODE,
   () => ({}),

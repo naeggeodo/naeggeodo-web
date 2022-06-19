@@ -1,5 +1,4 @@
-import React from 'react';
-import ConfirmAlertModalTemplate from './ConfirmAlertModalTemplate';
+import ConfirmAlertModalTemplate from "./ConfirmAlertModalTemplate";
 
 const CompleteAlertModal = () => {
   return (

@@ -1,6 +1,6 @@
-import { AxiosResponse } from 'axios';
-import { call, delay, put, take, takeLatest } from 'redux-saga/effects';
-import { MypageService } from '../../service/api/mypage/MypageService';
+import { AxiosResponse } from "axios";
+import { call, delay, put, take, takeLatest } from "redux-saga/effects";
+import { MypageService } from "../../service/api/mypage/MypageService";
 import {
   closeReportConfirmModalActions,
   CLOSE_REPORT_CONFIRM_MODAL_REQUEST,
@@ -12,16 +12,16 @@ import {
   setReportModal,
   submitReportActions,
   SUBMIT_REPORT_REQUEST,
-} from './actions';
-import { MyPageUserInfoResponse } from './types';
+} from "./actions";
+import { MyPageUserInfoResponse } from "./types";
 
 function* getUserInfoInMypageGenerator(
-  action: ReturnType<typeof getUserInfoInMypageRequest>,
+  action: ReturnType<typeof getUserInfoInMypageRequest>
 ) {
   try {
     const response: AxiosResponse<MyPageUserInfoResponse> = yield call(
       MypageService.asyncGetMypageUserInfo,
-      action.payload,
+      action.payload
     );
     yield put(getUserInfoInMypageSuccess(response.data));
   } catch (error) {
@@ -30,17 +30,17 @@ function* getUserInfoInMypageGenerator(
 }
 
 function* submitReportGenerator(
-  action: ReturnType<typeof submitReportActions.request>,
+  action: ReturnType<typeof submitReportActions.request>
 ) {
   try {
     yield call(MypageService.asyncSubmitReport, action.payload);
     yield put(submitReportActions.success(action.payload));
-    yield put(setReportModal(''));
-    yield put(setReportConfirmModal('alert'));
+    yield put(setReportModal(""));
+    yield put(setReportConfirmModal("alert"));
     yield delay(1000);
     yield put(setModalAnimationStart(true));
     yield delay(500);
-    yield put(setReportConfirmModal(''));
+    yield put(setReportConfirmModal(""));
     yield put(setModalAnimationStart(false));
   } catch (error) {
     console.log(error);
@@ -48,12 +48,12 @@ function* submitReportGenerator(
 }
 
 function* closeReportConfirmModalGenerator(
-  action: ReturnType<typeof closeReportConfirmModalActions.request>,
+  action: ReturnType<typeof closeReportConfirmModalActions.request>
 ) {
   try {
     yield put(setModalAnimationStart(true));
     yield delay(1000);
-    yield put(setReportConfirmModal(''));
+    yield put(setReportConfirmModal(""));
     yield put(setModalAnimationStart(false));
   } catch (error) {
     console.log(error);
@@ -63,11 +63,11 @@ function* closeReportConfirmModalGenerator(
 export function* getMypageInfoSaga() {
   yield takeLatest(
     GET_USER_INFO_IN_MYPAGE_REQUEST,
-    getUserInfoInMypageGenerator,
+    getUserInfoInMypageGenerator
   );
   yield takeLatest(SUBMIT_REPORT_REQUEST, submitReportGenerator);
   yield takeLatest(
     CLOSE_REPORT_CONFIRM_MODAL_REQUEST,
-    closeReportConfirmModalGenerator,
+    closeReportConfirmModalGenerator
   );
 }
