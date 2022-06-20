@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { END } from 'redux-saga';
 import styled from 'styled-components';
 import { useSelectLoginStates } from '../hooks/select/useSelectLoginStates';
@@ -11,6 +11,7 @@ import { saveCookies } from '../utils/saveCookies';
 const RendingPage = () => {
   const router = useRouter();
   const { buildingCode } = useSelectLoginStates();
+  const [count, setCount] = useState(0);
 
   const moveToChatRooms = useCallback(() => {
     if (buildingCode) {
@@ -18,51 +19,46 @@ const RendingPage = () => {
     } else router.push('/chat-rooms');
   }, [router, buildingCode]);
 
+  const plusCount = useCallback(() => {
+    setCount(count + 1);
+  }, [count]);
+
   return (
     <Container>
-      <Title>
-        우리동네
-        <br />
-        배달비 반값 플랫폼
-        <br />
-        <Strong>내꺼도</Strong> 🍔
-      </Title>
+      <TopContainer>
+        <div>
+          <Image src="/assets/images/ngIcon.svg" width={300} height={300} />
 
-      <Description>
-        지금 채팅방을 생성해서
-        <br />
-        같이먹을 사람을 모집해보세요
-      </Description>
+          <Title>
+            우리동네
+            <br />
+            배달비 반값 플랫폼
+            <br />
+            <Strong>내꺼도</Strong> 🛵
+          </Title>
 
-      <StartContainer>
-        <MoveMainPageButton onClick={moveToChatRooms}>
-          지금 둘러보기
-        </MoveMainPageButton>
-        <DownLoad>
-          <DownLoadText>
-            앱을 다운로드해서 더욱 편하게 <br />
-            <OrangeText>내꺼도앱</OrangeText>을 즐겨보세요 🛵
-          </DownLoadText>
-          <ButtonContainer>
-            <DownLoadButton>
-              <Image
-                src='/assets/images/appstore.svg'
-                alt='내꺼도 앱스토어 다운로드'
-                width={170}
-                height={55}
-              />
-            </DownLoadButton>
-            <DownLoadButton>
-              <Image
-                src='/assets/images/googleplay.svg'
-                alt='내꺼도 구글플레이 다운로드'
-                width={200}
-                height={80}
-              />
-            </DownLoadButton>
-          </ButtonContainer>
-        </DownLoad>
-      </StartContainer>
+          <Description>
+            지금 채팅방을 생성해서
+            <br />
+            같이먹을 사람을 모집해보세요
+          </Description>
+
+          <StartContainer>
+            <MoveMainPageButton onClick={moveToChatRooms}>
+              지금 둘러보기
+            </MoveMainPageButton>
+          </StartContainer>
+        </div>
+
+        <StyledLike>{count}</StyledLike>
+      </TopContainer>
+
+      <LikeButtonContainer>
+        <p>앱 버전이 개발중 입니다 빠른 출시를 위해 하트를 눌러주세요 :)</p>
+        <button onClick={plusCount}>
+          <Image src="/assets/images/heart.svg" width={55} height={55}></Image>
+        </button>
+      </LikeButtonContainer>
     </Container>
   );
 };
@@ -81,9 +77,9 @@ export const getServerSideProps = wrapper.getServerSideProps(
 );
 
 const Container = styled.div`
-  padding: 88px 30px 0;
-  height: 100vh;
+  padding: 0 30px 20px;
   background-color: #fff;
+  height: 100vh;
 `;
 
 const Title = styled.h1`
@@ -111,28 +107,6 @@ const StartContainer = styled.div`
   margin-top: 30px;
 `;
 
-const DownLoad = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-
-  margin-top: 200px;
-`;
-
-const DownLoadText = styled.p`
-  font-size: 1.125rem;
-  line-height: 1.4;
-`;
-
-const OrangeText = styled.span`
-  color: ${palette.mainOrange};
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  gap: 50px;
-`;
-
 const MoveMainPageButton = styled.button`
   all: unset;
   display: flex;
@@ -149,9 +123,49 @@ const MoveMainPageButton = styled.button`
   border-radius: 10px;
 `;
 
-const DownLoadButton = styled.button`
-  all: unset;
-  cursor: pointer;
+const TopContainer = styled.div`
+  display: flex;
+  gap: 30px;
+
+  @media (max-width: 605px) {
+    flex-direction: column;
+  }
+`;
+
+const LikeButtonContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  gap: 10px;
+  margin-top: 60px;
+  border-radius: 20px;
+
+  background-color: ${palette.LightGray};
+  color: #e2758c;
+
+  @media (max-width: 605px) {
+    margin-top: 20px;
+  }
+
+  & > button {
+    all: unset;
+    cursor: pointer;
+    transition: 1.2s;
+
+    &:hover {
+      transform: scale(1.4);
+    }
+  }
+`;
+
+const StyledLike = styled.div`
+  display: flex;
+  align-items: flex-end;
+  font-family: 'SpoqaBold';
+  font-size: 3.75rem;
+
+  color: #e2758c;
 `;
 
 export default RendingPage;

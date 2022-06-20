@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { Stomp } from '@stomp/stompjs';
+import { CompatClient, Stomp } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 import { useSelector } from 'react-redux';
 
@@ -23,7 +23,7 @@ import { useSelectChatRoomInfo } from '../../hooks/select/useSelectChatRoomInfo'
 import { useLoadLib } from '../../hooks/utils/useLoadLib';
 import ExitModalTemplate from './ExitModalTemplate';
 
-var stompClient;
+var stompClient: CompatClient;
 
 const ChattingTemplate = () => {
   const { onSendMessage } = useChat();
@@ -56,11 +56,33 @@ const ChattingTemplate = () => {
   }, [chattingList.messages]);
 
   const onError = (e) => {
-    if (e.headers.message) {
-      console.log(e.headers.message);
+    const errorMessage = e.headers.message;
+    switch (errorMessage) {
+      case 'SESSION_DUPLICATION':
+        alert('중복된 아이디로 접속하실 수 없습니다.');
+        location.replace('/chat-rooms');
+        return;
+      case 'INVALID_STATE':
+        alert('입장할 수 없는 채팅방 입니다.');
+        location.replace('/chat-rooms');
+        return;
+      case 'BANNED_CHAT_USER':
+        alert('강제퇴장 조치로 인해 입장이 불가합니다.');
+        location.replace('/chat-rooms');
+        return;
+      case 'BAD_REQUEST':
+        alert('잘못된 요청입니다.');
+        location.replace('/');
+        return;
+      case 'UNAUTHORIZED':
+        alert('인증되지 않은 아이디입니다. 다시 로그인 해주세요.');
+        location.replace('/login');
+        return;
+      default:
+        alert('잘못된 접근입니다.');
+        location.replace('/');
+        return;
     }
-    alert('문제가 발생하여 채팅방에서 나가집니다.');
-    location.href = '/';
   };
 
   function onEnter() {
@@ -86,8 +108,6 @@ const ChattingTemplate = () => {
   }
 
   const connect = () => {
-    // stompClient = Stomp.over(socket);
-    // const socket = new SockJS();
     stompClient = Stomp.over(
       () => new SockJS(`${process.env.NEXT_PUBLIC_API_URL}/chat`),
     );
@@ -98,6 +118,7 @@ const ChattingTemplate = () => {
         Authorization: `Bearer ${accessToken}`,
       },
       () => {
+        // TODO : 강퇴 기능
         // const sessionId = /\/([^\\/]+)\/websocket/.exec(
         //   socket._transport.url,
         // )[1];
@@ -173,7 +194,7 @@ const ChattingTemplate = () => {
       };
       onSendMessage(stompClient, data);
     };
-    // e.target.value = '';
+    e.target.value = '';
   };
 
   useEffect(() => {
