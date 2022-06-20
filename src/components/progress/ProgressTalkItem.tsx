@@ -1,6 +1,4 @@
 import Image from 'next/image';
-import { useRouter } from 'next/router';
-import { MouseEvent, useCallback } from 'react';
 import styled from 'styled-components';
 import { useProgress } from '../../hooks/progress/useProgress';
 import { useCustomRouter } from '../../hooks/utils/useCustomRouter';
@@ -47,17 +45,17 @@ const ProgressTalkItem = ({
           src={imgPath ? imgPath : '/assets/images/hamburger.svg'}
           height={60}
           width={60}
-          alt='채팅방 이미지'
+          alt="채팅방 이미지"
         />
       </ImageContainer>
 
       <TextContainer>
-        <TimeTitleWrapper className='target'>
+        <TimeTitleWrapper className="target">
           <form onSubmit={onSaveTitle}>
             <input
               onChange={onChangeTitle}
-              type='text'
-              name='title'
+              type="text"
+              name="title"
               value={chatTitle}
               disabled
               ref={(el) => (inputRefs.current[index] = el)}
@@ -67,20 +65,20 @@ const ProgressTalkItem = ({
           <ModifyButton onClick={handleModifyButtonClick} data-id={String(id)}>
             {user_id === myId && elementId !== id ? (
               <Image
-                src='/assets/images/pencilicon.svg'
+                src="/assets/images/pencilicon.svg"
                 width={26}
                 height={26}
-                alt='제목수정 아이콘'
+                alt="제목수정 아이콘"
               />
             ) : null}
           </ModifyButton>
           {elementId === id && (
             <ConfirmButton onClick={onSaveTitle}>
               <Image
-                src='/assets/images/check.svg'
+                src="/assets/images/check.svg"
                 width={26}
                 height={26}
-                alt='체크 아이콘'
+                alt="체크 아이콘"
               />
             </ConfirmButton>
           )}

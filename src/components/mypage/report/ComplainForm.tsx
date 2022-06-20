@@ -9,9 +9,7 @@ import ConfirmModal from './ConfirmModal';
 import ControllButtons from './ControllButtons';
 import { useLoadLib } from '../../../hooks/utils/useLoadLib';
 import {
-  closeReportConfirmModalActions,
   setReportConfirmModal,
-  setReportModal,
   submitReportActions,
 } from '../../../modules/mypage/actions';
 
@@ -57,11 +55,11 @@ const ComplainForm = () => {
     <ReportModalTemplate>
       <Title>신고하기</Title>
       <ComplainType onChange={onChangeComplainType}>
-        <ComplainTypeItem value='CHATMAIN'>채팅방 신고</ComplainTypeItem>
-        <ComplainTypeItem value='CHATDETAIL'>채팅내용 신고</ComplainTypeItem>
+        <ComplainTypeItem value="CHATMAIN">채팅방 신고</ComplainTypeItem>
+        <ComplainTypeItem value="CHATDETAIL">채팅내용 신고</ComplainTypeItem>
       </ComplainType>
       <Content
-        placeholder='신고 내용'
+        placeholder="신고 내용"
         onChange={onChangecomplainBody}
         value={complainBody.contents}
       />
@@ -76,8 +74,6 @@ const ComplainForm = () => {
     </ReportModalTemplate>
   );
 };
-
-export default ComplainForm;
 
 const Title = styled.h3`
   color: ${palette.mainOrange};
@@ -100,3 +96,5 @@ const Content = styled.textarea`
   resize: none;
   outline: none;
 `;
+
+export default ComplainForm;

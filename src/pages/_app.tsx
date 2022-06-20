@@ -13,8 +13,8 @@ const app = ({ Component, pageProps }) => {
     <AppLayout>
       <Head>
         <title>내꺼도 같이 시켜줘</title>
-        <link rel='icon' href='/assets/images/favicon.ico' />
-        <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+        <link rel="icon" href="/assets/images/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
       <GlobalStyle />
       <Component {...pageProps} />
@@ -38,7 +38,7 @@ console.log(
 );
 
 app.getInitialProps = wrapper.getInitialAppProps(
-  (store) => async (context: AppContext) => {
+  () => async (context: AppContext) => {
     const myAppInitialProps = App.getInitialProps(context);
 
     axiosInstance.interceptors.request.use(

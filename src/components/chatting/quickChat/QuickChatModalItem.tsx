@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { useSelectLoginStates } from '../../../hooks/select/useSelectLoginStates';
@@ -37,7 +37,7 @@ const QuickChatModalItem = ({ quickChat }: { quickChat: QuickChatting }) => {
         <Wrap>
           <Message>{quickChat.msg}</Message>
           <RemoveButton onClick={onDeleteQuickChat}>
-            <Image src='/assets/images/remove.svg' width={20} height={20} />
+            <Image src="/assets/images/remove.svg" width={20} height={20} />
           </RemoveButton>
         </Wrap>
       )}

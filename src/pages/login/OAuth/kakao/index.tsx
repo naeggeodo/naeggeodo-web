@@ -1,6 +1,6 @@
 import React from 'react';
 import { END } from 'redux-saga';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import Loading from '../../../../components/common/Loading';
 import { useAuth } from '../../../../hooks/auth/useAuth';
 import { RootState, wrapper } from '../../../../modules';

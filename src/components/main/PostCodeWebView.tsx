@@ -34,6 +34,7 @@ const PostCodeWebView = ({ closeWebView }: { closeWebView: () => void }) => {
         extraAddress +=
           extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName;
       }
+      console.log(extraAddress);
       // fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
     }
 
@@ -45,7 +46,7 @@ const PostCodeWebView = ({ closeWebView }: { closeWebView: () => void }) => {
   };
 
   return (
-    <Portal selector='webviewPortal'>
+    <Portal selector="webviewPortal">
       <Background />
       <WebViewContainer>
         <DaumPostcode

@@ -5,9 +5,7 @@ import styled from 'styled-components';
 import { useLoadLib } from '../../../hooks/utils/useLoadLib';
 import { RootState } from '../../../modules';
 import {
-  closeReportConfirmModalActions,
   setReportConfirmModal,
-  setReportModal,
   submitReportActions,
 } from '../../../modules/mypage/actions';
 import palette from '../../../styles/palette';
@@ -53,7 +51,7 @@ const FeedbackForm = () => {
     <ReportModalTemplate>
       <Title>건의하기</Title>
       <Contents
-        placeholder='건의 내용'
+        placeholder="건의 내용"
         onChange={onChangeContent}
         value={feedbackBody.contents}
       />

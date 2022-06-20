@@ -1,6 +1,5 @@
-import axios from 'axios';
 import Image from 'next/image';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { useSelectLoginStates } from '../../hooks/select/useSelectLoginStates';
@@ -72,28 +71,28 @@ const PrevCreatedItem = ({ data }: { data: PrevCreatedListItem }) => {
         {data.bookmarks === 'Y' ? (
           <BookmarkButton onClick={onBookmarkHandler}>
             <Image
-              src='/assets/images/yellowstar.svg'
+              src="/assets/images/yellowstar.svg"
               width={18}
               height={24}
-              layout='fixed'
+              layout="fixed"
             />
           </BookmarkButton>
         ) : (
           <BookmarkButton onClick={onBookmarkHandler}>
             <Image
-              src='/assets/images/graystar.svg'
+              src="/assets/images/graystar.svg"
               width={18}
               height={24}
-              layout='fixed'
+              layout="fixed"
             />
           </BookmarkButton>
         )}
         <DeleteButton onClick={onDeleteItem}>
           <Image
-            src='/assets/images/close.svg'
+            src="/assets/images/close.svg"
             width={18}
             height={24}
-            layout='fixed'
+            layout="fixed"
           />
         </DeleteButton>
       </Content>

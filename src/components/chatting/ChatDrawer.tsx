@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import React, { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { useLoadLib } from '../../hooks/utils/useLoadLib';
@@ -25,7 +25,7 @@ const ChatDrawer = ({
   currentCount,
   masterId,
 }: PropsType) => {
-  const { dispatch, router } = useLoadLib();
+  const { dispatch } = useLoadLib();
   const containerRef = useRef<HTMLDivElement>(null);
 
   const { users } = useSelector(
@@ -38,12 +38,9 @@ const ChatDrawer = ({
 
   const closeDrawer = useCallback<
     (e: React.MouseEvent<HTMLButtonElement>) => void
-  >(
-    (e) => {
-      setIsDrawerOpen(false);
-    },
-    [isDrawerOpen],
-  );
+  >(() => {
+    setIsDrawerOpen(false);
+  }, [isDrawerOpen]);
 
   const exitChatRoom = useCallback(() => {
     dispatch(openExitModal());
@@ -58,10 +55,10 @@ const ChatDrawer = ({
         <div>
           <SubTitle>
             <Image
-              src='/assets/images/picture.svg'
+              src="/assets/images/picture.svg"
               width={15}
               height={15}
-              alt='사진 아이콘'
+              alt="사진 아이콘"
             />
             사진
           </SubTitle>
@@ -80,7 +77,7 @@ const ChatDrawer = ({
                     src={image}
                     width={60}
                     height={50}
-                    alt='방에서 주고 받은 이미지'
+                    alt="방에서 주고 받은 이미지"
                   />
                 );
               })
@@ -91,10 +88,10 @@ const ChatDrawer = ({
         <div>
           <SubTitle>
             <Image
-              src='/assets/images/people.svg'
+              src="/assets/images/people.svg"
               width={15}
               height={15}
-              alt='사진 아이콘'
+              alt="사진 아이콘"
             />
             참여자({currentCount})
           </SubTitle>
@@ -106,11 +103,11 @@ const ChatDrawer = ({
                   <MemberItem key={user.user_id}>
                     <FlexWrapper>
                       <Image
-                        src='/assets/images/profile.svg'
+                        src="/assets/images/profile.svg"
                         width={40}
                         height={40}
-                        alt='프로필'
-                        objectFit='contain'
+                        alt="프로필"
+                        objectFit="contain"
                       />
 
                       <Nickname isMe={user.user_id === my_id}>
@@ -120,10 +117,10 @@ const ChatDrawer = ({
 
                     {masterId === user.user_id && (
                       <Image
-                        src='/assets/images/king.svg'
+                        src="/assets/images/king.svg"
                         width={25}
                         height={25}
-                        alt='방장 표시 아이콘'
+                        alt="방장 표시 아이콘"
                       />
                     )}
                   </MemberItem>
@@ -134,20 +131,20 @@ const ChatDrawer = ({
         </div>
       </Content>
       <Footer>
-        <CloseButton onClick={closeDrawer} title='채팅 서랍 닫기 버튼'>
+        <CloseButton onClick={closeDrawer} title="채팅 서랍 닫기 버튼">
           <Image
-            src='/assets/images/close.svg'
+            src="/assets/images/close.svg"
             width={20}
             height={20}
-            alt='닫기 버튼'
+            alt="닫기 버튼"
           />
         </CloseButton>
-        <ExitButton onClick={exitChatRoom} title='채팅방 나가기 버튼'>
+        <ExitButton onClick={exitChatRoom} title="채팅방 나가기 버튼">
           <Image
-            src='/assets/images/drawerclosebtn.svg'
+            src="/assets/images/drawerclosebtn.svg"
             width={20}
             height={24}
-            alt='채팅방 나가기 이미지'
+            alt="채팅방 나가기 이미지"
           />
           <span>나가기</span>
         </ExitButton>

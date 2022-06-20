@@ -1,6 +1,5 @@
-import { useRouter } from 'next/router';
-import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { useSelectLoginStates } from '../../hooks/select/useSelectLoginStates';
 import { useCustomRouter } from '../../hooks/utils/useCustomRouter';
@@ -63,13 +62,6 @@ const Title = styled.p`
   font-size: 1.375rem;
 
   letter-spacing: 0.35px;
-
-  color: ${palette.black};
-`;
-
-const SubTitle = styled.p`
-  font-size: 0.9375rem;
-  line-height: 150%;
 
   color: ${palette.black};
 `;

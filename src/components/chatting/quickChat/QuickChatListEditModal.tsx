@@ -1,11 +1,5 @@
 import Image from 'next/image';
-import React, {
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
+import React, { Dispatch, SetStateAction, useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { useSelectLoginStates } from '../../../hooks/select/useSelectLoginStates';
@@ -80,7 +74,7 @@ const QuickChatListEditModal = ({
               src={'/assets/images/close.svg'}
               width={20}
               height={20}
-              alt='닫기버튼'
+              alt="닫기버튼"
             />
           </CloseButton>
         </Header>
@@ -91,8 +85,8 @@ const QuickChatListEditModal = ({
         </Wrap>
         <AddForm onSubmit={onAddQuickChat}>
           <AddInput
-            type='text'
-            placeholder='문구를 입력해주세요'
+            type="text"
+            placeholder="문구를 입력해주세요"
             onChange={onChangeInput}
             value={newChatValue}
           />
