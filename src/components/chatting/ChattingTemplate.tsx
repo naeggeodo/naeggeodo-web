@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, FormEvent } from 'react';
 import styled from 'styled-components';
 import { CompatClient, Stomp } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
@@ -41,10 +41,10 @@ const ChattingTemplate = () => {
     (state: RootState) => state.modalStates.exitModalIsOpen,
   );
 
-  const [message, setMessage] = useState('');
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [message, setMessage] = useState<string>('');
+  const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
 
-  const changeMessage = (e) => {
+  const changeMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMessage(e.target.value);
   };
 
@@ -163,7 +163,7 @@ const ChattingTemplate = () => {
     stompClient.disconnect();
   };
 
-  const sendMessage = (e) => {
+  const sendMessage = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!message) return;
 
@@ -178,7 +178,7 @@ const ChattingTemplate = () => {
     setMessage('');
   };
 
-  const sendImage = (e) => {
+  const sendImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const fileReader = new FileReader();
     const imgFile = e.target.files[0];
     console.log(imgFile);

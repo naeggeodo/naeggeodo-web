@@ -1,11 +1,21 @@
-import React, { useCallback, useState } from 'react';
+import React, { FormEvent, useCallback, useState } from 'react';
 import styled, { css } from 'styled-components';
 import Image from 'next/image';
+import { CompatClient } from '@stomp/stompjs';
+
 import QuickChatList from './quickChat/QuickChatList';
 
 type StyledType = {
   isActive: boolean;
 };
+
+interface SubmitFormProps {
+  stompClient: CompatClient;
+  changeMessage: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  message: string;
+  sendMessage: (e: FormEvent<HTMLFormElement>) => void;
+  sendImage: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
 
 const SubmitForm = ({
   stompClient,
@@ -13,7 +23,7 @@ const SubmitForm = ({
   message,
   sendMessage,
   sendImage,
-}: any) => {
+}: SubmitFormProps) => {
   const [isQuickChatOpen, setIsQuickChatOpen] = useState(false);
 
   const onQuickChatOpen = useCallback(() => {
@@ -30,38 +40,38 @@ const SubmitForm = ({
         <QuickChatButton
           isActive={isQuickChatOpen}
           onClick={onQuickChatOpen}
-          title='채팅 빠르게 보내기 버튼'>
+          title="채팅 빠르게 보내기 버튼">
           <Image
-            src='/assets/images/toparrow.svg'
-            alt='채팅 빠르게 보내기 버튼'
+            src="/assets/images/toparrow.svg"
+            alt="채팅 빠르게 보내기 버튼"
             width={30}
             height={30}
           />
         </QuickChatButton>
         <ContentWrap onSubmit={sendMessage}>
-          <ImgAddLabel htmlFor='image' title='이미지 추가 아이콘'>
+          <ImgAddLabel htmlFor="image" title="이미지 추가 아이콘">
             <Image
-              src='/assets/images/imgaddbtn.svg'
-              alt='이미지 추가 아이콘'
+              src="/assets/images/imgaddbtn.svg"
+              alt="이미지 추가 아이콘"
               width={19}
               height={24}
             />
           </ImgAddLabel>
           <ImgAddInput
-            type='file'
-            accept='image/*'
-            id='image'
+            type="file"
+            accept="image/*"
+            id="image"
             onChange={sendImage}
           />
           <TextField
             value={message}
             onChange={changeMessage}
-            title='채팅 텍스트 전송 input'
+            title="채팅 텍스트 전송 input"
           />
-          <SubmitButton title='채팅 전송 버튼'>
+          <SubmitButton title="채팅 전송 버튼">
             <Image
-              src='/assets/images/submitbtn.svg'
-              alt='전송 버튼'
+              src="/assets/images/submitbtn.svg"
+              alt="전송 버튼"
               width={23}
               height={24}
             />

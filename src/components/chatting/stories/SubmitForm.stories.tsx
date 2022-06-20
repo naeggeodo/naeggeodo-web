@@ -30,6 +30,8 @@ export default {
   },
 } as ComponentMeta<typeof SubmitForm>;
 
-export const SubmitFormStory = (args: Args) => <SubmitForm {...args} />;
+export const SubmitFormStory = (args: Args) => (
+  <SubmitForm stompClient={null} {...args} />
+);
 
 SubmitFormStory.storyName = '채팅 전송 인풋';
