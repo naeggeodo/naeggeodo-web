@@ -32,18 +32,12 @@ export const getNaverTokenSuccess = createAction(
 )();
 
 export const SAVE_ACCESS_TOKEN = namespace + 'SAVE_ACCESS_TOKEN';
-export const SAVE_REFRESH_TOKEN = namespace + 'SAVE_REFRESH_TOKEN';
 export const SAVE_USER_INFO = namespace + 'SAVE_USER_INFO';
 export const SAVE_ADDRESS = namespace + 'SAVE_ADDRESS';
 
 export const saveAccessToken = createAction(
   SAVE_ACCESS_TOKEN,
   (accessToken) => ({ accessToken }),
-)();
-
-export const saveRefreshToken = createAction(
-  SAVE_REFRESH_TOKEN,
-  (refreshToken) => ({ refreshToken }),
 )();
 
 export const saveUserInfo = createAction(
