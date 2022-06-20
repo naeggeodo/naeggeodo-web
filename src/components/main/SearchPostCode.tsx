@@ -1,19 +1,17 @@
-import React from 'react';
-import styled from 'styled-components';
-import palette from '../../styles/palette';
-import Image from 'next/image';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../modules';
-import { filterLocation } from '../../utils/filterLocation';
+import React from "react";
+import styled from "styled-components";
+import palette from "../../styles/palette";
+import Image from "next/image";
+import { useSelector } from "react-redux";
+import { RootState } from "../../modules";
+import { filterLocation } from "../../utils/filterLocation";
 
 const SearchPostCode = ({ openWebView }: { openWebView: () => void }) => {
   const address = useSelector((state: RootState) => state.loginState.address);
 
-  const apartment: 'Y' | 'N' | '' = useSelector(
-    (state: RootState) => state.postCodeState.apartment,
+  const apartment: "Y" | "N" | "" = useSelector(
+    (state: RootState) => state.postCodeState.apartment
   );
-  console.log(address, 'ddd');
-
   return (
     <Container onClick={openWebView}>
       <CenterWrapper>
@@ -57,9 +55,8 @@ const CenterWrapper = styled.div`
   justify-content: space-between;
 
   width: 85%;
-  height: 36px;
 
-  padding: 0 10px 0 20px;
+  padding: 15px;
   background-color: ${palette.bgGray};
 
   border-radius: 5px;

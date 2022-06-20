@@ -1,12 +1,12 @@
-import { END } from 'redux-saga';
+import { END } from "redux-saga";
 
-import CheckDepositTemplate from '../../components/check-deposit/CheckDepositTemplate';
-import { RootState, wrapper } from '../../modules';
+import CheckDepositTemplate from "../../components/check-deposit/CheckDepositTemplate";
+import { RootState, wrapper } from "../../modules";
 import {
   getCurrentChatRoomAsyncActions,
   getCurrentChatUserListActions,
-} from '../../modules/chatting/actions';
-import { saveCookies } from '../../utils/saveCookies';
+} from "../../modules/chatting/actions";
+import { saveCookies } from "../../utils/saveCookies";
 
 const checkDeposit = () => <CheckDepositTemplate />;
 
@@ -17,13 +17,13 @@ export const getServerSideProps = wrapper.getServerSideProps(
     store.dispatch(
       getCurrentChatUserListActions.request({
         chattingRoomId: String(context.params.id),
-      }),
+      })
     );
 
     store.dispatch(
       getCurrentChatRoomAsyncActions.request({
         chattingRoomId: context.params.id as string,
-      }),
+      })
     );
 
     store.dispatch(END);
@@ -40,11 +40,10 @@ export const getServerSideProps = wrapper.getServerSideProps(
         },
         redirect: {
           permanent: false,
-          destination: '/chat-rooms',
+          destination: "/chat-rooms",
         },
       };
     }
-    console.log(master_id === user_id, 'eddy');
 
     if (master_id)
       return {
@@ -52,7 +51,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
           chatRoomInfo: store.getState().chattingRoomState.chatRoomInfo,
         },
       };
-  },
+  }
 );
 
 export default checkDeposit;

@@ -1,5 +1,5 @@
-import { useRouter } from 'next/router';
-import { useEffect, useRef, useState } from 'react';
+import { useRouter } from "next/router";
+import { useEffect, useRef, useState } from "react";
 
 export function useInfiniteScroll<T>(data: T[]) {
   const limit = 5;
@@ -35,7 +35,6 @@ export function useInfiniteScroll<T>(data: T[]) {
       observer.unobserve(entry.target);
       setSkip((prev) => prev + limit + 1);
       observer.observe(entry.target);
-      console.log('스크롤시렌더링');
     }
   };
 
