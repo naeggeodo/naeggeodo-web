@@ -12,6 +12,7 @@ const SearchPostCode = ({ openWebView }: { openWebView: () => void }) => {
   const apartment: 'Y' | 'N' | '' = useSelector(
     (state: RootState) => state.postCodeState.apartment,
   );
+  console.log(address, 'ddd');
 
   return (
     <Container onClick={openWebView}>
@@ -20,8 +21,8 @@ const SearchPostCode = ({ openWebView }: { openWebView: () => void }) => {
           <Image
             width={14}
             height={16}
-            src='/assets/images/location.svg'
-            alt='위치 이미지'
+            src="/assets/images/location.svg"
+            alt="위치 이미지"
           />
           <AddressText>{filterLocation(apartment, address)}</AddressText>
         </FlexRow>
@@ -29,8 +30,8 @@ const SearchPostCode = ({ openWebView }: { openWebView: () => void }) => {
         <Image
           width={11}
           height={16}
-          src='/assets/images/arrowgrayright.svg'
-          alt='오른쪽 화살표 이미지'
+          src="/assets/images/arrowgrayright.svg"
+          alt="오른쪽 화살표 이미지"
         />
       </CenterWrapper>
     </Container>
