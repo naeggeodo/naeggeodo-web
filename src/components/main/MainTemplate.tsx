@@ -22,10 +22,10 @@ const MainTemplate = ({
 }: {
   foodCategories: CategoriesResponse[];
 }) => {
+  const { dispatch, router } = useLoadLib();
   const chatRooms = useSelector(
     (state: RootState) => state.mainPageState.chatRooms,
   );
-  const { dispatch, router } = useLoadLib();
 
   const { checkTokenAndRedirection, openWebView, closeWebView } =
     useCheckValidate();

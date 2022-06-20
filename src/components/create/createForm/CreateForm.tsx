@@ -111,12 +111,12 @@ const CreateForm = () => {
       <div>
         <Content>
           <Item>
-            <FieldTitle title='채팅방 제목' />
+            <FieldTitle title="채팅방 제목" />
             <Input
-              type='text'
+              type="text"
               onChange={(e) => dispatchInputAction(e, 'title')}
               value={title}
-              placeholder='채팅방 제목을 입력해주세요.'
+              placeholder="채팅방 제목을 입력해주세요."
             />
           </Item>
           <SelectCategory onClick={openCategoryList}>
@@ -124,25 +124,25 @@ const CreateForm = () => {
               title={convertEngCategoryToKor(category) || '카테고리 선택'}
             />
             <Image
-              src='/assets/images/arrowrightdarkgray.svg'
+              src="/assets/images/arrowrightdarkgray.svg"
               width={17}
               height={16}></Image>
           </SelectCategory>
           <Item>
             <TitleText>수령장소</TitleText>
             <Input
-              type='text'
+              type="text"
               onChange={(e) => dispatchInputAction(e, 'place')}
               value={place}
-              placeholder='수령장소를 입력해주세요 (ex.105동 1층 경비실)'
+              placeholder="수령장소를 입력해주세요 (ex.105동 1층 경비실)"
             />
           </Item>
           <Item>
             <TitleText>가게 링크</TitleText>
             <InputWrapper>
               <Input
-                type='url'
-                placeholder='가게 링크를 입력해주세요'
+                type="url"
+                placeholder="가게 링크를 입력해주세요"
                 value={link}
                 onChange={(e) => {
                   setIsUrl(urlRegex.test(link));
@@ -151,8 +151,8 @@ const CreateForm = () => {
               />
               <Link href={`${link}`} passHref>
                 <MoveLinkButton
-                  target='_blank'
-                  rel='noopener noreferrer'
+                  target="_blank"
+                  rel="noopener noreferrer"
                   isUrl={isUrl}>
                   링크이동
                 </MoveLinkButton>
@@ -168,7 +168,7 @@ const CreateForm = () => {
               <Input
                 value={tagText}
                 onChange={changeTagText}
-                placeholder='태그 작성 후 Enter를 입력하세요. (최대 5개)'
+                placeholder="태그 작성 후 Enter를 입력하세요. (최대 5개)"
               />
             </form>
             <TagContainer>
@@ -185,7 +185,7 @@ const CreateForm = () => {
 
           <ChatRoomContainer>
             <TitleWrapper>
-              <FieldTitle title='입장 인원' />
+              <FieldTitle title="입장 인원" />
               <Desc>(최대5명)</Desc>
             </TitleWrapper>
 
@@ -222,12 +222,12 @@ const CreateForm = () => {
                   <Image src={imgSrc as string} width={70} height={70} />
                 )}
               </ImgBox>
-              <SearchFileButton htmlFor='file'>파일 찾기</SearchFileButton>
+              <SearchFileButton htmlFor="file">파일 찾기</SearchFileButton>
               <InputFile
                 onChange={uploadImg}
-                accept='image/*'
-                type='file'
-                id='file'
+                accept="image/*"
+                type="file"
+                id="file"
               />
             </FileBox>
           </Item>
