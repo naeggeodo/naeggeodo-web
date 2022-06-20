@@ -40,10 +40,10 @@ const Header = ({
   return (
     <Container>
       <ContentWrap>
-        <PrevButton onClick={routeBack} title='뒤로가기 버튼'>
+        <PrevButton onClick={routeBack} title="뒤로가기 버튼">
           <Image
-            src='/assets/images/prevbtn.svg'
-            alt='뒤로가기 버튼'
+            src="/assets/images/prevbtn.svg"
+            alt="뒤로가기 버튼"
             width={14}
             height={24}
           />
@@ -52,12 +52,12 @@ const Header = ({
           src={imgPath ? imgPath : '/assets/images/hamburger.svg'}
           width={44}
           height={44}
-          alt='채팅방 이미지'
+          alt="채팅방 이미지"
         />
         <Link href={link || 'http://naeggeodo.com'} passHref>
-          <LinkWrapper target='_blank' rel='noopener noreferrer'>
-            <Info name='title'>{title}</Info>
-            <Info name='info'>
+          <LinkWrapper target="_blank" rel="noopener noreferrer">
+            <Info name="title">{title}</Info>
+            <Info name="info">
               <StyledCurrent max={currentCount === maxCount ? 'true' : 'false'}>
                 현재 {currentCount}명
               </StyledCurrent>
@@ -67,10 +67,10 @@ const Header = ({
         </Link>
         <HambergurButton onClick={openDrawer}>
           <Image
-            src='/assets/images/hambergurbar.svg'
+            src="/assets/images/hamburgerbar.svg"
             width={22}
             height={22}
-            alt='메뉴 바'
+            alt="메뉴 바"
           />
         </HambergurButton>
       </ContentWrap>
