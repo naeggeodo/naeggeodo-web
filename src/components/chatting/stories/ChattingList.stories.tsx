@@ -9,7 +9,7 @@ export default {
   decorators: [
     (Story) => (
       <Provider store={configureStore()}>
-        <div style={{ margin: '20px' }}>
+        <div style={{ display: 'flex', marginTop: '30px' }}>
           <Story />
         </div>
       </Provider>
@@ -35,7 +35,7 @@ ChattingListComp.args = {
     {
       chatMain_id: 1,
       user_id: 1,
-      contents: '안녕하세요',
+      contents: '넵 안녕하세요!!',
       type: 'TEXT',
       regDate: '2022-05-13T15:52:52',
     },

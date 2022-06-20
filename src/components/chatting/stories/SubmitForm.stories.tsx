@@ -18,7 +18,7 @@ export default {
             height: '100vh',
             width: '100vw',
             display: 'flex',
-            alignItems: 'center',
+            alignItems: 'flex-end',
           }}>
           <Story />
         </div>

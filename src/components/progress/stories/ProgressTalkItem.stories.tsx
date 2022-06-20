@@ -11,9 +11,7 @@ export default {
       <Provider store={configureStore()}>
         <div
           style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
+            backgroundColor: '#fff',
             height: '100vh',
             width: '100vw',
           }}>

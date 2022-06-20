@@ -34,7 +34,9 @@ export default {
   },
 } as ComponentMeta<typeof QuickChatList>;
 
-const Template = (args: Args) => <QuickChatList {...args} />;
+const Template = (args: Args) => (
+  <QuickChatList isQuickChatOpen={true} {...args} />
+);
 export const QuickMessageStory = Template.bind({});
 
 QuickMessageStory.storyName = '빠른 메시지 전송';

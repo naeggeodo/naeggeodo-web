@@ -151,10 +151,10 @@ const LikeButtonContainer = styled.div`
   & > button {
     all: unset;
     cursor: pointer;
-    transition: 1.2s;
+    transition: 0.6s;
 
     &:hover {
-      transform: scale(1.4);
+      transform: scale(1.3);
     }
   }
 `;

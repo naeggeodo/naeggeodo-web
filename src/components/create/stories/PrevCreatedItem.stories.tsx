@@ -14,14 +14,7 @@ export default {
   decorators: [
     (Story) => (
       <Provider store={configureStore()}>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            width: '100vw',
-            height: '100vh',
-          }}>
+        <div style={{ backgroundColor: 'gray', height: '100vh' }}>
           <Story />
         </div>
       </Provider>
