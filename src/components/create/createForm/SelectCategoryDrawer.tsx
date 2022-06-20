@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { RootState } from '../../../modules';
@@ -18,6 +18,7 @@ interface PropsType {
 
 const SelectCategoryDrawer = ({ isOpen, setIsOpen }: PropsType) => {
   const dispatch = useDispatch();
+
   const categories: CategoriesResponse[] = useSelector(
     (state: RootState) => state.mainPageState.categories,
   );
@@ -73,7 +74,6 @@ const SelectCategoryDrawer = ({ isOpen, setIsOpen }: PropsType) => {
 const Container = styled.div<StyledProps>`
   position: absolute;
   right: 0;
-  background-color: green;
 
   width: ${(props) => (props.isOpen ? '70%' : '0%')};
 
@@ -86,7 +86,7 @@ const Container = styled.div<StyledProps>`
       z-index: 1;
     `}
 
-  height: 72vh;
+  height: 70%;
   background-color: #ffffff;
 
   padding: 30px 10px;
@@ -119,7 +119,7 @@ const CloseButton = styled.button`
   color: #ffffff;
   text-align: center;
 
-  padding: 5px 15px;
+  padding: 10px 15px;
   margin-top: 10px;
 
   border-radius: 5px;

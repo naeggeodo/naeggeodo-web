@@ -1,6 +1,6 @@
 import { Category } from '../modules/common/types';
 
-export const convertEngCategoryToKor = (category: Category) => {
+export const convertEngCategoryToKor = (category: Category): string => {
   switch (category) {
     case 'ALL':
       return '전체';
