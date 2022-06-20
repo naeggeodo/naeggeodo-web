@@ -28,8 +28,10 @@ function* KakaoLoginGenerator(action: getkakaoTokenRequestAction) {
     cookies.set('accessToken', response.data.accessToken, {
       path: '/',
     });
-    cookies.set('refreshToken', response.data.refreshToken, {
+    cookies.set('refreshToken', response.headers['set-cookie'], {
       path: '/',
+      httpOnly: true,
+      secure: true,
     });
     cookies.set('buildingCode', response.data.buildingCode, {
       path: '/',
@@ -61,8 +63,10 @@ function* naverLoginGenerator(action: getNaverTokenRequestAction) {
     cookies.set('accessToken', response.data.accessToken, {
       path: '/',
     });
-    cookies.set('refreshToken', response.data.refreshToken, {
+    cookies.set('refreshToken', response.data.accessToken, {
       path: '/',
+      httpOnly: true,
+      secure: true,
     });
     cookies.set('buildingCode', response.data.buildingCode, {
       path: '/',
@@ -73,7 +77,7 @@ function* naverLoginGenerator(action: getNaverTokenRequestAction) {
     cookies.set('address', response.data.address, {
       path: '/',
     });
-    window.location.href = '/';
+    // window.location.href = '/';
   } catch (error) {
     console.log(error);
   }

@@ -27,13 +27,14 @@ function* createChatRoomGenerator(
       action.payload,
     );
     yield put(createChatRoomActions.success(data));
+    console.log(data, 'data');
 
     yield put(openCompleteModal());
     yield delay(2000);
     put(closeCompleteModal());
 
     yield put(initializeCreateStates());
-    yield call(Router.push, `/chatting/${data.chatMain_id}`);
+    // yield call(Router.push, `/chatting/${data.chatMain_id}`);
   } catch (error) {
     console.log(error);
   }

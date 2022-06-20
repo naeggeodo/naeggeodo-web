@@ -11,7 +11,7 @@ export function saveCookies(store: Store, context) {
     const allCookies = cookies(context);
     store.dispatch(saveAccessToken(allCookies.accessToken));
 
-    store.dispatch(saveRefreshToken(allCookies.refreshToken));
+    // store.dispatch(saveRefreshToken(allCookies.refreshToken));
     store.dispatch(
       saveUserInfo(
         allCookies.address,

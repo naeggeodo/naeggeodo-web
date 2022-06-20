@@ -24,16 +24,16 @@ export const getServerSideProps = wrapper.getServerSideProps(
     const { query } = context;
     const rootState: RootState = store.getState();
 
-    if (rootState.mainPageState.categories.length > 0) return;
-    dispatch(getFoodCategoriesActions.request());
+    // if (rootState.mainPageState.categories.length > 0) return;
+    // dispatch(getFoodCategoriesActions.request());
 
-    if (query.buildingCode && !query.category) {
-      dispatch(getAllChatRoomsListRequest(query.buildingCode));
-    } else if (query.buildingCode && query.category) {
-      dispatch(
-        getChatRoomListWithCategoryRequest(query.buildingCode, query.category),
-      );
-    }
+    // if (query.buildingCode && !query.category) {
+    //   dispatch(getAllChatRoomsListRequest(query.buildingCode));
+    // } else if (query.buildingCode && query.category) {
+    //   dispatch(
+    //     getChatRoomListWithCategoryRequest(query.buildingCode, query.category),
+    //   );
+    // }
 
     store.dispatch(END);
     await store.sagaTask.toPromise();

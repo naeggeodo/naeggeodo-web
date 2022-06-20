@@ -5,10 +5,12 @@ import { createCustomHeader } from '../../utils/createCustomHeader';
 
 export const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
+  withCredentials: true,
 });
 
 export const csrAxiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
+  withCredentials: true,
 });
 
 // ** CSR 전용 API 서비스 코드

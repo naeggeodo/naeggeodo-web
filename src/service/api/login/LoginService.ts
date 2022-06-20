@@ -13,6 +13,7 @@ export class LoginService {
     return await axios.post(
       `${process.env.NEXT_PUBLIC_API_URL}/login/OAuth/naver`,
       { code },
+      { withCredentials: true },
     );
   }
 }
