@@ -5,7 +5,6 @@ import { RootState } from '../../modules';
 import {
   closeReportConfirmModalActions,
   setReportModal,
-  submitReportActions,
 } from '../../modules/mypage/actions';
 import palette from '../../styles/palette';
 import LoginModal from '../login/LoginModalTemplate';
@@ -17,6 +16,7 @@ import CompleteAlertModal from './report/CompleteAlertModal';
 import ConfirmModal from './report/ConfirmModal';
 import FeedbackForm from './report/FeedbackForm';
 import Terms from './Terms';
+import UserManagement from './UserManagement';
 
 // ? 더보기 페이지 (마이페이지)
 // ? url : /mypage
@@ -45,6 +45,8 @@ const MypageTemplate = () => {
         <CustomerServiceSection />
 
         <Terms />
+
+        <UserManagement />
       </Container>
 
       {loginModalIsClicked && <LoginModal />}
