@@ -13,10 +13,10 @@ const CurrentLocation = () => {
       <CenterWrapper>
         <FlexRow>
           <Image
-            width={14}
-            height={16}
-            src='/assets/images/location.svg'
-            alt='위치 이미지'
+            width={30}
+            height={20}
+            src="/assets/images/locationRed.svg"
+            alt="위치 이미지"
           />
           <AddressText>
             <span>{filterLocationInSearchPage(address, accessToken)}</span>
