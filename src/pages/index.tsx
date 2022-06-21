@@ -5,6 +5,7 @@ import { END } from 'redux-saga';
 import styled from 'styled-components';
 import { useSelectLoginStates } from '../hooks/select/useSelectLoginStates';
 import { wrapper } from '../modules';
+import { getLikesCountActions } from '../modules/main/actions';
 import palette from '../styles/palette';
 import { saveCookies } from '../utils/saveCookies';
 
@@ -66,6 +67,8 @@ const RendingPage = () => {
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
     saveCookies(store, context);
+
+    store.dispatch(getLikesCountActions.request());
 
     store.dispatch(END);
     await store.sagaTask.toPromise();

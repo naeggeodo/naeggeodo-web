@@ -34,4 +34,12 @@ export default class MainService {
       console.log(err);
     }
   }
+
+  static async asyncGetLikesCount() {
+    try {
+      return ApiService.getApi('/like');
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { RootState } from '../../../modules';
@@ -17,16 +17,15 @@ const ConfirmModalTemplate = ({
   const { isModalAnimationStart } = useSelector(
     (state: RootState) => state.myPageState,
   );
+
   return (
-    <Portal selector='reportPortal'>
+    <Portal selector="reportPortal">
       <Background isActive={isModalAnimationStart}>
         <ModalContainer>{children}</ModalContainer>
       </Background>
     </Portal>
   );
 };
-
-export default ConfirmModalTemplate;
 
 const Background = styled.div<StyledType>`
   position: fixed;
@@ -64,3 +63,5 @@ const ModalContainer = styled.div`
   background: #fff;
   padding: 30px;
 `;
+
+export default ConfirmModalTemplate;
