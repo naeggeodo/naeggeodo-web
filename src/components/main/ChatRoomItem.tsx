@@ -28,7 +28,8 @@ const ChatRoomItem = ({
   return (
     <Container>
       <Image
-        src={imgPath ? imgPath : '/assets/images/pizza.svg'}
+        style={{ borderRadius: '10px' }}
+        src={imgPath}
         width={70}
         height={70}
         alt={title + '이미지'}
@@ -50,13 +51,13 @@ const ChatRoomItem = ({
 
           {router.route === '/chat-rooms' ? (
             <Link href={`/chatting/${id}`} passHref>
-              <StyledLink rel='noreferrer noopener'>
+              <StyledLink rel="noreferrer noopener">
                 <p>함께주문하기</p>
                 <Image
-                  src='/assets/images/arrowright.svg'
+                  src="/assets/images/arrowright.svg"
                   width={14}
                   height={14}
-                  alt='채팅하러가기 버튼'
+                  alt="채팅하러가기 버튼"
                 />
               </StyledLink>
             </Link>

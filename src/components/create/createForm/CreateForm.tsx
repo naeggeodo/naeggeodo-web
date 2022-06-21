@@ -138,7 +138,13 @@ const CreateForm = () => {
             />
           </Item>
           <Item>
-            <TitleText>가게 링크</TitleText>
+            <TitleSubTitleWrapper>
+              <TitleText>배달앱 링크</TitleText>
+              <p>
+                (배달앱 링크를 넣으면 채팅방 유저들이 정보를 쉽게 볼 수
+                있습니다)
+              </p>
+            </TitleSubTitleWrapper>
             <InputWrapper>
               <Input
                 type="url"
@@ -213,9 +219,13 @@ const CreateForm = () => {
           </ChatRoomContainer>
 
           <Item>
-            <TagTitle>
+            <TitleSubTitleWrapper>
               <TitleText>채팅방 이미지</TitleText>
-            </TagTitle>
+              <p>
+                (이미지를 삽입하지 않으면 카테고리에 따른 기본이미지가
+                보여집니다 😎)
+              </p>
+            </TitleSubTitleWrapper>
             <FileBox>
               <ImgBox>
                 {imgSrc && (
@@ -285,6 +295,15 @@ const TitleWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 4px;
+`;
+
+const TitleSubTitleWrapper = styled(TitleWrapper)`
+  gap: 10px;
+
+  & > p:nth-of-type(2) {
+    font-size: 0.75rem;
+    color: ${palette.DarkGray};
+  }
 `;
 
 const Input = styled.input`

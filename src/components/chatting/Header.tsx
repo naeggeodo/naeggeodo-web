@@ -48,12 +48,14 @@ const Header = ({
             height={24}
           />
         </PrevButton>
-        <StyledImage
-          src={imgPath ? imgPath : '/assets/images/hamburger.svg'}
-          width={44}
-          height={44}
-          alt="채팅방 이미지"
-        />
+        {imgPath && (
+          <StyledImage
+            src={imgPath}
+            width={44}
+            height={44}
+            alt="채팅방 이미지"
+          />
+        )}
         <Link href={link || 'http://naeggeodo.com'} passHref>
           <LinkWrapper target="_blank" rel="noopener noreferrer">
             <Info name="title">{title}</Info>

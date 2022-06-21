@@ -17,8 +17,8 @@ const SearchResultList = () => {
 
   return (
     <Container>
-      {dataList.length > 0 ? (
-        dataList.map((data, i) => (
+      {searchResultList.chatRoom.length > 0 ? (
+        searchResultList.chatRoom.map((data, i) => (
           <ChatRoomItem
             id={data.id}
             key={i}
@@ -35,7 +35,7 @@ const SearchResultList = () => {
       ) : (
         <p>검색 결과가 없습니다😥</p>
       )}
-      {dataList.length < searchResultList.chatRoom.length && (
+      {searchResultList.chatRoom.length < searchResultList.chatRoom.length && (
         <div ref={target} />
       )}
     </Container>

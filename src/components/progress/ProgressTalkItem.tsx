@@ -42,7 +42,7 @@ const ProgressTalkItem = ({
       <ImageContainer>
         <Image
           style={{ borderRadius: '10px' }}
-          src={imgPath ? imgPath : '/assets/images/hamburger.svg'}
+          src={imgPath}
           height={60}
           width={60}
           alt="채팅방 이미지"
@@ -144,8 +144,8 @@ const TimeTitleWrapper = styled.div`
 
     font-family: 'SpoqaBold';
     font-size: 0.9375rem;
-    color: #000000;
-    background-color: #ffb458;
+    color: ${palette.black};
+    background-color: ${palette.lightOrange};
     color: #fff;
     padding: 10px 5px;
     border-radius: 5px;
@@ -154,7 +154,7 @@ const TimeTitleWrapper = styled.div`
     cursor: pointer;
 
     &:disabled {
-      color: #000000;
+      color: ${palette.black};
       background-color: transparent;
     }
   }

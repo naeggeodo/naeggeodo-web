@@ -58,11 +58,7 @@ const PrevCreatedItem = ({ data }: { data: PrevCreatedListItem }) => {
       }>
       <Content>
         <InfoBox onClick={selectPrevData}>
-          <Image
-            src={data.imgPath ? data.imgPath : '/assets/images/hamburger.svg'}
-            width={44}
-            height={44}
-          />
+          <Image src={data.imgPath} width={44} height={44} />
           <div>
             <Title>{data.title}</Title>
             <Date>{`${chatDate.formatDate()}  ${chatDate.formatTime()}`}</Date>

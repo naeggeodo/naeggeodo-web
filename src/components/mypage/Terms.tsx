@@ -1,8 +1,8 @@
-import Image from "next/image";
-import Link from "next/link";
-import React from "react";
-import styled from "styled-components";
-import palette from "../../styles/palette";
+import Image from 'next/image';
+import Link from 'next/link';
+import React from 'react';
+import styled from 'styled-components';
+import palette from '../../styles/palette';
 
 const Terms = () => {
   return (
@@ -11,8 +11,7 @@ const Terms = () => {
 
       <Link
         passHref
-        href="https://fog-cowl-888.notion.site/b7b93231fbff405084d0a043025189e8"
-      >
+        href="https://fog-cowl-888.notion.site/b7b93231fbff405084d0a043025189e8">
         <StyledLink target="_blank">
           <Image
             src="/assets/images/terms.svg"
@@ -23,15 +22,19 @@ const Terms = () => {
           <span>이용약관</span>
         </StyledLink>
       </Link>
-      <MenuItem>
-        <Image
-          src="/assets/images/userinfo.svg"
-          width={20}
-          height={20}
-          alt="메뉴 아이콘"
-        />
-        개인정보 처리방침
-      </MenuItem>
+      <Link
+        href="https://fog-cowl-888.notion.site/b976365add8f40ecac4a54a5b67d156d"
+        passHref>
+        <StyledLink target="_blank">
+          <Image
+            src="/assets/images/userinfo.svg"
+            width={20}
+            height={20}
+            alt="메뉴 아이콘"
+          />
+          개인정보 처리방침
+        </StyledLink>
+      </Link>
     </Container>
   );
 };
@@ -44,7 +47,7 @@ const Container = styled.div`
 
 const Title = styled.h3`
   color: ${palette.TextGray};
-  font-family: "SpoqaBold";
+  font-family: 'SpoqaBold';
   font-size: 0.9375rem;
   margin-bottom: 10px;
 `;
@@ -63,20 +66,6 @@ const StyledLink = styled.a`
   &:hover {
     background-color: ${palette.bgGray};
   }
-`;
-
-const MenuItem = styled.button`
-  display: flex;
-  gap: 12px;
-  width: 100%;
-  padding: 15px;
-  font-size: 0.9375rem;
-  background-color: #fff;
-
-  text-align: left;
-  border: none;
-  outline: none;
-  cursor: pointer;
 `;
 
 export default Terms;

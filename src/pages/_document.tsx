@@ -31,32 +31,33 @@ export default class MyDocument extends Document {
 
   render() {
     return (
-      <Html lang='ko'>
+      <Html lang="ko">
         <Head>
-          <meta charSet='UTF-8' />
-          <meta property='og:title' content='내꺼 배달비 반띵하러 가기 🛵' />
-          <meta name='Keywords' content='내꺼도' />
-          <meta httpEquiv='X-UA-Compatible' content='IE-edge' />
+          <meta charSet="UTF-8" />
+          <meta property="og:title" content="내꺼 배달비 반띵하러 가기 🛵" />
+          <meta name="Keywords" content="내꺼도" />
+          <meta httpEquiv="X-UA-Compatible" content="IE-edge" />
 
           <meta
-            name='Description'
-            content='우리동네 배달비 반띵 어플리케이션 내꺼도 입니다.'
+            name="Description"
+            content="우리동네 배달비 반띵 어플리케이션 내꺼도 입니다."
           />
 
           <meta
-            property='og:description'
-            content='우리동네 배달비 반띵 어플리케이션<br/>지금 나와 같은 음식을 떠올리고 있는 사람과 대화해보세요!'
+            property="og:description"
+            content="우리동네 배달비 반띵 어플리케이션<br/>지금 나와 같은 음식을 떠올리고 있는 사람과 대화해보세요!"
           />
-          <meta property='og:url' content='http://www.naeggeodo.com:8080/' />
-          <meta
+          <meta property="og:url" content="http://www.naeggeodo.com:8080/" />
+          {/* TODO 이미지 교체 */}
+          {/* <meta
             property='og:image'
             content='/public/assets/images/hamburger.svg'
-          />
+          /> */}
         </Head>
         <body>
-          <div id='webviewPortal'></div>
-          <div id='loginPortal'></div>
-          <div id='reportPortal'></div>
+          <div id="webviewPortal"></div>
+          <div id="loginPortal"></div>
+          <div id="reportPortal"></div>
           <Main />
           <NextScript />
         </body>
