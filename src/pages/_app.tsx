@@ -30,11 +30,11 @@ console.log(
 %c██║╚██╗██║██╔══██║██╔══╝  ██║   ██║██║   ██║██╔══╝  ██║   ██║██║  ██║██║   ██║
 %c██║ ╚████║██║  ██║███████╗╚██████╔╝╚██████╔╝███████╗╚██████╔╝██████╔╝╚██████╔╝
 %c╚═╝  ╚═══╝╚═╝  ╚═╝╚══════╝ ╚═════╝  ╚═════╝ ╚══════╝ ╚═════╝ ╚═════╝  ╚═════╝`,
+  `color:${palette.kakaoYellow}`,
+  `color:${palette.lightOrange}`,
   `color:${palette.mainOrange}`,
-  `color:${palette.mainOrange}`,
-  `color:${palette.mainOrange}`,
-  `color:${palette.mainOrange}`,
-  `color:${palette.mainOrange}`,
+  `color:${palette.lightOrange}`,
+  `color:${palette.naverGreen}`,
 );
 
 app.getInitialProps = wrapper.getInitialAppProps(
