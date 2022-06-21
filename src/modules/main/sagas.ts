@@ -69,7 +69,7 @@ function* getLikesCountGenerator(
 function* postLikesCountGenerator(
   action: ReturnType<typeof getLikesCountActions.request>,
 ) {
-  yield delay(1000);
+  yield delay(200);
   const { data } = yield call(MainService.asyncPostLikesCount);
 
   yield put(postLikesCountActions.success(data));
