@@ -60,27 +60,27 @@ const ChattingTemplate = () => {
     switch (errorMessage) {
       case 'SESSION_DUPLICATION':
         alert('중복된 아이디로 접속하실 수 없습니다.');
-        location.replace('/chat-rooms');
+        router.replace('/chat-rooms');
         return;
       case 'INVALID_STATE':
         alert('입장할 수 없는 채팅방 입니다.');
-        location.replace('/chat-rooms');
+        router.replace('/chat-rooms');
         return;
       case 'BANNED_CHAT_USER':
         alert('강제퇴장 조치로 인해 입장이 불가합니다.');
-        location.replace('/chat-rooms');
+        router.replace('/chat-rooms');
         return;
       case 'BAD_REQUEST':
         alert('잘못된 요청입니다.');
-        location.replace('/');
+        router.replace('/');
         return;
       case 'UNAUTHORIZED':
         alert('인증되지 않은 아이디입니다. 다시 로그인 해주세요.');
-        location.replace('/login');
+        router.replace('/login');
         return;
       default:
         alert('잘못된 접근입니다.');
-        location.replace('/');
+        router.replace('/');
         return;
     }
   };
@@ -159,7 +159,9 @@ const ChattingTemplate = () => {
           const messageObj = JSON.parse(e.body);
           if (messageObj.type === 'BAN') {
             window.alert('강제퇴장 당하셨습니다.');
-            window.location.replace('/chat-rooms');
+            router.replace('/chat-rooms');
+          } else if (messageObj === 'ALERT') {
+            window.alert(messageObj.contents);
           }
         });
 
