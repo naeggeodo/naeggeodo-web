@@ -1,31 +1,31 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-import styled from 'styled-components';
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import styled from "styled-components";
 
-import { useLoadLib } from '../../../hooks/utils/useLoadLib';
-import { RootState } from '../../../modules';
+import { useLoadLib } from "../../../hooks/utils/useLoadLib";
+import { RootState } from "../../../modules";
 import {
   setReportConfirmModal,
   submitReportActions,
-} from '../../../modules/mypage/actions';
-import palette from '../../../styles/palette';
-import ConfirmModal from './ConfirmModal';
-import ControllButtons from './ControllButtons';
-import ReportModalTemplate from './ReportModalTemplate';
+} from "../../../modules/mypage/actions";
+import palette from "../../../styles/palette";
+import ModalControlButtons from "../../common/ModalControlButtons";
+import ConfirmModal from "./ConfirmModal";
+import ReportModalTemplate from "./ReportModalTemplate";
 
 const FeedbackForm = () => {
   const { dispatch } = useLoadLib();
 
   const { reportConfirmModal } = useSelector(
-    (state: RootState) => state.myPageState,
+    (state: RootState) => state.myPageState
   );
 
   const user_id = useSelector((state: RootState) => state.loginState.user_id);
 
   const [feedbackBody, setFeedbackBody] = useState({
     user_id: user_id,
-    contents: '',
-    type: 'FEEDBACK',
+    contents: "",
+    type: "FEEDBACK",
   });
 
   const onChangeContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -36,11 +36,11 @@ const FeedbackForm = () => {
     if (!feedbackBody.contents) {
       return;
     }
-    dispatch(dispatch(setReportConfirmModal('complete')));
+    dispatch(dispatch(setReportConfirmModal("complete")));
   };
 
   const onCancelClick = () => {
-    dispatch(dispatch(setReportConfirmModal('cancel')));
+    dispatch(dispatch(setReportConfirmModal("cancel")));
   };
 
   const onCompleteReport = () => {
@@ -55,12 +55,12 @@ const FeedbackForm = () => {
         onChange={onChangeContent}
         value={feedbackBody.contents}
       />
-      <ControllButtons
+      <ModalControlButtons
         onCancelClick={onCancelClick}
         onAgreeClick={onCompleteClick}
-        activeText={'완료'}
+        activeText={"완료"}
       />
-      {reportConfirmModal === 'complete' && (
+      {reportConfirmModal === "complete" && (
         <ConfirmModal onAgree={onCompleteReport} />
       )}
     </ReportModalTemplate>

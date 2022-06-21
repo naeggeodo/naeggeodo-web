@@ -4,8 +4,8 @@ import styled from "styled-components";
 
 import { RootState } from "../../modules";
 import { closeBanModal } from "../../modules/modal/actions";
+import ModalControlButtons from "../common/ModalControlButtons";
 import Portal from "../common/Portal";
-import ControllButtons from "../mypage/report/ControllButtons";
 
 const ExpulsionModal = () => {
   const modalRef = useRef(null);
@@ -34,7 +34,7 @@ const ExpulsionModal = () => {
       <Background>
         <ModalContainer ref={modalRef}>
           <Text>강퇴하시겠습니까? </Text>
-          <ControllButtons
+          <ModalControlButtons
             onCancelClick={onModalClose}
             onAgreeClick={onExpulsion}
             activeText={"강퇴"}

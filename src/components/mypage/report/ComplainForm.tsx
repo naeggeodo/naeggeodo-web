@@ -1,31 +1,31 @@
-import { ChangeEvent, useState } from 'react';
-import { useSelector } from 'react-redux';
-import styled from 'styled-components';
+import { ChangeEvent, useState } from "react";
+import { useSelector } from "react-redux";
+import styled from "styled-components";
 
-import { RootState } from '../../../modules';
-import palette from '../../../styles/palette';
-import ReportModalTemplate from './ReportModalTemplate';
-import ConfirmModal from './ConfirmModal';
-import ControllButtons from './ControllButtons';
-import { useLoadLib } from '../../../hooks/utils/useLoadLib';
+import { RootState } from "../../../modules";
+import palette from "../../../styles/palette";
+import ReportModalTemplate from "./ReportModalTemplate";
+import ConfirmModal from "./ConfirmModal";
+import { useLoadLib } from "../../../hooks/utils/useLoadLib";
 import {
   setReportConfirmModal,
   submitReportActions,
-} from '../../../modules/mypage/actions';
+} from "../../../modules/mypage/actions";
+import ModalControlButtons from "../../common/ModalControlButtons";
 
 const ComplainForm = () => {
   const { dispatch } = useLoadLib();
 
   const { reportConfirmModal } = useSelector(
-    (state: RootState) => state.myPageState,
+    (state: RootState) => state.myPageState
   );
 
   const userId = useSelector((state: RootState) => state.loginState.user_id);
 
   const [complainBody, setComplainBody] = useState({
     user_id: userId,
-    contents: '',
-    type: 'CHATMAIN',
+    contents: "",
+    type: "CHATMAIN",
   });
 
   const onChangeComplainType = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -40,11 +40,11 @@ const ComplainForm = () => {
     if (!complainBody.contents) {
       return;
     }
-    dispatch(setReportConfirmModal('complete'));
+    dispatch(setReportConfirmModal("complete"));
   };
 
   const onCancelClick = () => {
-    dispatch(setReportConfirmModal('cancel'));
+    dispatch(setReportConfirmModal("cancel"));
   };
 
   const onCompleteReport = () => {
@@ -63,12 +63,12 @@ const ComplainForm = () => {
         onChange={onChangecomplainBody}
         value={complainBody.contents}
       />
-      <ControllButtons
+      <ModalControlButtons
         onCancelClick={onCancelClick}
         onAgreeClick={onCompleteClick}
-        activeText={'완료'}
+        activeText={"완료"}
       />
-      {reportConfirmModal === 'complete' && (
+      {reportConfirmModal === "complete" && (
         <ConfirmModal onAgree={onCompleteReport} />
       )}
     </ReportModalTemplate>
