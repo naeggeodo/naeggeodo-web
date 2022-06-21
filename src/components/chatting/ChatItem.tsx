@@ -1,9 +1,9 @@
-import Image from "next/image";
-import React, { useMemo } from "react";
-import styled from "styled-components";
-import { ChattingListItem } from "../../modules/chatting/types";
-import palette from "../../styles/palette";
-import DateFormatter from "../../utils/DateFormatter";
+import Image from 'next/image';
+import React, { useMemo } from 'react';
+import styled from 'styled-components';
+import { ChattingListItem } from '../../modules/chatting/types';
+import palette from '../../styles/palette';
+import DateFormatter from '../../utils/DateFormatter';
 
 const ChatItem = ({
   message,
@@ -17,9 +17,9 @@ const ChatItem = ({
   const today = useMemo(
     () =>
       `${currentDate.getFullYear()}-${String(
-        currentDate.getMonth() + 1
-      ).padStart(2, "0")}-${currentDate.getDate()}`,
-    [currentDate]
+        currentDate.getMonth() + 1,
+      ).padStart(2, '0')}-${currentDate.getDate()}`,
+    [currentDate],
   );
 
   return (
@@ -34,7 +34,7 @@ const ChatItem = ({
         <FlexColumn>
           <p>{message.nickname}</p>
           <TextRow>
-            {message.contents?.includes("data:image/") ? (
+            {message.contents?.includes('data:image/') ? (
               <Image
                 src={message.contents}
                 alt="채팅 이미지"
@@ -63,11 +63,13 @@ const Container = styled.div`
 const FlexRow = styled.div`
   display: flex;
   align-items: flex-start;
+
   gap: 5px;
 `;
 const FlexColumn = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
   gap: 4px;
 `;
 

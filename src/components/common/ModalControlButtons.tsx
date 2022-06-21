@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import palette from "../../styles/palette";
+import React from 'react';
+import styled from 'styled-components';
+import palette from '../../styles/palette';
 
 type PropType = {
   onCancelClick: () => void;
@@ -21,8 +21,6 @@ const ModalControlButtons = ({
   );
 };
 
-export default ModalControlButtons;
-
 const Container = styled.div`
   width: 100%;
   display: flex;
@@ -33,6 +31,9 @@ const Container = styled.div`
 
 const CompleteButton = styled.button`
   width: 60%;
+  height: 40px;
+
+  font-size: 0.875rem;
 
   background: ${palette.mainOrange};
   color: #fff;
@@ -49,6 +50,9 @@ const CompleteButton = styled.button`
 const CancelButton = styled.button`
   width: 40%;
 
+  height: 40px;
+  font-size: 0.875rem;
+
   background-color: ${palette.bgGray};
   border-radius: 10px;
 
@@ -59,3 +63,5 @@ const CancelButton = styled.button`
   padding: 6px;
   margin: 0 auto;
 `;
+
+export default ModalControlButtons;
