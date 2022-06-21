@@ -1,5 +1,12 @@
 import { AxiosResponse } from 'axios';
-import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
+import {
+  call,
+  debounce,
+  delay,
+  put,
+  takeEvery,
+  takeLatest,
+} from 'redux-saga/effects';
 import MainService from '../../service/api/main/MainService';
 import { CategoriesResponse, ChatRoomItemResponse } from '../common/types';
 import {
@@ -12,6 +19,8 @@ import {
   GET_CHAT_ROOMS_LIST_WITH_CATEGORY_REQUEST,
   GET_FOOD_CATEGORIES_REQUEST,
   GET_LIKES_COUNT_REQUEST,
+  postLikesCountActions,
+  POST_LIKES_COUNT_REQUEST,
 } from './actions';
 
 function* getFoodCategoriesGenerator(
@@ -53,9 +62,17 @@ function* getLikesCountGenerator(
   action: ReturnType<typeof getLikesCountActions.request>,
 ) {
   const { data } = yield call(MainService.asyncGetLikesCount);
-  console.log(data, 'heelo');
 
   yield put(getLikesCountActions.success(data));
+}
+
+function* postLikesCountGenerator(
+  action: ReturnType<typeof getLikesCountActions.request>,
+) {
+  yield delay(1000);
+  const { data } = yield call(MainService.asyncPostLikesCount);
+
+  yield put(postLikesCountActions.success(data));
 }
 
 export function* getMainPageInfoSaga() {
@@ -67,5 +84,6 @@ export function* getMainPageInfoSaga() {
       getChatRoomsListWithCategoryGenerator,
     ),
     takeEvery(GET_LIKES_COUNT_REQUEST, getLikesCountGenerator),
+    takeLatest(POST_LIKES_COUNT_REQUEST, postLikesCountGenerator),
   ];
 }

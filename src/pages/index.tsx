@@ -1,28 +1,35 @@
 import Image from 'next/image';
-import { useRouter } from 'next/router';
-import React, { useCallback, useState } from 'react';
-import { END } from 'redux-saga';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
-import { useSelectLoginStates } from '../hooks/select/useSelectLoginStates';
-import { wrapper } from '../modules';
-import { getLikesCountActions } from '../modules/main/actions';
+import { END } from 'redux-saga';
+import { RootState, wrapper } from '../modules';
 import palette from '../styles/palette';
+
+import { useSelector } from 'react-redux';
+import { useSelectLoginStates } from '../hooks/select/useSelectLoginStates';
+import { useLoadLib } from '../hooks/utils/useLoadLib';
+import {
+  getLikesCountActions,
+  postLikesCountActions,
+} from '../modules/main/actions';
 import { saveCookies } from '../utils/saveCookies';
 
 const RendingPage = () => {
-  const router = useRouter();
+  const { router, dispatch } = useLoadLib();
   const { buildingCode } = useSelectLoginStates();
-  const [count, setCount] = useState(0);
+  const likeCount = useSelector(
+    (state: RootState) => state.mainPageState.likeCount,
+  );
+
+  const plusLikeCount = useCallback(() => {
+    dispatch(postLikesCountActions.request());
+  }, [likeCount]);
 
   const moveToChatRooms = useCallback(() => {
     if (buildingCode) {
       router.push(`/chat-rooms?buildingCode=${buildingCode}`);
     } else router.push('/chat-rooms');
   }, [router, buildingCode]);
-
-  const plusCount = useCallback(() => {
-    setCount(count + 1);
-  }, [count]);
 
   return (
     <Container>
@@ -51,12 +58,12 @@ const RendingPage = () => {
           </StartContainer>
         </div>
 
-        <StyledLike>{count}</StyledLike>
+        <StyledLike>{likeCount}</StyledLike>
       </TopContainer>
 
       <LikeButtonContainer>
         <p>앱 버전이 개발중 입니다 빠른 출시를 위해 하트를 눌러주세요 :)</p>
-        <button onClick={plusCount}>
+        <button onClick={plusLikeCount}>
           <Image src="/assets/images/heart.svg" width={55} height={55}></Image>
         </button>
       </LikeButtonContainer>

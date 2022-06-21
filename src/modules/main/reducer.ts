@@ -5,6 +5,8 @@ import {
   GET_CHAT_ROOMS_LIST_SUCCESS,
   GET_FOOD_CATEGORIES_SUCCESS,
   GET_LIKES_COUNT_SUCCESS,
+  postLikesCountActions,
+  POST_LIKES_COUNT_SUCCESS,
 } from './actions';
 
 interface MainPageState {
@@ -33,6 +35,13 @@ export const mainPageState = createReducer<MainPageState>(
     [GET_LIKES_COUNT_SUCCESS]: (
       state,
       action: ReturnType<typeof getLikesCountActions.success>,
+    ) => ({
+      ...state,
+      likeCount: action.payload.likeCount,
+    }),
+    [POST_LIKES_COUNT_SUCCESS]: (
+      state,
+      action: ReturnType<typeof postLikesCountActions.success>,
     ) => ({
       ...state,
       likeCount: action.payload.likeCount,

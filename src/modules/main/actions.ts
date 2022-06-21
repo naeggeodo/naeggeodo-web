@@ -29,6 +29,10 @@ export const GET_LIKES_COUNT_REQUEST = namespace + 'GET_LIKES_COUNT_REQUEST';
 export const GET_LIKES_COUNT_SUCCESS = namespace + 'GET_LIKES_COUNT_SUCCESS';
 export const GET_LIKES_COUNT_FAILURE = namespace + 'GET_LIKES_COUNT_FAILURE';
 
+export const POST_LIKES_COUNT_REQUEST = namespace + 'POST_LIKES_COUNT_REQUEST';
+export const POST_LIKES_COUNT_SUCCESS = namespace + 'POST_LIKES_COUNT_SUCCESS';
+export const POST_LIKES_COUNT_FAILURE = namespace + 'POST_LIKES_COUNT_FAILURE';
+
 // action creators
 export const getFoodCategoriesActions = createAsyncAction(
   GET_FOOD_CATEGORIES_REQUEST,
@@ -58,4 +62,10 @@ export const getLikesCountActions = createAsyncAction(
   GET_LIKES_COUNT_REQUEST,
   GET_LIKES_COUNT_SUCCESS,
   GET_LIKES_COUNT_FAILURE,
+)<void, { likeCount: number }, AxiosError>();
+
+export const postLikesCountActions = createAsyncAction(
+  POST_LIKES_COUNT_REQUEST,
+  POST_LIKES_COUNT_SUCCESS,
+  POST_LIKES_COUNT_FAILURE,
 )<void, { likeCount: number }, AxiosError>();

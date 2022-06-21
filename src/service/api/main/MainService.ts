@@ -1,4 +1,4 @@
-import { ApiService } from '..';
+import { ApiService, CsrApiService } from '..';
 import { Category } from '../../../modules/common/types';
 
 export default class MainService {
@@ -35,9 +35,19 @@ export default class MainService {
     }
   }
 
+  // ? 좋아요 카운팅
   static async asyncGetLikesCount() {
     try {
       return ApiService.getApi('/like');
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  // ? 좋아요 증가
+  static async asyncPostLikesCount() {
+    try {
+      return CsrApiService.postApi('/like', {});
     } catch (error) {
       console.log(error);
     }
