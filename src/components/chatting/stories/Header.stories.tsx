@@ -24,7 +24,7 @@ const Template = (args: Args) => <Header {...args} />;
 export const HeaderStory = Template.bind({});
 
 HeaderStory.args = {
-  imgPath: '/assets/images/hamburger.svg',
+  imgPath: '/assets/images/heart.svg',
   link: 'string',
   title: '햄버거 먹을분',
   maxCount: 3,

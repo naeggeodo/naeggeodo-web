@@ -31,7 +31,7 @@ const MypageUserInfo = () => {
           <P isActive={true}>{myOrdersCount}건</P>
         </InfoDiv>
         <InfoDiv>
-          <P>참여중인 내꺼도</P>
+          <P>참여중인 내꺼톡</P>
           <P isActive={true}>{participatingChatCount}건</P>
         </InfoDiv>
       </InfoBox>

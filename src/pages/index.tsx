@@ -58,7 +58,7 @@ const RendingPage = () => {
           </StartContainer>
         </div>
 
-        <StyledLike>{likeCount}</StyledLike>
+        <StyledLike>{likeCount || null}</StyledLike>
       </TopContainer>
 
       <LikeButtonContainer>

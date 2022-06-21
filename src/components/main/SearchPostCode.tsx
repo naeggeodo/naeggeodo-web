@@ -1,25 +1,25 @@
-import React from "react";
-import styled from "styled-components";
-import palette from "../../styles/palette";
-import Image from "next/image";
-import { useSelector } from "react-redux";
-import { RootState } from "../../modules";
-import { filterLocation } from "../../utils/filterLocation";
+import React from 'react';
+import styled from 'styled-components';
+import palette from '../../styles/palette';
+import Image from 'next/image';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../modules';
+import { filterLocation } from '../../utils/filterLocation';
 
 const SearchPostCode = ({ openWebView }: { openWebView: () => void }) => {
   const address = useSelector((state: RootState) => state.loginState.address);
 
-  const apartment: "Y" | "N" | "" = useSelector(
-    (state: RootState) => state.postCodeState.apartment
+  const apartment: 'Y' | 'N' | '' = useSelector(
+    (state: RootState) => state.postCodeState.apartment,
   );
   return (
     <Container onClick={openWebView}>
       <CenterWrapper>
         <FlexRow>
           <Image
-            width={14}
-            height={16}
-            src="/assets/images/location.svg"
+            width={30}
+            height={20}
+            src="/assets/images/locationRed.svg"
             alt="위치 이미지"
           />
           <AddressText>{filterLocation(apartment, address)}</AddressText>
