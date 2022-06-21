@@ -28,16 +28,16 @@ const ChatItem = ({
 
       <Container>
         <StyledImage
-          src='/assets/images/usericon.svg'
+          src="/assets/images/avatar.svg"
           width={45}
           height={45}
-          layout='fixed'
-          alt='유저 프로필 사진'
+          layout="fixed"
+          alt="유저 프로필 사진"
         />
         {message.contents?.includes('data:image/') ? (
           <StyledImg
             src={message.contents}
-            alt='채팅 이미지'
+            alt="채팅 이미지"
             width={250}
             height={350}
           />
@@ -67,9 +67,7 @@ const Container = styled.div`
 `;
 
 const StyledImage = styled(Image)`
-  background-color: #fff;
-  border-radius: 10px 10px 0px 10px;
-  object-fit: cover;
+  background-color: transparent;
 `;
 
 const Nickname = styled.p`

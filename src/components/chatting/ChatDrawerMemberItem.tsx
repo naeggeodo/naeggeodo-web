@@ -1,12 +1,12 @@
-import Image from "next/image";
-import React, { useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import styled, { css } from "styled-components";
-import { RootState } from "../../modules";
-import { setBanUser } from "../../modules/chatting/actions";
-import { CurrentChatUser } from "../../modules/chatting/types";
-import { openBanModal } from "../../modules/modal/actions";
-import palette from "../../styles/palette";
+import Image from 'next/image';
+import React, { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import styled, { css } from 'styled-components';
+import { RootState } from '../../modules';
+import { setBanUser } from '../../modules/chatting/actions';
+import { CurrentChatUser } from '../../modules/chatting/types';
+import { openBanModal } from '../../modules/modal/actions';
+import palette from '../../styles/palette';
 
 type StyledType = {
   isMe?: boolean;
@@ -17,15 +17,15 @@ const ChatDrawerMemberItem = ({ user }: { user: CurrentChatUser }) => {
   const dispatch = useDispatch();
 
   const master_id = useSelector(
-    (state: RootState) => state.chattingRoomState.chatRoomInfo.user_id
+    (state: RootState) => state.chattingRoomState.chatRoomInfo.user_id,
   );
 
   const banUser = useSelector(
-    (state: RootState) => state.chattingRoomState.banUser
+    (state: RootState) => state.chattingRoomState.banUser,
   );
 
   const { banModalIsOpen } = useSelector(
-    (state: RootState) => state.modalStates
+    (state: RootState) => state.modalStates,
   );
   const my_id = useSelector((state: RootState) => state.loginState.user_id);
 
@@ -36,7 +36,7 @@ const ChatDrawerMemberItem = ({ user }: { user: CurrentChatUser }) => {
       dispatch(setBanUser(user));
       dispatch(openBanModal());
     },
-    [banModalIsOpen, banUser]
+    [banModalIsOpen, banUser],
   );
 
   return (
@@ -44,7 +44,7 @@ const ChatDrawerMemberItem = ({ user }: { user: CurrentChatUser }) => {
       <MemberItem key={user.user_id} onClick={onMemberClick}>
         <FlexWrapper>
           <Image
-            src="/assets/images/profile.svg"
+            src="/assets/images/smileuser.svg"
             width={40}
             height={40}
             alt="프로필"
@@ -74,7 +74,8 @@ const MemberItem = styled.div`
   gap: 10px;
 
   background-color: ${palette.LightGray2};
-  border-radius: 0 10px 10px 0;
+
+  border-radius: 10px;
 
   cursor: pointer;
 `;
@@ -82,15 +83,17 @@ const MemberItem = styled.div`
 const FlexWrapper = styled.div`
   display: flex;
   align-items: center;
+  border-radius: 10px 0 0 10px;
   gap: 10px;
 `;
+
 const Nickname = styled.p<StyledType>`
   font-size: 0.9375rem;
   ${(props) =>
     props.isMe &&
     css`
       &:before {
-        content: "나";
+        content: '나';
 
         background: #191919;
         color: #fff;
