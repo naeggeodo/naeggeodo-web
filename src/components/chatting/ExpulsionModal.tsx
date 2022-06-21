@@ -1,3 +1,5 @@
+import { CompatClient } from "@stomp/stompjs";
+import { useRouter } from "next/router";
 import { useCallback, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
@@ -7,12 +9,19 @@ import { closeBanModal } from "../../modules/modal/actions";
 import ModalControlButtons from "../common/ModalControlButtons";
 import Portal from "../common/Portal";
 
-const ExpulsionModal = () => {
+const ExpulsionModal = ({ stompClient }: { stompClient: CompatClient }) => {
   const modalRef = useRef(null);
+  const router = useRouter();
 
   const { banModalIsOpen } = useSelector(
     (state: RootState) => state.modalStates
   );
+
+  const banUser = useSelector(
+    (state: RootState) => state.chattingRoomState.banUser
+  );
+
+  const my_id = useSelector((state: RootState) => state.loginState.user_id);
 
   const dispatch = useDispatch();
 
@@ -25,8 +34,16 @@ const ExpulsionModal = () => {
   }, [banModalIsOpen]);
 
   const onExpulsion = () => {
-    console.log("강퇴");
+    const data = {
+      chatMain_id: String(router.query.id),
+      sender: my_id,
+      contents: banUser.user_id,
+      type: "BAN",
+      nickname: banUser.nickname,
+      target_id: banUser.user_id,
+    };
     dispatch(closeBanModal());
+    stompClient.send("/app/chat/ban", {}, JSON.stringify(data));
   };
 
   return (

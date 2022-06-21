@@ -4,7 +4,7 @@ import {
   RemittanceState,
   ChatState,
   Category,
-} from '../common/types';
+} from "../common/types";
 
 export type ChattingRoomInfoRequest = {
   chattingRoomId: string;

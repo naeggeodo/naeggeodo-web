@@ -3,6 +3,7 @@ import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled, { css } from "styled-components";
 import { RootState } from "../../modules";
+import { setBanUser } from "../../modules/chatting/actions";
 import { CurrentChatUser } from "../../modules/chatting/types";
 import { openBanModal } from "../../modules/modal/actions";
 import palette from "../../styles/palette";
@@ -18,6 +19,11 @@ const ChatDrawerMemberItem = ({ user }: { user: CurrentChatUser }) => {
   const master_id = useSelector(
     (state: RootState) => state.chattingRoomState.chatRoomInfo.user_id
   );
+
+  const banUser = useSelector(
+    (state: RootState) => state.chattingRoomState.banUser
+  );
+
   const { banModalIsOpen } = useSelector(
     (state: RootState) => state.modalStates
   );
@@ -27,9 +33,10 @@ const ChatDrawerMemberItem = ({ user }: { user: CurrentChatUser }) => {
     (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
       if (my_id !== master_id) return;
       if (user.user_id === my_id) return;
+      dispatch(setBanUser(user));
       dispatch(openBanModal());
     },
-    [banModalIsOpen]
+    [banModalIsOpen, banUser]
   );
 
   return (

@@ -1,3 +1,4 @@
+import { CompatClient } from "@stomp/stompjs";
 import Image from "next/image";
 import React, { useCallback, useRef } from "react";
 import { useSelector } from "react-redux";
@@ -19,6 +20,7 @@ type PropsType = {
   isDrawerOpen: boolean;
   currentCount: number;
   masterId: string;
+  stompClient: CompatClient;
 };
 
 const ChatDrawer = ({
@@ -26,6 +28,7 @@ const ChatDrawer = ({
   isDrawerOpen,
   currentCount,
   masterId,
+  stompClient,
 }: PropsType) => {
   const { dispatch } = useLoadLib();
   const containerRef = useRef<HTMLDivElement>(null);
@@ -131,7 +134,7 @@ const ChatDrawer = ({
           <span>나가기</span>
         </ExitButton>
       </Footer>
-      {banModalIsOpen && <ExpulsionModal />}
+      {banModalIsOpen && <ExpulsionModal stompClient={stompClient} />}
     </Container>
   );
 };

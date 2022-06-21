@@ -108,9 +108,11 @@ const ChattingTemplate = () => {
   }
 
   const connect = () => {
-    stompClient = Stomp.over(
-      () => new SockJS(`${process.env.NEXT_PUBLIC_API_URL}/chat`)
-    );
+    // stompClient = Stomp.over(
+    //   () => new SockJS(`${process.env.NEXT_PUBLIC_API_URL}/chat`)
+    // );
+    const socket = new SockJS(`${process.env.NEXT_PUBLIC_API_URL}/chat`);
+    stompClient = Stomp.over(() => socket);
     stompClient.connect(
       {
         chatMain_id: router.query.id,
@@ -119,10 +121,10 @@ const ChattingTemplate = () => {
       },
       () => {
         // TODO : 강퇴 기능
-        // const sessionId = /\/([^\\/]+)\/websocket/.exec(
-        //   socket._transport.url,
-        // )[1];
-
+        const sessionId = /\/([^\\/]+)\/websocket/.exec(
+          socket._transport.url
+        )[1];
+        // console.log("sessionId", sessionId);
         stompClient.subscribe(
           `/topic/${router.query.id}`,
           (data) => {
@@ -153,6 +155,11 @@ const ChattingTemplate = () => {
           },
           { chatMain_id: router.query.id as string }
         );
+
+        stompClient.subscribe(`/user/queue/${sessionId}`, (e) => {
+          console.log(e.body);
+        });
+
         onEnter();
       },
       onError
@@ -234,6 +241,7 @@ const ChattingTemplate = () => {
         currentCount={currentCount}
         isDrawerOpen={isDrawerOpen}
         setIsDrawerOpen={setIsDrawerOpen}
+        stompClient={stompClient}
       />
       {exitModalIsOpen ? <ExitModalTemplate exit={exit} /> : null}
     </Container>
