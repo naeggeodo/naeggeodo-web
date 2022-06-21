@@ -1,11 +1,13 @@
-import Image from 'next/image';
-import React, { useCallback, useRef } from 'react';
-import { useSelector } from 'react-redux';
-import styled, { css } from 'styled-components';
-import { useLoadLib } from '../../hooks/utils/useLoadLib';
-import { RootState } from '../../modules';
-import { openExitModal } from '../../modules/modal/actions';
-import palette from '../../styles/palette';
+import Image from "next/image";
+import React, { useCallback, useRef } from "react";
+import { useSelector } from "react-redux";
+import styled, { css } from "styled-components";
+import { useLoadLib } from "../../hooks/utils/useLoadLib";
+import { RootState } from "../../modules";
+import { openExitModal } from "../../modules/modal/actions";
+import palette from "../../styles/palette";
+import ChatDrawerMemberItem from "./ChatDrawerMemberItem";
+import ExpulsionModal from "./ExpulsionModal";
 
 type StyledType = {
   isMe?: boolean;
@@ -29,18 +31,25 @@ const ChatDrawer = ({
   const containerRef = useRef<HTMLDivElement>(null);
 
   const { users } = useSelector(
-    (state: RootState) => state.chattingRoomState.currentChatUserList,
+    (state: RootState) => state.chattingRoomState.currentChatUserList
   );
+
   const imageList = useSelector(
-    (state: RootState) => state.chattingRoomState.imageList,
+    (state: RootState) => state.chattingRoomState.imageList
   );
-  const my_id = useSelector((state: RootState) => state.loginState.user_id);
+
+  const { banModalIsOpen } = useSelector(
+    (state: RootState) => state.modalStates
+  );
 
   const closeDrawer = useCallback<
     (e: React.MouseEvent<HTMLButtonElement>) => void
-  >(() => {
-    setIsDrawerOpen(false);
-  }, [isDrawerOpen]);
+  >(
+    (e) => {
+      setIsDrawerOpen(false);
+    },
+    [isDrawerOpen]
+  );
 
   const exitChatRoom = useCallback(() => {
     dispatch(openExitModal());
@@ -72,7 +81,7 @@ const ChatDrawer = ({
                     key={image}
                     style={{
                       backgroundColor: `${palette.Gray}`,
-                      borderRadius: '10px',
+                      borderRadius: "10px",
                     }}
                     src={image}
                     width={60}
@@ -98,34 +107,7 @@ const ChatDrawer = ({
 
           <MemberItemWrapper>
             {users.map((user) => {
-              return (
-                <React.Fragment key={user.user_id}>
-                  <MemberItem key={user.user_id}>
-                    <FlexWrapper>
-                      <Image
-                        src="/assets/images/profile.svg"
-                        width={40}
-                        height={40}
-                        alt="프로필"
-                        objectFit="contain"
-                      />
-
-                      <Nickname isMe={user.user_id === my_id}>
-                        {user.nickname}
-                      </Nickname>
-                    </FlexWrapper>
-
-                    {masterId === user.user_id && (
-                      <Image
-                        src="/assets/images/king.svg"
-                        width={25}
-                        height={25}
-                        alt="방장 표시 아이콘"
-                      />
-                    )}
-                  </MemberItem>
-                </React.Fragment>
-              );
+              return <ChatDrawerMemberItem key={user.user_id} user={user} />;
             })}
           </MemberItemWrapper>
         </div>
@@ -149,12 +131,13 @@ const ChatDrawer = ({
           <span>나가기</span>
         </ExitButton>
       </Footer>
+      {banModalIsOpen && <ExpulsionModal />}
     </Container>
   );
 };
 
 const Container = styled.div<StyledType>`
-  width: ${(props) => (props.isDrawerOpen ? '70%' : '0')};
+  width: ${(props) => (props.isDrawerOpen ? "70%" : "0")};
   height: 100%;
 
   position: fixed;
@@ -184,7 +167,7 @@ const Content = styled.div`
 `;
 
 const Title = styled.h3`
-  font-family: 'SpoqaBold';
+  font-family: "SpoqaBold";
   font-size: 1.0625rem;
 `;
 
@@ -207,43 +190,6 @@ const MemberItemWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
-`;
-
-const MemberItem = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-right: 10px;
-  gap: 10px;
-
-  background-color: ${palette.LightGray2};
-  border-radius: 0 10px 10px 0;
-
-  cursor: pointer;
-`;
-
-const FlexWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-`;
-const Nickname = styled.p<StyledType>`
-  font-size: 0.9375rem;
-  ${(props) =>
-    props.isMe &&
-    css`
-      &:before {
-        content: '나';
-
-        background: #191919;
-        color: #fff;
-
-        border-radius: 5px;
-        font-size: 0.625rem;
-        padding: 4px;
-        margin-right: 4px;
-      }
-    `}
 `;
 
 const Footer = styled.div`

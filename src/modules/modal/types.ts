@@ -4,4 +4,5 @@ export interface ModalStates {
   completeModalIsOpen: boolean;
   copyCompleteModalIsOpen: boolean;
   exitModalIsOpen: boolean;
+  banModalIsOpen: boolean;
 }
