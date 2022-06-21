@@ -22,6 +22,7 @@ import { useChat } from "../../hooks/useChat";
 import { useSelectChatRoomInfo } from "../../hooks/select/useSelectChatRoomInfo";
 import { useLoadLib } from "../../hooks/utils/useLoadLib";
 import ExitModalTemplate from "./ExitModalTemplate";
+import imageCompression from "browser-image-compression";
 
 var stompClient: CompatClient;
 
@@ -191,23 +192,74 @@ const ChattingTemplate = () => {
     setMessage("");
   };
 
-  const sendImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const fileReader = new FileReader();
-    const imgFile = e.target.files[0];
-    console.log(imgFile);
-    fileReader.readAsDataURL(imgFile);
-    fileReader.onload = (e) => {
-      const result = e.target.result;
-      const data = {
-        chatMain_id: String(router.query.id),
-        sender: user_id,
-        contents: result as string,
-        type: "IMAGE",
-        nickname: nickname,
-      };
-      onSendMessage(stompClient, data);
-    };
-    e.target.value = "";
+  const sendImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    try {
+      // const options = {
+      //   maxSizeMB: 0.1,
+      //   maxWidthOrHeight: 100,
+      // };
+
+      const imgFile = e.target.files[0];
+      // if (imgFile.size >= 50000) {
+      //   alert("보낼 수 없는 크기의 사이즈입니다");
+      //   e.target.value = "";
+      //   return;
+      // }
+      // if (imgFile.size >= 2000) {
+      //   const compressedFile = await imageCompression(imgFile, options);
+      //   fileReader.readAsDataURL(compressedFile);
+      //   console.log("after", compressedFile.size);
+      // } else {
+      // fileReader.readAsDataURL(imgFile);
+      // }
+      imgFile.arrayBuffer().then((resp) => {
+        const ui8 = new Uint8Array(resp);
+        const newBlob = new Blob([ui8], { type: "image/png" });
+        const chunkArray = [];
+        const chunkSize = Math.ceil(newBlob.size / 10);
+        for (let i = 0; i <= 10; i++) {
+          const startByte = chunkSize * i;
+          chunkArray.push(
+            newBlob.slice(startByte, startByte + chunkSize, newBlob.type)
+          );
+        }
+        const mergedBlob = new Blob(chunkArray, { type: newBlob.type });
+
+        const fileReader = new FileReader();
+        fileReader.onload = async (e) => {
+          console.log(e.target.result);
+        };
+        fileReader.readAsText(newBlob);
+
+        // const data = {
+        //   chatMain_id: String(router.query.id),
+        //   sender: user_id,
+        //   contents: str,
+        //   type: "IMAGE",
+        //   nickname: nickname,
+        // };
+        // onSendMessage(stompClient, data);
+      });
+
+      // })
+
+      // console.log(imgFile);
+
+      // fileReader.onload = async (e) => {
+      //   const result = e.target.result;
+      //   const data = {
+      //     chatMain_id: String(router.query.id),
+      //     sender: user_id,
+      //     contents: result as string,
+      //     type: "IMAGE",
+      //     nickname: nickname,
+      //   };
+      //   onSendMessage(stompClient, data);
+      // };
+      e.target.value = "";
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {

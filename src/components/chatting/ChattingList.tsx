@@ -15,17 +15,17 @@ const ChattingList = ({ messageList }: { messageList: ChattingListItem[] }) => {
         messageList.map((message, i) => {
           if (message.type === "WELCOME" || message.type === "BAN")
             return (
-              <WelcomeMessage key={message.user_id + i} message={message} />
+              <WelcomeMessage key={message.contents + i} message={message} />
             );
           else if (message.type === "CNT") return null;
           else if (message.type === "EXIT")
             return (
-              <WelcomeMessage key={message.user_id + i} message={message} />
+              <WelcomeMessage key={message.contents + i} message={message} />
             );
           else if (message.user_id === user_id)
             return (
               <MyChatItem
-                key={message.user_id + i}
+                key={message.contents + i}
                 message={message}
                 date={message.regDate}
               />
@@ -33,7 +33,7 @@ const ChattingList = ({ messageList }: { messageList: ChattingListItem[] }) => {
           else
             return (
               <ChatItem
-                key={message.user_id + i}
+                key={message.contents + i}
                 message={message}
                 date={message.regDate}
               />

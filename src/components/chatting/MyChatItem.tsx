@@ -29,7 +29,7 @@ const MyChatItem = ({
         {today === chatDate.date ? null : <span>{chatDate.formatDate()}</span>}
         <span>{chatDate.formatTime()}</span>
       </Time>
-      {message.contents.includes("data:image/") ? (
+      {/* {message.contents.includes("data:image/") ? (
         <StyledImg
           src={message.contents}
           alt="채팅 이미지"
@@ -38,7 +38,7 @@ const MyChatItem = ({
         />
       ) : (
         <Content>{message.contents}</Content>
-      )}
+      )} */}
     </Container>
   );
 };

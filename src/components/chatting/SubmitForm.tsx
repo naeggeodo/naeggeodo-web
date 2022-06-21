@@ -1,9 +1,9 @@
-import React, { FormEvent, useCallback, useState } from 'react';
-import styled, { css } from 'styled-components';
-import Image from 'next/image';
-import { CompatClient } from '@stomp/stompjs';
+import React, { FormEvent, useCallback, useState } from "react";
+import styled, { css } from "styled-components";
+import Image from "next/image";
+import { CompatClient } from "@stomp/stompjs";
 
-import QuickChatList from './quickChat/QuickChatList';
+import QuickChatList from "./quickChat/QuickChatList";
 
 type StyledType = {
   isActive: boolean;
@@ -40,7 +40,8 @@ const SubmitForm = ({
         <QuickChatButton
           isActive={isQuickChatOpen}
           onClick={onQuickChatOpen}
-          title="채팅 빠르게 보내기 버튼">
+          title="채팅 빠르게 보내기 버튼"
+        >
           <Image
             src="/assets/images/toparrow.svg"
             alt="채팅 빠르게 보내기 버튼"
