@@ -29,6 +29,7 @@ const Container = styled.div`
 
   width: 100%;
   height: 55px;
+  background-color: #fff;
 
   backdrop-filter: blur(20px);
   box-shadow: 0px -0.5px 0px #e0e0e0;
