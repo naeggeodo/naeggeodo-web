@@ -4,7 +4,7 @@ import {
   RemittanceState,
   ChatState,
   Category,
-} from "../common/types";
+} from '../common/types';
 
 export type ChattingRoomInfoRequest = {
   chattingRoomId: string;
@@ -75,3 +75,10 @@ export type CurrentChatUser = {
 };
 
 export type CurrentChatUserListResponse = { users: CurrentChatUser[] };
+
+export type ErrorMessage =
+  | 'SESSION_DUPLICATION'
+  | 'INVALID_STATE'
+  | 'BANNED_CHAT_USER'
+  | 'BAD_REQUEST'
+  | 'UNAUTHORIZED';

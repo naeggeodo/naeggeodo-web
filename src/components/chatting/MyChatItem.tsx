@@ -1,10 +1,10 @@
-import styled from "styled-components";
-import Image from "next/image";
-import palette from "../../styles/palette";
-import DateFormatter from "../../utils/DateFormatter";
+import styled from 'styled-components';
+import Image from 'next/image';
+import palette from '../../styles/palette';
+import DateFormatter from '../../utils/DateFormatter';
 
-import { ChattingListItem } from "../../modules/chatting/types";
-import { useMemo } from "react";
+import { ChattingListItem } from '../../modules/chatting/types';
+import { useMemo } from 'react';
 
 const MyChatItem = ({
   message,
@@ -18,9 +18,9 @@ const MyChatItem = ({
   const today = useMemo(
     () =>
       `${currentDate.getFullYear()}-${String(
-        currentDate.getMonth() + 1
-      ).padStart(2, "0")}-${currentDate.getDate()}`,
-    [currentDate]
+        currentDate.getMonth() + 1,
+      ).padStart(2, '0')}-${currentDate.getDate()}`,
+    [currentDate],
   );
 
   return (
@@ -29,7 +29,7 @@ const MyChatItem = ({
         {today === chatDate.date ? null : <span>{chatDate.formatDate()}</span>}
         <span>{chatDate.formatTime()}</span>
       </Time>
-      {/* {message.contents.includes("data:image/") ? (
+      {message.contents.includes('data:image/') ? (
         <StyledImg
           src={message.contents}
           alt="채팅 이미지"
@@ -38,7 +38,7 @@ const MyChatItem = ({
         />
       ) : (
         <Content>{message.contents}</Content>
-      )} */}
+      )}
     </Container>
   );
 };
