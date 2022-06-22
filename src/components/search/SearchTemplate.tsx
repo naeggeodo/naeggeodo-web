@@ -36,7 +36,7 @@ const SearchTemplate = () => {
         <SearchForm onSubmit={getSearchListByInput}>
           <Button>
             <Image
-              src="/assets/images/searchgray.svg"
+              src="/assets/images/search_icon.svg"
               alt="검색 아이콘"
               width={22}
               height={21}
