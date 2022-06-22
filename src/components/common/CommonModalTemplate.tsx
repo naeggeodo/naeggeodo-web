@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import Portal from './Portal';
+import React from "react";
+import styled from "styled-components";
+import Portal from "./Portal";
 
 const CommonModalTemplate = ({ children }: { children: JSX.Element }) => {
   return (
@@ -12,7 +12,7 @@ const CommonModalTemplate = ({ children }: { children: JSX.Element }) => {
 
 const Background = styled.div`
   position: fixed;
-  top: 0;
+  top: 50p;
   bottom: 0;
   right: 0;
   left: 0;

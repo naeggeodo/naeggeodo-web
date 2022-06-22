@@ -5,37 +5,19 @@ import styled from "styled-components";
 
 import palette from "../../styles/palette";
 import { RootState } from "../../modules";
-import { useSelectLoginStates } from "../../hooks/select/useSelectLoginStates";
-import CheckDepositService from "../../service/api/check-deposit/CheckDepositService";
 import { useLoadLib } from "../../hooks/utils/useLoadLib";
 import { openEndChattingModal } from "../../modules/modal/actions";
 
 const ConvertToCompletedButton = () => {
   const { router, dispatch } = useLoadLib();
-  // const { accessToken } = useSelectLoginStates();
-
   const { endChattingModalIsOpen } = useSelector(
     (state: RootState) => state.modalStates
   );
 
-  // const chatRoomInfo = useSelector(
-  //   (state: RootState) => state.chattingRoomState.chatRoomInfo
-  // );
-
-  // const [isCompleted, setIsCompleted] = useState<boolean>(
-  //   chatRoomInfo.state === "END" ? true : false
-  // );
-
   const handleCompleted = useCallback(async () => {
     dispatch(openEndChattingModal());
-    // CheckDepositService.asyncConvertToComplete(router.query.id as string);
   }, [endChattingModalIsOpen]);
 
-  // return !isCompleted ? (
-  //   <Button onPointerDown={handleCompleted}>채팅방 종료하기</Button>
-  // ) : (
-  //   <CompletedButton>거래가 완료되었습니다.</CompletedButton>
-  // );
   return <Button onPointerDown={handleCompleted}>채팅방 종료하기</Button>;
 };
 

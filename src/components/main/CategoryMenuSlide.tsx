@@ -1,10 +1,12 @@
-import React from 'react';
-import styled from 'styled-components';
-import { useCheckValidate } from '../../hooks/useCheckValidate';
-import { useSlideTransform } from '../../hooks/useSlideTransform';
-import { CategoriesResponse } from '../../modules/common/types';
-import palette from '../../styles/palette';
-import { convertEngCategoryToKor } from '../../utils/converEngCategoryToKor';
+import React from "react";
+import { useSelector } from "react-redux";
+import styled from "styled-components";
+import { useCheckValidate } from "../../hooks/useCheckValidate";
+import { useSlideTransform } from "../../hooks/useSlideTransform";
+import { RootState } from "../../modules";
+import { CategoriesResponse } from "../../modules/common/types";
+import palette from "../../styles/palette";
+import { convertEngCategoryToKor } from "../../utils/converEngCategoryToKor";
 
 const CategoryMenuSlide = ({
   foodCategories,
@@ -13,6 +15,9 @@ const CategoryMenuSlide = ({
 }) => {
   const { router, routeToCategory } = useCheckValidate();
   const { slideRef } = useSlideTransform();
+  const { buildingCode, address } = useSelector(
+    (state: RootState) => state.loginState
+  );
 
   return (
     <Container ref={slideRef}>
@@ -22,17 +27,21 @@ const CategoryMenuSlide = ({
           return (
             <LinkButton
               key={item.category}
-              onClick={(e) => routeToCategory(e, item)}
+              onClick={(e) => {
+                if (!buildingCode || !address) return;
+                routeToCategory(e, item);
+              }}
               style={{
                 color:
                   router.query.buildingCode &&
                   !router.query.category &&
-                  lowerCaseItem === 'all'
+                  lowerCaseItem === "all"
                     ? `${palette.mainOrange}`
                     : router.query.category === lowerCaseItem
                     ? `${palette.mainOrange}`
                     : `${palette.black}`,
-              }}>
+              }}
+            >
               {convertEngCategoryToKor(item.category)}
             </LinkButton>
           );
