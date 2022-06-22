@@ -13,10 +13,10 @@ const TagButton = ({ dataValue, handleClick, item }: Props) => {
   return (
     <Container data-value={dataValue} onClick={handleClick}>
       <Image
-        src='/assets/images/buttonclose.svg'
-        width={12}
-        height={12}
-        alt='닫기 버튼'
+        src="/assets/images/red_close.svg"
+        width={20}
+        height={20}
+        alt="닫기 버튼"
       />
       <span>{item}</span>
     </Container>
@@ -32,13 +32,12 @@ const Container = styled.button`
 
   font-weight: 500;
   font-size: 0.75rem;
+  padding: 0 10px;
 
   display: flex;
   align-items: center;
 
   color: #191919;
-
-  padding: 4px 10px;
 
   background-color: ${palette.LightGray2};
   border-radius: 5px;
