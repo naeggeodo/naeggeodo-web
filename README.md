@@ -21,3 +21,7 @@
 | **Github**     | https://github.com/cjy0019  | https://github.com/kmh916 | https://github.com/JODAHYE  |  https://github.com/seoyun75  | https://github.com/uasang01 | 
 | **Blog**       | https://velog.io/@cjy0029 | https://velog.io/@kmh916 | https://dal-dagury.tistory.com/  | 🛵 | https://uasang01.tistory.com/ | 
 | **Position**   | FrontEnd / IOS | BackEnd | FrontEnd | BackEnd | Android |
+
+### 설계
+- UI 설계 : [피그마](https://www.figma.com/file/flk99RkWlj4rw1djcltdhl/%EB%82%B4%EA%BA%BC%EB%8F%84-(1)?node-id=0%3A1)
+- DB ERD : [ERD](https://www.erdcloud.com/d/Wbg7xBJihLSrvxBbG)
