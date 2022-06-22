@@ -21,6 +21,9 @@ export const CLOSE_EXIT_MODAL = namespace + "CLOSE_EXIT_MODAL";
 export const OPEN_BAN_MODAL = namespace + "OPEN_BAN_MODAL";
 export const CLOSE_BAN_MODAL = namespace + "CLOSE_BAN_MODAL";
 
+export const OPEN_END_CHATTING_MODAL = namespace + "OPEN_END_CHATTING_MODAL";
+export const CLOSE_END_CHATTING_MODAL = namespace + "CLOSE_END_CHATTING_MODAL";
+
 export const openLoginModal = createAction(OPEN_LOGIN_MODAL, () => ({}))();
 export const closeLoginModal = createAction(CLOSE_LOGIN_MODAL, () => ({}))();
 
@@ -57,3 +60,12 @@ export const closeExitModal = createAction(CLOSE_EXIT_MODAL, () => ({}))();
 
 export const openBanModal = createAction(OPEN_BAN_MODAL, () => ({}))();
 export const closeBanModal = createAction(CLOSE_BAN_MODAL, () => ({}))();
+
+export const openEndChattingModal = createAction(
+  OPEN_END_CHATTING_MODAL,
+  () => ({})
+)();
+export const closeEndChattingModal = createAction(
+  CLOSE_END_CHATTING_MODAL,
+  () => ({})
+)();

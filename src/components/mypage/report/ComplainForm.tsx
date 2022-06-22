@@ -5,13 +5,13 @@ import styled from "styled-components";
 import { RootState } from "../../../modules";
 import palette from "../../../styles/palette";
 import ReportModalTemplate from "./ReportModalTemplate";
-import ConfirmModal from "./ConfirmModal";
 import { useLoadLib } from "../../../hooks/utils/useLoadLib";
 import {
   setReportConfirmModal,
   submitReportActions,
 } from "../../../modules/mypage/actions";
 import ModalControlButtons from "../../common/ModalControlButtons";
+import CompleteConfirmModal from "./CompleteConfirmModal";
 
 const ComplainForm = () => {
   const { dispatch } = useLoadLib();
@@ -69,7 +69,7 @@ const ComplainForm = () => {
         activeText={"완료"}
       />
       {reportConfirmModal === "complete" && (
-        <ConfirmModal onAgree={onCompleteReport} />
+        <CompleteConfirmModal onAgree={onCompleteReport} />
       )}
     </ReportModalTemplate>
   );

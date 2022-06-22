@@ -5,4 +5,5 @@ export interface ModalStates {
   copyCompleteModalIsOpen: boolean;
   exitModalIsOpen: boolean;
   banModalIsOpen: boolean;
+  endChattingModalIsOpen: boolean;
 }

@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import palette from '../../styles/palette';
+import React from "react";
+import styled from "styled-components";
+import palette from "../../styles/palette";
 
 type PropType = {
   onCancelClick: () => void;
@@ -31,7 +31,7 @@ const Container = styled.div`
 
 const CompleteButton = styled.button`
   width: 60%;
-  height: 40px;
+  height: 60px;
 
   font-size: 0.875rem;
 
@@ -50,7 +50,7 @@ const CompleteButton = styled.button`
 const CancelButton = styled.button`
   width: 40%;
 
-  height: 40px;
+  height: 60px;
   font-size: 0.875rem;
 
   background-color: ${palette.bgGray};

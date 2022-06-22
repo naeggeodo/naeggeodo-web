@@ -10,7 +10,7 @@ import {
 } from "../../../modules/mypage/actions";
 import palette from "../../../styles/palette";
 import ModalControlButtons from "../../common/ModalControlButtons";
-import ConfirmModal from "./ConfirmModal";
+import CompleteConfirmModal from "./CompleteConfirmModal";
 import ReportModalTemplate from "./ReportModalTemplate";
 
 const FeedbackForm = () => {
@@ -61,7 +61,7 @@ const FeedbackForm = () => {
         activeText={"완료"}
       />
       {reportConfirmModal === "complete" && (
-        <ConfirmModal onAgree={onCompleteReport} />
+        <CompleteConfirmModal onAgree={onCompleteReport} />
       )}
     </ReportModalTemplate>
   );

@@ -7,11 +7,8 @@ import { closeReportConfirmModalActions } from "../../../modules/mypage/actions"
 import ModalControlButtons from "../../common/ModalControlButtons";
 import ConfirmModalTemplate from "./ConfirmModalTemplate";
 
-const ConfirmModal = ({ onAgree }: { onAgree: () => void }) => {
+const CompleteConfirmModal = ({ onAgree }: { onAgree: () => void }) => {
   const { dispatch } = useLoadLib();
-  const { reportConfirmModal } = useSelector(
-    (state: RootState) => state.myPageState
-  );
 
   const onCloseModal = () => {
     dispatch(closeReportConfirmModalActions.request());
@@ -19,11 +16,7 @@ const ConfirmModal = ({ onAgree }: { onAgree: () => void }) => {
 
   return (
     <ConfirmModalTemplate>
-      {reportConfirmModal === "cancel" ? (
-        <p>작성을 취소하겠습니까?</p>
-      ) : (
-        <p>작성을 완료하시겠습니까?</p>
-      )}
+      <p>작성을 완료하시겠습니까?</p>
       <ModalControlButtons
         onCancelClick={onCloseModal}
         onAgreeClick={onAgree}
@@ -33,4 +26,4 @@ const ConfirmModal = ({ onAgree }: { onAgree: () => void }) => {
   );
 };
 
-export default ConfirmModal;
+export default CompleteConfirmModal;

@@ -1,20 +1,25 @@
-import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import Image from "next/image";
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 
-import palette from '../../styles/palette';
-import responsive from '../../styles/responsive';
-import CheckDepositItem from './CheckDepositItem';
-import ConvertToCompletedButton from './ConvertToCompletedButton';
-import { CurrentChatUser } from '../../modules/chatting/types';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../modules';
-import { useCustomRouter } from '../../hooks/utils/useCustomRouter';
+import palette from "../../styles/palette";
+import responsive from "../../styles/responsive";
+import CheckDepositItem from "./CheckDepositItem";
+import ConvertToCompletedButton from "./ConvertToCompletedButton";
+import { CurrentChatUser } from "../../modules/chatting/types";
+import { useSelector } from "react-redux";
+import { RootState } from "../../modules";
+import { useCustomRouter } from "../../hooks/utils/useCustomRouter";
+import EndConfirmModal from "./EndConfirmModal";
 
 const CheckDepositTemplate = () => {
   const { routeBack } = useCustomRouter();
   const { currentChatUserList } = useSelector(
-    (state: RootState) => state.chattingRoomState,
+    (state: RootState) => state.chattingRoomState
+  );
+
+  const { endChattingModalIsOpen } = useSelector(
+    (state: RootState) => state.modalStates
   );
 
   const [depositYetUsers, setDepositYetUsers] = useState<CurrentChatUser[]>([]);
@@ -23,23 +28,23 @@ const CheckDepositTemplate = () => {
   useEffect(() => {
     if (!currentChatUserList?.users) return;
     setDepositYetUsers(
-      currentChatUserList.users.filter((v) => v.remittanceState === 'N'),
+      currentChatUserList.users.filter((v) => v.remittanceState === "N")
     );
     setDepositUsers(
-      currentChatUserList.users.filter((v) => v.remittanceState === 'Y'),
+      currentChatUserList.users.filter((v) => v.remittanceState === "Y")
     );
   }, [currentChatUserList]);
 
   return (
     <Container>
       <TitleContainer>
-        <PrevButton onClick={routeBack} title='뒤로가기 버튼'>
+        <PrevButton onClick={routeBack} title="뒤로가기 버튼">
           <Image
-            src='/assets/images/prevbtn.svg'
+            src="/assets/images/prevbtn.svg"
             width={11}
             height={24}
-            layout='fixed'
-            alt='뒤로가기 버튼'
+            layout="fixed"
+            alt="뒤로가기 버튼"
           />
         </PrevButton>
 
@@ -64,10 +69,10 @@ const CheckDepositTemplate = () => {
         </DepositUserList>
         <DepositYetUsers>
           <SmallTitle>
-            {depositYetUsers.length === 0 && '모두에게 돈을 받았어요'}
+            {depositYetUsers.length === 0 && "모두에게 돈을 받았어요"}
             {depositYetUsers.length > 0 &&
               depositUsers.length > 0 &&
-              '돈을 보낸 멤버들'}
+              "돈을 보낸 멤버들"}
           </SmallTitle>
           {depositUsers.length > 0 &&
             depositUsers.map((user) => (
@@ -75,6 +80,7 @@ const CheckDepositTemplate = () => {
             ))}
         </DepositYetUsers>
         {depositUsers.length > 0 && <ConvertToCompletedButton />}
+        {endChattingModalIsOpen && <EndConfirmModal />}
       </div>
     </Container>
   );
@@ -108,7 +114,7 @@ const P = styled.p`
   line-height: 1.5;
 
   &::before {
-    content: '수령완료 ';
+    content: "수령완료 ";
     color: ${palette.black};
   }
 `;
@@ -124,7 +130,7 @@ const PrevButton = styled.button`
 `;
 
 const Title = styled.p`
-  font-family: 'SpoqaBold';
+  font-family: "SpoqaBold";
   font-size: 1.625rem;
   color: ${palette.black};
 
