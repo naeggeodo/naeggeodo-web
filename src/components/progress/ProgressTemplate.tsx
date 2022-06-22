@@ -30,6 +30,7 @@ const ProgressTemplate = () => {
                   title={data.title}
                   index={index}
                   latestMessage={data.latestMessage}
+                  address={data.address}
                 />
               );
             })}
