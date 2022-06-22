@@ -11,12 +11,12 @@ const CheckDepositItem = ({ user }: { user: CurrentChatUser }) => {
     <Container>
       <ImageWrapper>
         <StyledImg
-          src='/assets/images/profile.svg'
-          layout='fixed'
+          src="/assets/images/smileuser.svg"
+          layout="fixed"
           width={52}
           height={52}
-          objectFit='contain'
-          alt='유저 프로필 사진'
+          objectFit="contain"
+          alt="유저 프로필 사진"
         />
       </ImageWrapper>
       <NickNameWrapper>{user.nickname}</NickNameWrapper>
@@ -44,6 +44,8 @@ const ImageWrapper = styled.div`
 `;
 
 const StyledImg = styled(Image)`
+  background-color: ${palette.bgGray};
+
   border-radius: 10px 0px 0px 10px;
 `;
 
