@@ -1,4 +1,10 @@
-import React, { ChangeEvent, useCallback, useState } from 'react';
+import React, {
+  ChangeEvent,
+  useCallback,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import styled, { css } from 'styled-components';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -41,6 +47,7 @@ const CreateForm = () => {
   const { user_id, address, buildingCode } = useSelectLoginStates();
 
   const urlRegex = /(http(s)?:\/\/)([a-z0-9\w]+\.*)+[a-z0-9]{2,4}/gi;
+  const linkRef = useRef(null);
   const [isUrl, setIsUrl] = useState<boolean>(false);
   const [imgSrc, setImgSrc] = useState<string | ArrayBuffer>();
   const [imgFile, setImgFile] = useState<any>();
@@ -65,6 +72,14 @@ const CreateForm = () => {
     },
     [imgSrc, imgFile],
   );
+
+  useLayoutEffect(() => {
+    if (isUrl) {
+      linkRef.current.style = `display: flex; visibility: visible; opacity: 1;`;
+    } else if (!isUrl || link.length === 0) {
+      linkRef.current.style = ` visibility: hidden; opacity: 0;`;
+    }
+  }, [isUrl, link]);
 
   const createChatRoom = useCallback(async () => {
     const sendData = {
@@ -113,6 +128,7 @@ const CreateForm = () => {
           <Item>
             <FieldTitle title="채팅방 제목" />
             <Input
+              maxLength={40}
               type="text"
               onChange={(e) => dispatchInputAction(e, 'title')}
               value={title}
@@ -131,6 +147,7 @@ const CreateForm = () => {
           <Item>
             <TitleText>수령장소</TitleText>
             <Input
+              maxLength={40}
               type="text"
               onChange={(e) => dispatchInputAction(e, 'place')}
               value={place}
@@ -147,6 +164,7 @@ const CreateForm = () => {
             </TitleSubTitleWrapper>
             <InputWrapper>
               <Input
+                maxLength={40}
                 type="url"
                 placeholder="가게 링크를 입력해주세요"
                 value={link}
@@ -155,7 +173,7 @@ const CreateForm = () => {
                   dispatchInputAction(e, 'link');
                 }}
               />
-              <IsUrlCheck isUrl={isUrl}>
+              <IsUrlCheck ref={linkRef} isUrl={isUrl}>
                 <Image src="/assets/images/check.svg" width={30} height={30} />
               </IsUrlCheck>
             </InputWrapper>
@@ -167,9 +185,10 @@ const CreateForm = () => {
             </TagTitle>
             <form onSubmit={(e) => dispatchAddTag(e)}>
               <Input
+                maxLength={15}
                 value={tagText}
                 onChange={changeTagText}
-                placeholder="태그 작성 후 Enter를 입력하세요. (최대 5개)"
+                placeholder="태그 작성 후 엔터키를 입력하세요 (최대 5개, 글자수 제한 15자)"
               />
             </form>
             <TagContainer>
@@ -308,6 +327,10 @@ const Input = styled.input`
   width: 80%;
   outline: none;
   border: none;
+
+  &::placeholder {
+    color: #b8b8b8;
+  }
 `;
 
 const InputWrapper = styled.div`
@@ -373,18 +396,8 @@ const PlusMinusButton = styled.button`
 const IsUrlCheck = styled.div<MoveLinkProps>`
   display: flex;
   justify-content: center;
-  visibility: hidden;
-  opacity: 0;
   width: 63px;
   transition: 1s;
-
-  ${(props) =>
-    props.isUrl &&
-    css`
-      display: flex;
-      visibility: visible;
-      opacity: 1;
-    `}
 `;
 
 const ButtonWrapper = styled.div`
