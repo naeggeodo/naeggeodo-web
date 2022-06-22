@@ -30,11 +30,27 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
     await store.sagaTask.toPromise();
 
-    return {
-      props: {
-        chatRoomInfo: store.getState().chattingRoomState.chatRoomInfo,
-      },
-    };
+    const master_id = store.getState().chattingRoomState.chatRoomInfo.user_id;
+    const user_id = store.getState().loginState.user_id;
+
+    if (master_id !== user_id) {
+      return {
+        props: {
+          chatRoomInfo: store.getState().chattingRoomState.chatRoomInfo,
+        },
+        redirect: {
+          permanent: false,
+          destination: '/chat-rooms',
+        },
+      };
+    }
+
+    if (master_id)
+      return {
+        props: {
+          chatRoomInfo: store.getState().chattingRoomState.chatRoomInfo,
+        },
+      };
   },
 );
 

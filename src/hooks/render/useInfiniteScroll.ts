@@ -35,7 +35,6 @@ export function useInfiniteScroll<T>(data: T[]) {
       observer.unobserve(entry.target);
       setSkip((prev) => prev + limit + 1);
       observer.observe(entry.target);
-      console.log('스크롤시렌더링');
     }
   };
 

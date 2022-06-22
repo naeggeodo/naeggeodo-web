@@ -4,7 +4,7 @@ import { useLoadLib } from '../../hooks/utils/useLoadLib';
 import { closeExitModal } from '../../modules/modal/actions';
 import palette from '../../styles/palette';
 
-const ExitModalBox = ({ exit }: { exit: any }) => {
+const ExitModalBox = ({ exit }: { exit: () => void }) => {
   const { dispatch, router } = useLoadLib();
   const cancelExit = useCallback(() => {
     dispatch(closeExitModal());
@@ -61,13 +61,6 @@ const Title = styled.p`
   font-size: 1.375rem;
 
   letter-spacing: 0.35px;
-
-  color: ${palette.black};
-`;
-
-const SubTitle = styled.p`
-  font-size: 0.9375rem;
-  line-height: 150%;
 
   color: ${palette.black};
 `;

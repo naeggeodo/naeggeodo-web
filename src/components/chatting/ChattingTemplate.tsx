@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, FormEvent } from 'react';
 import styled from 'styled-components';
-import { Stomp } from '@stomp/stompjs';
+import { CompatClient, Stomp } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 import { useSelector } from 'react-redux';
 
@@ -21,14 +21,15 @@ import DateFormatter from '../../utils/DateFormatter';
 import { useChat } from '../../hooks/useChat';
 import { useSelectChatRoomInfo } from '../../hooks/select/useSelectChatRoomInfo';
 import { useLoadLib } from '../../hooks/utils/useLoadLib';
-import QuickChatList from './quickChat/QuickChatList';
 import ExitModalTemplate from './ExitModalTemplate';
+import imageCompression from 'browser-image-compression';
+import { Options } from '../../../types/libType';
 
-var stompClient;
+var stompClient: CompatClient;
 
 const ChattingTemplate = () => {
-  const { onSendMessage } = useChat();
   const { dispatch, router } = useLoadLib();
+  const { onSendMessage, filterErrorMessage } = useChat(router);
   const { user_id, accessToken } = useSelectLoginStates();
   const scrollRef = useRef<HTMLDivElement>(null);
   const chatListDivRef = useRef<HTMLDivElement>(null);
@@ -42,12 +43,19 @@ const ChattingTemplate = () => {
     (state: RootState) => state.modalStates.exitModalIsOpen,
   );
 
-  const [message, setMessage] = useState('');
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [message, setMessage] = useState<string>('');
+  const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
 
-  const changeMessage = (e) => {
+  const changeMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMessage(e.target.value);
   };
+
+  useEffect(() => {
+    connect();
+    return () => {
+      disconnect();
+    };
+  }, []);
 
   useEffect(() => {
     chatListDivRef.current.scroll({
@@ -56,12 +64,9 @@ const ChattingTemplate = () => {
     });
   }, [chattingList.messages]);
 
-  const onError = (e) => {
-    if (e.headers.message) {
-      console.log(e.headers.message);
-    }
-    alert('문제가 발생하여 채팅방에서 나가집니다.');
-    location.href = '/';
+  const onError = (e: any) => {
+    const errorMessage = e.headers.message;
+    filterErrorMessage(errorMessage);
   };
 
   function onEnter() {
@@ -86,8 +91,13 @@ const ChattingTemplate = () => {
     stompClient.send('/app/chat/exit', {}, JSON.stringify(data));
   }
 
-  const connect = (socket) => {
-    stompClient = Stomp.over(socket);
+  const connect = () => {
+    // stompClient = Stomp.over(
+    //   () => new SockJS(`${process.env.NEXT_PUBLIC_API_URL}/chat`)
+    // );
+
+    const socket: any = new SockJS(`${process.env.NEXT_PUBLIC_API_URL}/chat`);
+    stompClient = Stomp.over(() => socket);
     stompClient.connect(
       {
         chatMain_id: router.query.id,
@@ -98,7 +108,6 @@ const ChattingTemplate = () => {
         const sessionId = /\/([^\\/]+)\/websocket/.exec(
           socket._transport.url,
         )[1];
-
         stompClient.subscribe(
           `/topic/${router.query.id}`,
           (data) => {
@@ -115,6 +124,7 @@ const ChattingTemplate = () => {
             dispatch(setCurrentChattingList(body));
 
             if (newMessage.type === 'CNT') {
+              console.log(newMessage);
               dispatch(
                 changeCurrentCountInChatting(
                   JSON.parse(newMessage.contents).currentCount,
@@ -129,6 +139,17 @@ const ChattingTemplate = () => {
           },
           { chatMain_id: router.query.id as string },
         );
+
+        stompClient.subscribe(`/user/queue/${sessionId}`, (e) => {
+          const messageObj = JSON.parse(e.body);
+          if (messageObj.type === 'BAN') {
+            window.alert('강제퇴장 당하셨습니다.');
+            router.replace('/chat-rooms');
+          } else if (messageObj === 'ALERT') {
+            window.alert(messageObj.contents);
+          }
+        });
+
         onEnter();
       },
       onError,
@@ -139,7 +160,7 @@ const ChattingTemplate = () => {
     stompClient.disconnect();
   };
 
-  const sendMessage = (e) => {
+  const sendMessage = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!message) return;
 
@@ -154,31 +175,45 @@ const ChattingTemplate = () => {
     setMessage('');
   };
 
-  const sendImage = (e) => {
-    const fileReader = new FileReader();
-    const imgFile = e.target.files[0];
-    fileReader.readAsDataURL(imgFile);
-    fileReader.onload = (e) => {
-      const result = e.target.result;
-      const data = {
-        chatMain_id: String(router.query.id),
-        sender: user_id,
-        contents: result as string,
-        type: 'IMAGE',
-        nickname: nickname,
+  const sendImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    try {
+      const imgFile = e.target.files[0];
+      console.log(imgFile);
+      const options: Options = {
+        maxSizeMB: 0.1,
+        maxWidthOrHeight: 150,
+        fileType: imgFile.type,
       };
-      onSendMessage(stompClient, data);
-    };
-    e.target.value = '';
-  };
+      const fileReader = new FileReader();
 
-  useEffect(() => {
-    const socket = new SockJS(`${process.env.NEXT_PUBLIC_API_URL}/chat`);
-    connect(socket);
-    return () => {
-      disconnect();
-    };
-  }, []);
+      if (imgFile.size >= 200000) {
+        alert('보낼 수 없는 크기의 사이즈입니다');
+        e.target.value = '';
+        return;
+      }
+
+      if (imgFile.size >= 7000) {
+        const compressedFile = await imageCompression(imgFile, options);
+        fileReader.readAsDataURL(compressedFile);
+      } else {
+        fileReader.readAsDataURL(imgFile);
+      }
+      fileReader.onload = async (e) => {
+        const result = e.target.result;
+        const data = {
+          chatMain_id: String(router.query.id),
+          sender: user_id,
+          contents: result as string,
+          type: 'IMAGE',
+          nickname: nickname,
+        };
+        onSendMessage(stompClient, data);
+      };
+      e.target.value = '';
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <Container>
@@ -198,8 +233,8 @@ const ChattingTemplate = () => {
         <ChattingList messageList={chattingList.messages} />
         <div ref={scrollRef} />
       </Content>
-      <QuickChatList stompClient={stompClient} />
       <SubmitForm
+        stompClient={stompClient}
         changeMessage={changeMessage}
         message={message}
         sendMessage={sendMessage}
@@ -210,6 +245,7 @@ const ChattingTemplate = () => {
         currentCount={currentCount}
         isDrawerOpen={isDrawerOpen}
         setIsDrawerOpen={setIsDrawerOpen}
+        stompClient={stompClient}
       />
       {exitModalIsOpen ? <ExitModalTemplate exit={exit} /> : null}
     </Container>

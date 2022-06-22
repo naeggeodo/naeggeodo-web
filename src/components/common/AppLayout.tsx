@@ -6,7 +6,7 @@ interface Props {
   children: ReactNode;
 }
 
-const TIMEOUT = 400;
+const TIMEOUT = 300;
 const getTransitionStyles = {
   entering: {
     position: `absolute`,

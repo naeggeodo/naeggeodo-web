@@ -8,10 +8,8 @@ export default {
     (Story) => (
       <div
         style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          width: '100vw',
+          backgroundColor: 'gray',
+          padding: '10px',
           height: '100vh',
         }}>
         <Story />
@@ -27,6 +25,6 @@ const Template = (args) => <TitleText {...args} />;
 export const TitleTextStory = Template.bind({});
 
 TitleTextStory.args = {
-  children: '안녕',
+  children: '채팅방 최대 인원',
 };
 TitleTextStory.storyName = '내꺼톡 생성폼 제목 텍스트';

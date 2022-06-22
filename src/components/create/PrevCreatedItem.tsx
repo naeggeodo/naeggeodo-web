@@ -1,10 +1,11 @@
 import Image from 'next/image';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { useSelectLoginStates } from '../../hooks/select/useSelectLoginStates';
 import { RootState } from '../../modules';
 import {
+  deletePrevChatRoomActions,
   patchPrevChatRoomBookMarkActions,
   selectCopyPrevChatRoomData,
 } from '../../modules/create/actions';
@@ -41,6 +42,15 @@ const PrevCreatedItem = ({ data }: { data: PrevCreatedListItem }) => {
     );
   }, [dispatch, data, user_id]);
 
+  const onDeleteItem = useCallback(() => {
+    dispatch(
+      deletePrevChatRoomActions.request({
+        userId: user_id,
+        chatMainId: data.id,
+      }),
+    );
+  }, [dispatch, data, user_id, data.id]);
+
   return (
     <Container
       isActive={
@@ -48,11 +58,7 @@ const PrevCreatedItem = ({ data }: { data: PrevCreatedListItem }) => {
       }>
       <Content>
         <InfoBox onClick={selectPrevData}>
-          <Image
-            src={data.imgPath ? data.imgPath : '/assets/images/hamburger.svg'}
-            width={44}
-            height={44}
-          />
+          <Image src={data.imgPath} width={44} height={44} />
           <div>
             <Title>{data.title}</Title>
             <Date>{`${chatDate.formatDate()}  ${chatDate.formatTime()}`}</Date>
@@ -61,22 +67,30 @@ const PrevCreatedItem = ({ data }: { data: PrevCreatedListItem }) => {
         {data.bookmarks === 'Y' ? (
           <BookmarkButton onClick={onBookmarkHandler}>
             <Image
-              src='/assets/images/yellowstar.svg'
+              src="/assets/images/yellowstar.svg"
               width={18}
               height={24}
-              layout='fixed'
+              layout="fixed"
             />
           </BookmarkButton>
         ) : (
           <BookmarkButton onClick={onBookmarkHandler}>
             <Image
-              src='/assets/images/graystar.svg'
+              src="/assets/images/graystar.svg"
               width={18}
               height={24}
-              layout='fixed'
+              layout="fixed"
             />
           </BookmarkButton>
         )}
+        <DeleteButton onClick={onDeleteItem}>
+          <Image
+            src="/assets/images/close.svg"
+            width={18}
+            height={24}
+            layout="fixed"
+          />
+        </DeleteButton>
       </Content>
     </Container>
   );
@@ -124,6 +138,13 @@ const Date = styled.span`
   padding: 2px 5px;
   margin-right: 5px;
   border-radius: 3px;
+`;
+
+const DeleteButton = styled.button`
+  all: unset;
+
+  padding: 6px;
+  margin-left: 6px;
 `;
 
 export default PrevCreatedItem;

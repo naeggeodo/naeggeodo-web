@@ -5,10 +5,10 @@ import ChattingTemplate from '../../components/chatting/ChattingTemplate';
 import {
   getChattingListActions,
   getCurrentChatRoomAsyncActions,
-  getCurrentChatUserListActions,
   getUserNicknameActions,
 } from '../../modules/chatting/actions';
 import { saveCookies } from '../../utils/saveCookies';
+import { getQuickChattingListActions } from '../../modules/quick-chatting/actions';
 
 const chatting = () => {
   return <ChattingTemplate />;
@@ -21,6 +21,16 @@ export const getServerSideProps = wrapper.getServerSideProps(
     const rootState: RootState = store.getState();
     const user_id = rootState.loginState.user_id;
 
+    const accessToken = rootState.loginState.accessToken;
+
+    if (!accessToken) {
+      return {
+        redirect: {
+          permanent: false,
+          destination: '/login',
+        },
+      };
+    }
     store.dispatch(
       getCurrentChatRoomAsyncActions.request({
         chattingRoomId: context.params.id as string,
@@ -36,24 +46,16 @@ export const getServerSideProps = wrapper.getServerSideProps(
     store.dispatch(getUserNicknameActions.request(user_id));
 
     store.dispatch(
-      getCurrentChatUserListActions.request({
-        chattingRoomId: context.params.id as string,
+      getQuickChattingListActions.request({
+        userId: user_id,
       }),
     );
-
-    // store.dispatch(
-    //   getQuickChattingListActions.request({
-    //     userId: String(context.params.id),
-    //   }),
-    // );
 
     store.dispatch(END);
     await store.sagaTask.toPromise();
 
     return {
-      props: {
-        previousChatting: store.getState().chattingRoomState.chattingList,
-      },
+      props: {},
     };
   },
 );

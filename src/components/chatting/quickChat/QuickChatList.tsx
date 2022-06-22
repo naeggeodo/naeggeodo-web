@@ -1,41 +1,50 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { CompatClient } from '@stomp/stompjs';
 import { useSelector } from 'react-redux';
 import Image from 'next/image';
 
 import { useChat } from '../../../hooks/useChat';
-import { useSlideMessage } from '../../../hooks/useSlideMessage';
 import palette from '../../../styles/palette';
 import { RootState } from '../../../modules';
-import { QuickChattingListResponse } from '../../../modules/chatting/types';
 import { useRouter } from 'next/router';
 import { useSelectLoginStates } from '../../../hooks/select/useSelectLoginStates';
 import QuickChatListEditModal from './QuickChatListEditModal';
+import { QuickChattingListResponse } from '../../../modules/quick-chatting/types';
 
-const QuickChatList = ({ stompClient }: { stompClient: CompatClient }) => {
-  const target = useRef<HTMLDivElement>(null);
-  const slideBar = useRef<HTMLDivElement>(null);
+type StyledType = {
+  isActive: boolean;
+  length: number;
+};
 
+const QuickChatList = ({
+  stompClient,
+  isQuickChatOpen,
+}: {
+  stompClient: CompatClient;
+  isQuickChatOpen: boolean;
+}) => {
   const { onSendMessage } = useChat();
-  const { slideEvent, slideDown } = useSlideMessage();
   const router = useRouter();
 
   const { nickname } = useSelector(
     (state: RootState) => state.chattingRoomState,
   );
 
-  const quickChatList: QuickChattingListResponse = useSelector(
-    (state: RootState) => state.chattingRoomState.quickChatList,
+  const { quickChat }: QuickChattingListResponse = useSelector(
+    (state: RootState) => state.quickChatStates.quickChatResponse,
   );
   const { user_id } = useSelectLoginStates();
 
   const [isQuickChatEditModalOpen, setIsQuickChatEditModalOpen] =
     useState(false);
 
+  const [validQuickChat, setValidQuickChat] = useState([]);
+
   useEffect(() => {
-    slideEvent(slideBar, target);
-  }, []);
+    const validArr = quickChat.filter((v) => v.msg !== '');
+    setValidQuickChat(validArr);
+  }, [quickChat]);
 
   const sendMessage = (
     e: React.MouseEvent<HTMLParagraphElement, MouseEvent>,
@@ -50,28 +59,24 @@ const QuickChatList = ({ stompClient }: { stompClient: CompatClient }) => {
     };
 
     onSendMessage(stompClient, data);
-    slideDown(target);
   };
 
-  const openQuickChatEditModal = () => {
+  const openQuickChatEditModal = useCallback(() => {
     setIsQuickChatEditModalOpen(true);
-  };
+  }, [isQuickChatEditModalOpen]);
+
   return (
-    <Container ref={target}>
-      <Div ref={slideBar}>
-        <Image
-          src='/assets/images/slidedown.svg'
-          alt='icon'
-          width={36}
-          height={3}
-        />
-      </Div>
-      {quickChatList.quickChat &&
-        quickChatList.quickChat.map((quickChat) => (
-          <Item key={quickChat.idx} onClick={sendMessage}>
-            {quickChat.msg}
-          </Item>
-        ))}
+    <Container isActive={isQuickChatOpen} length={validQuickChat.length}>
+      {quickChat &&
+        quickChat.map(
+          (quickChat) =>
+            quickChat.msg !== '' && (
+              <Item key={quickChat.idx} onClick={sendMessage}>
+                {quickChat.msg}
+              </Item>
+            ),
+        )}
+
       <EditBtn onClick={openQuickChatEditModal}>
         <p>편집하기</p>
         <Image
@@ -81,36 +86,46 @@ const QuickChatList = ({ stompClient }: { stompClient: CompatClient }) => {
           height={20}
         />
       </EditBtn>
-      {isQuickChatEditModalOpen && <QuickChatListEditModal />}
+      {isQuickChatEditModalOpen && (
+        <QuickChatListEditModal
+          setIsQuickChatEditModalOpen={setIsQuickChatEditModalOpen}
+          isQuickChatEditModalOpen={isQuickChatEditModalOpen}
+        />
+      )}
     </Container>
   );
 };
 
-const Container = styled.div`
-  position: fixed;
-  bottom: 6%;
+const Container = styled.div<StyledType>`
+  position: absolute;
+  bottom: 50px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
   width: 100%;
-  background-color: #fff;
+  height: ${(props) =>
+    props.isActive
+      ? props.length > 0
+        ? `${65 * props.length}px`
+        : '60px'
+      : '0px'};
+
+  padding: 0 6% 0px;
+
+  transition: 0.3s;
 
   border-bottom: 1px solid ${palette.LineGray};
   border-radius: 20px 20px 0px 0px;
   overflow: hidden;
-  padding: 0 6% 14px;
 
-  touch-action: none;
+  background-color: #fff;
 
   & > img {
     display: block;
     margin: 0 auto;
   }
-`;
-
-const Div = styled.div`
-  padding: 10px 0 22px;
-
-  text-align: center;
-  cursor: grab;
-  touch-action: none;
 `;
 
 const Item = styled.p`

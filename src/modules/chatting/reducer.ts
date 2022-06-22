@@ -2,60 +2,63 @@ import {
   GET_CURRENT_CHATROOM_INFO_SUCCESS,
   GET_CURRENT_CHAT_USER_LIST_SUCCESS,
   GET_CHATTING_LIST_SUCCESS,
-  GET_QUICK_MESSAGE_LIST_SUCCESS,
   SET_CURRENT_CHATTING_LIST,
   GET_USER_NICKNAME_SUCCESS,
   CHANGE_CURRENT_COUNT_IN_CHATTING,
   SET_IMAGE_LIST_IN_CHATTING,
   setImageListInChatting,
   SET_PARTICIPATING_USERS,
-} from './actions';
+  SET_BAN_USER,
+} from "./actions";
 import {
   ChattingRoomInfoResponse,
   CurrentChatUserListResponse,
   ChattingListResponse,
-  QuickChattingListResponse,
-} from './types';
-import { createReducer } from 'typesafe-actions';
+  CurrentChatUser,
+} from "./types";
+import { createReducer } from "typesafe-actions";
 
 type ChattingRoomState = {
   chatRoomInfo: ChattingRoomInfoResponse | null;
   chattingList: ChattingListResponse;
-  quickChatList: QuickChattingListResponse;
   currentChatUserList: CurrentChatUserListResponse | null;
   nickname: string | null;
   imageList: string[];
+  banUser: CurrentChatUser | null;
 };
 
 const initialChattingRoomState: ChattingRoomState = {
   chatRoomInfo: {
-    address: '',
+    address: "",
     endDate: null,
-    buildingCode: '',
-    link: '',
-    orderTimeType: '',
-    title: '',
+    buildingCode: "",
+    link: "",
+    orderTimeType: "",
+    title: "",
     maxCount: 0,
     tags: [],
     bookmarks: null,
-    user_id: '',
-    imgPath: '',
+    user_id: "",
+    imgPath: "",
     currentCount: 0,
-    bookmarksDate: '',
+    bookmarksDate: "",
     id: 0,
     state: null,
-    place: '',
+    place: "",
     category: null,
-    createDate: '',
+    createDate: "",
   },
   chattingList: { messages: [] },
-  quickChatList: {
-    quickChat: [],
-    user_id: '',
-  },
+
   currentChatUserList: { users: [] },
   nickname: null,
   imageList: [],
+  banUser: {
+    user_id: "",
+    idx: null,
+    remittanceState: null,
+    nickname: "",
+  },
 };
 
 export const chattingRoomState = createReducer<ChattingRoomState>(
@@ -89,10 +92,7 @@ export const chattingRoomState = createReducer<ChattingRoomState>(
       ...state,
       chattingList: action.payload,
     }),
-    [GET_QUICK_MESSAGE_LIST_SUCCESS]: (state, action) => ({
-      ...state,
-      quickChatList: action.payload,
-    }),
+
     [GET_CURRENT_CHAT_USER_LIST_SUCCESS]: (state, action) => ({
       ...state,
       currentChatUserList: action.payload,
@@ -117,7 +117,7 @@ export const chattingRoomState = createReducer<ChattingRoomState>(
     }),
     [SET_IMAGE_LIST_IN_CHATTING]: (
       state,
-      action: ReturnType<typeof setImageListInChatting>,
+      action: ReturnType<typeof setImageListInChatting>
     ) => ({
       ...state,
       imageList: [...state.imageList, action.payload.image],
@@ -129,5 +129,15 @@ export const chattingRoomState = createReducer<ChattingRoomState>(
         users: action.payload,
       },
     }),
-  },
+    [SET_BAN_USER]: (state, action) => ({
+      ...state,
+      banUser: {
+        ...state.banUser,
+        user_id: action.payload.user_id,
+        idx: action.payload.idx,
+        remittanceState: action.payload.remittanceState,
+        nickname: action.payload.nickname,
+      },
+    }),
+  }
 );

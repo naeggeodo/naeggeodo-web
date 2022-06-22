@@ -6,14 +6,15 @@ import { axiosInstance } from '../service/api';
 import cookies from 'next-cookies';
 import { createCustomHeader } from '../utils/createCustomHeader';
 import AppLayout from '../components/common/AppLayout';
+import palette from '../styles/palette';
 
 const app = ({ Component, pageProps }) => {
   return (
     <AppLayout>
       <Head>
         <title>내꺼도 같이 시켜줘</title>
-        <link rel='icon' href='/assets/images/favicon.ico' />
-        <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+        <link rel="icon" href="/assets/images/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
       <GlobalStyle />
       <Component {...pageProps} />
@@ -21,8 +22,23 @@ const app = ({ Component, pageProps }) => {
   );
 };
 
+console.log(
+  `
+%c███╗   ██╗ █████╗ ███████╗ ██████╗  ██████╗ ███████╗ ██████╗ ██████╗  ██████╗ 
+%c████╗  ██║██╔══██╗██╔════╝██╔════╝ ██╔════╝ ██╔════╝██╔═══██╗██╔══██╗██╔═══██╗
+%c██╔██╗ ██║███████║█████╗  ██║  ███╗██║  ███╗█████╗  ██║   ██║██║  ██║██║   ██║
+%c██║╚██╗██║██╔══██║██╔══╝  ██║   ██║██║   ██║██╔══╝  ██║   ██║██║  ██║██║   ██║
+%c██║ ╚████║██║  ██║███████╗╚██████╔╝╚██████╔╝███████╗╚██████╔╝██████╔╝╚██████╔╝
+%c╚═╝  ╚═══╝╚═╝  ╚═╝╚══════╝ ╚═════╝  ╚═════╝ ╚══════╝ ╚═════╝ ╚═════╝  ╚═════╝`,
+  `color:${palette.kakaoYellow}`,
+  `color:${palette.lightOrange}`,
+  `color:${palette.mainOrange}`,
+  `color:${palette.lightOrange}`,
+  `color:${palette.naverGreen}`,
+);
+
 app.getInitialProps = wrapper.getInitialAppProps(
-  (store) => async (context: AppContext) => {
+  () => async (context: AppContext) => {
     const myAppInitialProps = App.getInitialProps(context);
 
     axiosInstance.interceptors.request.use(

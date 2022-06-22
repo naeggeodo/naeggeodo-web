@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Category } from '../../modules/common/types';
 import palette from '../../styles/palette';

@@ -1,4 +1,10 @@
-import React, { ChangeEvent, useCallback, useState } from 'react';
+import React, {
+  ChangeEvent,
+  useCallback,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import styled, { css } from 'styled-components';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -41,6 +47,7 @@ const CreateForm = () => {
   const { user_id, address, buildingCode } = useSelectLoginStates();
 
   const urlRegex = /(http(s)?:\/\/)([a-z0-9\w]+\.*)+[a-z0-9]{2,4}/gi;
+  const linkRef = useRef(null);
   const [isUrl, setIsUrl] = useState<boolean>(false);
   const [imgSrc, setImgSrc] = useState<string | ArrayBuffer>();
   const [imgFile, setImgFile] = useState<any>();
@@ -65,6 +72,14 @@ const CreateForm = () => {
     },
     [imgSrc, imgFile],
   );
+
+  useLayoutEffect(() => {
+    if (isUrl) {
+      linkRef.current.style = `display: flex; visibility: visible; opacity: 1;`;
+    } else if (!isUrl || link.length === 0) {
+      linkRef.current.style = ` visibility: hidden; opacity: 0;`;
+    }
+  }, [isUrl, link]);
 
   const createChatRoom = useCallback(async () => {
     const sendData = {
@@ -111,12 +126,13 @@ const CreateForm = () => {
       <div>
         <Content>
           <Item>
-            <FieldTitle title='채팅방 제목' />
+            <FieldTitle title="채팅방 제목" />
             <Input
-              type='text'
+              maxLength={40}
+              type="text"
               onChange={(e) => dispatchInputAction(e, 'title')}
               value={title}
-              placeholder='채팅방 제목을 입력해주세요.'
+              placeholder="채팅방 제목을 입력해주세요."
             />
           </Item>
           <SelectCategory onClick={openCategoryList}>
@@ -124,39 +140,42 @@ const CreateForm = () => {
               title={convertEngCategoryToKor(category) || '카테고리 선택'}
             />
             <Image
-              src='/assets/images/arrowrightdarkgray.svg'
+              src="/assets/images/arrowrightdarkgray.svg"
               width={17}
               height={16}></Image>
           </SelectCategory>
           <Item>
             <TitleText>수령장소</TitleText>
             <Input
-              type='text'
+              maxLength={40}
+              type="text"
               onChange={(e) => dispatchInputAction(e, 'place')}
               value={place}
-              placeholder='수령장소를 입력해주세요 (ex.105동 1층 경비실)'
+              placeholder="수령장소를 입력해주세요 (ex.105동 1층 경비실)"
             />
           </Item>
           <Item>
-            <TitleText>가게 링크</TitleText>
+            <TitleSubTitleWrapper>
+              <TitleText>배달앱 링크</TitleText>
+              <p>
+                (배달앱 링크를 넣으면 채팅방 유저들이 정보를 쉽게 볼 수
+                있습니다)
+              </p>
+            </TitleSubTitleWrapper>
             <InputWrapper>
               <Input
-                type='url'
-                placeholder='가게 링크를 입력해주세요'
+                maxLength={40}
+                type="url"
+                placeholder="가게 링크를 입력해주세요"
                 value={link}
                 onChange={(e) => {
                   setIsUrl(urlRegex.test(link));
                   dispatchInputAction(e, 'link');
                 }}
               />
-              <Link href={`${link}`} passHref>
-                <MoveLinkButton
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  isUrl={isUrl}>
-                  링크이동
-                </MoveLinkButton>
-              </Link>
+              <IsUrlCheck ref={linkRef} isUrl={isUrl}>
+                <Image src="/assets/images/check.svg" width={30} height={30} />
+              </IsUrlCheck>
             </InputWrapper>
           </Item>
           <Item>
@@ -166,9 +185,10 @@ const CreateForm = () => {
             </TagTitle>
             <form onSubmit={(e) => dispatchAddTag(e)}>
               <Input
+                maxLength={15}
                 value={tagText}
                 onChange={changeTagText}
-                placeholder='태그 작성 후 Enter를 입력하세요. (최대 5개)'
+                placeholder="태그 작성 후 엔터키를 입력하세요 (최대 5개, 글자수 제한 15자)"
               />
             </form>
             <TagContainer>
@@ -185,7 +205,7 @@ const CreateForm = () => {
 
           <ChatRoomContainer>
             <TitleWrapper>
-              <FieldTitle title='입장 인원' />
+              <FieldTitle title="입장 인원" />
               <Desc>(최대5명)</Desc>
             </TitleWrapper>
 
@@ -213,21 +233,25 @@ const CreateForm = () => {
           </ChatRoomContainer>
 
           <Item>
-            <TagTitle>
+            <TitleSubTitleWrapper>
               <TitleText>채팅방 이미지</TitleText>
-            </TagTitle>
+              <p>
+                (이미지를 삽입하지 않으면 카테고리에 따른 기본이미지가
+                보여집니다 😎)
+              </p>
+            </TitleSubTitleWrapper>
             <FileBox>
               <ImgBox>
                 {imgSrc && (
                   <Image src={imgSrc as string} width={70} height={70} />
                 )}
               </ImgBox>
-              <SearchFileButton htmlFor='file'>파일 찾기</SearchFileButton>
+              <SearchFileButton htmlFor="file">파일 찾기</SearchFileButton>
               <InputFile
                 onChange={uploadImg}
-                accept='image/*'
-                type='file'
-                id='file'
+                accept="image/*"
+                type="file"
+                id="file"
               />
             </FileBox>
           </Item>
@@ -287,6 +311,15 @@ const TitleWrapper = styled.div`
   gap: 4px;
 `;
 
+const TitleSubTitleWrapper = styled(TitleWrapper)`
+  gap: 10px;
+
+  & > p:nth-of-type(2) {
+    font-size: 0.75rem;
+    color: ${palette.DarkGray};
+  }
+`;
+
 const Input = styled.input`
   line-height: 16px;
   font-size: 0.9375rem;
@@ -294,6 +327,10 @@ const Input = styled.input`
   width: 80%;
   outline: none;
   border: none;
+
+  &::placeholder {
+    color: #b8b8b8;
+  }
 `;
 
 const InputWrapper = styled.div`
@@ -356,28 +393,11 @@ const PlusMinusButton = styled.button`
   cursor: pointer;
 `;
 
-const MoveLinkButton = styled.a<MoveLinkProps>`
-  all: unset;
+const IsUrlCheck = styled.div<MoveLinkProps>`
   display: flex;
   justify-content: center;
-  visibility: hidden;
-  opacity: 0;
   width: 63px;
-  padding: 4px 0;
-  font-weight: 500;
-  font-size: 0.75rem;
-  color: ${palette.mainOrange};
-  background-color: ${palette.LightGray};
-  border-radius: 5px;
-  cursor: pointer;
   transition: 1s;
-  ${(props) =>
-    props.isUrl &&
-    css`
-      display: flex;
-      visibility: visible;
-      opacity: 1;
-    `}
 `;
 
 const ButtonWrapper = styled.div`

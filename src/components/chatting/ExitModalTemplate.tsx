@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import Portal from '../common/Portal';
 import ExitModalBox from './ExitModalBox';
 
-const ExitModalTemplate = ({ exit }: { exit: any }) => {
+const ExitModalTemplate = ({ exit }: { exit: () => void }) => {
   return (
-    <Portal selector='loginPortal'>
+    <Portal selector="loginPortal">
       <Background>
         <ExitModalBox exit={exit} />
       </Background>

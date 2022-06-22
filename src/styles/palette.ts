@@ -8,6 +8,7 @@ export default {
   bgGray: '#f2f2f8',
   TextGray: '#C4C4C4',
   mainOrange: '#FF7B30',
+  lightOrange: '#ffb458',
   kakaoYellow: '#FFE812',
   naverGreen: '#03C75A',
 };

@@ -8,15 +8,13 @@ const QuickChatModalTemplate = ({
   children: JSX.Element | JSX.Element[];
 }) => {
   return (
-    <Portal selector='chattingPortal'>
+    <Portal selector='loginPortal'>
       <Background>
         <ModalContainer>{children}</ModalContainer>
       </Background>
     </Portal>
   );
 };
-
-export default QuickChatModalTemplate;
 
 const Background = styled.div`
   position: fixed;
@@ -48,3 +46,5 @@ const ModalContainer = styled.div`
   background: #fff;
   padding: 20px;
 `;
+
+export default QuickChatModalTemplate;

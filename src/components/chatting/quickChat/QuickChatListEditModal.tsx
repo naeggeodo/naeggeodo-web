@@ -1,64 +1,126 @@
-import React, { useCallback, useState } from 'react';
-import { useSelector } from 'react-redux';
+import Image from 'next/image';
+import React, { Dispatch, SetStateAction, useCallback, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { useSelectLoginStates } from '../../../hooks/select/useSelectLoginStates';
 import { RootState } from '../../../modules';
-import { QuickChattingListResponse } from '../../../modules/chatting/types';
+import { patchQuickChattingListActions } from '../../../modules/quick-chatting/actions';
+import { QuickChattingListResponse } from '../../../modules/quick-chatting/types';
 import palette from '../../../styles/palette';
 import QuickChatModalItem from './QuickChatModalItem';
 import QuickChatModalTemplate from './QuickChatModalTemplate';
 
-const QuickChatListEditModal = () => {
+const QuickChatListEditModal = ({
+  setIsQuickChatEditModalOpen,
+  isQuickChatEditModalOpen,
+}: {
+  setIsQuickChatEditModalOpen: Dispatch<SetStateAction<boolean>>;
+  isQuickChatEditModalOpen: boolean;
+}) => {
+  const dispatch = useDispatch();
+  const { user_id } = useSelectLoginStates();
+
   const [newChatValue, setNewChatValue] = useState('');
 
-  const quickChatList: QuickChattingListResponse = useSelector(
-    (state: RootState) => state.chattingRoomState.quickChatList,
+  const { quickChat }: QuickChattingListResponse = useSelector(
+    (state: RootState) => state.quickChatStates.quickChatResponse,
   );
 
   const onChangeInput = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setNewChatValue(e.target.value);
     },
-    [],
+    [newChatValue],
   );
 
-  const onAddChat = useCallback((e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!newChatValue) return;
-  }, []);
+  const onAddQuickChat = useCallback(
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      const validArr = [];
+      for (let i = 0; i < quickChat.length; i++) {
+        if (quickChat[i].msg) {
+          validArr.push(quickChat[i].msg);
+        }
+      }
+      if (validArr.length >= 5) return alert('개수를 초과하였습니다');
+      if (!newChatValue) return;
+
+      const newDataList = [...validArr, newChatValue];
+      for (let i = newDataList.length; i < 5; i++) {
+        newDataList.push('');
+      }
+
+      const patchBody = {
+        quickChat: newDataList,
+        user_id: user_id,
+      };
+
+      dispatch(patchQuickChattingListActions.request(patchBody));
+    },
+    [newChatValue, quickChat],
+  );
+
+  const onQuickChatModalClose = useCallback(() => {
+    setIsQuickChatEditModalOpen(false);
+  }, [isQuickChatEditModalOpen]);
 
   return (
     <QuickChatModalTemplate>
-      <Title>자주쓰는 문구</Title>
-      <Wrap>
-        {/* {quickChatList.quickChat.map((chatItem, i) => (
-          <QuickChatModalItem key={i} quickChat={chatItem} />
-        ))} */}
-        <QuickChatModalItem quickChat={{ idx: 1, msg: '교촌치킨 주세요' }} />
-      </Wrap>
-      <AddForm onSubmit={onAddChat}>
-        <AddInput
-          type='text'
-          placeholder='문구를 입력해주세요'
-          onChange={onChangeInput}
-          value={newChatValue}
-        />
-        <AddButton>추가하기</AddButton>
-      </AddForm>
+      <TitleContentWrapper>
+        <Header>
+          <Title>자주쓰는 문구</Title>
+          <CloseButton onClick={onQuickChatModalClose}>
+            <Image
+              src={'/assets/images/close.svg'}
+              width={20}
+              height={20}
+              alt="닫기버튼"
+            />
+          </CloseButton>
+        </Header>
+        <Wrap>
+          {quickChat.map((chatItem) => (
+            <QuickChatModalItem key={chatItem.idx} quickChat={chatItem} />
+          ))}
+        </Wrap>
+        <AddForm onSubmit={onAddQuickChat}>
+          <AddInput
+            type="text"
+            placeholder="문구를 입력해주세요"
+            onChange={onChangeInput}
+            value={newChatValue}
+          />
+          <AddButton>추가하기</AddButton>
+        </AddForm>
+      </TitleContentWrapper>
     </QuickChatModalTemplate>
   );
 };
 
-export default QuickChatListEditModal;
+const TitleContentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+`;
 
 const Wrap = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  padding: 20px 0;
+  gap: 22px;
 `;
 
+const Header = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`;
 const Title = styled.h3`
+  font-family: 'SpoqaBold';
   color: ${palette.mainOrange};
+`;
+
+const CloseButton = styled.button`
+  all: unset;
 `;
 
 const AddForm = styled.form`
@@ -71,12 +133,10 @@ const AddForm = styled.form`
 `;
 
 const AddInput = styled.input`
-  width: 100%;
+  min-width: 80%;
 
   outline: none;
   border: none;
-
-  border: 1px solid red;
 `;
 
 const AddButton = styled.button`
@@ -88,3 +148,5 @@ const AddButton = styled.button`
   font-size: 0.9375rem;
   padding: 0 10px;
 `;
+
+export default QuickChatListEditModal;

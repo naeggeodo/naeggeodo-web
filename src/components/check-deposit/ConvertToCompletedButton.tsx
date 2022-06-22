@@ -5,8 +5,8 @@ import styled from 'styled-components';
 
 import palette from '../../styles/palette';
 import { RootState } from '../../modules';
-import axios from 'axios';
 import { useSelectLoginStates } from '../../hooks/select/useSelectLoginStates';
+import CheckDepositService from '../../service/api/check-deposit/CheckDepositService';
 
 const ConvertToCompletedButton = () => {
   const router = useRouter();
@@ -22,23 +22,11 @@ const ConvertToCompletedButton = () => {
 
   const handleCompleted = useCallback(async () => {
     setIsCompleted(true);
-    await axios.patch(
-      `${process.env.NEXT_PUBLIC_API_URL}/chat-rooms/${router.query.id}`,
-      {},
-      {
-        params: {
-          state: 'END',
-        },
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      },
-    );
-    // CheckDepositService.asyncConvertToComplete(router.query.id as string);
+    CheckDepositService.asyncConvertToComplete(router.query.id as string);
   }, [isCompleted, accessToken]);
 
   return !isCompleted ? (
-    <Button onPointerDown={handleCompleted}>완료된 거래로 전환하기</Button>
+    <Button onPointerDown={handleCompleted}>채팅방 종료하기</Button>
   ) : (
     <CompletedButton>거래가 완료되었습니다.</CompletedButton>
   );

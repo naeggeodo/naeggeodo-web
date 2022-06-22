@@ -32,14 +32,12 @@ const MyChatItem = ({
       {message.contents.includes('data:image/') ? (
         <StyledImg
           src={message.contents}
-          alt='채팅 이미지'
-          width={150}
-          height={150}
+          alt="채팅 이미지"
+          width={250}
+          height={250}
         />
       ) : (
-        <Content>
-          {message.type === 'CNT' ? <p>{message.user_id}</p> : message.contents}
-        </Content>
+        <Content>{message.contents}</Content>
       )}
     </Container>
   );
@@ -53,8 +51,6 @@ const Container = styled.div`
   align-items: flex-end;
   gap: 5px;
   flex-wrap: wrap;
-
-  margin-right: 10px;
 `;
 
 const Time = styled.p`
@@ -67,10 +63,8 @@ const Time = styled.p`
 `;
 
 const Content = styled.p`
-  max-width: 70%;
-
-  display: flex;
-  flex-wrap: wrap;
+  word-break: break-all;
+  max-width: 60%;
 
   padding: 6px 10px;
 

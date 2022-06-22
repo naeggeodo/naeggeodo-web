@@ -1,5 +1,3 @@
-import { useRouter } from 'next/router';
-import { useCallback } from 'react';
 import styled from 'styled-components';
 import { useCustomRouter } from '../../hooks/utils/useCustomRouter';
 import { useLoadLib } from '../../hooks/utils/useLoadLib';
@@ -20,8 +18,8 @@ const Button = styled.button`
   padding: 13px;
   margin-bottom: 0px;
 
-  background-color: #fff;
   color: ${palette.mainOrange};
+  background-color: #fff;
 
   font-size: 1.0625rem;
 

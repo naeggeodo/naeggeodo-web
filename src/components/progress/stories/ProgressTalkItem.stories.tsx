@@ -11,9 +11,7 @@ export default {
       <Provider store={configureStore()}>
         <div
           style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
+            backgroundColor: '#fff',
             height: '100vh',
             width: '100vw',
           }}>
@@ -32,7 +30,7 @@ export const ProgressTalkItemStory = Template.bind({});
 
 ProgressTalkItemStory.args = {
   id: 0,
-  imgPath: '/assets/images/hamburger.svg',
+  imgPath: '/assets/images/heart.svg',
   index: 1,
   title: '교촌먹을분',
   latestMessage: '교촌주세요',

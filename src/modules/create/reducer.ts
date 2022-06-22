@@ -37,7 +37,7 @@ const initialCreateStates: CreateStates = {
   createData: {
     buildingCode: '',
     category: null,
-    link: 'http://',
+    link: '',
     place: '',
     title: '',
     user_id: '',

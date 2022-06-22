@@ -3,15 +3,15 @@ import { Provider } from 'react-redux';
 import { configureStore } from '../../../modules';
 import PrevCreatedList from '../PrevCreatedList';
 
-//TODO
-
 export default {
   title: 'create/컴포넌트',
   component: PrevCreatedList,
   decorators: [
     (Story) => (
       <Provider store={configureStore()}>
-        <Story />
+        <div style={{ height: '100vh', backgroundColor: '#fff' }}>
+          <Story />
+        </div>
       </Provider>
     ),
   ],

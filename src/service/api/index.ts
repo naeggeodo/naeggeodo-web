@@ -5,10 +5,12 @@ import { createCustomHeader } from '../../utils/createCustomHeader';
 
 export const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
+  withCredentials: true,
 });
 
 export const csrAxiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
+  withCredentials: true,
 });
 
 // ** CSR 전용 API 서비스 코드
@@ -26,7 +28,13 @@ export class CsrApiService {
     return csrAxiosInstance.patch(uri, data);
   }
   static patchParamsApi(uri: string, data: unknown) {
-    return axiosInstance.patch(uri, {}, { params: data });
+    return csrAxiosInstance.patch(uri, {}, { params: data });
+  }
+  static deleteApi(uri: string) {
+    return csrAxiosInstance.delete(uri);
+  }
+  static getParamsApi(uri: string, data: unknown) {
+    return csrAxiosInstance.get(uri, { params: data });
   }
 }
 

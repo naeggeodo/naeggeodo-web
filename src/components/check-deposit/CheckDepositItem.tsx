@@ -16,6 +16,7 @@ const CheckDepositItem = ({ user }: { user: CurrentChatUser }) => {
           width={52}
           height={52}
           objectFit='contain'
+          alt='유저 프로필 사진'
         />
       </ImageWrapper>
       <NickNameWrapper>{user.nickname}</NickNameWrapper>

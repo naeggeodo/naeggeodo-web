@@ -23,64 +23,64 @@ const ChatItem = ({
   );
 
   return (
-    <>
-      <Nickname>{message.nickname}</Nickname>
-      <Container>
-        <StyledImage
-          src='/assets/images/hamburger.svg'
-          width={35}
-          height={35}
-          layout='fixed'
+    <Container>
+      <FlexRow>
+        <Image
+          src="/assets/images/avatar.svg"
+          width={45}
+          height={45}
+          alt="유저 프로필 사진"
         />
-        {message.contents?.includes('data:image/') ? (
-          <StyledImg
-            src={message.contents}
-            alt='채팅 이미지'
-            width={150}
-            height={150}
-          />
-        ) : (
-          <Content>
-            <div>{message.contents}</div>
-          </Content>
-        )}
-        <Time>
-          {today === chatDate.date ? null : (
-            <span>{chatDate.formatDate()}</span>
-          )}
-          <span>{chatDate.formatTime()}</span>
-        </Time>
-      </Container>
-    </>
+        <FlexColumn>
+          <p>{message.nickname}</p>
+          <TextRow>
+            {message.contents?.includes('data:image/') ? (
+              <Image
+                src={message.contents}
+                alt="채팅 이미지"
+                width={250}
+                height={350}
+              />
+            ) : (
+              <Content>{message.contents}</Content>
+            )}
+            <Time>
+              {today === chatDate.date ? null : (
+                <span>{chatDate.formatDate()}</span>
+              )}
+              <span>{chatDate.formatTime()}</span>
+            </Time>
+          </TextRow>
+        </FlexColumn>
+      </FlexRow>
+    </Container>
   );
 };
 
 const Container = styled.div`
+  width: 100%;
+`;
+const FlexRow = styled.div`
+  display: flex;
+  align-items: flex-start;
+
+  gap: 5px;
+`;
+const FlexColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 4px;
+`;
+
+const TextRow = styled.div`
   display: flex;
   align-items: flex-end;
   gap: 5px;
-  flex-wrap: wrap;
-
-  width: 100%;
-
-  margin-left: 10px;
-`;
-
-const StyledImage = styled(Image)`
-  background-color: ${palette.DarkGray};
-  border-radius: 10px 10px 0px 10px;
-  object-fit: cover;
-`;
-
-const Nickname = styled.p`
-  margin-left: 10px;
-  font-size: 0.8125rem;
 `;
 
 const Content = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-
+  max-width: 50%;
   padding: 6px 10px;
 
   font-size: 0.9375rem;
@@ -88,22 +88,12 @@ const Content = styled.div`
 
   color: ${palette.black};
   background-color: #fff;
-  border-radius: 10px 10px 10px 0px;
+  border-radius: 0 10px 10px 10px;
 `;
 
 const Time = styled.p`
-  display: flex;
-  align-items: center;
-  gap: 4px;
-
   color: ${palette.DarkGray};
   font-size: 0.75rem;
-`;
-
-const StyledImg = styled(Image)`
-  border-radius: 10px;
-  border: 1px solid red;
-  overflow: hidden;
 `;
 
 export default ChatItem;

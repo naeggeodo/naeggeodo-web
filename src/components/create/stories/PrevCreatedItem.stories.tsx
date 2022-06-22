@@ -14,14 +14,7 @@ export default {
   decorators: [
     (Story) => (
       <Provider store={configureStore()}>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            width: '100vw',
-            height: '100vh',
-          }}>
+        <div style={{ backgroundColor: 'gray', height: '100vh' }}>
           <Story />
         </div>
       </Provider>
@@ -48,7 +41,7 @@ PrevCreatedItemStory.args = {
     bookmarksDate: '',
     id: 1,
     state: 'PROGRESS',
-    imgPath: '/assets/images/hamburger.svg',
+    imgPath: '/assets/images/heart.svg',
     place: '메세나폴리스',
     endData: '2022-05-13T15:52:52',
     category: '양식',

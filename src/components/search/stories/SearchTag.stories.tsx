@@ -9,7 +9,9 @@ export default {
   decorators: [
     (Story) => (
       <Provider store={configureStore()}>
-        <Story />
+        <div style={{ display: 'flex', gap: '10px' }}>
+          <Story />
+        </div>
       </Provider>
     ),
   ],
@@ -22,16 +24,16 @@ export const SearchTags = () => {
   return (
     <>
       <SearchTag
-        selected='피자'
-        dataValue='피자'
+        selected="피자"
+        dataValue="피자"
         handleClick={() => {
           console.log('pizza');
         }}>
         피자
       </SearchTag>
       <SearchTag
-        selected='치킨'
-        dataValue='치킨'
+        selected="치킨"
+        dataValue="치킨"
         handleClick={() => {
           console.log('pizza');
         }}>
@@ -39,16 +41,16 @@ export const SearchTags = () => {
       </SearchTag>
 
       <SearchTag
-        selected='버거'
-        dataValue='스크류바'
+        selected="버거"
+        dataValue="스크류바"
         handleClick={() => {
           console.log('pizza');
         }}>
         햄버거
       </SearchTag>
       <SearchTag
-        selected='콤보'
-        dataValue='스크류바'
+        selected="콤보"
+        dataValue="스크류바"
         handleClick={() => {
           console.log('pizza');
         }}>

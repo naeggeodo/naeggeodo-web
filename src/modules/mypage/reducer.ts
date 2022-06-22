@@ -1,6 +1,7 @@
 import { createReducer } from 'typesafe-actions';
 import {
   GET_USER_INFO_IN_MYPAGE_SUCCESS,
+  SET_MODAL_ANIMATION_START,
   SET_REPORT_CONFIRM_MODAL,
   SET_REPORT_MODAL,
   SUBMIT_REPORT_SUCCESS,
@@ -13,6 +14,7 @@ interface MyPageState {
   reportModal: string;
   reportConfirmModal: string;
   reportInfo: ReportRequestBody | null;
+  isModalAnimationStart: boolean;
 }
 
 const initialState: MyPageState = {
@@ -24,6 +26,7 @@ const initialState: MyPageState = {
   reportModal: '',
   reportConfirmModal: '',
   reportInfo: null,
+  isModalAnimationStart: false,
 };
 
 export const myPageState = createReducer<MyPageState>(initialState, {
@@ -47,5 +50,9 @@ export const myPageState = createReducer<MyPageState>(initialState, {
   [SUBMIT_REPORT_SUCCESS]: (state, action) => ({
     ...state,
     reportInfo: action.payload,
+  }),
+  [SET_MODAL_ANIMATION_START]: (state, action) => ({
+    ...state,
+    isModalAnimationStart: action.payload,
   }),
 });

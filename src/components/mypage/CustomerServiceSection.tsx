@@ -22,13 +22,13 @@ const CustomerServiceSection = () => {
       <SectionTitle>고객센터</SectionTitle>
       <Link
         passHref
-        href='https://fog-cowl-888.notion.site/63ad9843bb874e5797cff765419f47d7'>
-        <StyledLink rel='noreferrer noopener' target='_blank'>
+        href="https://fog-cowl-888.notion.site/63ad9843bb874e5797cff765419f47d7">
+        <StyledLink rel="noreferrer noopener" target="_blank">
           <Image
-            src='/assets/images/doc.svg'
+            src="/assets/images/doc.svg"
             width={17}
             height={20}
-            alt='메뉴 아이콘'
+            alt="메뉴 아이콘"
           />
           <span>공지사항</span>
         </StyledLink>
@@ -36,19 +36,19 @@ const CustomerServiceSection = () => {
 
       <MenuItem onClick={openFeedbackPopup}>
         <Image
-          src='/assets/images/message.svg'
+          src="/assets/images/message.svg"
           width={20}
           height={20}
-          alt='메뉴 아이콘'
+          alt="메뉴 아이콘"
         />
         건의하기
       </MenuItem>
       <MenuItem onClick={openComplainPopup}>
         <Image
-          src='/assets/images/caution.svg'
+          src="/assets/images/caution.svg"
           width={19}
           height={20}
-          alt='메뉴 아이콘'
+          alt="메뉴 아이콘"
         />
         신고하기
       </MenuItem>

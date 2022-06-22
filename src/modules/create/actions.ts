@@ -92,6 +92,14 @@ export const COPY_PREV_CHATROOM_DATA_FAILURE =
 export const SELECT_COPY_PREV_CHATROOM_DATA =
   namespace + 'SELECT_COPY_PREV_CHATROOM_DATA';
 
+// ? 이전생성내역 삭제하기
+export const DELETE_PREV_CREATED_CHATROOM_REQUEST =
+  namespace + 'DELETE_PREV_CREATED_CHATROOM_REQUEST';
+export const DELETE_PREV_CREATED_CHATROOM_SUCCESS =
+  namespace + 'DELETE_PREV_CREATED_CHATROOM_SUCCESS';
+export const DELETE_PREV_CREATED_CHATROOM_FAILURE =
+  namespace + 'DELETE_PREV_CREATED_CHATROOM_FAILURE';
+
 export const getPrevCreatedListActions = createAsyncAction(
   GET_PREV_CREATED_LIST_REQUEST,
   GET_PREV_CREATED_LIST_SUCCESS,
@@ -124,3 +132,9 @@ export const patchPrevChatRoomBookMarkActions = createAsyncAction(
   PATCH_PREV_CHATROOM_BOOKMARK_SUCCESS,
   PATCH_PREV_CHATROOM_BOOKMARK_FAILURE,
 )<PrevChatRoomBookMarkRequestParams, PatchBookMarkResponse, AxiosError>();
+
+export const deletePrevChatRoomActions = createAsyncAction(
+  DELETE_PREV_CREATED_CHATROOM_REQUEST,
+  DELETE_PREV_CREATED_CHATROOM_SUCCESS,
+  DELETE_PREV_CREATED_CHATROOM_FAILURE,
+)<PrevChatRoomBookMarkRequestParams, void, AxiosError>();

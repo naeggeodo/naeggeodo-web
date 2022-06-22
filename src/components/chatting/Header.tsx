@@ -1,12 +1,12 @@
-import React, { useCallback } from 'react';
-import Image from 'next/image';
-import styled, { css } from 'styled-components';
-import palette from '../../styles/palette';
-import Link from 'next/link';
-import { useCustomRouter } from '../../hooks/utils/useCustomRouter';
+import React, { useCallback } from "react";
+import Image from "next/image";
+import styled, { css } from "styled-components";
+import palette from "../../styles/palette";
+import Link from "next/link";
+import { useCustomRouter } from "../../hooks/utils/useCustomRouter";
 
 type StyledType = {
-  name: 'title' | 'info';
+  name: "title" | "info";
 };
 type StyledProps = {
   max: string;
@@ -40,24 +40,27 @@ const Header = ({
   return (
     <Container>
       <ContentWrap>
-        <PrevButton onClick={routeBack}>
+        <PrevButton onClick={routeBack} title="뒤로가기 버튼">
           <Image
-            src='/assets/images/prevbtn.svg'
-            alt='prev button'
+            src="/assets/images/prevbtn.svg"
+            alt="뒤로가기 버튼"
             width={14}
             height={24}
           />
         </PrevButton>
-        <StyledImage
-          src={imgPath ? imgPath : '/assets/images/hamburger.svg'}
-          width={44}
-          height={44}
-        />
-        <Link href={link || 'http://naeggeodo.com'} passHref>
-          <LinkWrapper target='_blank' rel='noopener noreferrer'>
-            <Info name='title'>{title}</Info>
-            <Info name='info'>
-              <StyledCurrent max={currentCount === maxCount ? 'true' : 'false'}>
+        {imgPath && (
+          <StyledImage
+            src={imgPath}
+            width={38}
+            height={38}
+            alt="채팅방 이미지"
+          />
+        )}
+        <Link href={link || "http://naeggeodo.com"} passHref>
+          <LinkWrapper target="_blank" rel="noopener noreferrer">
+            <Info name="title">{title}</Info>
+            <Info name="info">
+              <StyledCurrent max={currentCount === maxCount ? "true" : "false"}>
                 현재 {currentCount}명
               </StyledCurrent>
               /{maxCount}명
@@ -66,10 +69,10 @@ const Header = ({
         </Link>
         <HambergurButton onClick={openDrawer}>
           <Image
-            src='/assets/images/hambergurbar.svg'
+            src="/assets/images/hamburgerbar.svg"
             width={22}
             height={22}
-            alt='햄버거 바'
+            alt="메뉴 바"
           />
         </HambergurButton>
       </ContentWrap>
@@ -108,9 +111,7 @@ const PrevButton = styled.button`
 
 const StyledImage = styled(Image)`
   display: inline-block;
-
   border-radius: 10px;
-  background-color: #fff;
 `;
 
 const LinkWrapper = styled.a`
@@ -126,13 +127,13 @@ const Info = styled.p<StyledType>`
   line-height: 20px;
 
   ${(props) =>
-    props.name === 'title' &&
+    props.name === "title" &&
     css`
       font-size: 0.9375rem;
     `}
 
   ${(props) =>
-    props.name === 'info' &&
+    props.name === "info" &&
     css`
       font-size: 0.75rem;
     `}
@@ -154,7 +155,7 @@ const StyledCurrent = styled.span<StyledProps>`
   color: ${palette.naverGreen};
 
   ${(props) =>
-    props.max === 'true' &&
+    props.max === "true" &&
     css`
       color: red;
     `}

@@ -12,6 +12,12 @@ export class CreateService {
     });
   }
 
+  static async asyncCsrGetPrevCreatedList(userId: string) {
+    return CsrApiService.getParamsApi(`/chat-rooms/order-list/${userId}`, {
+      state: 'END',
+    });
+  }
+
   static async asyncCopyPrevCreatedData(
     chatMain_id: number,
     orderTimeType: OrderTimeType | '',
@@ -32,5 +38,9 @@ export class CreateService {
       `/chat-rooms/${chatMainId}/bookmarks/${userId}`,
       null,
     );
+  }
+
+  static async asyncDeletePrevCreatedChatRoom(chatMainId: number) {
+    return CsrApiService.deleteApi(`/chat-rooms/${chatMainId}`);
   }
 }

@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import { ChattingListItem } from '../../modules/chatting/types';
+import React from "react";
+import styled from "styled-components";
+import { ChattingListItem } from "../../modules/chatting/types";
 
 const WelcomeMessage = ({ message }: { message: ChattingListItem }) => {
   return (

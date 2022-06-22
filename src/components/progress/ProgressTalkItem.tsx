@@ -1,11 +1,9 @@
-import Image from 'next/image';
-import { useRouter } from 'next/router';
-import { MouseEvent, useCallback } from 'react';
-import styled from 'styled-components';
-import { useProgress } from '../../hooks/progress/useProgress';
-import { useCustomRouter } from '../../hooks/utils/useCustomRouter';
+import Image from "next/image";
+import styled from "styled-components";
+import { useProgress } from "../../hooks/progress/useProgress";
+import { useCustomRouter } from "../../hooks/utils/useCustomRouter";
 
-import palette from '../../styles/palette';
+import palette from "../../styles/palette";
 
 interface Props {
   id: string;
@@ -40,22 +38,25 @@ const ProgressTalkItem = ({
     <Container
       data-value={id}
       key={String(id)}
-      onClick={elementId !== id ? shiftPage : null}>
+      onClick={elementId !== id ? shiftPage : null}
+    >
       <ImageContainer>
         <Image
-          style={{ borderRadius: '10px' }}
-          src={imgPath ? imgPath : '/assets/images/hamburger.svg'}
+          style={{ borderRadius: "10px" }}
+          src={imgPath}
           height={60}
           width={60}
+          alt="채팅방 이미지"
         />
       </ImageContainer>
 
       <TextContainer>
-        <TimeTitleWrapper className='target'>
+        <TimeTitleWrapper className="target">
           <form onSubmit={onSaveTitle}>
             <input
               onChange={onChangeTitle}
-              type='text'
+              type="text"
+              name="title"
               value={chatTitle}
               disabled
               ref={(el) => (inputRefs.current[index] = el)}
@@ -65,17 +66,21 @@ const ProgressTalkItem = ({
           <ModifyButton onClick={handleModifyButtonClick} data-id={String(id)}>
             {user_id === myId && elementId !== id ? (
               <Image
-                src='/assets/images/pencilicon.svg'
+                src="/assets/images/pencilicon.svg"
                 width={26}
-                height={26}></Image>
+                height={26}
+                alt="제목수정 아이콘"
+              />
             ) : null}
           </ModifyButton>
           {elementId === id && (
             <ConfirmButton onClick={onSaveTitle}>
               <Image
-                src='/assets/images/check.svg'
+                src="/assets/images/check.svg"
                 width={26}
-                height={26}></Image>
+                height={26}
+                alt="체크 아이콘"
+              />
             </ConfirmButton>
           )}
         </TimeTitleWrapper>
@@ -104,6 +109,7 @@ const Container = styled.li`
 `;
 
 const ImageContainer = styled.div`
+  min-width: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -138,10 +144,10 @@ const TimeTitleWrapper = styled.div`
   form > input:first-child {
     width: 100%;
 
-    font-family: 'SpoqaBold';
+    font-family: "SpoqaBold";
     font-size: 0.9375rem;
-    color: #000000;
-    background-color: #ffb458;
+    color: ${palette.black};
+    background-color: ${palette.lightOrange};
     color: #fff;
     padding: 10px 5px;
     border-radius: 5px;
@@ -150,7 +156,7 @@ const TimeTitleWrapper = styled.div`
     cursor: pointer;
 
     &:disabled {
-      color: #000000;
+      color: ${palette.black};
       background-color: transparent;
     }
   }
@@ -169,12 +175,17 @@ const Contents = styled.div`
 
   // ** 마지막 채팅 내용 **
   & > p {
+    width: 75%;
     padding: 0 5px;
     font-size: 0.875rem;
     line-height: 150%;
     cursor: pointer;
 
     color: ${palette.DarkGray};
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 `;
 

@@ -11,9 +11,8 @@ export default {
     (Story) => (
       <div
         style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
+          padding: '10px',
+          backgroundColor: '#fff',
           width: '100vw',
           height: '100vh',
         }}>
@@ -28,7 +27,7 @@ const Template = (args) => <FieldTitle {...args} />;
 export const FieldTitleStory = Template.bind({});
 
 FieldTitleStory.args = {
-  title: '안녕',
+  title: '카테고리',
 };
 
 FieldTitleStory.storyName = '내꺼톡 생성폼 필드';

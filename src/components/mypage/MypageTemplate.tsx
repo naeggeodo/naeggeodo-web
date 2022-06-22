@@ -1,7 +1,11 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { RootState } from '../../modules';
+import {
+  closeReportConfirmModalActions,
+  setReportModal,
+} from '../../modules/mypage/actions';
 import palette from '../../styles/palette';
 import LoginModal from '../login/LoginModalTemplate';
 import TabMenu from '../main/TabMenu';
@@ -9,13 +13,16 @@ import CustomerServiceSection from './CustomerServiceSection';
 import MypageUserInfo from './MypageUserInfo';
 import ComplainForm from './report/ComplainForm';
 import CompleteAlertModal from './report/CompleteAlertModal';
+import ConfirmModal from './report/ConfirmModal';
 import FeedbackForm from './report/FeedbackForm';
 import Terms from './Terms';
+import UserManagement from './UserManagement';
 
 // ? 더보기 페이지 (마이페이지)
 // ? url : /mypage
 
 const MypageTemplate = () => {
+  const dispatch = useDispatch();
   const { reportModal, reportConfirmModal } = useSelector(
     (state: RootState) => state.myPageState,
   );
@@ -23,6 +30,11 @@ const MypageTemplate = () => {
   const loginModalIsClicked = useSelector(
     (state: RootState) => state.modalStates.loginModalIsClicked,
   );
+
+  const onAllModalClose = () => {
+    dispatch(setReportModal(''));
+    dispatch(closeReportConfirmModalActions.request());
+  };
 
   return (
     <React.Fragment>
@@ -33,12 +45,18 @@ const MypageTemplate = () => {
         <CustomerServiceSection />
 
         <Terms />
+
+        <UserManagement />
       </Container>
 
       {loginModalIsClicked && <LoginModal />}
       {reportModal === 'feedback' && <FeedbackForm />}
       {reportModal === 'complain' && <ComplainForm />}
       {reportConfirmModal === 'alert' && <CompleteAlertModal />}
+      {reportConfirmModal === 'cancel' && (
+        <ConfirmModal onAgree={onAllModalClose} />
+      )}
+
       <TabMenu />
     </React.Fragment>
   );
