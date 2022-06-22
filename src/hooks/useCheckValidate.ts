@@ -1,28 +1,28 @@
-import { useCallback } from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '../modules';
-import { CategoriesResponse } from '../modules/common/types';
+import { useCallback } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../modules";
+import { CategoriesResponse } from "../modules/common/types";
 import {
   closeSearchPostCode,
   openLoginModal,
   openSearchPostCode,
-} from '../modules/modal/actions';
-import { useSelectLoginStates } from './select/useSelectLoginStates';
-import { useLoadLib } from './utils/useLoadLib';
+} from "../modules/modal/actions";
+import { useSelectLoginStates } from "./select/useSelectLoginStates";
+import { useLoadLib } from "./utils/useLoadLib";
 
 export function useCheckValidate() {
   const { dispatch, router } = useLoadLib();
 
   const { accessToken } = useSelectLoginStates();
   const buildingCode = useSelector(
-    (state: RootState) => state.postCodeState.buildingCode,
+    (state: RootState) => state.postCodeState.buildingCode
   );
 
   const checkTokenAndRedirection = useCallback(() => {
     if (!accessToken) {
       dispatch(openLoginModal());
     } else {
-      router.replace('/create');
+      router.replace("/create");
     }
   }, [dispatch]);
 
@@ -40,16 +40,16 @@ export function useCheckValidate() {
     (_, item: CategoriesResponse) => {
       if (!accessToken) {
         dispatch(openLoginModal());
-      } else if (item.category === 'ALL') {
+      } else if (item.category === "ALL") {
         router.push({
-          pathname: '/chat-rooms',
+          pathname: "/chat-rooms",
           query: {
             buildingCode: buildingCode,
           },
         });
       } else {
         router.push({
-          pathname: '/chat-rooms',
+          pathname: "/chat-rooms",
           query: {
             buildingCode: buildingCode,
             category: item.category.toLowerCase(),
@@ -57,7 +57,7 @@ export function useCheckValidate() {
         });
       }
     },
-    [dispatch, router, accessToken, buildingCode],
+    [dispatch, router, accessToken, buildingCode]
   );
 
   return {

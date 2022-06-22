@@ -10,8 +10,10 @@ import { convertEngCategoryToKor } from "../../utils/converEngCategoryToKor";
 
 const CategoryMenuSlide = ({
   foodCategories,
+  openAddressAlertModal,
 }: {
   foodCategories: CategoriesResponse[];
+  openAddressAlertModal: () => void;
 }) => {
   const { router, routeToCategory } = useCheckValidate();
   const { slideRef } = useSlideTransform();
@@ -28,7 +30,9 @@ const CategoryMenuSlide = ({
             <LinkButton
               key={item.category}
               onClick={(e) => {
-                if (!buildingCode || !address) return;
+                if (!buildingCode || !address) {
+                  return openAddressAlertModal();
+                }
                 routeToCategory(e, item);
               }}
               style={{

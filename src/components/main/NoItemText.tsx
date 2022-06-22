@@ -1,19 +1,33 @@
-import React from 'react';
-import styled from 'styled-components';
-import palette from '../../styles/palette';
+import React, { useCallback } from "react";
+import styled from "styled-components";
+import { useSelectLoginStates } from "../../hooks/select/useSelectLoginStates";
+import palette from "../../styles/palette";
 
 const NoItemText = ({
   checkTokenAndRedirection,
+  openAddressAlertModal,
+  isAddressModalOpen,
 }: {
   checkTokenAndRedirection: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  openAddressAlertModal: () => void;
+  isAddressModalOpen: boolean;
 }) => {
+  const { address, buildingCode } = useSelectLoginStates();
+
+  const onDirection = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      if (!address || !buildingCode) {
+        return openAddressAlertModal();
+      }
+      checkTokenAndRedirection(e);
+    },
+    [address, buildingCode, isAddressModalOpen]
+  );
   return (
     <Container>
       <CreateButtonContainer>
         <Text>채팅방이 없어요 먼저 만들어보세요 🍟</Text>
-        <CreateButton onClick={checkTokenAndRedirection}>
-          채팅방 생성하러가기
-        </CreateButton>
+        <CreateButton onClick={onDirection}>채팅방 생성하러가기</CreateButton>
       </CreateButtonContainer>
     </Container>
   );

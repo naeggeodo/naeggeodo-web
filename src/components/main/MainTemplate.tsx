@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 
 import CategoryMenuSlide from "./CategoryMenuSlide";
@@ -16,6 +16,7 @@ import { useLoadLib } from "../../hooks/utils/useLoadLib";
 import { useSelectLoginStates } from "../../hooks/select/useSelectLoginStates";
 import ChatRoomList from "./ChatRoomList";
 import { CategoriesResponse } from "../../modules/common/types";
+import AddressModalTemplate from "./AddressModalTemplate";
 
 const MainTemplate = ({
   foodCategories,
@@ -39,24 +40,46 @@ const MainTemplate = ({
     (state: RootState) => state.modalStates.searchPostCodeIsOpen
   );
 
+  const [isAddressModalOpen, setIsAddressModalOpen] = useState(false);
+
   useEffect(() => {
     if (accessToken) {
       dispatch(getBuildingCodeRequest(user_id));
     }
   }, [dispatch, user_id, accessToken, router]);
 
+  const closeAddressAlertModal = useCallback(() => {
+    setIsAddressModalOpen(false);
+  }, [isAddressModalOpen]);
+
+  const openAddressAlertModal = useCallback(() => {
+    setIsAddressModalOpen(true);
+  }, [isAddressModalOpen]);
+
   return (
     <Container>
       <SearchPostCode openWebView={openWebView} />
-      <CategoryMenuSlide foodCategories={foodCategories} />
+      <CategoryMenuSlide
+        foodCategories={foodCategories}
+        openAddressAlertModal={openAddressAlertModal}
+      />
       {chatRooms.length <= 0 ? (
-        <NoItemText checkTokenAndRedirection={checkTokenAndRedirection} />
+        <NoItemText
+          checkTokenAndRedirection={checkTokenAndRedirection}
+          openAddressAlertModal={openAddressAlertModal}
+          isAddressModalOpen={isAddressModalOpen}
+        />
       ) : (
         <ChatRoomList />
       )}
       {loginModalIsClicked && <LoginModal />}
       {searchPostCodeIsOpen && <PostCodeWebView closeWebView={closeWebView} />}
-
+      {isAddressModalOpen && (
+        <AddressModalTemplate
+          closeAddressAlertModal={closeAddressAlertModal}
+          isAddressModalOpen={isAddressModalOpen}
+        />
+      )}
       <TabMenu />
     </Container>
   );
