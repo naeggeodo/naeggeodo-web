@@ -155,14 +155,9 @@ const CreateForm = () => {
                   dispatchInputAction(e, 'link');
                 }}
               />
-              <Link href={`${link}`} passHref>
-                <MoveLinkButton
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  isUrl={isUrl}>
-                  링크이동
-                </MoveLinkButton>
-              </Link>
+              <IsUrlCheck isUrl={isUrl}>
+                <Image src="/assets/images/check.svg" width={30} height={30} />
+              </IsUrlCheck>
             </InputWrapper>
           </Item>
           <Item>
@@ -375,21 +370,14 @@ const PlusMinusButton = styled.button`
   cursor: pointer;
 `;
 
-const MoveLinkButton = styled.a<MoveLinkProps>`
-  all: unset;
+const IsUrlCheck = styled.div<MoveLinkProps>`
   display: flex;
   justify-content: center;
   visibility: hidden;
   opacity: 0;
   width: 63px;
-  padding: 4px 0;
-  font-weight: 500;
-  font-size: 0.75rem;
-  color: ${palette.mainOrange};
-  background-color: ${palette.LightGray};
-  border-radius: 5px;
-  cursor: pointer;
   transition: 1s;
+
   ${(props) =>
     props.isUrl &&
     css`

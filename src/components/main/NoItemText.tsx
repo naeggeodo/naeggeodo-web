@@ -10,7 +10,7 @@ const NoItemText = ({
   return (
     <Container>
       <CreateButtonContainer>
-        <Text>지금 직접 채팅방을 생성해보세요 🍟</Text>
+        <Text>채팅방이 없어요 먼저 만들어보세요 🍟</Text>
         <CreateButton onClick={checkTokenAndRedirection}>
           채팅방 생성하러가기
         </CreateButton>

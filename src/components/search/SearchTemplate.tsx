@@ -36,16 +36,16 @@ const SearchTemplate = () => {
         <SearchForm onSubmit={getSearchListByInput}>
           <Button>
             <Image
-              src='/assets/images/searchgray.svg'
-              alt='검색 아이콘'
+              src="/assets/images/searchgray.svg"
+              alt="검색 아이콘"
               width={22}
               height={21}
             />
           </Button>
           <Input
-            type='text'
+            type="text"
             value={searchValue}
-            placeholder='검색어를 입력해주세요'
+            placeholder="검색어를 입력해주세요"
             onChange={handleChangeSearchValue}
           />
         </SearchForm>
@@ -109,6 +109,7 @@ const Button = styled.button`
   background: none;
   outline: none;
   border: none;
+  cursor: pointer;
 `;
 
 const SearchTagContainer = styled.div`

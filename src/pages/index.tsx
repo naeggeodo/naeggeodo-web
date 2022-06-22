@@ -158,6 +158,11 @@ const LikeButtonContainer = styled.div`
     margin-top: 20px;
   }
 
+  & > p {
+    word-break: keep-all;
+    line-height: 1.4;
+  }
+
   & > button {
     all: unset;
     cursor: pointer;
