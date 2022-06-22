@@ -1,6 +1,8 @@
+import { useRouter } from "next/router";
 import React, { useCallback } from "react";
 import styled from "styled-components";
 import { useSelectLoginStates } from "../../hooks/select/useSelectLoginStates";
+import { useLoadLib } from "../../hooks/utils/useLoadLib";
 import palette from "../../styles/palette";
 
 const NoItemText = ({
@@ -13,15 +15,22 @@ const NoItemText = ({
   isAddressModalOpen: boolean;
 }) => {
   const { address, buildingCode } = useSelectLoginStates();
+  const { accessToken } = useSelectLoginStates();
+
+  const router = useRouter();
 
   const onDirection = useCallback(
     (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-      if (!address || !buildingCode) {
-        return openAddressAlertModal();
-      }
       checkTokenAndRedirection(e);
+      if (accessToken) {
+        if (!address) {
+          return openAddressAlertModal();
+        } else {
+          router.replace("/create");
+        }
+      }
     },
-    [address, buildingCode, isAddressModalOpen]
+    [address, isAddressModalOpen]
   );
   return (
     <Container>

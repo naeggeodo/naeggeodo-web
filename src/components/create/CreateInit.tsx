@@ -23,7 +23,7 @@ const CreateInit = () => {
 
   useLayoutEffect(() => {
     if (!buildingCode) {
-      window.confirm("메인페이지 상단에서 현재 위치를 설정하세요");
+      window.confirm("메인페이지 에서 현재 위치를 설정하세요");
       router.replace("/chat-rooms");
     }
   }, [buildingCode]);
