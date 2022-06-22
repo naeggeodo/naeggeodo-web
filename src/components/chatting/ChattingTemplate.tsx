@@ -23,6 +23,7 @@ import { useSelectChatRoomInfo } from '../../hooks/select/useSelectChatRoomInfo'
 import { useLoadLib } from '../../hooks/utils/useLoadLib';
 import ExitModalTemplate from './ExitModalTemplate';
 import imageCompression from 'browser-image-compression';
+import { Options } from '../../../types/libType';
 
 var stompClient: CompatClient;
 
@@ -176,18 +177,21 @@ const ChattingTemplate = () => {
 
   const sendImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     try {
-      const options = {
+      const imgFile = e.target.files[0];
+      console.log(imgFile);
+      const options: Options = {
         maxSizeMB: 0.1,
-        maxWidthOrHeight: 100,
+        maxWidthOrHeight: 150,
+        fileType: imgFile.type,
       };
       const fileReader = new FileReader();
 
-      const imgFile = e.target.files[0];
       if (imgFile.size >= 200000) {
         alert('보낼 수 없는 크기의 사이즈입니다');
         e.target.value = '';
         return;
       }
+
       if (imgFile.size >= 7000) {
         const compressedFile = await imageCompression(imgFile, options);
         fileReader.readAsDataURL(compressedFile);
