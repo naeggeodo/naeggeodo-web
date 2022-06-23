@@ -9,7 +9,7 @@ export default {
   decorators: [
     (Story) => (
       <Provider store={configureStore()}>
-        <div style={{ display: 'flex', gap: '10px' }}>
+        <div style={{ display: 'flex', gap: '10px', padding: '10px' }}>
           <Story />
         </div>
       </Provider>
