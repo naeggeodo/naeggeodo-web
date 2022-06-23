@@ -1,4 +1,6 @@
 import { ComponentMeta } from '@storybook/react';
+import { Provider } from 'react-redux';
+import { configureStore } from '../../../modules';
 import SubmitForm from '../SubmitForm';
 
 type Args = {
@@ -10,9 +12,17 @@ export default {
   component: SubmitForm,
   decorators: [
     (Story) => (
-      <div style={{ height: '100vh', width: '100vw' }}>
-        <Story />
-      </div>
+      <Provider store={configureStore()}>
+        <div
+          style={{
+            height: '100vh',
+            width: '100vw',
+            display: 'flex',
+            alignItems: 'flex-end',
+          }}>
+          <Story />
+        </div>
+      </Provider>
     ),
   ],
   parameters: {
@@ -20,6 +30,15 @@ export default {
   },
 } as ComponentMeta<typeof SubmitForm>;
 
-export const SubmitFormStory = (args: Args) => <SubmitForm {...args} />;
+export const SubmitFormStory = (args: Args) => (
+  <SubmitForm
+    stompClient={null}
+    message={null}
+    sendImage={null}
+    sendMessage={null}
+    changeMessage={null}
+    {...args}
+  />
+);
 
 SubmitFormStory.storyName = '채팅 전송 인풋';

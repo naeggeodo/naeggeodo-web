@@ -4,15 +4,27 @@ import styled from 'styled-components';
 import Portal from '../common/Portal';
 import { Address } from 'react-daum-postcode';
 import { useDispatch } from 'react-redux';
-import { saveAddresWithBuildingCode } from '../../modules/search-post-code/actions';
+import {
+  patchBuildingCodeRequest,
+  saveApartmentAddress,
+} from '../../modules/search-post-code/actions';
 import palette from '../../styles/palette';
+import { PatchBuildingCodeRequestData } from '../../modules/search-post-code/types';
+import { useSelectLoginStates } from '../../hooks/select/useSelectLoginStates';
 
 const PostCodeWebView = ({ closeWebView }: { closeWebView: () => void }) => {
   const dispatch = useDispatch();
+  const { user_id } = useSelectLoginStates();
 
   const handleComplete = (data: Address) => {
-    let fullAddress = data.address;
+    // let fullAddress = data.address;
     let extraAddress = '';
+
+    const addressInfo: PatchBuildingCodeRequestData = {
+      address: data.address,
+      buildingCode: data.buildingCode,
+      zonecode: data.zonecode,
+    };
 
     if (data.addressType === 'R') {
       if (data.bname !== '') {
@@ -22,14 +34,19 @@ const PostCodeWebView = ({ closeWebView }: { closeWebView: () => void }) => {
         extraAddress +=
           extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName;
       }
-      fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
+      console.log(extraAddress);
+      // fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
     }
 
-    dispatch(saveAddresWithBuildingCode(data));
+    if (data.apartment === 'N') {
+      dispatch(saveApartmentAddress(data.apartment));
+    } else if (data.apartment === 'Y') {
+      dispatch(patchBuildingCodeRequest(user_id, addressInfo));
+    }
   };
 
   return (
-    <Portal selector='webviewPortal'>
+    <Portal selector="webviewPortal">
       <Background />
       <WebViewContainer>
         <DaumPostcode
@@ -71,7 +88,7 @@ const WebViewContainer = styled.div`
 const CloseButton = styled.button`
   all: unset;
   position: absolute;
-  right: 5%;
+  right: 2%;
   bottom: 2%;
 
   display: flex;

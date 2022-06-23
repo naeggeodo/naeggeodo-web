@@ -1,12 +1,15 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import styled from 'styled-components';
+import { SOCIAL_LOGIN } from '../../constant/Login';
 import palette from '../../styles/palette';
 
 const NaverLoginBtn = () => {
   return (
-    <Link href={`${process.env.NEXT_PUBLIC_API_URL}/login/OAuth/naver`}>
-      <NaverLoginButton>
+    <Link
+      href={`https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${SOCIAL_LOGIN.NAVER_CLIENT_ID}&state=STATE&redirect_uri=${SOCIAL_LOGIN.NAVER_REDIRECT_URI}`}
+      passHref>
+      <NaverLoginButton rel='noreferrer noopener'>
         <Image
           src='/assets/images/naverlogo.svg'
           alt='naver logo'
@@ -19,7 +22,7 @@ const NaverLoginBtn = () => {
   );
 };
 
-const NaverLoginButton = styled.span`
+const NaverLoginButton = styled.a`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -35,6 +38,7 @@ const NaverLoginButton = styled.span`
   border-radius: 10px;
   border: none;
   outline: none;
+  text-decoration: none;
 
   & > span {
     font-size: 1.0625rem;

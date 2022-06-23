@@ -1,80 +1,57 @@
-import Link from 'next/link';
-import { useRouter } from 'next/router';
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { useSelectLoginStates } from '../../hooks/select/useSelectLoginStates';
+import { useCheckValidate } from '../../hooks/useCheckValidate';
 import { useSlideTransform } from '../../hooks/useSlideTransform';
-import { CategoriesResponse, Category } from '../../modules/main/types';
+import { RootState } from '../../modules';
+import { CategoriesResponse } from '../../modules/common/types';
+import { openLoginModal } from '../../modules/modal/actions';
 import palette from '../../styles/palette';
+import { convertEngCategoryToKor } from '../../utils/converEngCategoryToKor';
 
 const CategoryMenuSlide = ({
   foodCategories,
+  openAddressAlertModal,
 }: {
   foodCategories: CategoriesResponse[];
+  openAddressAlertModal: () => void;
 }) => {
-  const router = useRouter();
+  const { router, routeToCategory } = useCheckValidate();
   const { slideRef } = useSlideTransform();
+  const dispatch = useDispatch();
 
-  const convertEngCategoryToKor = (category: Category) => {
-    switch (category) {
-      case 'ALL':
-        return '전체';
-      case 'CHICKEN':
-        return '치킨';
-      case 'CHINESE':
-        return '중식';
-      case 'DESSERT':
-        return '디저트';
-      case 'FASTFOOD':
-        return '패스트푸드';
-      case 'GRILLED_MEAT':
-        return '구이/고기';
-      case 'JAPANESE':
-        return '일식';
-      case 'KOREAN':
-        return '한식';
-      case 'PIZZA':
-        return '피자';
-      case 'PORK_FEET':
-        return '족발';
-      case 'SNACKS':
-        return '분식';
-      case 'STEW':
-        return '찌개';
-      case 'WESTERN':
-        return '양식';
-      case 'HAMBURGER':
-        return '햄버거';
-    }
-  };
+  const { buildingCode, address, accessToken } = useSelectLoginStates();
 
   return (
     <Container ref={slideRef}>
       <Track>
         {foodCategories?.map((item) => {
           const lowerCaseItem = item.category.toLowerCase();
+
           return (
-            <Link
-              passHref
-              href={{
-                pathname: '/',
-                query:
-                  lowerCaseItem === 'all'
-                    ? { buildingcode: 1234 }
-                    : { category: lowerCaseItem, buildingcode: 1234 },
+            <LinkButton
+              key={item.category}
+              onClick={(e) => {
+                if (!accessToken) {
+                  return dispatch(openLoginModal());
+                } else if (!buildingCode || !address) {
+                  return openAddressAlertModal();
+                }
+                routeToCategory(e, item);
               }}
-              key={item.idx}>
-              <StyledLink
-                style={{
-                  color:
-                    !router.query.category && lowerCaseItem === 'all'
-                      ? `${palette.mainOrange}`
-                      : router.query.category === lowerCaseItem
-                      ? `${palette.mainOrange}`
-                      : `${palette.black}`,
-                }}>
-                {convertEngCategoryToKor(item.category)}
-              </StyledLink>
-            </Link>
+              style={{
+                color:
+                  router.query.buildingCode &&
+                  !router.query.category &&
+                  lowerCaseItem === 'all'
+                    ? `${palette.mainOrange}`
+                    : router.query.category === lowerCaseItem
+                    ? `${palette.mainOrange}`
+                    : `${palette.black}`,
+              }}>
+              {convertEngCategoryToKor(item.category)}
+            </LinkButton>
           );
         })}
       </Track>
@@ -113,14 +90,15 @@ const Track = styled.div`
   touch-action: none;
 `;
 
-const StyledLink = styled.a`
+const LinkButton = styled.button`
+  all: unset;
+
   padding: 10px;
   font-size: 1.0625rem;
   color: ${palette.black};
 
   cursor: pointer;
   white-space: nowrap;
-  text-decoration: none;
 `;
 
 export default CategoryMenuSlide;

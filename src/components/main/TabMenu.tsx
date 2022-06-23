@@ -1,15 +1,15 @@
-import React from 'react';
-import styled from 'styled-components';
-import palette from '../../styles/palette';
-import { tabDatas } from './data';
-import TabButtonItem from './TabButtonItem';
+import React from "react";
+import styled from "styled-components";
+import palette from "../../styles/palette";
+import { tabDatas } from "./data";
+import TabButtonItem from "./TabButtonItem";
 
 const TabMenu = () => {
   return (
     <Container>
       {tabDatas.map((tab) => (
         <TabButtonItem
-          key={tab.id}
+          key={tab.title}
           image={tab.image}
           title={tab.title}
           altText={tab.altText}
@@ -29,8 +29,7 @@ const Container = styled.div`
 
   width: 100%;
   height: 55px;
-
-  background-color: #ffffff;
+  background-color: #fff;
 
   backdrop-filter: blur(20px);
   box-shadow: 0px -0.5px 0px #e0e0e0;

@@ -1,107 +1,258 @@
-import React, { useState, useEffect, useRef } from 'react';
-import styled from 'styled-components';
-import { CompatClient, Stomp } from '@stomp/stompjs';
-import SockJS from 'sockjs-client';
+import React, { useState, useEffect, useRef, FormEvent } from "react";
+import styled from "styled-components";
+import { CompatClient, Stomp } from "@stomp/stompjs";
+import SockJS from "sockjs-client";
+import { useSelector } from "react-redux";
 
-import Header from '../chatting/Header';
-import GoInfoBtn from '../chatting/GoInfoBtn';
-import SubmitForm from '../chatting/SubmitForm';
-import ChatItem from '../chatting/ChatItem';
-import MyChatItem from '../chatting/MyChatItem';
-
+import Header from "../chatting/Header";
+import GoInfoBtn from "../chatting/GoInfoBtn";
+import SubmitForm from "../chatting/SubmitForm";
+import ChatDrawer from "./ChatDrawer";
+import { RootState } from "../../modules";
+import ChattingList from "./ChattingList";
+import { useSelectLoginStates } from "../../hooks/select/useSelectLoginStates";
 import {
-  PreviousChattingItemResponse,
-  PreviousChattingListResponse,
-} from '../../modules/chatting/types';
-import { useChat } from '../../hooks/useChat';
-import DateFormatter from '../../utils/DateFormatter';
-import QuickMessageComp from './QuickMessageComp';
-import ChatDrawer from './ChatDrawer';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../modules';
+  changeCurrentCountInChatting,
+  setCurrentChattingList,
+  setImageListInChatting,
+  setParticipatingUsers,
+} from "../../modules/chatting/actions";
+import DateFormatter from "../../utils/DateFormatter";
+import { useChat } from "../../hooks/useChat";
+import { useSelectChatRoomInfo } from "../../hooks/select/useSelectChatRoomInfo";
+import { useLoadLib } from "../../hooks/utils/useLoadLib";
+import ExitModalTemplate from "./ExitModalTemplate";
+import imageCompression from "browser-image-compression";
+import { Options } from "../../../types/libType";
 
-const ChattingTemplate = ({
-  previousChatting,
-}: {
-  previousChatting: PreviousChattingListResponse;
-}) => {
+var stompClient: CompatClient;
+
+const ChattingTemplate = () => {
+  const { dispatch, router } = useLoadLib();
+  const { onSendMessage, filterErrorMessage } = useChat(router);
+  const { user_id, accessToken } = useSelectLoginStates();
   const scrollRef = useRef<HTMLDivElement>(null);
   const chatListDivRef = useRef<HTMLDivElement>(null);
 
-  const { chatRoomInfo } = useSelector(
-    (state: RootState) => state.chattingRoomState,
+  const { link, imgPath, currentCount, maxCount, title } =
+    useSelectChatRoomInfo();
+  const { chatRoomInfo, chattingList, nickname } = useSelector(
+    (state: RootState) => state.chattingRoomState
+  );
+  const exitModalIsOpen = useSelector(
+    (state: RootState) => state.modalStates.exitModalIsOpen
   );
 
-  const { connect, disconnect } = useChat();
+  const [message, setMessage] = useState<string>("");
+  const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
 
-  const [messageList, setMessageList] = useState<
-    PreviousChattingItemResponse[]
-  >([]);
-  const [drawerOpen, setDrawerOpen] = useState(false);
+  const changeMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setMessage(e.target.value);
+  };
 
-  const socket = new SockJS(`${process.env.NEXT_PUBLIC_API_URL}/chat`);
-  const stompClient = Stomp.over(socket);
+  useEffect(() => {
+    connect();
+    return () => {
+      disconnect();
+    };
+  }, []);
 
   useEffect(() => {
     chatListDivRef.current.scroll({
       top: scrollRef.current.offsetTop,
-      behavior: 'smooth',
+      behavior: "smooth",
     });
-    if (!stompClient.connected) {
-      connect(stompClient, 1, setMessageList); // 1은 채팅방 아이디
+  }, [chattingList.messages]);
+
+  const onError = (e: any) => {
+    const errorMessage = e.headers.message;
+    filterErrorMessage(errorMessage);
+  };
+
+  function onEnter() {
+    const sendData = {
+      chatMain_id: router.query.id,
+      sender: user_id,
+      contents: "님이 입장하셨습니다.",
+      type: "WELCOME",
+      nickname,
+    };
+    stompClient.send("/app/chat/enter", {}, JSON.stringify(sendData));
+  }
+
+  function exit() {
+    const data = {
+      chatMain_id: router.query.id,
+      sender: user_id,
+      contents: "님이 퇴장하셨습니다.",
+      type: "EXIT",
+      nickname,
+    };
+    stompClient.send("/app/chat/exit", {}, JSON.stringify(data));
+  }
+
+  const connect = () => {
+    // stompClient = Stomp.over(
+    //   () => new SockJS(`${process.env.NEXT_PUBLIC_API_URL}/chat`)
+    // );
+
+    const socket: any = new SockJS(`${process.env.NEXT_PUBLIC_API_URL}/chat`);
+    stompClient = Stomp.over(() => socket);
+    stompClient.connect(
+      {
+        chatMain_id: router.query.id,
+        sender: user_id,
+        Authorization: `Bearer ${accessToken}`,
+      },
+      () => {
+        const sessionId = /\/([^\\/]+)\/websocket/.exec(
+          socket._transport.url
+        )[1];
+        stompClient.subscribe(
+          `/topic/${router.query.id}`,
+          (data) => {
+            const newMessage = JSON.parse(data.body);
+
+            const body = {
+              chatMain_id: newMessage.chatMain_id,
+              contents: newMessage.contents,
+              regDate: DateFormatter.getNowDate(),
+              type: newMessage.type,
+              user_id: newMessage.sender,
+              nickname: newMessage.nickname,
+            };
+            dispatch(setCurrentChattingList(body));
+
+            if (newMessage.type === "CNT") {
+              console.log(newMessage);
+              dispatch(
+                changeCurrentCountInChatting(
+                  JSON.parse(newMessage.contents).currentCount
+                )
+              );
+              dispatch(
+                setParticipatingUsers(JSON.parse(newMessage.contents).users)
+              );
+            } else if (newMessage.type === "IMAGE") {
+              dispatch(setImageListInChatting(newMessage.contents));
+            }
+          },
+          { chatMain_id: router.query.id as string }
+        );
+
+        stompClient.subscribe(`/user/queue/${sessionId}`, (e) => {
+          const messageObj = JSON.parse(e.body);
+          if (messageObj.type === "BAN") {
+            window.alert("강제퇴장 당하셨습니다.");
+            router.replace("/chat-rooms");
+          } else if (messageObj === "ALERT") {
+            window.alert(messageObj.contents);
+          }
+        });
+
+        onEnter();
+      },
+      onError
+    );
+  };
+
+  const disconnect = () => {
+    stompClient.disconnect();
+  };
+
+  const sendMessage = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!message) return;
+
+    const data = {
+      chatMain_id: String(router.query.id),
+      sender: user_id,
+      contents: message,
+      type: "TEXT",
+      nickname: nickname,
+    };
+    onSendMessage(stompClient, data);
+    setMessage("");
+  };
+
+  const sendImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    try {
+      const imgFile = e.target.files[0];
+      console.log(imgFile);
+      const options: Options = {
+        maxSizeMB: 0.1,
+        maxWidthOrHeight: 150,
+        fileType: imgFile.type,
+      };
+      const fileReader = new FileReader();
+
+      if (imgFile.size >= 200000) {
+        alert("보낼 수 없는 크기의 사이즈입니다");
+        e.target.value = "";
+        return;
+      }
+
+      if (imgFile.size >= 7000) {
+        const compressedFile = await imageCompression(imgFile, options);
+        fileReader.readAsDataURL(compressedFile);
+      } else {
+        fileReader.readAsDataURL(imgFile);
+      }
+      fileReader.onload = async (e) => {
+        const result = e.target.result;
+        const data = {
+          chatMain_id: String(router.query.id),
+          sender: user_id,
+          contents: result as string,
+          type: "IMAGE",
+          nickname: nickname,
+        };
+        onSendMessage(stompClient, data);
+      };
+      e.target.value = "";
+    } catch (err) {
+      console.log(err);
     }
-    return () => disconnect(stompClient);
-  }, [messageList]);
+  };
 
   return (
-    <Wrap>
-      <Header setDrawerOpen={setDrawerOpen} />
-      {chatRoomInfo.state !== 'END' && <GoInfoBtn />}
+    <Container>
+      <Header
+        imgPath={imgPath}
+        currentCount={currentCount}
+        maxCount={maxCount}
+        link={link}
+        isDrawerOpen={isDrawerOpen}
+        setIsDrawerOpen={setIsDrawerOpen}
+        title={title}
+      />
+      {chatRoomInfo?.state !== "END" && chatRoomInfo?.user_id === user_id && (
+        <GoInfoBtn />
+      )}
       <Content ref={chatListDivRef}>
-        {previousChatting.messages &&
-          previousChatting.messages.length > 0 &&
-          previousChatting.messages.map((message, i) => {
-            if (message.user_id === 1)
-              return (
-                <MyChatItem key={i} message={message} date={message.regDate} />
-              );
-            else
-              return (
-                <ChatItem key={i} message={message} date={message.regDate} />
-              );
-          })}
-
-        {messageList &&
-          messageList.length > 0 &&
-          messageList.map((message, i) => {
-            if (message.sender === 1) {
-              return (
-                <MyChatItem
-                  key={i}
-                  message={message}
-                  date={DateFormatter.getNowDate()}
-                />
-              );
-            } else {
-              return (
-                <ChatItem
-                  key={i}
-                  message={message}
-                  date={DateFormatter.getNowDate()}
-                />
-              );
-            }
-          })}
-        <Scroll ref={scrollRef} />
+        <ChattingList messageList={chattingList.messages} />
+        <div ref={scrollRef} />
       </Content>
-      <QuickMessageComp stompClient={stompClient} />
-      <SubmitForm stompClient={stompClient} />
-      <ChatDrawer drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />
-    </Wrap>
+      <SubmitForm
+        stompClient={stompClient}
+        changeMessage={changeMessage}
+        message={message}
+        sendMessage={sendMessage}
+        sendImage={sendImage}
+      />
+      <ChatDrawer
+        masterId={chatRoomInfo.user_id}
+        currentCount={currentCount}
+        isDrawerOpen={isDrawerOpen}
+        setIsDrawerOpen={setIsDrawerOpen}
+        stompClient={stompClient}
+      />
+      {exitModalIsOpen ? <ExitModalTemplate exit={exit} /> : null}
+    </Container>
   );
 };
 
-const Wrap = styled.div`
+const Container = styled.div`
   width: 100vw;
   height: 100vh;
 
@@ -116,6 +267,7 @@ const Wrap = styled.div`
 const Content = styled.div`
   display: flex;
   flex-direction: column;
+  padding: 15px;
   gap: 15px;
 
   position: relative;
@@ -133,7 +285,4 @@ const Content = styled.div`
     display: none;
   }
 `;
-
-const Scroll = styled.div``;
-
 export default ChattingTemplate;

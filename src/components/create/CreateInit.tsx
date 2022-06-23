@@ -1,52 +1,78 @@
-import { useRouter } from 'next/router';
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
-import { RootState } from '../../modules';
-import { selectOrderType } from '../../modules/create/actions';
-import palette from '../../styles/palette';
+import React, { useCallback, useLayoutEffect, useState } from "react";
+import styled from "styled-components";
+import { useLoadLib } from "../../hooks/utils/useLoadLib";
+import palette from "../../styles/palette";
 
-type StyledType = {
-  active: boolean;
-};
-
-const buttonValue = [
-  '1시간 이내',
-  '최대한 빨리',
-  '상관없음 (인원이 모집되는대로)',
-  '선택하지 않음',
-];
+import OrderTimeTypeButton from "./OrderTimeTypeButton";
+import { buttonValue } from "./data/data";
+import { useCreateInit } from "../../hooks/create/useCreateInit";
+import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
+import { RootState } from "../../modules";
+import AddressModalTemplate from "../main/AddressModalTemplate";
 
 const CreateInit = () => {
+  const { dispatch } = useLoadLib();
+  const {
+    selectOrderTypeTimeInComponent,
+    dispatchOrderTimeType,
+    selectedOrderTimeType,
+  } = useCreateInit(dispatch);
+
   const router = useRouter();
-  const dispatch = useDispatch();
-  const { orderType } = useSelector((state: RootState) => state.createStates);
+  const { buildingCode } = useSelector((state: RootState) => state.loginState);
+
+  const [isAddressModalOpen, setIsAddressModalOpen] = useState(false);
+
+  useLayoutEffect(() => {
+    if (!buildingCode) {
+      openAddressAlertModal();
+    }
+  }, [buildingCode]);
+
+  const closeAddressAlertModal = useCallback(() => {
+    setIsAddressModalOpen(false);
+    router.replace("/chat-rooms");
+  }, [isAddressModalOpen]);
+
+  const openAddressAlertModal = useCallback(() => {
+    setIsAddressModalOpen(true);
+  }, [isAddressModalOpen]);
 
   return (
-    <Wrap>
+    <Container>
       <div>
         <Title>언제 음식을</Title>
         <Title>주문하실건가요?</Title>
       </div>
       <Content>
-        <CustomButton>직접입력</CustomButton>
-        {buttonValue.map((item, i) => (
-          <Button
-            key={i}
-            onClick={() => {
-              dispatch(selectOrderType(item));
-              router.push('/create/directinput');
-            }}
-            active={orderType === item ? true : false}>
-            {item}
-          </Button>
+        {buttonValue.map((item) => (
+          <OrderTimeTypeButton
+            handleClick={selectOrderTypeTimeInComponent}
+            key={item.text}
+            dataValue={item.value}
+            isActive={selectedOrderTimeType === item.value ? true : false}
+          >
+            {item.text}
+          </OrderTimeTypeButton>
         ))}
+        <NextStepButtonContainer>
+          <NextStepButton onClick={dispatchOrderTimeType}>
+            다음으로 &gt;
+          </NextStepButton>
+        </NextStepButtonContainer>
       </Content>
-    </Wrap>
+      {isAddressModalOpen && (
+        <AddressModalTemplate
+          closeAddressAlertModal={closeAddressAlertModal}
+          isAddressModalOpen={isAddressModalOpen}
+        />
+      )}
+    </Container>
   );
 };
 
-const Wrap = styled.div`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -61,7 +87,7 @@ const Wrap = styled.div`
 `;
 
 const Title = styled.h3`
-  font-family: 'SpoqaBold';
+  font-family: "SpoqaBold";
   padding: 0 6px;
   line-height: 36.4px;
   font-size: 1.625rem;
@@ -76,27 +102,21 @@ const Content = styled.div`
   gap: 10px;
 `;
 
-const CustomButton = styled.button`
-  margin-bottom: 10px;
-
-  background-color: #fff;
-  color: ${palette.DarkGray};
-
-  text-align: right;
-  outline: none;
-  border: none;
+const NextStepButtonContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
 `;
 
-const Button = styled.button<StyledType>`
-  padding: 15px;
+const NextStepButton = styled.button`
+  padding: 10px 30px;
 
   font-size: 0.9375rem;
-  font-family: 'SpoqaBold';
-  color: ${(props) => (props.active ? '#EF6212' : '#000')};
-
-  background-color: ${(props) => (props.active ? '#FDEFE7' : '#f5f5f5')};
+  font-family: "SpoqaBold";
 
   border-radius: 10px;
+  background-color: ${palette.mainOrange};
+  color: #fff;
+
   cursor: pointer;
   border: none;
   outline: none;

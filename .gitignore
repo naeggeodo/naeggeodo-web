@@ -112,3 +112,9 @@ dist
 .env.production
 
 public/mockServiceWorker.js
+
+#  certification
+*.crt
+*.key
+
+.DS_Store

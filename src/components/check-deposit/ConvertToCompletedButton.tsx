@@ -1,25 +1,24 @@
-import { useRouter } from 'next/router';
-import React, { useCallback, useState } from 'react';
-import styled from 'styled-components';
-import { useDeposit } from '../../hooks/useDeposit';
-import palette from '../../styles/palette';
+import { useRouter } from "next/router";
+import React, { useCallback, useState } from "react";
+import { useSelector } from "react-redux";
+import styled from "styled-components";
+
+import palette from "../../styles/palette";
+import { RootState } from "../../modules";
+import { useLoadLib } from "../../hooks/utils/useLoadLib";
+import { openEndChattingModal } from "../../modules/modal/actions";
 
 const ConvertToCompletedButton = () => {
-  const { convertToComplete } = useDeposit();
-  const router = useRouter();
-
-  const [isCompleted, setIsCompleted] = useState<boolean>(false);
-
-  const handleCompleted = useCallback(() => {
-    setIsCompleted(true);
-    convertToComplete(router.query.id as string);
-  }, [isCompleted]);
-
-  return !isCompleted ? (
-    <Button onPointerDown={handleCompleted}>완료된 거래로 전환하기</Button>
-  ) : (
-    <CompletedButton>거래가 완료되었습니다.</CompletedButton>
+  const { router, dispatch } = useLoadLib();
+  const { endChattingModalIsOpen } = useSelector(
+    (state: RootState) => state.modalStates
   );
+
+  const handleCompleted = useCallback(async () => {
+    dispatch(openEndChattingModal());
+  }, [endChattingModalIsOpen]);
+
+  return <Button onPointerDown={handleCompleted}>채팅방 종료하기</Button>;
 };
 
 const Button = styled.button`

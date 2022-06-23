@@ -1,15 +1,17 @@
 import { ComponentMeta } from '@storybook/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '../../../modules';
-import CreateForm from '../CreateForm';
+import CreateForm from '../createForm/CreateForm';
 
 export default {
-  title: 'create/컴포넌트',
+  title: 'create/페이지',
   component: CreateForm,
   decorators: [
     (Story) => (
       <Provider store={configureStore()}>
-        <Story />
+        <div style={{ backgroundColor: '#fff' }}>
+          <Story />
+        </div>
       </Provider>
     ),
   ],
@@ -20,4 +22,4 @@ export default {
 
 export const CreateFormStory = () => <CreateForm />;
 
-CreateFormStory.storyName = '내꺼톡 생성 폼';
+CreateFormStory.storyName = '내꺼톡 생성 페이지 폼';

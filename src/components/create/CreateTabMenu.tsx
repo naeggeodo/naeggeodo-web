@@ -1,38 +1,43 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction, useCallback } from 'react';
 import styled from 'styled-components';
-import { useRouter } from 'next/router';
 import palette from '../../styles/palette';
 
 type StyledType = {
-  active: boolean;
+  isActive: boolean;
 };
 
-const CreateTabMenu = () => {
-  const router = useRouter();
-
-  const onClick = () => {
-    if (router.pathname === '/create/directinput') {
-      router.push('/naeggeotalk');
-    } else if (router.pathname === '/naeggeotalk') {
-      router.push('/create/directinput');
-    }
-  };
+const CreateTabMenu = ({
+  isShowCreateForm,
+  setIsShowCreateForm,
+}: {
+  isShowCreateForm: boolean;
+  setIsShowCreateForm: Dispatch<SetStateAction<boolean>>;
+}) => {
+  const onMenuClick = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      const target = e.target as HTMLButtonElement;
+      if (target.innerText === '새로입력') {
+        setIsShowCreateForm(true);
+      } else {
+        setIsShowCreateForm(false);
+      }
+    },
+    [isShowCreateForm],
+  );
 
   return (
-    <Wrap>
-      <Button
-        active={router.pathname === '/create/directinput'}
-        onClick={onClick}>
+    <Container>
+      <Button isActive={isShowCreateForm} onClick={onMenuClick}>
         새로입력
       </Button>
-      <Button active={router.pathname === '/naeggeotalk'} onClick={onClick}>
-        주문목록
+      <Button isActive={!isShowCreateForm} onClick={onMenuClick}>
+        이전 생성내역 불러오기
       </Button>
-    </Wrap>
+    </Container>
   );
 };
 
-const Wrap = styled.div`
+const Container = styled.div`
   width: 90%;
 
   display: flex;
@@ -47,11 +52,13 @@ const Button = styled.button<StyledType>`
   font-family: 'SpoqaBold';
   font-size: 1.125rem;
   color: ${(props) =>
-    props.active ? `${palette.mainOrange}` : `${palette.TextGray}`};
+    props.isActive ? `${palette.mainOrange}` : `${palette.TextGray}`};
 
   border: none;
   border-bottom: ${(props) =>
-    props.active ? `3px solid ${palette.mainOrange}` : '3px solid transparent'};
+    props.isActive
+      ? `3px solid ${palette.mainOrange}`
+      : '3px solid transparent'};
 
   padding-bottom: 14.5px;
 

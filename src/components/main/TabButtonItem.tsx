@@ -1,31 +1,41 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import React from 'react';
-import styled from 'styled-components';
-import palette from '../../styles/palette';
-import { TabItem } from './types';
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import React from "react";
+import styled, { css } from "styled-components";
+import palette from "../../styles/palette";
+import { TabItem } from "./types";
 
-type styledType = {
+type StyledButtonProps = {
   active?: boolean;
 };
 
+interface StyledImageProps {
+  routerfirstpath: string;
+  link: string;
+}
+
 const TabButtonItem: React.FC<TabItem> = (props) => {
   const router = useRouter();
-  const routerFirstPath: string = router.pathname
-    .split('/')
+  const routerfirstpath: string = router.pathname
+    .split("/")
     .slice(0, 2)
-    .join('/');
+    .join("/");
+
   return (
     <Link href={props.link} passHref>
-      <TabButton active={routerFirstPath === props.link ? true : false}>
+      <TabButton
+        rel="noreferrer noopener"
+        active={routerfirstpath === props.link ? true : false}
+      >
         <div>
-          <Image
+          <StyledImage
             src={props.image}
             alt={props.altText}
             width={20}
             height={20}
-            style={routerFirstPath === props.link && { filter: 'invert(1)' }}
+            routerfirstpath={routerfirstpath}
+            link={props.link}
           />
           {props.title}
         </div>
@@ -34,12 +44,12 @@ const TabButtonItem: React.FC<TabItem> = (props) => {
   );
 };
 
-const TabButton = styled.a<styledType>`
+const TabButton = styled.a<StyledButtonProps>`
   display: flex;
   align-items: center;
 
   font-size: 0.875rem;
-  color: ${(props) => (props.active ? '#000' : palette.LineGray)};
+  color: ${(props) => (props.active ? "#000" : palette.LineGray)};
 
   text-decoration: none;
   background-color: transparent;
@@ -54,4 +64,13 @@ const TabButton = styled.a<styledType>`
     align-items: center;
   }
 `;
+
+const StyledImage = styled(Image)<StyledImageProps>`
+  ${(props) =>
+    props.routerfirstpath === props.link &&
+    css`
+      filter: invert(1);
+    `}
+`;
+
 export default TabButtonItem;

@@ -1,39 +1,53 @@
 import { END } from 'redux-saga';
 
-import { wrapper } from '../../modules';
+import { RootState, wrapper } from '../../modules';
 import ChattingTemplate from '../../components/chatting/ChattingTemplate';
 import {
+  getChattingListActions,
   getCurrentChatRoomAsyncActions,
-  getPreviousChattingListActions,
-  getQuickChattingListActions,
+  getUserNicknameActions,
 } from '../../modules/chatting/actions';
-import { PreviousChattingListResponse } from '../../modules/chatting/types';
+import { saveCookies } from '../../utils/saveCookies';
+import { getQuickChattingListActions } from '../../modules/quick-chatting/actions';
 
-const chatting = ({
-  previousChatting,
-}: {
-  previousChatting: PreviousChattingListResponse;
-}) => {
-  return <ChattingTemplate previousChatting={previousChatting} />;
+const chatting = () => {
+  return <ChattingTemplate />;
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
+    saveCookies(store, context);
+
+    const rootState: RootState = store.getState();
+    const user_id = rootState.loginState.user_id;
+
+    const accessToken = rootState.loginState.accessToken;
+
+    if (!accessToken) {
+      return {
+        redirect: {
+          permanent: false,
+          destination: '/login',
+        },
+      };
+    }
     store.dispatch(
       getCurrentChatRoomAsyncActions.request({
         chattingRoomId: context.params.id as string,
       }),
     );
     store.dispatch(
-      getPreviousChattingListActions.request({
+      getChattingListActions.request({
         chattingRoomId: context.params.id as string,
-        userId: '2',
+        userId: user_id,
       }),
     );
 
+    store.dispatch(getUserNicknameActions.request(user_id));
+
     store.dispatch(
       getQuickChattingListActions.request({
-        userId: String(context.params.id),
+        userId: user_id,
       }),
     );
 
@@ -41,9 +55,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     await store.sagaTask.toPromise();
 
     return {
-      props: {
-        previousChatting: store.getState().chattingRoomState.previousChatting,
-      },
+      props: {},
     };
   },
 );

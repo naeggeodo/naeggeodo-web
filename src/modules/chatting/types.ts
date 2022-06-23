@@ -1,62 +1,84 @@
-export type ChattingRoomInfoRequestPayload = {
+import {
+  ChatDetailType,
+  Bookmarks,
+  RemittanceState,
+  ChatState,
+  Category,
+} from '../common/types';
+
+export type ChattingRoomInfoRequest = {
   chattingRoomId: string;
 };
 
-export type ChattingRoomInfoResponsePayload = {
-  imgpath: string;
-  link: string | null;
+export type ChattingRoomInfoResponse = {
+  address: string;
+  endDate: null;
+  buildingCode: string;
+  link: string;
+  orderTimeType: string;
   title: string;
   maxCount: number;
-  chatUser: string[];
-  enddate: null;
+  tags: string[];
+  bookmarks: Bookmarks;
+  user_id: string;
+  imgPath: string;
+  currentCount: number;
+  bookmarksDate: string;
   id: number;
-  state: string;
+  state: ChatState;
   place: string;
-  addr: string;
-  category: string;
-  dealHistory: null;
-  user: null;
-  createDate: Date;
+  category: Category;
+  createDate: string;
 };
 
-export type PreviousChattingItemRequest = {
+export type ChattingSubmitBody = {
+  sender: string;
+  contents: string;
+  chatMain_id: string;
+  type: string;
+  nickname: string;
+};
+
+export type CurrentChattingList = {
+  messages: ChattingSubmitBody[];
+};
+
+export type ChattingListRequest = {
   chattingRoomId: string;
   userId: string;
 };
 
-export type PreviousChattingItemResponse = {
-  user_id?: number;
+export type ChattingListItem = {
+  chatMain_id: number;
+  contents: string;
   id?: number;
   idx?: number;
-  chatMain_id: number;
-  regDate?: string;
-  sender?: number;
-  contents: string;
-  type: string;
+  regDate: string;
+  type: ChatDetailType;
+  user_id?: string;
+  nickname?: string;
 };
 
-export type PreviousChattingListResponse = {
-  messages: PreviousChattingItemResponse[];
+export type ChattingListResponse = {
+  messages: ChattingListItem[];
 };
 
 export type UserId = {
   userId: string;
 };
 
-type QuickChatting = {
-  msg: string;
-  idx: number;
-};
-
-export type QuickChattingListResponse = {
-  quickChat: QuickChatting[];
-  user_id: string;
-};
-
 export type CurrentChatUser = {
   user_id: string;
   idx: number;
-  remittanceState: 'N' | 'Y';
+  remittanceState: RemittanceState;
+  nickname: string;
 };
 
 export type CurrentChatUserListResponse = { users: CurrentChatUser[] };
+
+export type ErrorMessage =
+  | 'SESSION_DUPLICATION'
+  | 'INVALID_STATE'
+  | 'BANNED_CHAT_USER'
+  | 'BAD_REQUEST'
+  | 'UNAUTHORIZED';

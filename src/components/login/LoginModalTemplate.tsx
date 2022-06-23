@@ -5,22 +5,24 @@ import LoginModalBox from './LoginModalBox';
 
 const LoginModal: React.FC = () => {
   return (
-    <Portal selector='loginPortal'>
-      <Background />
-      <LoginModalBox />
+    <Portal selector="loginPortal">
+      <Background>
+        <LoginModalBox />
+      </Background>
     </Portal>
   );
 };
 
 const Background = styled.div`
   position: fixed;
-  width: 100vw;
-  height: 100vh;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
 
-  background-color: #000000;
-  opacity: 0.7;
+  background-color: rgba(0, 0, 0, 0.7);
 
-  z-index: 1;
+  z-index: 3;
 
   overflow: hidden;
   touch-action: none;

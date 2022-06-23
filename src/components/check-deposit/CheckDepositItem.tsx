@@ -9,17 +9,18 @@ import CompleteDepositButton from './CompleteDepositButton';
 const CheckDepositItem = ({ user }: { user: CurrentChatUser }) => {
   return (
     <Container>
-      <div style={{ height: '52px' }}>
+      <ImageWrapper>
         <StyledImg
-          src='/assets/images/profile.svg'
-          layout='fixed'
+          src="/assets/images/smileuser.svg"
+          layout="fixed"
           width={52}
           height={52}
-          objectFit='contain'
+          objectFit="contain"
+          alt="유저 프로필 사진"
         />
-      </div>
-      <NickNameWrapper>{user.user_id}</NickNameWrapper>
-      <CompleteDepositButton user={user} />
+      </ImageWrapper>
+      <NickNameWrapper>{user.nickname}</NickNameWrapper>
+      {user.remittanceState === 'N' && <CompleteDepositButton user={user} />}
     </Container>
   );
 };
@@ -31,13 +32,20 @@ const Container = styled.div`
   width: 100%;
 
   font-size: 1.0625rem;
+  border-radius: 10px 0px 0px 10px;
 
   & > button {
     margin-left: 3px;
   }
 `;
 
+const ImageWrapper = styled.div`
+  height: 52px;
+`;
+
 const StyledImg = styled(Image)`
+  background-color: ${palette.bgGray};
+
   border-radius: 10px 0px 0px 10px;
 `;
 
@@ -46,7 +54,7 @@ const NickNameWrapper = styled.div`
   align-items: center;
 
   min-width: 115px;
-  width: 90%;
+  width: 100%;
   height: 52px;
 
   padding-left: 10px;

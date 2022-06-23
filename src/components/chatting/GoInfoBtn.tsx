@@ -1,16 +1,15 @@
-import { useRouter } from 'next/router';
 import styled from 'styled-components';
+import { useCustomRouter } from '../../hooks/utils/useCustomRouter';
+import { useLoadLib } from '../../hooks/utils/useLoadLib';
 import palette from '../../styles/palette';
 
 const GoInfoBtn = () => {
-  const router = useRouter();
+  const { router } = useLoadLib();
   const chattingRoomId = router.query.id;
 
-  const onClick = () => {
-    router.push(`/check-deposit/${chattingRoomId}`);
-  };
+  const { shiftPage } = useCustomRouter(`/check-deposit/${chattingRoomId}`);
 
-  return <Button onClick={onClick}>돈을 받으셨나요?</Button>;
+  return <Button onClick={shiftPage}>돈을 받으셨나요?</Button>;
 };
 
 const Button = styled.button`
@@ -19,8 +18,8 @@ const Button = styled.button`
   padding: 13px;
   margin-bottom: 0px;
 
-  background-color: #fff;
   color: ${palette.mainOrange};
+  background-color: #fff;
 
   font-size: 1.0625rem;
 
@@ -32,7 +31,9 @@ const Button = styled.button`
   outline: none;
   border: none;
 
-  &:active {
+  transition: 0.3s;
+
+  &:hover {
     background-color: ${palette.mainOrange};
     color: #fff;
   }

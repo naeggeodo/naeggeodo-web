@@ -1,99 +1,116 @@
-import { useState } from 'react';
-import styled from 'styled-components';
-import { CompatClient } from '@stomp/stompjs';
-import Image from 'next/image';
-import { useChat } from '../../hooks/useChat';
+import React, { FormEvent, useCallback, useState } from "react";
+import styled, { css } from "styled-components";
+import Image from "next/image";
+import { CompatClient } from "@stomp/stompjs";
 
-const SubmitForm = ({ stompClient }: { stompClient: CompatClient }) => {
-  const [message, setMessage] = useState('');
-  const { onSendMessage } = useChat();
+import QuickChatList from "./quickChat/QuickChatList";
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!message) return;
-    const data = {
-      chatMain_id: 1,
-      sender: 2,
-      contents: message,
-      type: 'TEXT',
-    };
-    onSendMessage(stompClient, data);
-    setMessage('');
-  };
+type StyledType = {
+  isActive: boolean;
+};
 
-  const onImgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const fileReader = new FileReader();
-    const imgFile = e.target.files[0];
+interface SubmitFormProps {
+  stompClient: CompatClient;
+  changeMessage: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  message: string;
+  sendMessage: (e: FormEvent<HTMLFormElement>) => void;
+  sendImage: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
 
-    fileReader.readAsDataURL(imgFile);
-    fileReader.onload = (e) => {
-      const result = e.target.result;
+const SubmitForm = ({
+  stompClient,
+  changeMessage,
+  message,
+  sendMessage,
+  sendImage,
+}: SubmitFormProps) => {
+  const [isQuickChatOpen, setIsQuickChatOpen] = useState(false);
 
-      const data = {
-        chatMain_id: 1,
-        sender: 2,
-        contents: result as string,
-        type: 'TEXT',
-      };
-      onSendMessage(stompClient, data);
-    };
-  };
+  const onQuickChatOpen = useCallback(() => {
+    setIsQuickChatOpen(!isQuickChatOpen);
+  }, [isQuickChatOpen]);
 
   return (
-    <Wrap>
-      <ContentWrap onSubmit={onSubmit}>
-        <ImgAddLabel htmlFor='image'>
+    <Container>
+      <QuickChatList
+        stompClient={stompClient}
+        isQuickChatOpen={isQuickChatOpen}
+      />
+      <FormContainer>
+        <QuickChatButton
+          isActive={isQuickChatOpen}
+          onClick={onQuickChatOpen}
+          title="채팅 빠르게 보내기 버튼"
+        >
           <Image
-            src='/assets/images/imgaddbtn.svg'
-            alt='img add icon'
-            width={19}
-            height={24}
+            src="/assets/images/toparrow.svg"
+            alt="채팅 빠르게 보내기 버튼"
+            width={30}
+            height={30}
           />
-        </ImgAddLabel>
-        <ImgAddInput
-          type='file'
-          accept='image/*'
-          id='image'
-          onChange={onImgChange}
-        />
-        <TextField
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-        />
-        <Button>
-          <Image
-            src='/assets/images/submitbtn.svg'
-            alt='submit button'
-            width={23}
-            height={24}
+        </QuickChatButton>
+        <ContentWrap onSubmit={sendMessage}>
+          <ImgAddLabel htmlFor="image" title="이미지 추가 아이콘">
+            <Image
+              src="/assets/images/imgaddbtn.svg"
+              alt="이미지 추가 아이콘"
+              width={19}
+              height={24}
+            />
+          </ImgAddLabel>
+          <ImgAddInput
+            type="file"
+            accept="image/*"
+            id="image"
+            onChange={sendImage}
           />
-        </Button>
-      </ContentWrap>
-    </Wrap>
+          <TextField
+            value={message}
+            onChange={changeMessage}
+            title="채팅 텍스트 전송 input"
+          />
+          <SubmitButton title="채팅 전송 버튼">
+            <Image
+              src="/assets/images/submitbtn.svg"
+              alt="전송 버튼"
+              width={23}
+              height={24}
+            />
+          </SubmitButton>
+        </ContentWrap>
+      </FormContainer>
+    </Container>
   );
 };
 
-const Wrap = styled.div`
+const Container = styled.div`
   width: 100%;
-  height: 6%;
   background: #fff;
+  display: flex;
+`;
+
+const FormContainer = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
 `;
 
 const ContentWrap = styled.form`
+  width: 100%;
   display: flex;
-  justify-content: center;
   align-items: center;
-  gap: 3%;
+  justify-content: space-between;
+  gap: 15px;
 
-  width: 90%;
-  height: 100%;
-
-  margin: 0 auto;
+  padding: 0 10px;
+  height: 52px;
 `;
 
-const TextField = styled.textarea`
-  width: 90%;
-  max-height: 70%;
+const TextField = styled.input`
+  width: 94%;
+  height: 40px;
 
   font-size: 0.9375rem;
   resize: none;
@@ -105,6 +122,7 @@ const TextField = styled.textarea`
   outline: none;
 
   overflow-y: auto;
+
   -ms-overflow-style: none;
   &::-webkit-scrollbar {
     display: none;
@@ -119,9 +137,26 @@ const ImgAddInput = styled.input`
   display: none;
 `;
 
-const Button = styled.button`
+const SubmitButton = styled.button`
   all: unset;
+  cursor: pointer;
   background-color: #fff;
+`;
+
+const QuickChatButton = styled.button<StyledType>`
+  all: unset;
+  cursor: pointer;
+  background-color: #fff;
+  opacity: 0.6;
+  ${(props) =>
+    props.isActive
+      ? css`
+          transform: rotate(180deg);
+        `
+      : css`
+          transform: rotate(0deg);
+        `}
+  transition: 0.3s;
 `;
 
 export default SubmitForm;

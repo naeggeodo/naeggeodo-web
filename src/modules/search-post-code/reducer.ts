@@ -1,25 +1,41 @@
 import { createReducer } from 'typesafe-actions';
-import { SAVE_ADDRESS_WITH_BUILDING_CODE } from './actions';
-import { PostCodeResponse, SaveAddresWithBuildingCode } from './types';
+import {
+  GET_BUILDING_CODE_SUCCESS,
+  PATCH_BUILDING_CODE_SUCCESS,
+  SaveApartmentAddressAction,
+  SAVE_APARTMENT_ADDRESS,
+} from './actions';
+import { PatchBuildingCodeResponse } from './types';
 
-const initialPostCodeState: PostCodeResponse = {
+const initialPostCodeState: PatchBuildingCodeResponse = {
   address: '',
-  buildingName: '',
   buildingCode: '',
+  user_id: '',
+  zonecode: '',
   apartment: '',
 };
 
-export const postCodeState = createReducer<PostCodeResponse>(
+export const postCodeState = createReducer<PatchBuildingCodeResponse>(
   initialPostCodeState,
   {
-    [SAVE_ADDRESS_WITH_BUILDING_CODE]: (
-      state,
-      action: SaveAddresWithBuildingCode,
-    ) => ({
+    [PATCH_BUILDING_CODE_SUCCESS]: (state, action) => ({
       ...state,
-      address: action.payload.address,
-      buildingName: action.payload.buildingName,
-      buildingCode: action.payload.buildingCode,
+      address: action.payload.response.address,
+      buildingCode: action.payload.response.buildingCode,
+      zonecode: action.payload.response.zonecode,
+      user_id: action.payload.response.user_id,
+      apartment: action.payload.apartment,
+    }),
+    [GET_BUILDING_CODE_SUCCESS]: (state, action) => ({
+      ...state,
+      address: action.payload.response.address,
+      buildingCode: action.payload.response.buildingCode,
+      zonecode: action.payload.response.zonecode,
+      user_id: action.payload.response.user_id,
+      apartment: action.payload.apartment,
+    }),
+    [SAVE_APARTMENT_ADDRESS]: (state, action: SaveApartmentAddressAction) => ({
+      ...state,
       apartment: action.payload.apartment,
     }),
   },
