@@ -1,8 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
-import palette from '../../styles/palette';
-import { tabDatas } from './data';
-import TabButtonItem from './TabButtonItem';
+import React from "react";
+import styled from "styled-components";
+import palette from "../../styles/palette";
+import { tabDatas } from "./data";
+import TabButtonItem from "./TabButtonItem";
 
 const TabMenu = () => {
   return (

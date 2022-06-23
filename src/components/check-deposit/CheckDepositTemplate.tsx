@@ -79,7 +79,7 @@ const CheckDepositTemplate = () => {
               <CheckDepositItem key={user.idx} user={user} />
             ))}
         </DepositYetUsers>
-        {depositUsers.length > 0 && <ConvertToCompletedButton />}
+        <ConvertToCompletedButton />
         {endChattingModalIsOpen && <EndConfirmModal />}
       </div>
     </Container>

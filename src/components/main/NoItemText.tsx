@@ -1,9 +1,9 @@
-import { useRouter } from 'next/router';
-import React, { useCallback } from 'react';
-import styled from 'styled-components';
-import { useSelectLoginStates } from '../../hooks/select/useSelectLoginStates';
-import { useLoadLib } from '../../hooks/utils/useLoadLib';
-import palette from '../../styles/palette';
+import { useRouter } from "next/router";
+import React, { useCallback } from "react";
+import styled from "styled-components";
+import { useSelectLoginStates } from "../../hooks/select/useSelectLoginStates";
+import { useLoadLib } from "../../hooks/utils/useLoadLib";
+import palette from "../../styles/palette";
 
 const NoItemText = ({
   checkTokenAndRedirection,
@@ -23,22 +23,22 @@ const NoItemText = ({
     (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       checkTokenAndRedirection(e);
       if (accessToken) {
-        if (!address) {
+        if (!buildingCode) {
           return openAddressAlertModal();
         } else {
-          router.replace('/create');
+          router.replace("/create");
         }
       }
     },
-    [address, isAddressModalOpen],
+    [buildingCode, isAddressModalOpen]
   );
   return (
     <Container>
       <CreateButtonContainer>
         <Text>
           {accessToken
-            ? '채팅방이 없어요 먼저 만들어보세요'
-            : '로그인을 해주세요'}
+            ? "채팅방이 없어요 먼저 만들어보세요"
+            : "로그인을 해주세요"}
           🍟
         </Text>
         <CreateButton onClick={onDirection}>채팅방 생성하러가기</CreateButton>

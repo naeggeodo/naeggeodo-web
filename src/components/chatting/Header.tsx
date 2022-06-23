@@ -1,12 +1,12 @@
-import React, { useCallback } from 'react';
-import Image from 'next/image';
-import styled, { css } from 'styled-components';
-import palette from '../../styles/palette';
-import Link from 'next/link';
-import { useCustomRouter } from '../../hooks/utils/useCustomRouter';
+import React, { useCallback } from "react";
+import Image from "next/image";
+import styled, { css } from "styled-components";
+import palette from "../../styles/palette";
+import Link from "next/link";
+import { useCustomRouter } from "../../hooks/utils/useCustomRouter";
 
 type StyledType = {
-  name: 'title' | 'info';
+  name: "title" | "info";
 };
 type StyledProps = {
   max: string;
@@ -44,8 +44,8 @@ const Header = ({
           <Image
             src="/assets/images/prevbtn.svg"
             alt="뒤로가기 버튼"
-            width={14}
-            height={24}
+            width={20}
+            height={30}
           />
         </PrevButton>
 
@@ -64,12 +64,12 @@ const Header = ({
 
           <OrderInfoWrapper>
             <Info name="info">
-              <StyledCurrent max={currentCount === maxCount ? 'true' : 'false'}>
+              <StyledCurrent max={currentCount === maxCount ? "true" : "false"}>
                 현재 {currentCount}명
               </StyledCurrent>
               /{maxCount}명
             </Info>
-            <Link href={link || 'http://naeggeodo.com'}>
+            <Link href={link || "http://naeggeodo.com"}>
               <a target="_blank" rel="noopener noreferrer">
                 주문 정보 보러가기
               </a>
@@ -81,8 +81,8 @@ const Header = ({
       <HamburgerButton onClick={openDrawer}>
         <Image
           src="/assets/images/hamburgerbar.svg"
-          width={22}
-          height={22}
+          width={30}
+          height={30}
           alt="메뉴 바"
         />
       </HamburgerButton>
@@ -101,9 +101,9 @@ const Container = styled.div`
 const FlexRow = styled.div`
   display: flex;
   align-items: center;
-  gap: 13px;
+  gap: 5px;
   width: 100%;
-  padding-right: 10px;
+  padding-right: 4px;
 `;
 
 const PrevButton = styled.button`
@@ -132,7 +132,7 @@ const Info = styled.p<StyledType>`
   line-height: 20px;
 
   ${(props) =>
-    props.name === 'title' &&
+    props.name === "title" &&
     css`
       width: 100%;
       font-size: 0.9375rem;
@@ -143,7 +143,7 @@ const Info = styled.p<StyledType>`
     `}
 
   ${(props) =>
-    props.name === 'info' &&
+    props.name === "info" &&
     css`
       font-size: 0.875rem;
     `}
@@ -185,7 +185,7 @@ const StyledCurrent = styled.span<StyledProps>`
   color: ${palette.naverGreen};
 
   ${(props) =>
-    props.max === 'true' &&
+    props.max === "true" &&
     css`
       color: red;
     `}
