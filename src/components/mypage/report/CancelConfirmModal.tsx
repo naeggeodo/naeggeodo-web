@@ -1,12 +1,12 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import styled from "styled-components";
+import React from 'react';
+import { useSelector } from 'react-redux';
+import styled from 'styled-components';
 
-import { useLoadLib } from "../../../hooks/utils/useLoadLib";
-import { RootState } from "../../../modules";
-import { closeReportConfirmModalActions } from "../../../modules/mypage/actions";
-import palette from "../../../styles/palette";
-import ConfirmModalTemplate from "./ConfirmModalTemplate";
+import { useLoadLib } from '../../../hooks/utils/useLoadLib';
+import { RootState } from '../../../modules';
+import { closeReportConfirmModalActions } from '../../../modules/mypage/actions';
+import palette from '../../../styles/palette';
+import ConfirmModalTemplate from './ConfirmModalTemplate';
 
 const CancelConfirmModal = ({ onAgree }: { onAgree: () => void }) => {
   const { dispatch } = useLoadLib();
@@ -38,9 +38,9 @@ const Container = styled.div`
 
 const CompleteButton = styled.button`
   width: 50%;
-  height: 60px;
+  height: 45px;
 
-  font-size: 0.9375rem;
+  font-size: 1.0625rem;
 
   background-color: ${palette.bgGray};
   color: #000;
@@ -57,8 +57,8 @@ const CompleteButton = styled.button`
 const CancelButton = styled.button`
   width: 50%;
 
-  height: 60px;
-  font-size: 0.9375rem;
+  height: 45px;
+  font-size: 1.0625rem;
 
   background: ${palette.lightOrange};
   color: #fff;

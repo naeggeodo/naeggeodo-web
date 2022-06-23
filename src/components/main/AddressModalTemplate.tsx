@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from "react";
-import styled from "styled-components";
-import palette from "../../styles/palette";
+import React, { useEffect, useRef } from 'react';
+import styled from 'styled-components';
+import palette from '../../styles/palette';
 
 const AddressModalTemplate = ({
   closeAddressAlertModal,
@@ -12,7 +12,7 @@ const AddressModalTemplate = ({
   const modalRef = useRef(null);
 
   useEffect(() => {
-    modalRef.current.style = "z-index:10; opacity:1; top:50%";
+    modalRef.current.style = 'z-index:10; opacity:1; top:50%';
   }, [isAddressModalOpen]);
 
   return (
@@ -20,7 +20,6 @@ const AddressModalTemplate = ({
       <Container ref={modalRef}>
         <TitleWrapper>
           <Title>서비스 이용을 위해 주소를 입력해주세요❗️</Title>
-          <SubTitle>취소버튼을 누를시 서비스 이용이 어렵습니다.</SubTitle>
         </TitleWrapper>
 
         <ButtonContainer>
@@ -78,7 +77,7 @@ const TitleWrapper = styled.div`
 `;
 
 const Title = styled.p`
-  font-family: "SpoqaBold";
+  font-family: 'SpoqaBold';
   font-size: 1.375rem;
   line-height: 1.3;
 
