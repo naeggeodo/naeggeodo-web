@@ -34,35 +34,47 @@ const RendingPage = () => {
   return (
     <Container>
       <TopContainer>
-        <div>
-          <Image src="/assets/images/ngIcon.svg" width={300} height={300} />
+        <ImageContainer>
+          <div>
+            <Image src="/assets/images/ngIcon.svg" width={300} height={300} />
 
-          <Title>
-            우리동네
-            <br />
-            배달비 반값 플랫폼
-            <br />
-            <Strong>내꺼도</Strong> 🛵
-          </Title>
+            <Title>
+              우리동네
+              <br />
+              배달비 반값 플랫폼
+              <br />
+              <Strong>내꺼도</Strong> 🛵
+            </Title>
 
-          <Description>
-            지금 채팅방을 생성해서
-            <br />
-            같이먹을 사람을 모집해보세요
-          </Description>
+            <Description>
+              지금 채팅방을 생성해서
+              <br />
+              같이먹을 사람을 모집해보세요
+            </Description>
 
-          <StartContainer>
-            <MoveMainPageButton onClick={moveToChatRooms}>
-              지금 둘러보기
-            </MoveMainPageButton>
-          </StartContainer>
-        </div>
-
-        <StyledLike>{likeCount || null}</StyledLike>
+            <StartContainer>
+              <MoveMainPageButton onClick={moveToChatRooms}>
+                지금 둘러보기
+              </MoveMainPageButton>
+            </StartContainer>
+          </div>
+          <PhoneImageContainer>
+            <Image src="/assets/images/naeggeo.png" width={350} height={500} />
+            <Image
+              src="/assets/images/naeggeotalk.png"
+              width={350}
+              height={500}></Image>
+          </PhoneImageContainer>
+        </ImageContainer>
       </TopContainer>
 
       <LikeButtonContainer>
-        <p>앱 버전이 개발중 입니다 빠른 출시를 위해 하트를 눌러주세요 :)</p>
+        <p>
+          앱 버전이 개발중 입니다
+          <br />
+          빠른 출시를 위해 하트를 눌러주세요 :)
+        </p>
+        <StyledLike>{likeCount || null}</StyledLike>
         <button onClick={plusLikeCount}>
           <Image src="/assets/images/heart.svg" width={55} height={55}></Image>
         </button>
@@ -87,9 +99,9 @@ export const getServerSideProps = wrapper.getServerSideProps(
 );
 
 const Container = styled.div`
-  padding: 0 30px 20px;
   background-color: #fff;
   height: 100vh;
+  padding: 0 30px 20px;
 `;
 
 const Title = styled.h1`
@@ -98,6 +110,19 @@ const Title = styled.h1`
   color: ${palette.black};
   letter-spacing: 0.35px;
   line-height: 1.3;
+`;
+
+const ImageContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+`;
+
+const PhoneImageContainer = styled.div`
+  display: flex;
+  gap: 30px;
 `;
 
 const Strong = styled.strong`
@@ -147,20 +172,20 @@ const LikeButtonContainer = styled.div`
   align-items: center;
   justify-content: center;
   padding: 20px;
-  gap: 10px;
+  gap: 40px;
   margin-top: 60px;
   border-radius: 20px;
 
   background-color: ${palette.LightGray};
-  color: #e2758c;
 
   @media (max-width: 605px) {
     margin-top: 20px;
   }
 
   & > p {
+    color: ${palette.DarkGray};
     word-break: keep-all;
-    line-height: 1.4;
+    line-height: 1.5;
   }
 
   & > button {
@@ -180,7 +205,7 @@ const StyledLike = styled.div`
   font-family: 'SpoqaBold';
   font-size: 3.75rem;
 
-  color: #e2758c;
+  color: #e93b61;
 `;
 
 export default RendingPage;
