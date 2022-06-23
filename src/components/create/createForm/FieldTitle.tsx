@@ -20,9 +20,9 @@ const Container = styled.div`
 
 const OrangeStar = styled.span`
   font-weight: 500;
-  font-size: 0.9375rem;
+  font-size: 1.25rem;
 
-  color: ${palette.mainOrange};
+  color: red;
 `;
 
 export default FieldTitle;

@@ -144,6 +144,36 @@ const CreateForm = () => {
               width={17}
               height={16}></Image>
           </SelectCategory>
+
+          <ChatRoomContainer>
+            <TitleWrapper>
+              <FieldTitle title="입장 인원" />
+              <Desc>(최소 2명 ~ 최대 5명)</Desc>
+            </TitleWrapper>
+
+            <CounterContainer>
+              <PlusMinusButton
+                style={
+                  maxCount <= 5 && maxCount > 1
+                    ? { color: `${palette.black}` }
+                    : { color: `${palette.TextGray}` }
+                }
+                onClick={dispatchMinusMaxCount}>
+                -
+              </PlusMinusButton>
+              <div>{maxCount}</div>
+              <PlusMinusButton
+                style={
+                  maxCount < 5 && maxCount >= 1
+                    ? { color: `${palette.black}` }
+                    : { color: `${palette.TextGray}` }
+                }
+                onClick={dispatchPlusMaxCount}>
+                +
+              </PlusMinusButton>
+            </CounterContainer>
+          </ChatRoomContainer>
+
           <Item>
             <TitleText>수령장소</TitleText>
             <Input
@@ -166,7 +196,7 @@ const CreateForm = () => {
               <Input
                 maxLength={40}
                 type="url"
-                placeholder="가게 링크를 입력해주세요"
+                placeholder="https://"
                 value={link}
                 onChange={(e) => {
                   setIsUrl(urlRegex.test(link));
@@ -202,35 +232,6 @@ const CreateForm = () => {
               ))}
             </TagContainer>
           </Item>
-
-          <ChatRoomContainer>
-            <TitleWrapper>
-              <FieldTitle title="입장 인원" />
-              <Desc>(최대5명)</Desc>
-            </TitleWrapper>
-
-            <CounterContainer>
-              <PlusMinusButton
-                style={
-                  maxCount <= 5 && maxCount > 1
-                    ? { color: `${palette.black}` }
-                    : { color: `${palette.TextGray}` }
-                }
-                onClick={dispatchMinusMaxCount}>
-                -
-              </PlusMinusButton>
-              <div>{maxCount}</div>
-              <PlusMinusButton
-                style={
-                  maxCount < 5 && maxCount >= 1
-                    ? { color: `${palette.black}` }
-                    : { color: `${palette.TextGray}` }
-                }
-                onClick={dispatchPlusMaxCount}>
-                +
-              </PlusMinusButton>
-            </CounterContainer>
-          </ChatRoomContainer>
 
           <Item>
             <TitleSubTitleWrapper>
