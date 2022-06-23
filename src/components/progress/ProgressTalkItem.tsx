@@ -1,9 +1,9 @@
-import Image from "next/image";
-import styled from "styled-components";
-import { useProgress } from "../../hooks/progress/useProgress";
-import { useCustomRouter } from "../../hooks/utils/useCustomRouter";
+import Image from 'next/image';
+import styled from 'styled-components';
+import { useProgress } from '../../hooks/progress/useProgress';
+import { useCustomRouter } from '../../hooks/utils/useCustomRouter';
 
-import palette from "../../styles/palette";
+import palette from '../../styles/palette';
 
 interface Props {
   id: string;
@@ -12,6 +12,7 @@ interface Props {
   latestMessage: string;
   title: string;
   user_id: string;
+  address: string;
 }
 
 const ProgressTalkItem = ({
@@ -21,6 +22,7 @@ const ProgressTalkItem = ({
   title,
   latestMessage,
   user_id,
+  address,
 }: Props) => {
   const {
     handleModifyButtonClick,
@@ -38,11 +40,10 @@ const ProgressTalkItem = ({
     <Container
       data-value={id}
       key={String(id)}
-      onClick={elementId !== id ? shiftPage : null}
-    >
+      onClick={elementId !== id ? shiftPage : null}>
       <ImageContainer>
         <Image
-          style={{ borderRadius: "10px" }}
+          style={{ borderRadius: '10px' }}
           src={imgPath}
           height={60}
           width={60}
@@ -84,10 +85,10 @@ const ProgressTalkItem = ({
             </ConfirmButton>
           )}
         </TimeTitleWrapper>
-
         <Contents>
           <p>{latestMessage}</p>
         </Contents>
+        <Address>{address}</Address>
       </TextContainer>
     </Container>
   );
@@ -113,7 +114,7 @@ const ImageContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 3px;
+  padding: 3px 5px;
 
   border: 1px solid ${palette.LineGray};
   border-radius: 10px;
@@ -144,13 +145,13 @@ const TimeTitleWrapper = styled.div`
   form > input:first-child {
     width: 100%;
 
-    font-family: "SpoqaBold";
+    font-family: 'SpoqaBold';
     font-size: 0.9375rem;
     color: ${palette.black};
     background-color: ${palette.lightOrange};
     color: #fff;
-    padding: 10px 5px;
     border-radius: 5px;
+    padding: 5px;
     outline: none;
     border: none;
     cursor: pointer;
@@ -187,6 +188,13 @@ const Contents = styled.div`
     white-space: nowrap;
     text-overflow: ellipsis;
   }
+`;
+
+const Address = styled.div`
+  padding: 0 5px;
+  margin-top: 10px;
+  color: #222258;
+  font-size: 0.875rem;
 `;
 
 const ModifyButton = styled.button`

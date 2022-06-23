@@ -65,10 +65,10 @@ export const tabDatas: TabItem[] = [
   },
   {
     id: 2,
-    title: '검색',
-    altText: '검색버튼',
-    image: '/assets/images/searchgray.svg',
-    link: '/search',
+    title: '내꺼톡',
+    altText: '채팅방 버튼',
+    image: '/assets/images/chatgray.svg',
+    link: '/progress',
   },
   {
     id: 3,
@@ -79,10 +79,10 @@ export const tabDatas: TabItem[] = [
   },
   {
     id: 4,
-    title: '내꺼톡',
-    altText: '채팅방 버튼',
-    image: '/assets/images/chatgray.svg',
-    link: '/progress',
+    title: '검색',
+    altText: '검색버튼',
+    image: '/assets/images/searchgray.svg',
+    link: '/search',
   },
   {
     id: 5,

@@ -31,7 +31,9 @@ const Button = styled.button`
   outline: none;
   border: none;
 
-  &:active {
+  transition: 0.3s;
+
+  &:hover {
     background-color: ${palette.mainOrange};
     color: #fff;
   }

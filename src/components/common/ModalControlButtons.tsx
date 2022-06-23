@@ -31,9 +31,9 @@ const Container = styled.div`
 
 const CompleteButton = styled.button`
   width: 60%;
-  height: 40px;
+  height: 45px;
 
-  font-size: 0.875rem;
+  font-size: 1.0625rem;
 
   background: ${palette.mainOrange};
   color: #fff;
@@ -50,8 +50,8 @@ const CompleteButton = styled.button`
 const CancelButton = styled.button`
   width: 40%;
 
-  height: 40px;
-  font-size: 0.875rem;
+  height: 45px;
+  font-size: 1.0625rem;
 
   background-color: ${palette.bgGray};
   border-radius: 10px;

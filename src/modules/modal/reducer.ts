@@ -3,12 +3,14 @@ import {
   CLOSE_BAN_MODAL,
   CLOSE_COMPLETE_MODAL,
   CLOSE_COPY_COMPLETE_MODAL,
+  CLOSE_END_CHATTING_MODAL,
   CLOSE_EXIT_MODAL,
   CLOSE_LOGIN_MODAL,
   CLOSE_SEARCH_POST_CODE,
   OPEN_BAN_MODAL,
   OPEN_COMPLETE_MODAL,
   OPEN_COPY_COMPLETE_MODAL,
+  OPEN_END_CHATTING_MODAL,
   OPEN_EXIT_MODAL,
   OPEN_LOGIN_MODAL,
   OPEN_SEARCH_POST_CODE,
@@ -22,6 +24,7 @@ const initialState: ModalStates = {
   copyCompleteModalIsOpen: false,
   exitModalIsOpen: false,
   banModalIsOpen: false,
+  endChattingModalIsOpen: false,
 };
 
 export const modalStates = createReducer<ModalStates>(initialState, {
@@ -74,5 +77,13 @@ export const modalStates = createReducer<ModalStates>(initialState, {
   [CLOSE_BAN_MODAL]: (state) => ({
     ...state,
     banModalIsOpen: false,
+  }),
+  [OPEN_END_CHATTING_MODAL]: (state) => ({
+    ...state,
+    endChattingModalIsOpen: true,
+  }),
+  [CLOSE_END_CHATTING_MODAL]: (state) => ({
+    ...state,
+    endChattingModalIsOpen: false,
   }),
 });

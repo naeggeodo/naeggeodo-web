@@ -5,10 +5,10 @@ import {
   useLayoutEffect,
   useRef,
   useState,
-} from 'react';
-import { setProgressingChatRoomTitleActions } from '../../modules/progress/actions';
-import { useSelectLoginStates } from '../select/useSelectLoginStates';
-import { useLoadLib } from '../utils/useLoadLib';
+} from "react";
+import { setProgressingChatRoomTitleActions } from "../../modules/progress/actions";
+import { useSelectLoginStates } from "../select/useSelectLoginStates";
+import { useLoadLib } from "../utils/useLoadLib";
 
 export function useProgress(initialTitle: string, id: string) {
   const { dispatch } = useLoadLib();
@@ -24,10 +24,10 @@ export function useProgress(initialTitle: string, id: string) {
   >(
     (e) => {
       e.stopPropagation();
-      const id = e.currentTarget.getAttribute('data-id');
+      const id = e.currentTarget.getAttribute("data-id");
       setElementId(id);
     },
-    [elementId],
+    [elementId]
   );
 
   useLayoutEffect(() => {
@@ -46,15 +46,18 @@ export function useProgress(initialTitle: string, id: string) {
   };
 
   const onSaveTitle = (
-    e: FormEvent<HTMLFormElement> | MouseEvent<HTMLButtonElement>,
+    e: FormEvent<HTMLFormElement> | MouseEvent<HTMLButtonElement>
   ) => {
     e.preventDefault();
     e.stopPropagation();
+    if (!chatTitle) {
+      return setChatTitle(initialTitle);
+    }
     dispatch(
       setProgressingChatRoomTitleActions.request({
         chatMain_id: String(id),
         title: chatTitle,
-      }),
+      })
     );
     inputRefs.current.map((input, _) => {
       if (input.id === elementId) {

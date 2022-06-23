@@ -40,7 +40,7 @@ const PrevCreatedItem = ({ data }: { data: PrevCreatedListItem }) => {
         userId: user_id,
       }),
     );
-  }, [dispatch, data, user_id]);
+  }, [dispatch, data, user_id, data.id]);
 
   const onDeleteItem = useCallback(() => {
     dispatch(
@@ -68,8 +68,8 @@ const PrevCreatedItem = ({ data }: { data: PrevCreatedListItem }) => {
           <BookmarkButton onClick={onBookmarkHandler}>
             <Image
               src="/assets/images/yellowstar.svg"
-              width={18}
-              height={24}
+              width={30}
+              height={30}
               layout="fixed"
             />
           </BookmarkButton>
@@ -77,8 +77,8 @@ const PrevCreatedItem = ({ data }: { data: PrevCreatedListItem }) => {
           <BookmarkButton onClick={onBookmarkHandler}>
             <Image
               src="/assets/images/graystar.svg"
-              width={18}
-              height={24}
+              width={30}
+              height={30}
               layout="fixed"
             />
           </BookmarkButton>
@@ -86,8 +86,8 @@ const PrevCreatedItem = ({ data }: { data: PrevCreatedListItem }) => {
         <DeleteButton onClick={onDeleteItem}>
           <Image
             src="/assets/images/close.svg"
-            width={18}
-            height={24}
+            width={30}
+            height={30}
             layout="fixed"
           />
         </DeleteButton>

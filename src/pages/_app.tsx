@@ -1,12 +1,12 @@
-import GlobalStyle from '../styles/GlobalStyle';
-import { wrapper } from '../modules';
-import Head from 'next/head';
-import App, { AppContext } from 'next/app';
-import { axiosInstance } from '../service/api';
-import cookies from 'next-cookies';
-import { createCustomHeader } from '../utils/createCustomHeader';
-import AppLayout from '../components/common/AppLayout';
-import palette from '../styles/palette';
+import GlobalStyle from "../styles/GlobalStyle";
+import { wrapper } from "../modules";
+import Head from "next/head";
+import App, { AppContext } from "next/app";
+import { axiosInstance } from "../service/api";
+import cookies from "next-cookies";
+import { createCustomHeader } from "../utils/createCustomHeader";
+import AppLayout from "../components/common/AppLayout";
+import palette from "../styles/palette";
 
 const app = ({ Component, pageProps }) => {
   return (
@@ -34,7 +34,7 @@ console.log(
   `color:${palette.lightOrange}`,
   `color:${palette.mainOrange}`,
   `color:${palette.lightOrange}`,
-  `color:${palette.naverGreen}`,
+  `color:${palette.naverGreen}`
 );
 
 app.getInitialProps = wrapper.getInitialAppProps(
@@ -54,11 +54,11 @@ app.getInitialProps = wrapper.getInitialAppProps(
       },
       function (error) {
         return Promise.reject(error);
-      },
+      }
     );
 
     return { ...myAppInitialProps };
-  },
+  }
 );
 
 export default wrapper.withRedux(app);

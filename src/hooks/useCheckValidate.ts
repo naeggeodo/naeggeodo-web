@@ -21,16 +21,14 @@ export function useCheckValidate() {
   const checkTokenAndRedirection = useCallback(() => {
     if (!accessToken) {
       dispatch(openLoginModal());
-    } else {
-      router.replace('/create');
     }
   }, [dispatch]);
 
-  const openWebView = useCallback(() => {
+  const openWebView = () => {
     if (!accessToken) {
       dispatch(openLoginModal());
     } else dispatch(openSearchPostCode());
-  }, [dispatch, accessToken]);
+  };
 
   const closeWebView = useCallback(() => {
     dispatch(closeSearchPostCode());

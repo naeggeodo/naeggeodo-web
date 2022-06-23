@@ -39,87 +39,92 @@ const Header = ({
 
   return (
     <Container>
-      <ContentWrap>
+      <FlexRow>
         <PrevButton onClick={routeBack} title="뒤로가기 버튼">
           <Image
             src="/assets/images/prevbtn.svg"
             alt="뒤로가기 버튼"
-            width={14}
-            height={24}
+            width={20}
+            height={30}
           />
         </PrevButton>
+
         {imgPath && (
           <StyledImage
             src={imgPath}
-            width={38}
-            height={38}
+            width={50}
+            height={50}
             alt="채팅방 이미지"
+            layout="fixed"
           />
         )}
-        <Link href={link || "http://naeggeodo.com"} passHref>
-          <LinkWrapper target="_blank" rel="noopener noreferrer">
-            <Info name="title">{title}</Info>
+
+        <TitleCountContainer>
+          <Info name="title">{title}</Info>
+
+          <OrderInfoWrapper>
             <Info name="info">
               <StyledCurrent max={currentCount === maxCount ? "true" : "false"}>
                 현재 {currentCount}명
               </StyledCurrent>
               /{maxCount}명
             </Info>
-          </LinkWrapper>
-        </Link>
-        <HambergurButton onClick={openDrawer}>
-          <Image
-            src="/assets/images/hamburgerbar.svg"
-            width={22}
-            height={22}
-            alt="메뉴 바"
-          />
-        </HambergurButton>
-      </ContentWrap>
+            <Link href={link || "http://naeggeodo.com"}>
+              <a target="_blank" rel="noopener noreferrer">
+                주문 정보 보러가기
+              </a>
+            </Link>
+          </OrderInfoWrapper>
+        </TitleCountContainer>
+      </FlexRow>
+
+      <HamburgerButton onClick={openDrawer}>
+        <Image
+          src="/assets/images/hamburgerbar.svg"
+          width={30}
+          height={30}
+          alt="메뉴 바"
+        />
+      </HamburgerButton>
     </Container>
   );
 };
 
 const Container = styled.div`
-  width: 100%;
-  height: 10%;
+  display: flex;
+  justify-content: space-between;
+  padding: 26px 10px 21px;
 
   background-color: ${palette.black};
 `;
 
-const ContentWrap = styled.div`
+const FlexRow = styled.div`
   display: flex;
   align-items: center;
-  gap: 10px;
-
-  position: relative;
-
-  width: 90%;
-  height: 100%;
-
-  margin: 0 auto;
+  gap: 5px;
+  width: 100%;
+  padding-right: 4px;
 `;
 
 const PrevButton = styled.button`
+  padding-top: 1%;
   border: none;
   outline: none;
   background: transparent;
-  padding: 0;
 
   cursor: pointer;
 `;
 
 const StyledImage = styled(Image)`
-  display: inline-block;
+  width: 100%;
   border-radius: 10px;
 `;
 
-const LinkWrapper = styled.a`
+const TitleCountContainer = styled.div`
   display: flex;
   flex-direction: column;
-
   gap: 5px;
-  text-decoration: none;
+  width: 100%;
 `;
 
 const Info = styled.p<StyledType>`
@@ -129,26 +134,51 @@ const Info = styled.p<StyledType>`
   ${(props) =>
     props.name === "title" &&
     css`
+      width: 100%;
       font-size: 0.9375rem;
+
+      @media (max-width: 590px) {
+        width: 90%;
+      }
     `}
 
   ${(props) =>
     props.name === "info" &&
     css`
-      font-size: 0.75rem;
+      font-size: 0.875rem;
     `}
 `;
 
-const HambergurButton = styled.button`
+const OrderInfoWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+
+  width: 100%;
+  font-size: 0.9375rem;
+
+  @media (max-width: 590px) {
+    width: 90%;
+  }
+
+  & > a {
+    all: unset;
+    padding: 5px 10px;
+
+    color: #fff;
+    font-size: 0.8125rem;
+    border-radius: 5px;
+    background-color: ${palette.lightOrange};
+    cursor: pointer;
+  }
+`;
+
+const HamburgerButton = styled.button`
   background: transparent;
   border: none;
   outline: none;
   cursor: pointer;
-
-  position: absolute;
-  right: 0;
-
-  padding: 10px;
 `;
 
 const StyledCurrent = styled.span<StyledProps>`

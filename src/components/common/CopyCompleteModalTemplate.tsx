@@ -5,7 +5,7 @@ import Portal from './Portal';
 
 const CopyCompleteModalTemplate = () => {
   return (
-    <Portal selector='loginPortal'>
+    <Portal selector="loginPortal">
       <Background>
         <CopyCompleteModalBox />
       </Background>
@@ -15,14 +15,14 @@ const CopyCompleteModalTemplate = () => {
 
 const Background = styled.div`
   position: fixed;
-  top: 0;
+  top: 50p;
   bottom: 0;
   right: 0;
   left: 0;
 
   background-color: rgba(0, 0, 0, 0.7);
 
-  z-index: 1;
+  z-index: 3;
 
   overflow: hidden;
   touch-action: none;

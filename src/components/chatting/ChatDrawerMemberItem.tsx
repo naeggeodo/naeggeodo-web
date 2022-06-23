@@ -30,7 +30,7 @@ const ChatDrawerMemberItem = ({ user }: { user: CurrentChatUser }) => {
   const my_id = useSelector((state: RootState) => state.loginState.user_id);
 
   const onMemberClick = useCallback(
-    (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       if (my_id !== master_id) return;
       if (user.user_id === my_id) return;
       dispatch(setBanUser(user));
@@ -41,7 +41,7 @@ const ChatDrawerMemberItem = ({ user }: { user: CurrentChatUser }) => {
 
   return (
     <div>
-      <MemberItem key={user.user_id} onClick={onMemberClick}>
+      <MemberItem key={user.user_id}>
         <FlexWrapper>
           <Image
             src="/assets/images/smileuser.svg"
@@ -53,13 +53,15 @@ const ChatDrawerMemberItem = ({ user }: { user: CurrentChatUser }) => {
 
           <Nickname isMe={user.user_id === my_id}>{user.nickname}</Nickname>
         </FlexWrapper>
-        {master_id === user.user_id && (
+        {master_id === user.user_id ? (
           <Image
             src="/assets/images/king.svg"
             width={25}
             height={25}
             alt="방장 표시 아이콘"
           />
+        ) : (
+          <EjectButton onClick={onMemberClick}>강퇴하기</EjectButton>
         )}
       </MemberItem>
     </div>
@@ -104,6 +106,15 @@ const Nickname = styled.p<StyledType>`
         margin-right: 4px;
       }
     `}
+`;
+
+const EjectButton = styled.button`
+  all: unset;
+  font-size: 0.8125rem;
+  color: #fff;
+  background-color: #ff6363;
+  padding: 5px;
+  border-radius: 5px;
 `;
 
 export default ChatDrawerMemberItem;
