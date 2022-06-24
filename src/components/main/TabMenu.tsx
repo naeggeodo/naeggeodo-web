@@ -1,8 +1,8 @@
-import React from "react";
-import styled from "styled-components";
-import palette from "../../styles/palette";
-import { tabDatas } from "./data";
-import TabButtonItem from "./TabButtonItem";
+import React from 'react';
+import styled from 'styled-components';
+import palette from '../../styles/palette';
+import { tabDatas } from './data';
+import TabButtonItem from './TabButtonItem';
 
 const TabMenu = () => {
   return (
@@ -28,7 +28,7 @@ const Container = styled.div`
   justify-content: space-evenly;
 
   width: 100%;
-  height: 55px;
+  height: 65px;
   background-color: #fff;
 
   backdrop-filter: blur(20px);

@@ -1,10 +1,10 @@
-import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import React from "react";
-import styled, { css } from "styled-components";
-import palette from "../../styles/palette";
-import { TabItem } from "./types";
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React from 'react';
+import styled, { css } from 'styled-components';
+import palette from '../../styles/palette';
+import { TabItem } from './types';
 
 type StyledButtonProps = {
   active?: boolean;
@@ -18,22 +18,21 @@ interface StyledImageProps {
 const TabButtonItem: React.FC<TabItem> = (props) => {
   const router = useRouter();
   const routerfirstpath: string = router.pathname
-    .split("/")
+    .split('/')
     .slice(0, 2)
-    .join("/");
+    .join('/');
 
   return (
     <Link href={props.link} passHref>
       <TabButton
         rel="noreferrer noopener"
-        active={routerfirstpath === props.link ? true : false}
-      >
+        active={routerfirstpath === props.link ? true : false}>
         <div>
           <StyledImage
             src={props.image}
             alt={props.altText}
-            width={20}
-            height={20}
+            width={25}
+            height={25}
             routerfirstpath={routerfirstpath}
             link={props.link}
           />
@@ -49,7 +48,7 @@ const TabButton = styled.a<StyledButtonProps>`
   align-items: center;
 
   font-size: 0.875rem;
-  color: ${(props) => (props.active ? "#000" : palette.LineGray)};
+  color: ${(props) => (props.active ? '#000' : palette.LineGray)};
 
   text-decoration: none;
   background-color: transparent;
