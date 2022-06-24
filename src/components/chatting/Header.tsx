@@ -1,12 +1,12 @@
-import React, { useCallback } from "react";
-import Image from "next/image";
-import styled, { css } from "styled-components";
-import palette from "../../styles/palette";
-import Link from "next/link";
-import { useCustomRouter } from "../../hooks/utils/useCustomRouter";
+import React, { useCallback } from 'react';
+import Image from 'next/image';
+import styled, { css } from 'styled-components';
+import palette from '../../styles/palette';
+import Link from 'next/link';
+import { useCustomRouter } from '../../hooks/utils/useCustomRouter';
 
 type StyledType = {
-  name: "title" | "info";
+  name: 'title' | 'info';
 };
 type StyledProps = {
   max: string;
@@ -64,14 +64,14 @@ const Header = ({
 
           <OrderInfoWrapper>
             <Info name="info">
-              <StyledCurrent max={currentCount === maxCount ? "true" : "false"}>
+              <StyledCurrent max={currentCount === maxCount ? 'true' : 'false'}>
                 현재 {currentCount}명
               </StyledCurrent>
               /{maxCount}명
             </Info>
-            <Link href={link || "http://naeggeodo.com"}>
+            <Link href={link || 'http://naeggeodo.com'}>
               <a target="_blank" rel="noopener noreferrer">
-                주문 정보 보러가기
+                주문 정보
               </a>
             </Link>
           </OrderInfoWrapper>
@@ -132,7 +132,7 @@ const Info = styled.p<StyledType>`
   line-height: 20px;
 
   ${(props) =>
-    props.name === "title" &&
+    props.name === 'title' &&
     css`
       width: 100%;
       font-size: 0.9375rem;
@@ -143,7 +143,7 @@ const Info = styled.p<StyledType>`
     `}
 
   ${(props) =>
-    props.name === "info" &&
+    props.name === 'info' &&
     css`
       font-size: 0.875rem;
     `}
@@ -185,7 +185,7 @@ const StyledCurrent = styled.span<StyledProps>`
   color: ${palette.naverGreen};
 
   ${(props) =>
-    props.max === "true" &&
+    props.max === 'true' &&
     css`
       color: red;
     `}
