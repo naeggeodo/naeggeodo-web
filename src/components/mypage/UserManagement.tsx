@@ -1,11 +1,11 @@
-import Image from "next/image";
-import React, { useCallback } from "react";
-import styled from "styled-components";
-import { Cookies } from "react-cookie";
+import Image from 'next/image';
+import React, { useCallback } from 'react';
+import styled from 'styled-components';
+import { Cookies } from 'react-cookie';
 
-import palette from "../../styles/palette";
-import { LoginService } from "../../service/api/login/LoginService";
-import { useRouter } from "next/router";
+import palette from '../../styles/palette';
+import { LoginService } from '../../service/api/login/LoginService';
+import { useRouter } from 'next/router';
 
 const UserManagement = () => {
   const router = useRouter();
@@ -15,11 +15,11 @@ const UserManagement = () => {
         const cookies = new Cookies();
         const response = await LoginService.asyncPostLogout();
         if (response.status === 200) {
-          cookies.remove("accessToken");
-          cookies.remove("address");
-          cookies.remove("user_id");
-          cookies.remove("buildingCode");
-          router.replace("/");
+          cookies.remove('accessToken');
+          cookies.remove('address');
+          cookies.remove('user_id');
+          cookies.remove('buildingCode');
+          router.replace('/');
         }
       } catch (err) {
         console.log(err);
@@ -48,7 +48,7 @@ const Container = styled.div`
 const SectionTitle = styled.h3`
   margin-bottom: 10px;
   color: ${palette.TextGray};
-  font-family: "SpoqaBold";
+  font-family: 'SpoqaBold';
   font-size: 0.9375rem;
 `;
 
@@ -60,6 +60,7 @@ const MenuItem = styled.button`
   padding: 15px;
   font-size: 0.9375rem;
   background-color: #fff;
+  color: ${palette.black};
 
   text-align: left;
   border: none;

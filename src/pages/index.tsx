@@ -39,7 +39,7 @@ const RendingPage = () => {
             <Image src="/assets/images/ngIcon.svg" width={300} height={300} />
 
             <Title>
-              우리동네
+              우리 동네
               <br />
               배달비 반값 플랫폼
               <br />
@@ -62,7 +62,7 @@ const RendingPage = () => {
       </TopContainer>
 
       <LikeButtonContainer>
-        <p>앱 버전이 개발 중 입니다 빠른 출시를 위해 하트를 눌러주세요 :)</p>
+        <p>앱 버전이 개발 중입니다. 빠른 출시를 위해 하트를 눌러주세요 :)</p>
         <CounterWrapper>
           <StyledLike>{likeCount || null}</StyledLike>
           <button onClick={plusLikeCount}>

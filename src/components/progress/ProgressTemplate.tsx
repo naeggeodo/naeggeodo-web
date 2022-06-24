@@ -15,7 +15,7 @@ const ProgressTemplate = () => {
     <React.Fragment>
       <Container>
         <Title>
-          참여중인 <Emphasize>내꺼톡</Emphasize> 리스트
+          참여 중인 <Emphasize>내꺼톡</Emphasize> 리스트
         </Title>
 
         <ProgressTalkList>

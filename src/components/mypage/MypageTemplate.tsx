@@ -64,7 +64,6 @@ const MypageTemplate = () => {
 
 const Container = styled.div`
   width: 100%;
-  height: 100vh;
 
   background-color: #fff;
   padding: 46px 0 83px;

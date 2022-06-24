@@ -24,7 +24,7 @@ const LoginModalBox = () => {
     <ModalContainer ref={modalRef}>
       <TitleWrapper>
         <Title>로그인이 필요합니다.</Title>
-        <SubTitle>취소버튼을 누를시 서비스 이용이 어렵습니다.</SubTitle>
+        <SubTitle>취소 버튼을 누를 시 서비스 이용이 어렵습니다.</SubTitle>
       </TitleWrapper>
 
       <ButtonContainer>
