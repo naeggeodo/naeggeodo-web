@@ -53,6 +53,22 @@ csrAxiosInstance.interceptors.request.use(
     }
   },
   function (error) {
+    console.log('요청 에러', error);
+    return Promise.reject(error);
+  },
+);
+
+csrAxiosInstance.interceptors.response.use(
+  async function (config) {
+    try {
+      console.log('요청받았다');
+      return config;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  function (error) {
+    console.log('요청 받기 에러', error);
     return Promise.reject(error);
   },
 );

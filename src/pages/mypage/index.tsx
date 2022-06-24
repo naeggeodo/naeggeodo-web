@@ -1,9 +1,9 @@
-import React from "react";
-import { END } from "redux-saga";
-import MypageTemplate from "../../components/mypage/MypageTemplate";
-import { RootState, wrapper } from "../../modules";
-import { getUserInfoInMypageRequest } from "../../modules/mypage/actions";
-import { saveCookies } from "../../utils/saveCookies";
+import React from 'react';
+import { END } from 'redux-saga';
+import MypageTemplate from '../../components/mypage/MypageTemplate';
+import { RootState, wrapper } from '../../modules';
+import { getUserInfoInMypageRequest } from '../../modules/mypage/actions';
+import { saveCookies } from '../../utils/saveCookies';
 
 const Mypage = () => {
   return <MypageTemplate />;
@@ -25,7 +25,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     if (!accessToken) {
       return {
         redirect: {
-          destination: "/login",
+          destination: '/login',
           permanent: false,
         },
       };
@@ -34,7 +34,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     return {
       props: {},
     };
-  }
+  },
 );
 
 export default Mypage;
