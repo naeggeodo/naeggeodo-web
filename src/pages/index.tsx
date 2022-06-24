@@ -49,7 +49,7 @@ const RendingPage = () => {
             <Description>
               지금 채팅방을 생성해서
               <br />
-              같이먹을 사람을 모집해보세요
+              같이 먹을 사람을 모집해 보세요
             </Description>
 
             <StartContainer>
@@ -62,15 +62,17 @@ const RendingPage = () => {
       </TopContainer>
 
       <LikeButtonContainer>
-        <p>
-          앱 버전이 개발중 입니다
-          <br />
-          빠른 출시를 위해 하트를 눌러주세요 :)
-        </p>
-        <StyledLike>{likeCount || null}</StyledLike>
-        <button onClick={plusLikeCount}>
-          <Image src="/assets/images/heart.svg" width={55} height={55}></Image>
-        </button>
+        <p>앱 버전이 개발 중 입니다 빠른 출시를 위해 하트를 눌러주세요 :)</p>
+        <CounterWrapper>
+          <StyledLike>{likeCount || null}</StyledLike>
+          <button onClick={plusLikeCount}>
+            <StyledHeart
+              src="/assets/images/heart.svg"
+              width={55}
+              height={55}
+              objectFit="contain"></StyledHeart>
+          </button>
+        </CounterWrapper>
       </LikeButtonContainer>
     </Container>
   );
@@ -154,12 +156,18 @@ const TopContainer = styled.div`
   }
 `;
 
+const StyledHeart = styled(Image)`
+  min-width: 55px;
+`;
+
 const LikeButtonContainer = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px;
-  gap: 40px;
+
+  gap: 10px;
+  padding: 10px;
   margin-top: 60px;
   border-radius: 20px;
 
@@ -169,13 +177,13 @@ const LikeButtonContainer = styled.div`
     margin-top: 20px;
   }
 
-  & > p {
+  & p {
     color: ${palette.DarkGray};
     word-break: keep-all;
     line-height: 1.5;
   }
 
-  & > button {
+  & button {
     all: unset;
     cursor: pointer;
     transition: 0.6s;
@@ -193,6 +201,10 @@ const StyledLike = styled.div`
   font-size: 3.75rem;
 
   color: #e93b61;
+`;
+
+const CounterWrapper = styled.div`
+  display: flex;
 `;
 
 export default RendingPage;
