@@ -1,7 +1,7 @@
-import { ComponentMeta } from "@storybook/react";
-import { Provider } from "react-redux";
-import { configureStore } from "../../../modules";
-import ChatDrawer from "../ChatDrawer";
+import { ComponentMeta } from '@storybook/react';
+import { Provider } from 'react-redux';
+import { configureStore } from '../../../modules';
+import ChatDrawer from '../ChatDrawer';
 
 type Args = {
   exit: null;
@@ -13,7 +13,7 @@ type Args = {
 };
 
 export default {
-  title: "chatting/컴포넌트",
+  title: 'chatting/컴포넌트',
   component: ChatDrawer,
   decorators: [
     (Story) => (
@@ -23,14 +23,14 @@ export default {
     ),
   ],
   parameters: {
-    layout: "fullscreen",
+    layout: 'fullscreen',
   },
 } as ComponentMeta<typeof ChatDrawer>;
 
 const ChatDrawerStory = (args: Args) => (
   <ChatDrawer
     setIsDrawerOpen={() => {
-      console.log("test");
+      console.log('storybook');
     }}
     isDrawerOpen={true}
     currentCount={1}
@@ -44,4 +44,4 @@ ChatDrawerComp.args = {
   isDrawerOpen: true,
 };
 
-ChatDrawerComp.storyName = "채팅 서랍";
+ChatDrawerComp.storyName = '채팅 서랍';

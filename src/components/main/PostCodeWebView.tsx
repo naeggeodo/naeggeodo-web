@@ -34,7 +34,6 @@ const PostCodeWebView = ({ closeWebView }: { closeWebView: () => void }) => {
         extraAddress +=
           extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName;
       }
-      console.log(extraAddress);
       // fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
     }
 

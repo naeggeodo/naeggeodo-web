@@ -124,7 +124,6 @@ const ChattingTemplate = () => {
             dispatch(setCurrentChattingList(body));
 
             if (newMessage.type === 'CNT') {
-              console.log(newMessage);
               dispatch(
                 changeCurrentCountInChatting(
                   JSON.parse(newMessage.contents).currentCount,
@@ -178,7 +177,6 @@ const ChattingTemplate = () => {
   const sendImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     try {
       const imgFile = e.target.files[0];
-      console.log(imgFile);
       const options: Options = {
         maxSizeMB: 0.1,
         maxWidthOrHeight: 150,

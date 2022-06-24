@@ -58,13 +58,6 @@ const RendingPage = () => {
               </MoveMainPageButton>
             </StartContainer>
           </div>
-          <PhoneImageContainer>
-            <Image src="/assets/images/naeggeo.png" width={350} height={500} />
-            <Image
-              src="/assets/images/naeggeotalk.png"
-              width={350}
-              height={500}></Image>
-          </PhoneImageContainer>
         </ImageContainer>
       </TopContainer>
 
@@ -114,15 +107,9 @@ const Title = styled.h1`
 
 const ImageContainer = styled.div`
   display: flex;
-  justify-content: space-around;
   align-items: center;
   gap: 20px;
   width: 100%;
-`;
-
-const PhoneImageContainer = styled.div`
-  display: flex;
-  gap: 30px;
 `;
 
 const Strong = styled.strong`
