@@ -1,7 +1,6 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { useInfiniteScroll } from '../../hooks/render/useInfiniteScroll';
 import { useLoadLib } from '../../hooks/utils/useLoadLib';
 import { RootState } from '../../modules';
 import { copyPrevChatRoomDataActions } from '../../modules/create/actions';
@@ -10,6 +9,8 @@ import TabMenu from '../main/TabMenu';
 import PrevCreatedItem from './PrevCreatedItem';
 
 const PrevCreatedList = () => {
+  const target = useRef<HTMLDivElement>(null);
+
   const { dispatch } = useLoadLib();
   const { chatRooms } = useSelector(
     (state: RootState) => state.createStates.prevCreatedListResponse,
@@ -22,7 +23,7 @@ const PrevCreatedList = () => {
     (state: RootState) => state.createStates,
   );
 
-  const { target, dataList } = useInfiniteScroll(chatRooms);
+  // const { target, dataList } = useInfiniteScroll(chatRooms);
 
   const copyPrevChatRoom = useCallback(async () => {
     dispatch(
@@ -47,7 +48,7 @@ const PrevCreatedList = () => {
             내꺼톡 생성하기
           </Button>
         </ButtonWrapper>
-        {dataList.length < chatRooms.length && <div ref={target} />}
+        {chatRooms.length < chatRooms.length && <div ref={target} />}
       </Container>
       <TabMenu />
     </React.Fragment>

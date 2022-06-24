@@ -5,9 +5,8 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import Image from 'next/image';
-import Link from 'next/link';
 import TagButton from './TagButton';
 import FieldTitle from './FieldTitle';
 import TitleText from './TitleText';
@@ -50,7 +49,7 @@ const CreateForm = () => {
   const linkRef = useRef(null);
   const [isUrl, setIsUrl] = useState<boolean>(false);
   const [imgSrc, setImgSrc] = useState<string | ArrayBuffer>();
-  const [imgFile, setImgFile] = useState<any>();
+  const [imgFile, setImgFile] = useState<File>();
 
   const openCategoryList = useCallback(() => {
     setIsOpen(true);

@@ -1,19 +1,18 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import styled from "styled-components";
-import { useInfiniteScroll } from "../../hooks/render/useInfiniteScroll";
-import { RootState } from "../../modules";
-import { ChatRoomItemResponse } from "../../modules/common/types";
-import ChatRoomItem from "./ChatRoomItem";
+import React, { useRef } from 'react';
+import { useSelector } from 'react-redux';
+import styled from 'styled-components';
+import { RootState } from '../../modules';
+import ChatRoomItem from './ChatRoomItem';
 
 //TODO 무한스크롤시 key 중복 생성
 
 const ChatRoomList = () => {
   const chatRooms = useSelector(
-    (state: RootState) => state.mainPageState.chatRooms
+    (state: RootState) => state.mainPageState.chatRooms,
   );
-  const { target, dataList } =
-    useInfiniteScroll<ChatRoomItemResponse>(chatRooms);
+  const target = useRef<HTMLDivElement>(null);
+
+  // const { target } = useInfiniteScroll<ChatRoomItemResponse>(chatRooms);
 
   return (
     <Container>

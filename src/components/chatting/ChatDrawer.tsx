@@ -1,14 +1,14 @@
-import { CompatClient } from "@stomp/stompjs";
-import Image from "next/image";
-import React, { useCallback, useRef } from "react";
-import { useSelector } from "react-redux";
-import styled, { css } from "styled-components";
-import { useLoadLib } from "../../hooks/utils/useLoadLib";
-import { RootState } from "../../modules";
-import { openExitModal } from "../../modules/modal/actions";
-import palette from "../../styles/palette";
-import ChatDrawerMemberItem from "./ChatDrawerMemberItem";
-import ExpulsionModal from "./ExpulsionModal";
+import { CompatClient } from '@stomp/stompjs';
+import Image from 'next/image';
+import React, { useCallback, useRef } from 'react';
+import { useSelector } from 'react-redux';
+import styled, { css } from 'styled-components';
+import { useLoadLib } from '../../hooks/utils/useLoadLib';
+import { RootState } from '../../modules';
+import { openExitModal } from '../../modules/modal/actions';
+import palette from '../../styles/palette';
+import ChatDrawerMemberItem from './ChatDrawerMemberItem';
+import ExpulsionModal from './ExpulsionModal';
 
 type StyledType = {
   isMe?: boolean;
@@ -27,32 +27,28 @@ const ChatDrawer = ({
   setIsDrawerOpen,
   isDrawerOpen,
   currentCount,
-  masterId,
   stompClient,
 }: PropsType) => {
   const { dispatch } = useLoadLib();
   const containerRef = useRef<HTMLDivElement>(null);
 
   const { users } = useSelector(
-    (state: RootState) => state.chattingRoomState.currentChatUserList
+    (state: RootState) => state.chattingRoomState.currentChatUserList,
   );
 
   const imageList = useSelector(
-    (state: RootState) => state.chattingRoomState.imageList
+    (state: RootState) => state.chattingRoomState.imageList,
   );
 
   const { banModalIsOpen } = useSelector(
-    (state: RootState) => state.modalStates
+    (state: RootState) => state.modalStates,
   );
 
   const closeDrawer = useCallback<
     (e: React.MouseEvent<HTMLButtonElement>) => void
-  >(
-    (e) => {
-      setIsDrawerOpen(false);
-    },
-    [isDrawerOpen]
-  );
+  >(() => {
+    setIsDrawerOpen(false);
+  }, [isDrawerOpen]);
 
   const exitChatRoom = useCallback(() => {
     dispatch(openExitModal());
@@ -84,7 +80,7 @@ const ChatDrawer = ({
                     key={image}
                     style={{
                       backgroundColor: `${palette.Gray}`,
-                      borderRadius: "10px",
+                      borderRadius: '10px',
                     }}
                     src={image}
                     width={60}
@@ -140,7 +136,7 @@ const ChatDrawer = ({
 };
 
 const Container = styled.div<StyledType>`
-  width: ${(props) => (props.isDrawerOpen ? "70%" : "0")};
+  width: ${(props) => (props.isDrawerOpen ? '70%' : '0')};
   height: 100%;
 
   position: fixed;
@@ -170,7 +166,7 @@ const Content = styled.div`
 `;
 
 const Title = styled.h3`
-  font-family: "SpoqaBold";
+  font-family: 'SpoqaBold';
   font-size: 1.0625rem;
 `;
 

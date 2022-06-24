@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { ChatRoomItemProps } from '../../modules/main/types';
 import palette from '../../styles/palette';

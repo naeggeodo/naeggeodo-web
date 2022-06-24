@@ -1,17 +1,16 @@
-import { useRouter } from "next/router";
-import React, { useCallback, useState } from "react";
-import { useSelector } from "react-redux";
-import styled from "styled-components";
+import React, { useCallback } from 'react';
+import { useSelector } from 'react-redux';
+import styled from 'styled-components';
 
-import palette from "../../styles/palette";
-import { RootState } from "../../modules";
-import { useLoadLib } from "../../hooks/utils/useLoadLib";
-import { openEndChattingModal } from "../../modules/modal/actions";
+import palette from '../../styles/palette';
+import { RootState } from '../../modules';
+import { useLoadLib } from '../../hooks/utils/useLoadLib';
+import { openEndChattingModal } from '../../modules/modal/actions';
 
 const ConvertToCompletedButton = () => {
-  const { router, dispatch } = useLoadLib();
+  const { dispatch } = useLoadLib();
   const { endChattingModalIsOpen } = useSelector(
-    (state: RootState) => state.modalStates
+    (state: RootState) => state.modalStates,
   );
 
   const handleCompleted = useCallback(async () => {
@@ -42,11 +41,6 @@ const Button = styled.button`
   border: none;
   cursor: pointer;
   outline: none;
-`;
-
-const CompletedButton = styled(Button)`
-  background-color: ${palette.LightGray};
-  cursor: not-allowed;
 `;
 
 export default ConvertToCompletedButton;

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useLayoutEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { RootState } from '../../../modules';

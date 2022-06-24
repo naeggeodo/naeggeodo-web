@@ -29,15 +29,14 @@ const ChatDrawerMemberItem = ({ user }: { user: CurrentChatUser }) => {
   );
   const my_id = useSelector((state: RootState) => state.loginState.user_id);
 
-  const onMemberClick = useCallback(
-    (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-      if (my_id !== master_id) return;
-      if (user.user_id === my_id) return;
-      dispatch(setBanUser(user));
-      dispatch(openBanModal());
-    },
-    [banModalIsOpen, banUser],
-  );
+  const onMemberClick = useCallback<
+    (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+  >(() => {
+    if (my_id !== master_id) return;
+    if (user.user_id === my_id) return;
+    dispatch(setBanUser(user));
+    dispatch(openBanModal());
+  }, [banModalIsOpen, banUser]);
 
   return (
     <div>
