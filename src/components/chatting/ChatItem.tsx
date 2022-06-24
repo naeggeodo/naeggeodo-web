@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import React, { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { RootState } from '../../modules';
 import { ChattingListItem } from '../../modules/chatting/types';
 import palette from '../../styles/palette';
 import DateFormatter from '../../utils/DateFormatter';
@@ -13,6 +15,9 @@ const ChatItem = ({
   date?: string;
 }) => {
   const chatDate = useMemo(() => new DateFormatter(date), [date]);
+  const master_id = useSelector(
+    (state: RootState) => state.chattingRoomState.chatRoomInfo.user_id,
+  );
   const currentDate = new Date();
   const today = useMemo(
     () =>
@@ -22,15 +27,26 @@ const ChatItem = ({
     [currentDate],
   );
 
+  console.log(master_id, 'mm');
+
   return (
     <Container>
       <FlexRow>
-        <Image
-          src="/assets/images/avatar.svg"
-          width={45}
-          height={45}
-          alt="유저 프로필 사진"
-        />
+        {message.user_id === master_id ? (
+          <Image
+            src="/assets/images/host-logo.svg"
+            width={45}
+            height={45}
+            alt="유저 프로필 사진"
+          />
+        ) : (
+          <Image
+            src="/assets/images/avatar.svg"
+            width={45}
+            height={45}
+            alt="유저 프로필 사진"
+          />
+        )}
         <FlexColumn>
           <p>{message.nickname}</p>
           <TextRow>

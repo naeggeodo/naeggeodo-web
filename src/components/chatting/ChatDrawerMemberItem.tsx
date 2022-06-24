@@ -42,13 +42,23 @@ const ChatDrawerMemberItem = ({ user }: { user: CurrentChatUser }) => {
     <div>
       <MemberItem key={user.user_id}>
         <FlexWrapper>
-          <Image
-            src="/assets/images/smileuser.svg"
-            width={40}
-            height={40}
-            alt="프로필"
-            objectFit="contain"
-          />
+          {master_id === user.user_id ? (
+            <Image
+              src="/assets/images/host-logo.svg"
+              width={40}
+              height={40}
+              alt="프로필"
+              objectFit="contain"
+            />
+          ) : (
+            <Image
+              src="/assets/images/smileuser.svg"
+              width={40}
+              height={40}
+              alt="프로필"
+              objectFit="contain"
+            />
+          )}
 
           <Nickname isMe={user.user_id === my_id}>{user.nickname}</Nickname>
         </FlexWrapper>
