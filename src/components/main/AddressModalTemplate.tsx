@@ -84,13 +84,6 @@ const Title = styled.p`
   color: ${palette.black};
 `;
 
-const SubTitle = styled.p`
-  font-size: 0.9375rem;
-  line-height: 150%;
-
-  color: ${palette.black};
-`;
-
 const ButtonContainer = styled.div`
   display: flex;
   align-items: center;

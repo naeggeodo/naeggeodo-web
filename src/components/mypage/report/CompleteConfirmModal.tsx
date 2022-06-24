@@ -1,11 +1,9 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React from 'react';
 
-import { useLoadLib } from "../../../hooks/utils/useLoadLib";
-import { RootState } from "../../../modules";
-import { closeReportConfirmModalActions } from "../../../modules/mypage/actions";
-import ModalControlButtons from "../../common/ModalControlButtons";
-import ConfirmModalTemplate from "./ConfirmModalTemplate";
+import { useLoadLib } from '../../../hooks/utils/useLoadLib';
+import { closeReportConfirmModalActions } from '../../../modules/mypage/actions';
+import ModalControlButtons from '../../common/ModalControlButtons';
+import ConfirmModalTemplate from './ConfirmModalTemplate';
 
 const CompleteConfirmModal = ({ onAgree }: { onAgree: () => void }) => {
   const { dispatch } = useLoadLib();
@@ -20,7 +18,7 @@ const CompleteConfirmModal = ({ onAgree }: { onAgree: () => void }) => {
       <ModalControlButtons
         onCancelClick={onCloseModal}
         onAgreeClick={onAgree}
-        activeText={"확인"}
+        activeText={'확인'}
       />
     </ConfirmModalTemplate>
   );
