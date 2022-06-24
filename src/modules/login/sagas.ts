@@ -67,7 +67,7 @@ function* naverLoginGenerator(action: getNaverTokenRequestAction) {
     cookies.set('address', response.data.address, {
       path: '/',
     });
-    // window.location.href = "/";
+    window.location.href = '/';
   } catch (error) {
     console.log(error);
   }
