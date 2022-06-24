@@ -1,19 +1,18 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { useInfiniteScroll } from '../../hooks/render/useInfiniteScroll';
 import { RootState } from '../../modules';
-import { ChatRoomItemResponse } from '../../modules/common/types';
 import ChatRoomItem from '../main/ChatRoomItem';
 
 const SearchResultList = () => {
   const { searchResultList } = useSelector(
     (state: RootState) => state.searchPageState,
   );
+  const target = useRef<HTMLDivElement>(null);
 
-  const { target, dataList } = useInfiniteScroll<ChatRoomItemResponse>(
-    searchResultList.chatRoom,
-  );
+  // const { target } = useInfiniteScroll<ChatRoomItemResponse>(
+  //   searchResultList.chatRoom,
+  // );
 
   return (
     <Container>

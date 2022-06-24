@@ -1,9 +1,7 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import { useLoadLib } from '../../../hooks/utils/useLoadLib';
-import { RootState } from '../../../modules';
 import { closeReportConfirmModalActions } from '../../../modules/mypage/actions';
 import palette from '../../../styles/palette';
 import ConfirmModalTemplate from './ConfirmModalTemplate';

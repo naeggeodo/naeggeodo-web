@@ -1,10 +1,9 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { useSelectLoginStates } from '../../hooks/select/useSelectLoginStates';
 import { useCheckValidate } from '../../hooks/useCheckValidate';
 import { useSlideTransform } from '../../hooks/useSlideTransform';
-import { RootState } from '../../modules';
 import { CategoriesResponse } from '../../modules/common/types';
 import { openLoginModal } from '../../modules/modal/actions';
 import palette from '../../styles/palette';
