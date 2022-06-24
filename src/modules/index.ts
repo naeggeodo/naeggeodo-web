@@ -75,10 +75,7 @@ export type RootState = ReturnType<typeof rootReducer>;
 export const configureStore = () => {
   const sagaMiddleware = createSagaMiddleware();
   const middlewares = [sagaMiddleware];
-  const enhancer =
-    process.env.NODE_ENV === 'development'
-      ? composeWithDevTools(applyMiddleware(...middlewares))
-      : applyMiddleware(...middlewares);
+  const enhancer = composeWithDevTools(applyMiddleware(...middlewares));
   const store = createStore(reducer, enhancer);
   store.sagaTask = sagaMiddleware.run(rootSaga);
   return store;
