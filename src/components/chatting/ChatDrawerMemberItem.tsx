@@ -59,7 +59,8 @@ const ChatDrawerMemberItem = ({ user }: { user: CurrentChatUser }) => {
             height={25}
             alt="방장 표시 아이콘"
           />
-        ) : (
+        ) : null}
+        {master_id === my_id && user.user_id !== my_id && (
           <EjectButton onClick={onMemberClick}>강퇴하기</EjectButton>
         )}
       </MemberItem>

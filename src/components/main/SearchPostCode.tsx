@@ -13,7 +13,7 @@ const SearchPostCode = ({ openWebView }: { openWebView: () => void }) => {
     (state: RootState) => state.postCodeState.apartment,
   );
   return (
-    <Container onClick={openWebView}>
+    <Container onPointerDown={openWebView}>
       <CenterWrapper>
         <FlexRow>
           <Image

@@ -93,6 +93,7 @@ const MenuItem = styled.button`
   padding: 15px;
   font-size: 0.9375rem;
   background-color: #fff;
+  color: ${palette.black};
 
   text-align: left;
   border: none;

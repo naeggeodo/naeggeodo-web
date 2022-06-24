@@ -52,7 +52,7 @@ const PostCodeWebView = ({ closeWebView }: { closeWebView: () => void }) => {
           style={{ height: '100%', width: '100%' }}
           onComplete={handleComplete}
           onClose={closeWebView}></DaumPostcode>
-        <CloseButton onClick={closeWebView}>닫기</CloseButton>
+        <CloseButton onPointerDown={closeWebView}>닫기</CloseButton>
       </WebViewContainer>
     </Portal>
   );

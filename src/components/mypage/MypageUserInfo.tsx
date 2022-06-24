@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
+import { useCustomRouter } from '../../hooks/utils/useCustomRouter';
 import { RootState } from '../../modules';
 import palette from '../../styles/palette';
 
@@ -9,6 +10,8 @@ type StyledType = {
 };
 
 const MypageUserInfo = () => {
+  const { shiftPage } = useCustomRouter('/progress');
+
   const nickName = useSelector(
     (state: RootState) => state.myPageState.userInfo.nickname,
   );
@@ -18,6 +21,7 @@ const MypageUserInfo = () => {
   const participatingChatCount = useSelector(
     (state: RootState) => state.myPageState.userInfo.participatingChatCount,
   );
+
   return (
     <Container>
       <Title>안녕하세요,</Title>
@@ -30,10 +34,10 @@ const MypageUserInfo = () => {
           <P>전체 주문 건수</P>
           <P isActive={true}>{myOrdersCount}건</P>
         </InfoDiv>
-        <InfoDiv>
+        <InfoButton onClick={shiftPage}>
           <P>참여중인 내꺼톡</P>
           <P isActive={true}>{participatingChatCount}건</P>
-        </InfoDiv>
+        </InfoButton>
       </InfoBox>
     </Container>
   );
@@ -81,6 +85,10 @@ const InfoDiv = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4px;
+`;
+
+const InfoButton = styled(InfoDiv)`
+  cursor: pointer;
 `;
 
 const P = styled.p<StyledType>`
