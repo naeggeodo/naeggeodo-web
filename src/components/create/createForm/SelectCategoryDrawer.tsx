@@ -50,9 +50,6 @@ const SelectCategoryDrawer = ({ isOpen, setIsOpen }: PropsType) => {
     <Container isOpen={isOpen}>
       {isOpen && (
         <React.Fragment>
-          <TitleContainer>
-            <p>카테고리를 선택해주세요</p>
-          </TitleContainer>
           <CategoryContainer>
             {categories.map((item) => (
               <CategoryItem
@@ -72,6 +69,8 @@ const SelectCategoryDrawer = ({ isOpen, setIsOpen }: PropsType) => {
 };
 
 const Container = styled.div<StyledProps>`
+  display: flex;
+
   position: absolute;
   right: 0;
 
@@ -89,40 +88,28 @@ const Container = styled.div<StyledProps>`
   height: 70%;
   background-color: #ffffff;
 
-  padding: 30px 10px;
   overflow: scroll;
 
   transition: 0.3s;
 `;
 
-const TitleContainer = styled.div`
-  display: flex;
-  justify-content: center;
-
-  font-size: 1.375rem;
-
-  border-radius: 20px 0px 0px 0px;
-`;
-
 const CategoryContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
   gap: 10px;
-
-  margin-top: 20px;
+  padding: 10px;
 `;
 
 const CloseButton = styled.button`
   all: unset;
+  width: 40%;
 
   font-size: 1rem;
   color: #ffffff;
   text-align: center;
 
-  padding: 10px 15px;
-  margin-top: 10px;
-
-  border-radius: 5px;
+  border-radius: 10px;
   background-color: ${palette.mainOrange};
 
   cursor: pointer;
@@ -131,6 +118,7 @@ const CloseButton = styled.button`
 const CategoryItem = styled.button<{ selected: Category }>`
   all: unset;
   text-align: center;
+  width: 40%;
 
   border-radius: 10px;
   padding: 10px 0;
