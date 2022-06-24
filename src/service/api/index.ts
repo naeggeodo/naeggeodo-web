@@ -1,15 +1,14 @@
-import axios, { AxiosError } from 'axios';
-import { Cookies } from 'react-cookie';
-import { TOKEN_NAME } from '../../constant/Login';
-import { createCustomHeader } from '../../utils/createCustomHeader';
-import { isTokenExpired } from '../../utils/isTokenExpired';
+import axios, { AxiosError } from "axios";
+import { Cookies } from "react-cookie";
+import { TOKEN_NAME } from "../../constant/Login";
+import { createCustomHeader } from "../../utils/createCustomHeader";
 
 export function removeTokens() {
   const cookies = new Cookies();
-  cookies.remove('accessToken');
-  cookies.remove('user_id');
-  cookies.remove('buildingCode');
-  cookies.remove('address');
+  cookies.remove("accessToken");
+  cookies.remove("user_id");
+  cookies.remove("buildingCode");
+  cookies.remove("address");
 }
 
 export const axiosInstance = axios.create({
@@ -54,32 +53,15 @@ csrAxiosInstance.interceptors.request.use(
 
       const accessToken = cookies.get(TOKEN_NAME.ACCESS_TOKEN);
 
-      if (isTokenExpired(accessToken)) {
-        console.log('토큰만료');
-
-        const response = await axios.post(
-          `${process.env.NEXT_PUBLIC_API_URL}/refreshtoken`,
-          {},
-        );
-
-        cookies.set('accessToken', response.data.accessToken, {
-          path: '/',
-          maxAge: 60 * 60 * 24 * 2,
-        });
-        const updatedAccessToken = cookies.get(TOKEN_NAME.ACCESS_TOKEN);
-        config.headers = createCustomHeader(updatedAccessToken);
-        return config;
-      } else {
-        config.headers = createCustomHeader(accessToken);
-        return config;
-      }
+      config.headers = createCustomHeader(accessToken);
+      return config;
     } catch (error) {
       console.log(error);
     }
   },
   function (error) {
     return Promise.reject(error);
-  },
+  }
 );
 
 csrAxiosInstance.interceptors.response.use(
@@ -91,25 +73,29 @@ csrAxiosInstance.interceptors.response.use(
     }
   },
   async function (error: AxiosError) {
-    // if (error.response.status === 498) {
-    //   try {
-    //     const cookie = new Cookies();
-    //     const response = await CsrApiService.postApi('/refreshtoken', null);
+    if (error.response.status === 498) {
+      try {
+        const cookie = new Cookies();
+        const response = await axios.post(
+          `${process.env.NEXT_PUBLIC_API_URL}/refreshtoken`,
+          null
+        );
 
-    //     cookie.set('accessToken', response.data.accessToken, {
-    //       path: '/',
-    //       maxAge: 60 * 60 * 24 * 2,
-    //     });
-    //   } catch (error) {
-    //     if (error.response.status === 403) {
-    //       window.alert('토큰 유효기간이 종료되었습니다. 다시 로그인 해주세요.');
-    //       removeTokens();
-    //       window.location.replace('/login');
-    //     }
-    //   }
-    // }
+        cookie.set("accessToken", response.data.accessToken, {
+          path: "/",
+          maxAge: 60 * 60 * 24 * 2,
+        });
+        window.location.reload();
+      } catch (error) {
+        if (error.response.status === 403) {
+          window.alert("토큰 유효기간이 종료되었습니다. 다시 로그인 해주세요.");
+          removeTokens();
+          window.location.replace("/login");
+        }
+      }
+    }
     return Promise.reject(error);
-  },
+  }
 );
 
 // ** SSR 전용 API 서비스 코드
