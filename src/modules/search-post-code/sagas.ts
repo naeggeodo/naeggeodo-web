@@ -1,9 +1,9 @@
-import { AxiosResponse } from "axios";
-import Router from "next/router";
-import { Cookies } from "react-cookie";
-import { call, put, takeLatest } from "redux-saga/effects";
-import { SearchPostCodeService } from "../../service/api/search-post-code/SearchPostCodeService";
-import { saveAddress } from "../login/actions";
+import { AxiosResponse } from 'axios';
+import Router from 'next/router';
+import { Cookies } from 'react-cookie';
+import { call, put, takeLatest } from 'redux-saga/effects';
+import { SearchPostCodeService } from '../../service/api/search-post-code/SearchPostCodeService';
+import { saveAddress } from '../login/actions';
 import {
   GetBuildingCodeRequestAction,
   getBuildingCodeSuccess,
@@ -11,11 +11,11 @@ import {
   PatchBuildingCodeRequestAction,
   patchBuildingCodeSuccess,
   PATCH_BUILDING_CODE_REQUEST,
-} from "./actions";
+} from './actions';
 import {
   PatchBuildingCodeRequestData,
   PatchBuildingCodeResponse,
-} from "./types";
+} from './types';
 
 function* searchPostCodeGenerator(action: PatchBuildingCodeRequestAction) {
   try {
@@ -24,22 +24,24 @@ function* searchPostCodeGenerator(action: PatchBuildingCodeRequestAction) {
     const response: AxiosResponse<PatchBuildingCodeResponse> = yield call(
       SearchPostCodeService.asyncPatchBuildingCode,
       action.payload.userId,
-      action.payload.addressInfo
+      action.payload.addressInfo,
     );
 
-    cookies.set("buildingCode", response.data.buildingCode, {
-      path: "/",
+    cookies.set('buildingCode', response.data.buildingCode, {
+      path: '/',
+      maxAge: 60 * 60 * 24 * 8,
     });
 
-    cookies.set("address", response.data.address, {
-      path: "/",
+    cookies.set('address', response.data.address, {
+      path: '/',
+      maxAge: 60 * 60 * 24 * 8,
     });
 
-    yield put(patchBuildingCodeSuccess(response.data, "Y"));
+    yield put(patchBuildingCodeSuccess(response.data, 'Y'));
     yield put(saveAddress(response.data));
     yield call(
       Router.push,
-      `/chat-rooms?buildingCode=${response.data.buildingCode}`
+      `/chat-rooms?buildingCode=${response.data.buildingCode}`,
     );
   } catch (error) {
     console.log(error);
@@ -50,9 +52,9 @@ function* getUserAddressGenerator(action: GetBuildingCodeRequestAction) {
   try {
     const response: AxiosResponse<PatchBuildingCodeRequestData> = yield call(
       SearchPostCodeService.asyncGetBuildingCode,
-      action.payload.user_id
+      action.payload.user_id,
     );
-    yield put(getBuildingCodeSuccess(response.data, "Y"));
+    yield put(getBuildingCodeSuccess(response.data, 'Y'));
     yield put(saveAddress(response.data));
   } catch (err) {
     console.log(err);
