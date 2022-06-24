@@ -50,7 +50,13 @@ export default class MyDocument extends Document {
           <meta property="og:url" content="https://naeggeodo.com/" />
           <meta property="og:image" content="/assets/images/logo.svg" />
         </Head>
-        <body>
+        <body
+          onLoad={() => {
+            setTimeout(() => {
+              window.scrollTo(0, 1);
+            }, 100);
+          }}
+        >
           <div id="webviewPortal"></div>
           <div id="loginPortal"></div>
           <div id="reportPortal"></div>

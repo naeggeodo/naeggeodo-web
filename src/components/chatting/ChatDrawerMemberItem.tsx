@@ -1,12 +1,12 @@
-import Image from 'next/image';
-import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import styled, { css } from 'styled-components';
-import { RootState } from '../../modules';
-import { setBanUser } from '../../modules/chatting/actions';
-import { CurrentChatUser } from '../../modules/chatting/types';
-import { openBanModal } from '../../modules/modal/actions';
-import palette from '../../styles/palette';
+import Image from "next/image";
+import React, { useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import styled, { css } from "styled-components";
+import { RootState } from "../../modules";
+import { setBanUser } from "../../modules/chatting/actions";
+import { CurrentChatUser } from "../../modules/chatting/types";
+import { openBanModal } from "../../modules/modal/actions";
+import palette from "../../styles/palette";
 
 type StyledType = {
   isMe?: boolean;
@@ -17,15 +17,15 @@ const ChatDrawerMemberItem = ({ user }: { user: CurrentChatUser }) => {
   const dispatch = useDispatch();
 
   const master_id = useSelector(
-    (state: RootState) => state.chattingRoomState.chatRoomInfo.user_id,
+    (state: RootState) => state.chattingRoomState.chatRoomInfo.user_id
   );
 
   const banUser = useSelector(
-    (state: RootState) => state.chattingRoomState.banUser,
+    (state: RootState) => state.chattingRoomState.banUser
   );
 
   const { banModalIsOpen } = useSelector(
-    (state: RootState) => state.modalStates,
+    (state: RootState) => state.modalStates
   );
   const my_id = useSelector((state: RootState) => state.loginState.user_id);
 
@@ -105,7 +105,7 @@ const Nickname = styled.p<StyledType>`
     props.isMe &&
     css`
       &:before {
-        content: '나';
+        content: "나";
 
         background: #191919;
         color: #fff;

@@ -1,4 +1,10 @@
-import React, { FormEvent, useCallback, useState } from "react";
+import React, {
+  FormEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import styled, { css } from "styled-components";
 import Image from "next/image";
 import { CompatClient } from "@stomp/stompjs";
@@ -28,6 +34,11 @@ const SubmitForm = ({
 
   const onQuickChatOpen = useCallback(() => {
     setIsQuickChatOpen(!isQuickChatOpen);
+  }, [isQuickChatOpen]);
+
+  const onQuickChatClose = useCallback(() => {
+    if (!isQuickChatOpen) return;
+    setIsQuickChatOpen(false);
   }, [isQuickChatOpen]);
 
   return (
@@ -66,6 +77,7 @@ const SubmitForm = ({
           />
           <TextField
             value={message}
+            onClick={onQuickChatClose}
             onChange={changeMessage}
             title="채팅 텍스트 전송 input"
           />
