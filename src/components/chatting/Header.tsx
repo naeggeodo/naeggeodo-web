@@ -71,7 +71,11 @@ const Header = ({
             </Info>
             <Link href={link || 'http://naeggeodo.com'}>
               <a target="_blank" rel="noopener noreferrer">
-                주문 정보
+                <StyledWeb
+                  src="/assets/images/earth.svg"
+                  width={25}
+                  height={25}
+                  objectFit="contain"></StyledWeb>
               </a>
             </Link>
           </OrderInfoWrapper>
@@ -123,6 +127,7 @@ const StyledImage = styled(Image)`
 const TitleCountContainer = styled.div`
   display: flex;
   flex-direction: column;
+  margin-left: 10px;
   gap: 5px;
   width: 100%;
 `;
@@ -151,9 +156,7 @@ const Info = styled.p<StyledType>`
 
 const OrderInfoWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: 10px;
 
   width: 100%;
   font-size: 0.9375rem;
@@ -169,7 +172,6 @@ const OrderInfoWrapper = styled.div`
     color: #fff;
     font-size: 0.8125rem;
     border-radius: 5px;
-    background-color: ${palette.lightOrange};
     cursor: pointer;
   }
 `;
@@ -179,6 +181,10 @@ const HamburgerButton = styled.button`
   border: none;
   outline: none;
   cursor: pointer;
+`;
+
+const StyledWeb = styled(Image)`
+  filter: brightness(0) invert(1);
 `;
 
 const StyledCurrent = styled.span<StyledProps>`

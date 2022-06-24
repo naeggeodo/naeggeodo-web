@@ -19,7 +19,7 @@ const AddressModalTemplate = ({
     <Background>
       <Container ref={modalRef}>
         <TitleWrapper>
-          <Title>서비스 이용을 위해 주소를 입력해주세요❗️</Title>
+          <Title>서비스 이용을 위해 주소를 입력해 주세요❗️</Title>
         </TitleWrapper>
 
         <ButtonContainer>
