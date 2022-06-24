@@ -1,24 +1,24 @@
-import Image from 'next/image';
-import React, { useCallback } from 'react';
-import styled from 'styled-components';
-import { END } from 'redux-saga';
-import { RootState, wrapper } from '../modules';
-import palette from '../styles/palette';
+import Image from "next/image";
+import React, { useCallback } from "react";
+import styled from "styled-components";
+import { END } from "redux-saga";
+import { RootState, wrapper } from "../modules";
+import palette from "../styles/palette";
 
-import { useSelector } from 'react-redux';
-import { useSelectLoginStates } from '../hooks/select/useSelectLoginStates';
-import { useLoadLib } from '../hooks/utils/useLoadLib';
+import { useSelector } from "react-redux";
+import { useSelectLoginStates } from "../hooks/select/useSelectLoginStates";
+import { useLoadLib } from "../hooks/utils/useLoadLib";
 import {
   getLikesCountActions,
   postLikesCountActions,
-} from '../modules/main/actions';
-import { saveCookies } from '../utils/saveCookies';
+} from "../modules/main/actions";
+import { saveCookies } from "../utils/saveCookies";
 
 const RendingPage = () => {
   const { router, dispatch } = useLoadLib();
   const { buildingCode } = useSelectLoginStates();
   const likeCount = useSelector(
-    (state: RootState) => state.mainPageState.likeCount,
+    (state: RootState) => state.mainPageState.likeCount
   );
 
   const plusLikeCount = useCallback(() => {
@@ -28,7 +28,7 @@ const RendingPage = () => {
   const moveToChatRooms = useCallback(() => {
     if (buildingCode) {
       router.push(`/chat-rooms?buildingCode=${buildingCode}`);
-    } else router.push('/chat-rooms');
+    } else router.push("/chat-rooms");
   }, [router, buildingCode]);
 
   return (
@@ -63,7 +63,8 @@ const RendingPage = () => {
             <Image
               src="/assets/images/naeggeotalk.png"
               width={350}
-              height={500}></Image>
+              height={500}
+            ></Image>
           </PhoneImageContainer>
         </ImageContainer>
       </TopContainer>
@@ -95,7 +96,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     return {
       props: {},
     };
-  },
+  }
 );
 
 const Container = styled.div`
@@ -105,7 +106,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.h1`
-  font-family: 'SpoqaBold';
+  font-family: "SpoqaBold";
   font-size: 1.625rem;
   color: ${palette.black};
   letter-spacing: 0.35px;
@@ -202,7 +203,7 @@ const LikeButtonContainer = styled.div`
 const StyledLike = styled.div`
   display: flex;
   align-items: flex-end;
-  font-family: 'SpoqaBold';
+  font-family: "SpoqaBold";
   font-size: 3.75rem;
 
   color: #e93b61;

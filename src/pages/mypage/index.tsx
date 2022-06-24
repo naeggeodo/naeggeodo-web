@@ -9,32 +9,32 @@ const Mypage = () => {
   return <MypageTemplate />;
 };
 
-export const getServerSideProps = wrapper.getServerSideProps(
-  (store) => async (context) => {
-    saveCookies(store, context);
-    const rootState: RootState = store.getState();
+// export const getServerSideProps = wrapper.getServerSideProps(
+//   (store) => async (context) => {
+//     saveCookies(store, context);
+//     const rootState: RootState = store.getState();
 
-    const user_id = rootState.loginState.user_id;
-    const accessToken = rootState.loginState.accessToken;
+//     const user_id = rootState.loginState.user_id;
+//     const accessToken = rootState.loginState.accessToken;
 
-    store.dispatch(getUserInfoInMypageRequest(user_id));
+//     store.dispatch(getUserInfoInMypageRequest(user_id));
 
-    store.dispatch(END);
-    await store.sagaTask.toPromise();
+//     store.dispatch(END);
+//     await store.sagaTask.toPromise();
 
-    if (!accessToken) {
-      return {
-        redirect: {
-          destination: "/login",
-          permanent: false,
-        },
-      };
-    }
+//     if (!accessToken) {
+//       return {
+//         redirect: {
+//           destination: "/login",
+//           permanent: false,
+//         },
+//       };
+//     }
 
-    return {
-      props: {},
-    };
-  }
-);
+//     return {
+//       props: {},
+//     };
+//   }
+// );
 
 export default Mypage;
