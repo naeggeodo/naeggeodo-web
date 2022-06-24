@@ -2,10 +2,11 @@ import GlobalStyle from '../styles/GlobalStyle';
 import { wrapper } from '../modules';
 import Head from 'next/head';
 import App, { AppContext } from 'next/app';
-import { axiosInstance } from '../service/api';
+import { ApiService, axiosInstance, toLoginPage } from '../service/api';
 import cookies from 'next-cookies';
 import { createCustomHeader } from '../utils/createCustomHeader';
 import palette from '../styles/palette';
+import { AxiosError } from 'axios';
 
 const app = ({ Component, pageProps }) => {
   return (
@@ -52,6 +53,30 @@ app.getInitialProps = wrapper.getInitialAppProps(
         }
       },
       function (error) {
+        return Promise.reject(error);
+      },
+    );
+
+    axiosInstance.interceptors.response.use(
+      async function (config) {
+        try {
+          return config;
+        } catch (error) {
+          console.log(error);
+        }
+      },
+      async function (error: AxiosError) {
+        if (error.response.status === 498) {
+          try {
+            const response = await ApiService.postApi('/refreshtoken', null);
+            console.log(response, 'response');
+          } catch (error) {
+            if (error.response.status === 403) {
+              // rt 만료
+              toLoginPage();
+            }
+          }
+        }
         return Promise.reject(error);
       },
     );

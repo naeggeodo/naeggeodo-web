@@ -1,7 +1,17 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { Cookies } from 'react-cookie';
 import { TOKEN_NAME } from '../../constant/Login';
 import { createCustomHeader } from '../../utils/createCustomHeader';
+
+export function toLoginPage() {
+  const cookies = new Cookies();
+  cookies.remove('accessToken');
+  cookies.remove('user_id');
+  cookies.remove('buildingCode');
+  cookies.remove('address');
+
+  window.location.replace('/login');
+}
 
 export const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -44,7 +54,6 @@ csrAxiosInstance.interceptors.request.use(
       const cookies = new Cookies();
 
       const accessToken = cookies.get(TOKEN_NAME.ACCESS_TOKEN);
-      const refreshToken = cookies.get(TOKEN_NAME.REFRESH_TOKEN);
 
       config.headers = createCustomHeader(accessToken);
       return config;
@@ -65,8 +74,20 @@ csrAxiosInstance.interceptors.response.use(
       console.log(error);
     }
   },
-  function (error) {
-    console.log('요청 받기 에러', error);
+  async function (error: AxiosError) {
+    if (error.response.status === 498) {
+      try {
+        const cookie = new Cookies();
+        const response = await CsrApiService.postApi('/refreshtoken', null);
+
+        cookie.set('accessToken', response.data.accessToken);
+      } catch (error) {
+        if (error.response.status === 403) {
+          window.alert('토큰 유효기간이 종료되었습니다. 다시 로그인 해주세요.');
+          toLoginPage();
+        }
+      }
+    }
     return Promise.reject(error);
   },
 );

@@ -52,6 +52,8 @@ function* naverLoginGenerator(action: getNaverTokenRequestAction) {
       LoginService.asyncGetNaverToken,
       action.payload,
     );
+    console.log(response.headers);
+
     yield put(getNaverTokenSuccess(response.data));
 
     cookies.set('accessToken', response.data.accessToken, {
