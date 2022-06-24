@@ -3,9 +3,9 @@ export function filterLocation(
   address: string,
 ): string {
   if (!address) {
-    return '현재 위치를 입력해서 채팅방을 확인해보세요 ✨';
+    return '현재 위치를 입력해서 채팅방을 확인해 보세요 ✨';
   } else if (location === 'N') {
-    return '지원하지 않는 위치입니다. 아파트나 공동주택을 선택해주세요 😥';
+    return '지원하지 않는 위치입니다. 아파트나 공동주택을 선택해 주세요 😥';
   } else if (location === 'Y' || address) {
     return address;
   }

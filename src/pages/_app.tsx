@@ -1,15 +1,15 @@
-import GlobalStyle from "../styles/GlobalStyle";
-import { wrapper } from "../modules";
-import Head from "next/head";
-import App, { AppContext } from "next/app";
-import { ApiService, axiosInstance, removeTokens } from "../service/api";
-import cookies from "next-cookies";
-import { createCustomHeader } from "../utils/createCustomHeader";
-import palette from "../styles/palette";
-import axios, { AxiosError } from "axios";
-import { Cookies } from "react-cookie";
-import { TOKEN_NAME } from "../constant/Login";
-import Router from "next/router";
+import GlobalStyle from '../styles/GlobalStyle';
+import { wrapper } from '../modules';
+import Head from 'next/head';
+import App, { AppContext } from 'next/app';
+import { ApiService, axiosInstance, removeTokens } from '../service/api';
+import cookies from 'next-cookies';
+import { createCustomHeader } from '../utils/createCustomHeader';
+import palette from '../styles/palette';
+import axios, { AxiosError } from 'axios';
+import { Cookies } from 'react-cookie';
+import { TOKEN_NAME } from '../constant/Login';
+import Router from 'next/router';
 
 const app = ({ Component, pageProps }) => {
   return (
@@ -37,7 +37,7 @@ console.log(
   `color:${palette.lightOrange}`,
   `color:${palette.mainOrange}`,
   `color:${palette.lightOrange}`,
-  `color:${palette.mainOrange}`
+  `color:${palette.mainOrange}`,
 );
 
 app.getInitialProps = wrapper.getInitialAppProps(
@@ -58,7 +58,7 @@ app.getInitialProps = wrapper.getInitialAppProps(
       },
       function (error) {
         return Promise.reject(error);
-      }
+      },
     );
 
     axiosInstance.interceptors.response.use(
@@ -75,31 +75,40 @@ app.getInitialProps = wrapper.getInitialAppProps(
             const accessCookie = new Cookies();
             const response = await axios.post(
               `${process.env.NEXT_PUBLIC_API_URL}/refreshtoken`,
-              null
+              null,
+              {
+                withCredentials: true,
+              },
             );
             accessCookie.set(
               TOKEN_NAME.ACCESS_TOKEN,
               response.data.accessToken,
               {
-                path: "/",
+                path: '/',
                 maxAge: 60 * 60 * 24 * 2,
-              }
+              },
             );
             Router.reload();
           } catch (error) {
             if (error.response.status === 403) {
               // rt 만료
               removeTokens();
-              Router.replace("/login");
+              Router.replace('/login');
             }
           }
+        } else if (error.response.status === 400 || 401) {
+          removeTokens();
+          alert('잘못된 요청입니다. 다시 로그인 해주세요.');
+          window.location.replace('/login');
+        } else if (error.response.status === 415) {
+          alert('지원하지 않는 파일 형식입니다.');
         }
         return Promise.reject(error);
-      }
+      },
     );
 
     return { ...myAppInitialProps };
-  }
+  },
 );
 
 export default wrapper.withRedux(app);

@@ -1,3 +1,4 @@
+import { AxiosResponse } from 'axios';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import ChattingService from '../../service/api/chatting/ChattingService';
 import {
@@ -19,11 +20,11 @@ import {
 function* getChattingRoomInfoGenerator(
   action: ReturnType<typeof getCurrentChatRoomAsyncActions.request>,
 ) {
-  const { data }: { data: ChattingRoomInfoResponse } = yield call(
+  const response: AxiosResponse<ChattingRoomInfoResponse> = yield call(
     ChattingService.asyncGetChattingRoomInfo,
     action.payload.chattingRoomId,
   );
-  yield put(getCurrentChatRoomAsyncActions.success(data));
+  yield put(getCurrentChatRoomAsyncActions.success(response.data));
 }
 
 function* getPreviousChattingListGenerator(

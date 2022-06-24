@@ -128,7 +128,6 @@ const TitleCountContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 10px;
-  gap: 5px;
   width: 100%;
 `;
 

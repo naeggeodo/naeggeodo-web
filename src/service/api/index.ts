@@ -1,14 +1,14 @@
-import axios, { AxiosError } from "axios";
-import { Cookies } from "react-cookie";
-import { TOKEN_NAME } from "../../constant/Login";
-import { createCustomHeader } from "../../utils/createCustomHeader";
+import axios, { AxiosError } from 'axios';
+import { Cookies } from 'react-cookie';
+import { TOKEN_NAME } from '../../constant/Login';
+import { createCustomHeader } from '../../utils/createCustomHeader';
 
 export function removeTokens() {
   const cookies = new Cookies();
-  cookies.remove("accessToken");
-  cookies.remove("user_id");
-  cookies.remove("buildingCode");
-  cookies.remove("address");
+  cookies.remove('accessToken');
+  cookies.remove('user_id');
+  cookies.remove('buildingCode');
+  cookies.remove('address');
 }
 
 export const axiosInstance = axios.create({
@@ -61,7 +61,7 @@ csrAxiosInstance.interceptors.request.use(
   },
   function (error) {
     return Promise.reject(error);
-  }
+  },
 );
 
 csrAxiosInstance.interceptors.response.use(
@@ -78,24 +78,31 @@ csrAxiosInstance.interceptors.response.use(
         const cookie = new Cookies();
         const response = await axios.post(
           `${process.env.NEXT_PUBLIC_API_URL}/refreshtoken`,
-          null
+          null,
+          { withCredentials: true },
         );
 
-        cookie.set("accessToken", response.data.accessToken, {
-          path: "/",
+        cookie.set('accessToken', response.data.accessToken, {
+          path: '/',
           maxAge: 60 * 60 * 24 * 2,
         });
         window.location.reload();
       } catch (error) {
         if (error.response.status === 403) {
-          window.alert("토큰 유효기간이 종료되었습니다. 다시 로그인 해주세요.");
+          window.alert('토큰 유효기간이 종료되었습니다. 다시 로그인 해주세요.');
           removeTokens();
-          window.location.replace("/login");
+          window.location.replace('/login');
         }
       }
+    } else if (error.response.status === 400 || 401) {
+      removeTokens();
+      alert('잘못된 요청입니다. 다시 로그인 해주세요.');
+      window.location.replace('/login');
+    } else if (error.response.status === 415) {
+      alert('지원하지 않는 파일 형식입니다.');
     }
     return Promise.reject(error);
-  }
+  },
 );
 
 // ** SSR 전용 API 서비스 코드
