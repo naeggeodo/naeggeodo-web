@@ -33,25 +33,25 @@ export const getServerSideProps = wrapper.getServerSideProps(
     }
 
     console.log(accessToken, 'accessToken');
-    // store.dispatch(
-    //   getCurrentChatRoomAsyncActions.request({
-    //     chattingRoomId: context.params.id as string,
-    //   }),
-    // );
-    // store.dispatch(
-    //   getChattingListActions.request({
-    //     chattingRoomId: context.params.id as string,
-    //     userId: user_id,
-    //   }),
-    // );
+    store.dispatch(
+      getCurrentChatRoomAsyncActions.request({
+        chattingRoomId: context.params.id as string,
+      }),
+    );
+    store.dispatch(
+      getChattingListActions.request({
+        chattingRoomId: context.params.id as string,
+        userId: user_id,
+      }),
+    );
 
-    // store.dispatch(getUserNicknameActions.request(user_id));
+    store.dispatch(getUserNicknameActions.request(user_id));
 
-    // store.dispatch(
-    //   getQuickChattingListActions.request({
-    //     userId: user_id,
-    //   }),
-    // );
+    store.dispatch(
+      getQuickChattingListActions.request({
+        userId: user_id,
+      }),
+    );
 
     store.dispatch(END);
     await store.sagaTask.toPromise();
