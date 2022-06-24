@@ -37,6 +37,7 @@
   },
   "rules": {
     "arrow-parens": 0,
+    "no-constant-condition": 0,
     "no-var": "off",
     "@typescript-eslint/no-var-requires": 0,
     "react/react-in-jsx-scope": "off",

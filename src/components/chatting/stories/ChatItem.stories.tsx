@@ -1,4 +1,6 @@
 import { ComponentMeta } from '@storybook/react';
+import { Provider } from 'react-redux';
+import { configureStore } from '../../../modules';
 import { ChattingListItem } from '../../../modules/chatting/types';
 import ChatItem from '../ChatItem';
 
@@ -12,16 +14,18 @@ export default {
   component: ChatItem,
   decorators: [
     (Story) => (
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '100vh',
-          width: '100vw',
-        }}>
-        <Story />
-      </div>
+      <Provider store={configureStore()}>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100vh',
+            width: '100vw',
+          }}>
+          <Story />
+        </div>
+      </Provider>
     ),
   ],
   parameters: {

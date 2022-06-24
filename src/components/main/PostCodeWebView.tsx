@@ -17,25 +17,11 @@ const PostCodeWebView = ({ closeWebView }: { closeWebView: () => void }) => {
   const { user_id } = useSelectLoginStates();
 
   const handleComplete = (data: Address) => {
-    // let fullAddress = data.address;
-    let extraAddress = '';
-
     const addressInfo: PatchBuildingCodeRequestData = {
       address: data.address,
       buildingCode: data.buildingCode,
       zonecode: data.zonecode,
     };
-
-    if (data.addressType === 'R') {
-      if (data.bname !== '') {
-        extraAddress += data.bname;
-      }
-      if (data.buildingName !== '') {
-        extraAddress +=
-          extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName;
-      }
-      // fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
-    }
 
     if (data.apartment === 'N') {
       dispatch(saveApartmentAddress(data.apartment));

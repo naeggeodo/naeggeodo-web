@@ -8,7 +8,7 @@ export default {
     (Story) => (
       <div
         style={{
-          backgroundColor: 'gray',
+          backgroundColor: 'white',
           padding: '10px',
           height: '100vh',
         }}>

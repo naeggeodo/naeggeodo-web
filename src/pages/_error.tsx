@@ -65,12 +65,6 @@ const Text = styled.p`
   color: ${palette.mainOrange};
 `;
 
-const SubText = styled(Text)`
-  font-family: 'Spoqa';
-  font-size: 0.9375rem;
-  color: #111111;
-`;
-
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;

@@ -2,7 +2,7 @@ import GlobalStyle from '../styles/GlobalStyle';
 import { wrapper } from '../modules';
 import Head from 'next/head';
 import App, { AppContext } from 'next/app';
-import { ApiService, axiosInstance, removeTokens } from '../service/api';
+import { axiosInstance, removeTokens } from '../service/api';
 import cookies from 'next-cookies';
 import { createCustomHeader } from '../utils/createCustomHeader';
 import palette from '../styles/palette';
