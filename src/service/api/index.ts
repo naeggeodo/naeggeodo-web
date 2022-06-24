@@ -73,7 +73,11 @@ csrAxiosInstance.interceptors.response.use(
     }
   },
   async function (error: AxiosError) {
-    if (error.response.status === 498) {
+    if (
+      error.response &&
+      error.response.status &&
+      [498].includes(error.response.status)
+    ) {
       try {
         const cookie = new Cookies();
         const response = await axios.post(
@@ -88,13 +92,21 @@ csrAxiosInstance.interceptors.response.use(
         });
         window.location.reload();
       } catch (error) {
-        if (error.response.status === 403) {
+        if (
+          error.response &&
+          error.response.status &&
+          [403].includes(error.response.status)
+        ) {
           window.alert('토큰 유효기간이 종료되었습니다. 다시 로그인 해주세요.');
           removeTokens();
           window.location.replace('/login');
         }
       }
-    } else if (error.response.status === 400 || 401) {
+    } else if (
+      error.response &&
+      error.response.status &&
+      [400, 401].includes(error.response.status)
+    ) {
       removeTokens();
       alert('잘못된 요청입니다. 다시 로그인 해주세요.');
       window.location.replace('/login');

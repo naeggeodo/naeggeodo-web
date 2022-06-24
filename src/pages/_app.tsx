@@ -90,13 +90,23 @@ app.getInitialProps = wrapper.getInitialAppProps(
             );
             Router.reload();
           } catch (error) {
-            if (error.response.status === 403) {
-              // rt 만료
+            if (
+              error.response &&
+              error.response.status &&
+              [403].includes(error.response.status)
+            ) {
+              window.alert(
+                '토큰 유효기간이 종료되었습니다. 다시 로그인 해주세요.',
+              );
               removeTokens();
               Router.replace('/login');
             }
           }
-        } else if (error.response.status === 400 || 401) {
+        } else if (
+          error.response &&
+          error.response.status &&
+          [400, 401].includes(error.response.status)
+        ) {
           removeTokens();
           alert('잘못된 요청입니다. 다시 로그인 해주세요.');
           window.location.replace('/login');
