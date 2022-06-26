@@ -28,7 +28,7 @@
 
 - 채팅을 통해 원하는 음식을 결정하고 아파트 로비, 로비 1층 등 원하는 곳에서 음식을 받아 가세요.
 
-## 기능 
+## 🔨 기능 소개
 
 #### 인덱스 렌딩 페이지
 1. https://naeggeodo.com에 접속했을 때 가장 먼저 보여지는 화면입니다.
@@ -108,7 +108,8 @@
 8. 로그아웃 버튼을 누르면 로그아웃 처리되고 인덱스 페이지로 리다이렉트 됩니다.
 
 
-## 👥 Git & Github rule
+## 👥 Git
+git-flow 전략의 `main`, `develop`, `feature` 브랜치를 사용합니다.
 
 ### `Branch rule`
 **main**
@@ -125,7 +126,7 @@
 	- ex) feature/chat
 - 개발이 완료된 브랜치는 develop브랜치로 PR을 남긴다.
 
-### `Commit rule`
+### `Commit prefix`
 **classification**
 - `feat` : new feature
 - `fix` : bug fix
