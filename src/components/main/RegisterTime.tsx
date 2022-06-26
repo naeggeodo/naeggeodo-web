@@ -12,14 +12,13 @@ const Container = styled.p`
   align-items: center;
 
   min-width: 40px;
-  height: 20px;
 
   font-size: 0.75rem;
   color: ${palette.DarkGray};
 
   background-color: ${palette.LightGray};
 
-  padding: 0 4px;
+  padding: 4px;
   border-radius: 3px;
 `;
 

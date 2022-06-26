@@ -131,6 +131,7 @@ const OrderTimeTypeWrapper = styled.div`
     font-family: 'SpoqaBold';
     font-size: 0.75rem;
     color: ${palette.mainOrange};
+    word-break: keep-all;
   }
 `;
 
@@ -145,6 +146,7 @@ const StyledLink = styled.a`
   & > p {
     font-size: 0.75rem;
     color: ${palette.black};
+    word-break: keep-all;
   }
 
   &:hover {
