@@ -1,6 +1,10 @@
 import { AxiosError } from 'axios';
 import { createAction, createAsyncAction } from 'typesafe-actions';
-import { MyPageUserInfoResponse, ReportRequestBody } from './types';
+import {
+  ChangeNickNameResponse,
+  MyPageUserInfoResponse,
+  ReportRequestBody,
+} from './types';
 
 const namespace = 'mypage/';
 
@@ -27,6 +31,10 @@ export const CLOSE_REPORT_CONFIRM_MODAL_SUCCESS =
   namespace + 'CLOSE_REPORT_CONFIRM_MODAL_SUCCESS';
 export const CLOSE_REPORT_CONFIRM_MODAL_FAILURE =
   namespace + 'CLOSE_REPORT_CONFIRM_MODAL_FAILURE';
+
+export const PATCH_NICK_NAME_REQUEST = namespace + 'PATCH_NICK_NAME_REQUEST';
+export const PATCH_NICK_NAME_SUCCESS = namespace + 'PATCH_NICK_NAME_SUCCESS';
+export const PATCH_NICK_NAME_FAILURE = namespace + 'PATCH_NICK_NAME_FAILURE';
 
 export const getUserInfoInMypageRequest = createAction(
   GET_USER_INFO_IN_MYPAGE_REQUEST,
@@ -69,3 +77,9 @@ export const closeReportConfirmModalActions = createAsyncAction(
   CLOSE_REPORT_CONFIRM_MODAL_SUCCESS,
   CLOSE_REPORT_CONFIRM_MODAL_FAILURE,
 )<void, void, void>();
+
+export const patchNickNameActions = createAsyncAction(
+  PATCH_NICK_NAME_REQUEST,
+  PATCH_NICK_NAME_SUCCESS,
+  PATCH_NICK_NAME_FAILURE,
+)<ChangeNickNameResponse, ChangeNickNameResponse, void>();

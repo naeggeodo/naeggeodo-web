@@ -9,3 +9,8 @@ export type ReportRequestBody = {
   contents: string;
   type: string;
 };
+
+export type ChangeNickNameResponse = {
+  user_id: string;
+  nickname: string;
+};
