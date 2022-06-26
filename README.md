@@ -1,5 +1,5 @@
 # 내꺼도 V1 
-내꺼도 V1은 MVP 버전이며 V2에서는 ios, android 앱과 함께 업그레이드된 기능을 제공할 예정입니다.
+내꺼도 V1은 MVP 버전이며 V2에서는 ios, android 앱과 함께 업그레이드된 기능을 제공할 예정입니다.<br/>
 [내꺼도 Ver1 바로가기](https://naeggeodo.com/chat-rooms?buildingCode=1168011800104670029027315)
 
 
