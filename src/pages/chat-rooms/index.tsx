@@ -20,12 +20,13 @@ const ChatRooms = ({
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
     saveCookies(store, context);
+
     const { dispatch } = store;
     const { query } = context;
     const rootState: RootState = store.getState();
 
     if (rootState.mainPageState.categories.length > 0) return;
-    dispatch(getFoodCategoriesActions.request());
+    else dispatch(getFoodCategoriesActions.request());
 
     if (query.buildingCode && !query.category) {
       dispatch(getAllChatRoomsListRequest(query.buildingCode));
