@@ -2,7 +2,7 @@ import Image from 'next/image';
 import React, {
   ChangeEvent,
   useCallback,
-  useLayoutEffect,
+  useEffect,
   useRef,
   useState,
 } from 'react';
@@ -52,14 +52,14 @@ const MypageUserInfo = () => {
     [nickNameState],
   );
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (isClicked) {
       inputRef.current.disabled = false;
       inputRef.current.style.width = '80%';
       inputRef.current.focus();
     } else {
       inputRef.current.disabled = true;
-      inputRef.current.style.width = `${nickName.length * 22}px`;
+      inputRef.current.style.width = `${nickName.length * 20}px`;
     }
   }, [isClicked, nickName]);
 
@@ -145,14 +145,19 @@ const Name = styled.input<StyledInputType>`
   font-size: 1.5rem;
   resize: none;
   color: ${palette.black};
+  padding: 0;
+
   border: 1px solid ${palette.mainOrange};
   border-radius: 5px;
   outline: none;
 
   &:disabled {
+    font-family: SpoqaBold;
+
+    color: ${palette.black};
+    padding: 0;
     background-color: #fff;
     border: 1px solid transparent;
-    display: inline-block;
   }
 `;
 
@@ -164,6 +169,7 @@ const ModifyButton = styled.button`
 const InfoBox = styled.div`
   display: flex;
   justify-content: space-around;
+  gap: 10px;
 
   margin-top: 16px;
   padding: 24px;
