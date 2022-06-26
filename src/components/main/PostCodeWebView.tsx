@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import DaumPostcode from 'react-daum-postcode';
 import styled from 'styled-components';
 import Portal from '../common/Portal';
@@ -35,7 +35,7 @@ const PostCodeWebView = ({ closeWebView }: { closeWebView: () => void }) => {
       <Background />
       <WebViewContainer>
         <DaumPostcode
-          style={{ height: '100%', width: '100%' }}
+          style={{ width: '100%' }}
           onComplete={handleComplete}
           onClose={closeWebView}></DaumPostcode>
         <CloseButton onPointerDown={closeWebView}>닫기</CloseButton>
@@ -73,14 +73,14 @@ const WebViewContainer = styled.div`
 const CloseButton = styled.button`
   all: unset;
   position: absolute;
-  right: 2%;
-  bottom: 2%;
+  right: 3%;
+  bottom: 22%;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
-  background-color: ${palette.mainOrange};
+  background-color: ${palette.DarkGray};
   color: #ffffff;
 
   padding: 8px;
