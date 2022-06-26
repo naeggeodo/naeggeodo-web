@@ -34,10 +34,23 @@ export default class MyDocument extends Document {
       <Html lang="ko">
         <Head>
           <meta charSet="UTF-8" />
-          <meta property="og:title" content="내꺼 배달비 반띵하러 가기 🛵" />
+          <meta
+            property="og:title"
+            content="우리 아파트 배달비 반값 프로젝트 내꺼도 🛵"
+          />
+          <meta http-equiv="Title" content="우리동네 배달비 반값 프로젝트" />
+          <meta http-equiv="Generator" content="Visual Studio Code" />
+          <meta http-equiv="Subject" content="배달비 반띵 내꺼도" />
+          <meta http-equiv="imagetoolbar" content="no" />
           <meta name="Keywords" content="내꺼도" />
+          <meta name="Date" content="2022-06-25T07:45:37+09:00" />
           <meta httpEquiv="X-UA-Compatible" content="IE-edge" />
-
+          <meta name="mobile-web-app-capable" content="yes" />
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <meta
+            name="google-site-verification"
+            content="djS9_ud-4ZvQ7qCiFZCm8Fs2zimQQO7sxrkF08gfaGc"
+          />
           <meta
             name="Description"
             content="우리 동네 배달비 더치페이 어플리케이션 내꺼도 입니다."
@@ -54,7 +67,7 @@ export default class MyDocument extends Document {
           <meta property="og:url" content="https://naeggeodo.com/search" />
           <meta property="og:url" content="https://naeggeodo.com/create" />
 
-          <meta property="og:image" content="/assets/images/logo.svg" />
+          <meta property="og:image" content="/assets/images/thumbnail.svg" />
         </Head>
         <body
           onLoad={() => {
