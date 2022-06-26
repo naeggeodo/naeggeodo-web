@@ -317,6 +317,8 @@ const TitleSubTitleWrapper = styled(TitleWrapper)`
   & > p:nth-of-type(2) {
     font-size: 0.75rem;
     color: ${palette.DarkGray};
+    line-height: 1.4;
+    word-break: keep-all;
   }
 `;
 
@@ -342,6 +344,8 @@ const Desc = styled.p`
   font-weight: 500;
   font-size: 0.9375rem;
   color: ${palette.DarkGray};
+  word-break: keep-all;
+  line-height: 1.4;
 `;
 
 const TagTitle = styled.div`
