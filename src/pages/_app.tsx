@@ -1,13 +1,13 @@
-import GlobalStyle from '../styles/GlobalStyle';
-import { wrapper } from '../modules';
-import Head from 'next/head';
-import App, { AppContext } from 'next/app';
-import { axiosInstance, removeTokens } from '../service/api';
-import palette from '../styles/palette';
-import axios, { AxiosError } from 'axios';
-import { Cookies } from 'react-cookie';
-import { TOKEN_NAME } from '../constant/Login';
-import Router from 'next/router';
+import GlobalStyle from "../styles/GlobalStyle";
+import { wrapper } from "../modules";
+import Head from "next/head";
+import App, { AppContext } from "next/app";
+import { axiosInstance, removeTokens } from "../service/api";
+import palette from "../styles/palette";
+import axios, { AxiosError } from "axios";
+import { Cookies } from "react-cookie";
+import { TOKEN_NAME } from "../constant/Login";
+import Router from "next/router";
 
 const app = ({ Component, pageProps }) => {
   return (
@@ -35,7 +35,7 @@ console.log(
   `color:${palette.DarkGray}`,
   `color:${palette.DarkGray}`,
   `color:${palette.DarkGray}`,
-  `color:${palette.DarkGray}`,
+  `color:${palette.DarkGray}`
 );
 
 app.getInitialProps = wrapper.getInitialAppProps(
@@ -51,7 +51,11 @@ app.getInitialProps = wrapper.getInitialAppProps(
         }
       },
       async function (error: AxiosError) {
-        if (error.response.status === 498) {
+        if (
+          error.response &&
+          error.response.status &&
+          error.response.status === 498
+        ) {
           try {
             const accessCookie = new Cookies();
             const response = await axios.post(
@@ -59,15 +63,15 @@ app.getInitialProps = wrapper.getInitialAppProps(
               null,
               {
                 withCredentials: true,
-              },
+              }
             );
             accessCookie.set(
               TOKEN_NAME.ACCESS_TOKEN,
               response.data.accessToken,
               {
-                path: '/',
+                path: "/",
                 maxAge: 60 * 60 * 24 * 2,
-              },
+              }
             );
             Router.reload();
           } catch (error) {
@@ -77,10 +81,10 @@ app.getInitialProps = wrapper.getInitialAppProps(
               [403].includes(error.response.status)
             ) {
               window.alert(
-                '토큰 유효기간이 종료되었습니다. 다시 로그인 해주세요.',
+                "토큰 유효기간이 종료되었습니다. 다시 로그인 해주세요."
               );
               removeTokens();
-              Router.replace('/login');
+              Router.replace("/login");
             }
           }
         } else if (
@@ -89,17 +93,21 @@ app.getInitialProps = wrapper.getInitialAppProps(
           [400, 401].includes(error.response.status)
         ) {
           removeTokens();
-          alert('잘못된 요청입니다. 다시 로그인 해주세요.');
-          window.location.replace('/login');
-        } else if (error.response.status === 415) {
-          alert('지원하지 않는 파일 형식입니다.');
+          alert("잘못된 요청입니다. 다시 로그인 해주세요.");
+          window.location.replace("/login");
+        } else if (
+          error.response &&
+          error.response.status &&
+          error.response.status === 415
+        ) {
+          alert("지원하지 않는 파일 형식입니다.");
         }
         return Promise.reject(error);
-      },
+      }
     );
 
     return { ...myAppInitialProps };
-  },
+  }
 );
 
 export default wrapper.withRedux(app);
