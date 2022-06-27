@@ -9,6 +9,8 @@ import {
 } from '../../modules/chatting/actions';
 import { saveCookies } from '../../utils/saveCookies';
 import { getQuickChattingListActions } from '../../modules/quick-chatting/actions';
+import { axiosInstance } from '../../service/api';
+import { createCustomHeader } from '../../utils/createCustomHeader';
 
 const chatting = () => {
   return <ChattingTemplate />;
@@ -23,6 +25,20 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
     const accessToken = rootState.loginState.accessToken;
 
+    axiosInstance.interceptors.request.use(
+      async function (config) {
+        try {
+          config.headers = createCustomHeader(accessToken);
+          return config;
+        } catch (error) {
+          console.log(error);
+        }
+      },
+      function (error) {
+        return Promise.reject(error);
+      },
+    );
+
     if (!accessToken) {
       return {
         redirect: {
@@ -32,7 +48,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
       };
     }
 
-    console.log(accessToken, 'accessToken');
     store.dispatch(
       getCurrentChatRoomAsyncActions.request({
         chattingRoomId: context.params.id as string,

@@ -1,11 +1,13 @@
 import { END } from 'redux-saga';
 
 import CheckDepositTemplate from '../../components/check-deposit/CheckDepositTemplate';
-import { wrapper } from '../../modules';
+import { RootState, wrapper } from '../../modules';
 import {
   getCurrentChatRoomAsyncActions,
   getCurrentChatUserListActions,
 } from '../../modules/chatting/actions';
+import { axiosInstance } from '../../service/api';
+import { createCustomHeader } from '../../utils/createCustomHeader';
 import { saveCookies } from '../../utils/saveCookies';
 
 const checkDeposit = () => <CheckDepositTemplate />;
@@ -13,6 +15,24 @@ const checkDeposit = () => <CheckDepositTemplate />;
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
     saveCookies(store, context);
+
+    const rootState: RootState = store.getState();
+
+    const accessToken = rootState.loginState.accessToken;
+
+    axiosInstance.interceptors.request.use(
+      async function (config) {
+        try {
+          config.headers = createCustomHeader(accessToken);
+          return config;
+        } catch (error) {
+          console.log(error);
+        }
+      },
+      function (error) {
+        return Promise.reject(error);
+      },
+    );
 
     store.dispatch(
       getCurrentChatUserListActions.request({
