@@ -27,8 +27,6 @@ const ChatItem = ({
     [currentDate],
   );
 
-  console.log(master_id, 'mm');
-
   return (
     <Container>
       <FlexRow>

@@ -1,3 +1,4 @@
+import cookies from 'next-cookies';
 import React from 'react';
 import { END } from 'redux-saga';
 import CreateTemplate from '../../components/create/CreateTemplate';
@@ -7,6 +8,8 @@ import {
   saveBuildingCode,
   saveUserId,
 } from '../../modules/create/actions';
+import { axiosInstance } from '../../service/api';
+import { createCustomHeader } from '../../utils/createCustomHeader';
 import { saveCookies } from '../../utils/saveCookies';
 
 const create = () => {
@@ -20,6 +23,20 @@ export const getServerSideProps = wrapper.getServerSideProps(
     const rootState: RootState = store.getState();
     const accessToken = rootState.loginState.accessToken;
     const user_id = rootState.loginState.user_id;
+
+    axiosInstance.interceptors.request.use(
+      async function (config) {
+        try {
+          config.headers = createCustomHeader(accessToken);
+          return config;
+        } catch (error) {
+          console.log(error);
+        }
+      },
+      function (error) {
+        return Promise.reject(error);
+      },
+    );
 
     if (accessToken) {
       store.dispatch(getPrevCreatedListActions.request(user_id));

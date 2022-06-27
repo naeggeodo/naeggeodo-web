@@ -3,8 +3,6 @@ import { wrapper } from '../modules';
 import Head from 'next/head';
 import App, { AppContext } from 'next/app';
 import { axiosInstance, removeTokens } from '../service/api';
-import cookies from 'next-cookies';
-import { createCustomHeader } from '../utils/createCustomHeader';
 import palette from '../styles/palette';
 import axios, { AxiosError } from 'axios';
 import { Cookies } from 'react-cookie';
@@ -43,23 +41,6 @@ console.log(
 app.getInitialProps = wrapper.getInitialAppProps(
   () => async (context: AppContext) => {
     const myAppInitialProps = App.getInitialProps(context);
-
-    axiosInstance.interceptors.request.use(
-      async function (config) {
-        try {
-          const allCookies = cookies(context.ctx);
-          const accessToken = allCookies.accessToken;
-
-          config.headers = createCustomHeader(accessToken);
-          return config;
-        } catch (error) {
-          console.log(error);
-        }
-      },
-      function (error) {
-        return Promise.reject(error);
-      },
-    );
 
     axiosInstance.interceptors.response.use(
       async function (config) {

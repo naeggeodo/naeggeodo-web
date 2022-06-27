@@ -59,7 +59,7 @@ const MypageUserInfo = () => {
       inputRef.current.focus();
     } else {
       inputRef.current.disabled = true;
-      inputRef.current.style.width = `${nickName.length * 20}px`;
+      inputRef.current.style.width = `${nickName.length * 23}px`;
     }
   }, [isClicked, nickName]);
 
@@ -147,7 +147,7 @@ const Name = styled.input<StyledInputType>`
   color: ${palette.black};
   padding: 0;
 
-  border: 1px solid ${palette.mainOrange};
+  border: 1px solid ${palette.DarkGray};
   border-radius: 5px;
   outline: none;
 

@@ -2,12 +2,14 @@ import React from 'react';
 import { END } from 'redux-saga';
 
 import SearchTemplate from '../../components/search/SearchTemplate';
-import { wrapper } from '../../modules';
+import { RootState, wrapper } from '../../modules';
 import {
   getResultByInputActions,
   getResultByTagActions,
   getSearchTagListActions,
 } from '../../modules/search/actions';
+import { axiosInstance } from '../../service/api';
+import { createCustomHeader } from '../../utils/createCustomHeader';
 import { saveCookies } from '../../utils/saveCookies';
 
 const Search = () => {
@@ -17,6 +19,23 @@ const Search = () => {
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
     saveCookies(store, context);
+
+    const rootState: RootState = store.getState();
+    const accessToken = rootState.loginState.accessToken;
+
+    axiosInstance.interceptors.request.use(
+      async function (config) {
+        try {
+          config.headers = createCustomHeader(accessToken);
+          return config;
+        } catch (error) {
+          console.log(error);
+        }
+      },
+      function (error) {
+        return Promise.reject(error);
+      },
+    );
 
     store.dispatch(getSearchTagListActions.request());
 
