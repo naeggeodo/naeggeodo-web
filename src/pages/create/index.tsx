@@ -24,11 +24,11 @@ export const getServerSideProps = wrapper.getServerSideProps(
     const rootState: RootState = store.getState();
     const user_id = rootState.loginState.user_id;
     const allCookies = cookies(context);
-    const globalAccessToken = allCookies.accessToken;
+    const accessToken = allCookies.accessToken;
 
     removeCookiesServerside(context);
 
-    if (!globalAccessToken) {
+    if (!accessToken) {
       return {
         redirect: {
           permanent: false,
@@ -40,11 +40,10 @@ export const getServerSideProps = wrapper.getServerSideProps(
     axiosInstance.interceptors.request.use(
       async function (config) {
         try {
-          const allCookies = cookies(context);
-          const accessToken = allCookies.accessToken;
-
-          config.headers = createCustomHeader(accessToken);
-          return config;
+          if (accessToken && allCookies) {
+            config.headers = createCustomHeader(accessToken);
+            return config;
+          }
         } catch (error) {
           console.log(error);
         }
@@ -54,7 +53,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
       },
     );
 
-    if (globalAccessToken) {
+    if (accessToken) {
       store.dispatch(getPrevCreatedListActions.request(user_id));
       store.dispatch(saveUserId(rootState.loginState.user_id));
       store.dispatch(saveBuildingCode(rootState.loginState.buildingCode));
