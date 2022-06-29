@@ -22,13 +22,9 @@ function* getUserInfoInMypageGenerator(
   action: ReturnType<typeof getUserInfoInMypageRequest>,
 ) {
   try {
-    const accessToken = yield select(
-      (state: RootState) => state.loginState.accessToken,
-    );
     const response: AxiosResponse<MyPageUserInfoResponse> = yield call(
       MypageService.asyncGetMypageUserInfo,
       action.payload,
-      accessToken,
     );
     yield put(getUserInfoInMypageSuccess(response.data));
   } catch (error) {
