@@ -23,7 +23,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
     const allCookies = cookies(context);
     const accessToken = allCookies.accessToken;
-    // removeCookiesServerside(context);
+    removeCookiesServerside(context);
 
     if (!accessToken) {
       return {
