@@ -1,3 +1,4 @@
+import { removeCookies } from 'cookies-next';
 import cookies from 'next-cookies';
 import React from 'react';
 import { END } from 'redux-saga';
@@ -19,6 +20,22 @@ const create = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
+    removeCookies('accessToken', {
+      req: context.req,
+      res: context.res,
+    });
+    removeCookies('address', {
+      req: context.req,
+      res: context.res,
+    });
+    removeCookies('buildingCode', {
+      req: context.req,
+      res: context.res,
+    });
+    removeCookies('user_id', {
+      req: context.req,
+      res: context.res,
+    });
     saveCookies(store, context);
 
     const rootState: RootState = store.getState();
