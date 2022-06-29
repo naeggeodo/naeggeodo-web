@@ -18,13 +18,12 @@ const Mypage = () => {
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
     saveCookies(store, context);
-    let user_id = '';
-    let accessToken = '';
+    const rootState: RootState = store.getState();
+    let user_id = rootState.loginState.user_id;
+    let accessToken = rootState.loginState.accessToken;
 
     axios.defaults.headers.common['Authorization'] = '';
     if (context.req && context.req.headers.cookie) {
-      user_id = context.req.cookies.user_id;
-      accessToken = context.req.cookies.accessToken;
       axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
     }
 
