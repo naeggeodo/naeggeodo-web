@@ -25,10 +25,10 @@ export const getServerSideProps = wrapper.getServerSideProps(
     if (context.req && context.req.headers.cookie) {
       user_id = context.req.cookies.user_id;
       accessToken = context.req.cookies.accessToken;
-
       axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-      store.dispatch(getUserInfoInMypageRequest(user_id));
     }
+
+    store.dispatch(getUserInfoInMypageRequest(user_id));
 
     user_id = '';
     accessToken = '';
