@@ -37,7 +37,10 @@ export const getServerSideProps = wrapper.getServerSideProps(
           if (accessToken && allCookies) {
             config.headers = createCustomHeader(accessToken);
             return config;
-          } else return config;
+          } else {
+            config.headers = {};
+            return config;
+          }
         } catch (error) {
           console.log(error);
         }
