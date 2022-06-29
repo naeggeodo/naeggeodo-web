@@ -16,25 +16,8 @@ const Mypage = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
-    removeCookies('accessToken', {
-      req: context.req,
-      res: context.res,
-    });
-    removeCookies('address', {
-      req: context.req,
-      res: context.res,
-    });
-    removeCookies('buildingCode', {
-      req: context.req,
-      res: context.res,
-    });
-    removeCookies('user_id', {
-      req: context.req,
-      res: context.res,
-    });
     saveCookies(store, context);
     const rootState: RootState = store.getState();
-
     const user_id = rootState.loginState.user_id;
 
     const allCookies = cookies(context);
@@ -49,13 +32,14 @@ export const getServerSideProps = wrapper.getServerSideProps(
         },
       };
     }
+
     axiosInstance.interceptors.request.use(
       async function (config) {
         try {
           if (accessToken && allCookies) {
             config.headers = createCustomHeader(accessToken);
             return config;
-          }
+          } else return config;
         } catch (error) {
           console.log(error);
         }
