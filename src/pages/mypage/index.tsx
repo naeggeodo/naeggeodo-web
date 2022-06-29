@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { removeCookies } from 'cookies-next';
 import cookies from 'next-cookies';
 import React from 'react';
@@ -16,12 +17,16 @@ const Mypage = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
-    console.log(context.req.cookies, 'hello');
-    if (context.req) {
-      saveCookies(store, context);
+    saveCookies(store, context);
+
+    axios.defaults.headers.common['Authorization'] = '';
+    if (context.req && context.req.headers.cookie) {
+      const user_id = context.req.cookies.user_id;
+      const accessToken = context.req.cookies.accessToken;
+
+      axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+      store.dispatch(getUserInfoInMypageRequest(user_id));
     }
-    const accessToken = context.req.cookies.accessToken;
-    const user_id = context.req.cookies.user_id;
 
     // const rootState: RootState = store.getState();
     // const user_id = rootState.loginState.user_id;
@@ -40,28 +45,26 @@ export const getServerSideProps = wrapper.getServerSideProps(
     //     },
     //   };
     // }
-    axiosInstance.interceptors.request.use(
-      async function (config) {
-        try {
-          const cookie = context.req ? context.req.cookies : '';
-          config.headers = {
-            Authorization: '',
-          };
-          if (context.req && cookie) {
-            const validAccessToken = cookie.accessToken;
-            config.headers = createCustomHeader(validAccessToken);
-          }
-          return config;
-        } catch (error) {
-          console.log(error);
-        }
-      },
-      function (error) {
-        return Promise.reject(error);
-      },
-    );
-
-    store.dispatch(getUserInfoInMypageRequest(user_id));
+    // axiosInstance.interceptors.request.use(
+    //   async function (config) {
+    //     try {
+    //       const cookie = context.req ? context.req.cookies : '';
+    //       config.headers = {
+    //         Authorization: '',
+    //       };
+    //       if (context.req && cookie) {
+    //         const validAccessToken = cookie.accessToken;
+    //         config.headers = createCustomHeader(validAccessToken);
+    //       }
+    //       return config;
+    //     } catch (error) {
+    //       console.log(error);
+    //     }
+    //   },
+    //   function (error) {
+    //     return Promise.reject(error);
+    //   },
+    // );
 
     store.dispatch(END);
     await store.sagaTask.toPromise();
