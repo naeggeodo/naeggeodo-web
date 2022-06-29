@@ -20,6 +20,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     const rootState: RootState = store.getState();
     const user_id = rootState.loginState.user_id;
     const clientAccessToken = rootState.loginState.accessToken;
+    const stateAccessToken = rootState.loginState.accessToken;
 
     const allCookies = cookies(context);
     const accessToken = allCookies.accessToken;
@@ -33,25 +34,22 @@ export const getServerSideProps = wrapper.getServerSideProps(
         },
       };
     }
-
-    // axiosInstance.interceptors.request.use(
-    //   async function (config) {
-    //     try {
-    //       if (context.req) {
-    //         config.headers = createCustomHeader(clientAccessToken);
-    //         return config;
-    //       } else {
-    //         config.headers = {};
-    //         return config;
-    //       }
-    //     } catch (error) {
-    //       console.log(error);
-    //     }
-    //   },
-    //   function (error) {
-    //     return Promise.reject(error);
-    //   },
-    // );
+    axiosInstance.interceptors.request.use(
+      async function (config) {
+        try {
+          config.headers = createCustomHeader(null);
+          if (context.req && allCookies) {
+            config.headers = createCustomHeader(stateAccessToken);
+          }
+          return config;
+        } catch (error) {
+          console.log(error);
+        }
+      },
+      function (error) {
+        return Promise.reject(error);
+      },
+    );
 
     store.dispatch(getUserInfoInMypageRequest(user_id));
 
