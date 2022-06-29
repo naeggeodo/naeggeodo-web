@@ -93,7 +93,7 @@ app.getInitialProps = wrapper.getInitialAppProps(
           [400, 401].includes(error.response.status)
         ) {
           removeTokens();
-          alert("잘못된 요청입니다. 다시 로그인 해주세요.");
+          window.alert("잘못된 요청입니다. 다시 로그인 해주세요.");
           window.location.replace("/login");
         } else if (
           error.response &&

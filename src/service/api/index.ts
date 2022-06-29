@@ -53,18 +53,17 @@ csrAxiosInstance.interceptors.request.use(
     try {
       const cookies = new Cookies();
       const accessToken = cookies.get(TOKEN_NAME.ACCESS_TOKEN);
-
+      if (!accessToken) return config;
       const decoded: JwtPayload = jwtDecode(accessToken);
       const exp = Number(decoded.exp) * 1000;
       const nowTime = new Date().getTime() / 1000; // 초
       const expiredTime = new Date(exp).getTime() / 1000; // 초
       const betweenTime = Math.floor(expiredTime - nowTime);
-
       if (betweenTime <= 20) {
         try {
           const response = await axios.post(
             `${process.env.NEXT_PUBLIC_API_URL}/refreshtoken`,
-            {},
+            null,
             { withCredentials: true }
           );
           const updatedAccessToken = response.data.accessToken;
@@ -109,7 +108,11 @@ csrAxiosInstance.interceptors.response.use(
       removeTokens();
       alert("잘못된 요청입니다. 다시 로그인 해주세요.");
       window.location.replace("/login");
-    } else if (error.response.status === 415) {
+    } else if (
+      error.response &&
+      error.response.status &&
+      error.response.status === 415
+    ) {
       alert("지원하지 않는 파일 형식입니다.");
     }
     return Promise.reject(error);

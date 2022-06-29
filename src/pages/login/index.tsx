@@ -1,7 +1,7 @@
-import { END } from 'redux-saga';
-import LoginTemplate from '../../components/login/LoginTemplate';
-import { RootState, wrapper } from '../../modules';
-import { saveCookies } from '../../utils/saveCookies';
+import { END } from "redux-saga";
+import LoginTemplate from "../../components/login/LoginTemplate";
+import { RootState, wrapper } from "../../modules";
+import { saveCookies } from "../../utils/saveCookies";
 
 const login = () => {
   return <LoginTemplate />;
@@ -21,7 +21,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
       return {
         props: {},
         redirect: {
-          destination: '/',
+          destination: "/",
           permanent: false,
         },
       };
@@ -30,7 +30,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     return {
       props: {},
     };
-  },
+  }
 );
 
 export default login;
