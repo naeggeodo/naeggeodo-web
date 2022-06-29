@@ -1,13 +1,13 @@
-import cookies from "next-cookies";
-import React from "react";
-import { END } from "redux-saga";
-import MypageTemplate from "../../components/mypage/MypageTemplate";
-import { RootState, wrapper } from "../../modules";
-import { getUserInfoInMypageRequest } from "../../modules/mypage/actions";
-import { axiosInstance } from "../../service/api";
-import { createCustomHeader } from "../../utils/createCustomHeader";
-import { removeCookiesServerside } from "../../utils/removeCookiesServerside";
-import { saveCookies } from "../../utils/saveCookies";
+import cookies from 'next-cookies';
+import React from 'react';
+import { END } from 'redux-saga';
+import MypageTemplate from '../../components/mypage/MypageTemplate';
+import { RootState, wrapper } from '../../modules';
+import { getUserInfoInMypageRequest } from '../../modules/mypage/actions';
+import { axiosInstance } from '../../service/api';
+import { createCustomHeader } from '../../utils/createCustomHeader';
+import { removeCookiesServerside } from '../../utils/removeCookiesServerside';
+import { saveCookies } from '../../utils/saveCookies';
 
 const Mypage = () => {
   return <MypageTemplate />;
@@ -23,13 +23,13 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
     const allCookies = cookies(context);
     const accessToken = allCookies.accessToken;
-    removeCookiesServerside(context);
+    // removeCookiesServerside(context);
 
     if (!accessToken) {
       return {
         redirect: {
           permanent: false,
-          destination: "/login",
+          destination: '/login',
         },
       };
     }
@@ -44,7 +44,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
       },
       function (error) {
         return Promise.reject(error);
-      }
+      },
     );
 
     store.dispatch(getUserInfoInMypageRequest(user_id));
@@ -55,7 +55,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     if (!accessToken) {
       return {
         redirect: {
-          destination: "/login",
+          destination: '/login',
           permanent: false,
         },
       };
@@ -64,7 +64,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     return {
       props: {},
     };
-  }
+  },
 );
 
 export default Mypage;

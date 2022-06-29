@@ -1,30 +1,34 @@
-import { removeCookies } from "cookies-next";
-import jwtDecode, { JwtPayload } from "jwt-decode";
-import cookies from "next-cookies";
+import { removeCookies } from 'cookies-next';
+import jwtDecode, { JwtPayload } from 'jwt-decode';
+import cookies from 'next-cookies';
 
 export const removeCookiesServerside = (context) => {
   const allCookies = cookies(context);
   const accessToken = allCookies.accessToken;
+
+  console.log('hello', accessToken);
+
   if (accessToken) {
     const decoded: JwtPayload = jwtDecode(accessToken);
     const exp = Number(decoded.exp) * 1000;
     const nowTime = new Date().getTime() / 1000; // 초
     const expiredTime = new Date(exp).getTime() / 1000; // 초
     const betweenTime = Math.floor(expiredTime - nowTime);
+
     if (betweenTime <= 20) {
-      removeCookies("accessToken", {
+      removeCookies('accessToken', {
         req: context.req,
         res: context.res,
       });
-      removeCookies("address", {
+      removeCookies('address', {
         req: context.req,
         res: context.res,
       });
-      removeCookies("buildingCode", {
+      removeCookies('buildingCode', {
         req: context.req,
         res: context.res,
       });
-      removeCookies("user_id", {
+      removeCookies('user_id', {
         req: context.req,
         res: context.res,
       });
