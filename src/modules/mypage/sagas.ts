@@ -1,5 +1,6 @@
 import { AxiosResponse } from 'axios';
-import { call, delay, put, take, takeLatest } from 'redux-saga/effects';
+import { call, delay, put, select, take, takeLatest } from 'redux-saga/effects';
+import { RootState } from '..';
 import { MypageService } from '../../service/api/mypage/MypageService';
 import {
   closeReportConfirmModalActions,
@@ -21,9 +22,13 @@ function* getUserInfoInMypageGenerator(
   action: ReturnType<typeof getUserInfoInMypageRequest>,
 ) {
   try {
+    const accessToken = yield select(
+      (state: RootState) => state.loginState.accessToken,
+    );
     const response: AxiosResponse<MyPageUserInfoResponse> = yield call(
       MypageService.asyncGetMypageUserInfo,
       action.payload,
+      accessToken,
     );
     yield put(getUserInfoInMypageSuccess(response.data));
   } catch (error) {
