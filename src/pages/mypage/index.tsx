@@ -16,9 +16,12 @@ const Mypage = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
+    console.log(context.req.cookies, 'hello');
     if (context.req) {
       saveCookies(store, context);
     }
+    const accessToken = context.req.cookies.accessToken;
+    const user_id = context.req.cookies.user_id;
 
     // const rootState: RootState = store.getState();
     // const user_id = rootState.loginState.user_id;
@@ -37,24 +40,24 @@ export const getServerSideProps = wrapper.getServerSideProps(
     //     },
     //   };
     // }
-    // axiosInstance.interceptors.request.use(
-    //   async function (config) {
-    //     try {
-    //       config.headers = createCustomHeader(null);
-    //       if (context.req && allCookies) {
-    //         config.headers = createCustomHeader(stateAccessToken);
-    //       }
-    //       return config;
-    //     } catch (error) {
-    //       console.log(error);
-    //     }
-    //   },
-    //   function (error) {
-    //     return Promise.reject(error);
-    //   },
-    // );
+    axiosInstance.interceptors.request.use(
+      async function (config) {
+        try {
+          config.headers = createCustomHeader(null);
+          if (context.req && accessToken) {
+            config.headers = createCustomHeader(accessToken);
+          }
+          return config;
+        } catch (error) {
+          console.log(error);
+        }
+      },
+      function (error) {
+        return Promise.reject(error);
+      },
+    );
 
-    // store.dispatch(getUserInfoInMypageRequest(user_id));
+    store.dispatch(getUserInfoInMypageRequest(user_id));
 
     store.dispatch(END);
     await store.sagaTask.toPromise();

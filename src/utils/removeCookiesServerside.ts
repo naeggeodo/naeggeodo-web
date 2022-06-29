@@ -6,8 +6,6 @@ export const removeCookiesServerside = (context) => {
   const allCookies = cookies(context);
   const accessToken = allCookies.accessToken;
 
-  console.log('hello', accessToken);
-
   if (accessToken) {
     const decoded: JwtPayload = jwtDecode(accessToken);
     const exp = Number(decoded.exp) * 1000;
