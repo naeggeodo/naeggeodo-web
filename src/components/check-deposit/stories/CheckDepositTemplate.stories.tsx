@@ -1,13 +1,13 @@
-import { ComponentMeta } from '@storybook/react';
-import { Provider } from 'react-redux';
-import { configureStore } from '../../../modules';
-import CheckDepositTemplate from '../CheckDepositTemplate';
+import { ComponentMeta } from "@storybook/react";
+import { Provider } from "react-redux";
+import { configureStore } from "../../../modules";
+import CheckDepositTemplate from "../CheckDepositTemplate";
 
 export default {
-  title: 'check-deposit/페이지',
+  title: "deposit/페이지",
   component: CheckDepositTemplate,
   parameters: {
-    layout: 'fullscreen',
+    layout: "fullscreen",
   },
   decorators: [
     (Story) => (
@@ -20,4 +20,4 @@ export default {
 
 export const CheckDepositTemplateStory = () => <CheckDepositTemplate />;
 
-CheckDepositTemplateStory.storyName = '수령완료 페이지';
+CheckDepositTemplateStory.storyName = "수령완료 페이지";

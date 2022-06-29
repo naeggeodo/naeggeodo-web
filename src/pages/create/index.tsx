@@ -25,6 +25,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     const user_id = rootState.loginState.user_id;
     const allCookies = cookies(context);
     const accessToken = allCookies.accessToken;
+
     removeCookiesServerside(context);
     if (!accessToken) {
       return {
@@ -34,6 +35,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
         },
       };
     }
+
     axiosInstance.interceptors.request.use(
       async function (config) {
         try {

@@ -18,6 +18,8 @@ export const getServerSideProps = wrapper.getServerSideProps(
     const rootState: RootState = store.getState();
 
     const user_id = rootState.loginState.user_id;
+    const stateAccessToken = rootState.loginState.accessToken;
+
     const allCookies = cookies(context);
     const accessToken = allCookies.accessToken;
     removeCookiesServerside(context);
@@ -32,7 +34,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     axiosInstance.interceptors.request.use(
       async function (config) {
         try {
-          config.headers = createCustomHeader(accessToken);
+          config.headers = createCustomHeader(stateAccessToken);
           return config;
         } catch (error) {
           console.log(error);

@@ -1,6 +1,5 @@
 import axios, { AxiosError } from "axios";
 import jwtDecode, { JwtPayload } from "jwt-decode";
-import Router from "next/router";
 import { Cookies } from "react-cookie";
 import { TOKEN_NAME } from "../../constant/Login";
 import { createCustomHeader } from "../../utils/createCustomHeader";
@@ -71,6 +70,7 @@ csrAxiosInstance.interceptors.request.use(
             path: "/",
             maxAge: 60 * 60 * 24 * 2,
           });
+
           config.headers = createCustomHeader(updatedAccessToken);
           return config;
         } catch (error) {

@@ -1,4 +1,3 @@
-import jwtDecode, { JwtPayload } from "jwt-decode";
 import { END } from "redux-saga";
 import MainTemplate from "../../components/main/MainTemplate";
 import { RootState, wrapper } from "../../modules";
@@ -8,11 +7,7 @@ import {
   getChatRoomListWithCategoryRequest,
   getFoodCategoriesActions,
 } from "../../modules/main/actions";
-import { removeTokens } from "../../service/api";
 import { saveCookies } from "../../utils/saveCookies";
-import cookies from "next-cookies";
-import { removeCookies } from "cookies-next";
-import { removeCookiesServerside } from "../../utils/removeCookiesServerside";
 
 const ChatRooms = ({
   foodCategories,
