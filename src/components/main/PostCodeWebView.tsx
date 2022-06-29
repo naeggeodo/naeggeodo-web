@@ -1,16 +1,16 @@
-import React, { useRef } from 'react';
-import DaumPostcode from 'react-daum-postcode';
-import styled from 'styled-components';
-import Portal from '../common/Portal';
-import { Address } from 'react-daum-postcode';
-import { useDispatch } from 'react-redux';
+import React from "react";
+import DaumPostcode from "react-daum-postcode";
+import styled from "styled-components";
+import Portal from "../common/Portal";
+import { Address } from "react-daum-postcode";
+import { useDispatch } from "react-redux";
 import {
   patchBuildingCodeRequest,
   saveApartmentAddress,
-} from '../../modules/search-post-code/actions';
-import palette from '../../styles/palette';
-import { PatchBuildingCodeRequestData } from '../../modules/search-post-code/types';
-import { useSelectLoginStates } from '../../hooks/select/useSelectLoginStates';
+} from "../../modules/search-post-code/actions";
+import palette from "../../styles/palette";
+import { PatchBuildingCodeRequestData } from "../../modules/search-post-code/types";
+import { useSelectLoginStates } from "../../hooks/select/useSelectLoginStates";
 
 const PostCodeWebView = ({ closeWebView }: { closeWebView: () => void }) => {
   const dispatch = useDispatch();
@@ -23,9 +23,9 @@ const PostCodeWebView = ({ closeWebView }: { closeWebView: () => void }) => {
       zonecode: data.zonecode,
     };
 
-    if (data.apartment === 'N') {
+    if (data.apartment === "N") {
       dispatch(saveApartmentAddress(data.apartment));
-    } else if (data.apartment === 'Y') {
+    } else if (data.apartment === "Y") {
       dispatch(patchBuildingCodeRequest(user_id, addressInfo));
     }
   };
@@ -35,9 +35,10 @@ const PostCodeWebView = ({ closeWebView }: { closeWebView: () => void }) => {
       <Background />
       <WebViewContainer>
         <DaumPostcode
-          style={{ width: '100%' }}
+          style={{ width: "100%" }}
           onComplete={handleComplete}
-          onClose={closeWebView}></DaumPostcode>
+          onClose={closeWebView}
+        ></DaumPostcode>
         <CloseButton onPointerDown={closeWebView}>닫기</CloseButton>
       </WebViewContainer>
     </Portal>

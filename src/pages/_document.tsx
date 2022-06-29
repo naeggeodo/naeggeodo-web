@@ -1,6 +1,6 @@
-import { RenderPageResult } from 'next/dist/shared/lib/utils';
-import Document, { Head, Html, Main, NextScript } from 'next/document';
-import { ServerStyleSheet } from 'styled-components';
+import { RenderPageResult } from "next/dist/shared/lib/utils";
+import Document, { Head, Html, Main, NextScript } from "next/document";
+import { ServerStyleSheet } from "styled-components";
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -38,10 +38,7 @@ export default class MyDocument extends Document {
             property="og:title"
             content="우리 아파트 배달비 반값 프로젝트 내꺼도 🛵"
           />
-          <meta
-            name="viewport"
-            content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width"
-          />
+
           <meta httpEquiv="Title" content="우리동네 배달비 반값 프로젝트" />
           <meta httpEquiv="Generator" content="Visual Studio Code" />
           <meta httpEquiv="Subject" content="배달비 반띵 내꺼도" />
@@ -78,7 +75,8 @@ export default class MyDocument extends Document {
             setTimeout(() => {
               window.scrollTo(0, 1);
             }, 100);
-          }}>
+          }}
+        >
           <div id="webviewPortal"></div>
           <div id="loginPortal"></div>
           <div id="reportPortal"></div>

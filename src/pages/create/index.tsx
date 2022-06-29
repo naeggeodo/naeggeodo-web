@@ -1,16 +1,17 @@
-import cookies from 'next-cookies';
-import React from 'react';
-import { END } from 'redux-saga';
-import CreateTemplate from '../../components/create/CreateTemplate';
-import { RootState, wrapper } from '../../modules';
+import cookies from "next-cookies";
+import React from "react";
+import { END } from "redux-saga";
+import CreateTemplate from "../../components/create/CreateTemplate";
+import { RootState, wrapper } from "../../modules";
 import {
   getPrevCreatedListActions,
   saveBuildingCode,
   saveUserId,
-} from '../../modules/create/actions';
-import { axiosInstance } from '../../service/api';
-import { createCustomHeader } from '../../utils/createCustomHeader';
-import { saveCookies } from '../../utils/saveCookies';
+} from "../../modules/create/actions";
+import { axiosInstance } from "../../service/api";
+import { createCustomHeader } from "../../utils/createCustomHeader";
+import { removeCookiesServerside } from "../../utils/removeCookiesServerside";
+import { saveCookies } from "../../utils/saveCookies";
 
 const create = () => {
   return <CreateTemplate />;
@@ -21,8 +22,19 @@ export const getServerSideProps = wrapper.getServerSideProps(
     saveCookies(store, context);
 
     const rootState: RootState = store.getState();
-    const accessToken = rootState.loginState.accessToken;
     const user_id = rootState.loginState.user_id;
+    const allCookies = cookies(context);
+    const accessToken = allCookies.accessToken;
+
+    removeCookiesServerside(context);
+    if (!accessToken) {
+      return {
+        redirect: {
+          permanent: false,
+          destination: "/login",
+        },
+      };
+    }
 
     axiosInstance.interceptors.request.use(
       async function (config) {
@@ -35,7 +47,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
       },
       function (error) {
         return Promise.reject(error);
-      },
+      }
     );
 
     if (accessToken) {
@@ -55,11 +67,11 @@ export const getServerSideProps = wrapper.getServerSideProps(
         props: {},
         redirect: {
           permanent: false,
-          destination: '/login',
+          destination: "/login",
         },
       };
     }
-  },
+  }
 );
 
 export default create;

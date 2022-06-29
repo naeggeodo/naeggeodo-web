@@ -1,12 +1,12 @@
-import { useRouter } from 'next/router';
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import styled from 'styled-components';
+import { useRouter } from "next/router";
+import React from "react";
+import { useDispatch } from "react-redux";
+import styled from "styled-components";
 
-import { CurrentChatUser } from '../../modules/chatting/types';
-import { setCheckDepositActions } from '../../modules/check-deposit/actions';
-import palette from '../../styles/palette';
-import responsive from '../../styles/responsive';
+import { CurrentChatUser } from "../../modules/chatting/types";
+import { setCheckDepositActions } from "../../modules/check-deposit/actions";
+import palette from "../../styles/palette";
+import responsive from "../../styles/responsive";
 
 const CompleteDepositButton = ({ user }: { user: CurrentChatUser }) => {
   const router = useRouter();
@@ -17,7 +17,7 @@ const CompleteDepositButton = ({ user }: { user: CurrentChatUser }) => {
       setCheckDepositActions.request({
         chattingRoomId: router.query.id as string,
         userId: user.user_id,
-      }),
+      })
     );
   };
 

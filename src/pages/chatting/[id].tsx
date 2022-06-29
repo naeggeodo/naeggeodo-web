@@ -1,16 +1,18 @@
-import { END } from 'redux-saga';
+import { END } from "redux-saga";
 
-import { RootState, wrapper } from '../../modules';
-import ChattingTemplate from '../../components/chatting/ChattingTemplate';
+import { RootState, wrapper } from "../../modules";
+import ChattingTemplate from "../../components/chatting/ChattingTemplate";
 import {
   getChattingListActions,
   getCurrentChatRoomAsyncActions,
   getUserNicknameActions,
-} from '../../modules/chatting/actions';
-import { saveCookies } from '../../utils/saveCookies';
-import { getQuickChattingListActions } from '../../modules/quick-chatting/actions';
-import { axiosInstance } from '../../service/api';
-import { createCustomHeader } from '../../utils/createCustomHeader';
+} from "../../modules/chatting/actions";
+import { saveCookies } from "../../utils/saveCookies";
+import { getQuickChattingListActions } from "../../modules/quick-chatting/actions";
+import { axiosInstance } from "../../service/api";
+import { createCustomHeader } from "../../utils/createCustomHeader";
+import { removeCookiesServerside } from "../../utils/removeCookiesServerside";
+import cookies from "next-cookies";
 
 const chatting = () => {
   return <ChattingTemplate />;
@@ -23,12 +25,23 @@ export const getServerSideProps = wrapper.getServerSideProps(
     const rootState: RootState = store.getState();
     const user_id = rootState.loginState.user_id;
 
-    const accessToken = rootState.loginState.accessToken;
+    const stateAccessToken = rootState.loginState.accessToken;
 
+    const allCookies = cookies(context);
+    const accessToken = allCookies.accessToken;
+    removeCookiesServerside(context);
+    if (!accessToken) {
+      return {
+        redirect: {
+          permanent: false,
+          destination: "/login",
+        },
+      };
+    }
     axiosInstance.interceptors.request.use(
       async function (config) {
         try {
-          config.headers = createCustomHeader(accessToken);
+          config.headers = createCustomHeader(stateAccessToken);
           return config;
         } catch (error) {
           console.log(error);
@@ -36,14 +49,14 @@ export const getServerSideProps = wrapper.getServerSideProps(
       },
       function (error) {
         return Promise.reject(error);
-      },
+      }
     );
 
     if (!accessToken) {
       return {
         redirect: {
           permanent: false,
-          destination: '/login',
+          destination: "/login",
         },
       };
     }
@@ -51,13 +64,13 @@ export const getServerSideProps = wrapper.getServerSideProps(
     store.dispatch(
       getCurrentChatRoomAsyncActions.request({
         chattingRoomId: context.params.id as string,
-      }),
+      })
     );
     store.dispatch(
       getChattingListActions.request({
         chattingRoomId: context.params.id as string,
         userId: user_id,
-      }),
+      })
     );
 
     store.dispatch(getUserNicknameActions.request(user_id));
@@ -65,7 +78,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     store.dispatch(
       getQuickChattingListActions.request({
         userId: user_id,
-      }),
+      })
     );
 
     store.dispatch(END);
@@ -74,7 +87,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     return {
       props: {},
     };
-  },
+  }
 );
 
 export default chatting;

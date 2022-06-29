@@ -1,8 +1,8 @@
-import { ComponentMeta } from '@storybook/react';
-import { Provider } from 'react-redux';
+import { ComponentMeta } from "@storybook/react";
+import { Provider } from "react-redux";
 
-import { configureStore } from '../../../modules';
-import ConvertToCompletedButton from '../ConvertToCompletedButton';
+import { configureStore } from "../../../modules";
+import ConvertToCompletedButton from "../ConvertToCompletedButton";
 // TODO
 // const store = {
 //   getState: () => {
@@ -36,10 +36,10 @@ import ConvertToCompletedButton from '../ConvertToCompletedButton';
 // };
 
 export default {
-  title: 'check-deposit/컴포넌트',
+  title: "deposit/컴포넌트",
   component: ConvertToCompletedButton,
   parameters: {
-    layout: 'fullscreen',
+    layout: "fullscreen",
   },
   decorators: [
     (Story) => (
@@ -54,7 +54,7 @@ const Template = (args) => <ConvertToCompletedButton {...args} />;
 
 export const ConvertCompletion = Template.bind({});
 
-ConvertCompletion.storyName = '완료된 거래로 전환하기 버튼';
+ConvertCompletion.storyName = "완료된 거래로 전환하기 버튼";
 
 // ConvertCompletion.loaders = [
 //   async () => {
