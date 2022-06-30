@@ -16,7 +16,7 @@ const Mypage = () => {
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
     saveCookies(store, context);
-    console.log('hello', context.req.headers.cookie);
+
     const rootState: RootState = store.getState();
 
     const user_id = rootState.loginState.user_id;
@@ -38,14 +38,13 @@ export const getServerSideProps = wrapper.getServerSideProps(
     axiosInstance.interceptors.request.use(
       async function (config) {
         try {
-          // const cookie = context.req ? context.req.cookies : '';
+          const cookie = context.req.cookies;
           // config.headers = {
           //   Authorization: '',
           // };
-          // if (context.req && cookie) {
-          //   const validAccessToken = cookie.accessToken;
-          //   config.headers = createCustomHeader(validAccessToken);
-          // }
+          if (context.req && cookie) {
+            config.headers = createCustomHeader(accessToken);
+          }
           return config;
         } catch (error) {
           console.log(error);
