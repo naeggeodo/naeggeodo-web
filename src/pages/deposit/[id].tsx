@@ -1,16 +1,16 @@
-import cookies from "next-cookies";
-import { END } from "redux-saga";
+import cookies from 'next-cookies';
+import { END } from 'redux-saga';
 
-import CheckDepositTemplate from "../../components/check-deposit/CheckDepositTemplate";
-import { RootState, wrapper } from "../../modules";
+import CheckDepositTemplate from '../../components/check-deposit/CheckDepositTemplate';
+import { RootState, wrapper } from '../../modules';
 import {
   getCurrentChatRoomAsyncActions,
   getCurrentChatUserListActions,
-} from "../../modules/chatting/actions";
-import { axiosInstance } from "../../service/api";
-import { createCustomHeader } from "../../utils/createCustomHeader";
-import { removeCookiesServerside } from "../../utils/removeCookiesServerside";
-import { saveCookies } from "../../utils/saveCookies";
+} from '../../modules/chatting/actions';
+import { axiosInstance } from '../../service/api';
+import { createCustomHeader } from '../../utils/createCustomHeader';
+import { removeCookiesServerside } from '../../utils/removeCookiesServerside';
+import { saveCookies } from '../../utils/saveCookies';
 
 const checkDeposit = () => <CheckDepositTemplate />;
 
@@ -29,35 +29,35 @@ export const getServerSideProps = wrapper.getServerSideProps(
       return {
         redirect: {
           permanent: false,
-          destination: "/login",
+          destination: '/login',
         },
       };
     }
 
-    axiosInstance.interceptors.request.use(
-      async function (config) {
-        try {
-          config.headers = createCustomHeader(stateAccessToken);
-          return config;
-        } catch (error) {
-          console.log(error);
-        }
-      },
-      function (error) {
-        return Promise.reject(error);
-      }
-    );
+    // axiosInstance.interceptors.request.use(
+    //   async function (config) {
+    //     try {
+    //       config.headers = createCustomHeader(stateAccessToken);
+    //       return config;
+    //     } catch (error) {
+    //       console.log(error);
+    //     }
+    //   },
+    //   function (error) {
+    //     return Promise.reject(error);
+    //   }
+    // );
 
     store.dispatch(
       getCurrentChatUserListActions.request({
         chattingRoomId: String(context.params.id),
-      })
+      }),
     );
 
     store.dispatch(
       getCurrentChatRoomAsyncActions.request({
         chattingRoomId: context.params.id as string,
-      })
+      }),
     );
 
     store.dispatch(END);
@@ -74,7 +74,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
         },
         redirect: {
           permanent: false,
-          destination: "/chat-rooms",
+          destination: '/chat-rooms',
         },
       };
     }
@@ -85,7 +85,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
           chatRoomInfo: store.getState().chattingRoomState.chatRoomInfo,
         },
       };
-  }
+  },
 );
 
 export default checkDeposit;

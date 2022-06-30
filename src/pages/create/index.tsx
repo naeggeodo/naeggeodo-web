@@ -1,17 +1,17 @@
-import cookies from "next-cookies";
-import React from "react";
-import { END } from "redux-saga";
-import CreateTemplate from "../../components/create/CreateTemplate";
-import { RootState, wrapper } from "../../modules";
+import cookies from 'next-cookies';
+import React from 'react';
+import { END } from 'redux-saga';
+import CreateTemplate from '../../components/create/CreateTemplate';
+import { RootState, wrapper } from '../../modules';
 import {
   getPrevCreatedListActions,
   saveBuildingCode,
   saveUserId,
-} from "../../modules/create/actions";
-import { axiosInstance } from "../../service/api";
-import { createCustomHeader } from "../../utils/createCustomHeader";
-import { removeCookiesServerside } from "../../utils/removeCookiesServerside";
-import { saveCookies } from "../../utils/saveCookies";
+} from '../../modules/create/actions';
+import { axiosInstance } from '../../service/api';
+import { createCustomHeader } from '../../utils/createCustomHeader';
+import { removeCookiesServerside } from '../../utils/removeCookiesServerside';
+import { saveCookies } from '../../utils/saveCookies';
 
 const create = () => {
   return <CreateTemplate />;
@@ -31,24 +31,24 @@ export const getServerSideProps = wrapper.getServerSideProps(
       return {
         redirect: {
           permanent: false,
-          destination: "/login",
+          destination: '/login',
         },
       };
     }
 
-    axiosInstance.interceptors.request.use(
-      async function (config) {
-        try {
-          config.headers = createCustomHeader(accessToken);
-          return config;
-        } catch (error) {
-          console.log(error);
-        }
-      },
-      function (error) {
-        return Promise.reject(error);
-      }
-    );
+    // axiosInstance.interceptors.request.use(
+    //   async function (config) {
+    //     try {
+    //       config.headers = createCustomHeader(accessToken);
+    //       return config;
+    //     } catch (error) {
+    //       console.log(error);
+    //     }
+    //   },
+    //   function (error) {
+    //     return Promise.reject(error);
+    //   }
+    // );
 
     if (accessToken) {
       store.dispatch(getPrevCreatedListActions.request(user_id));
@@ -67,11 +67,11 @@ export const getServerSideProps = wrapper.getServerSideProps(
         props: {},
         redirect: {
           permanent: false,
-          destination: "/login",
+          destination: '/login',
         },
       };
     }
-  }
+  },
 );
 
 export default create;

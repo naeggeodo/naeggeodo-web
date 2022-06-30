@@ -1,3 +1,4 @@
+import axios from 'axios';
 import cookies from 'next-cookies';
 import React from 'react';
 import { END } from 'redux-saga';
@@ -27,6 +28,10 @@ export const getServerSideProps = wrapper.getServerSideProps(
     console.log(context.req.headers.cookie, 'cookie, suzi');
 
     const accessToken = allCookies.accessToken;
+    axios.defaults.headers['Authorzation'] = '';
+    if (context.req && context.req.headers.cookie) {
+      axios.defaults.headers['Authorization'] = `Bearer ${accessToken}`;
+    }
 
     // if (!accessToken) {
     //   return {
@@ -37,24 +42,24 @@ export const getServerSideProps = wrapper.getServerSideProps(
     //   };
     // }
 
-    axiosInstance.interceptors.request.use(
-      async function (config) {
-        try {
-          const cookie = context.req ? context.req.headers.cookie : '';
+    // axiosInstance.interceptors.request.use(
+    //   async function (config) {
+    //     try {
+    //       const cookie = context.req ? context.req.headers.cookie : '';
 
-          if (context.req && cookie) {
-            config.headers = createCustomHeader(cookies(context).accessToken);
-          }
+    //       if (context.req && cookie) {
+    //         config.headers = createCustomHeader(cookies(context).accessToken);
+    //       }
 
-          return config;
-        } catch (error) {
-          console.log(error);
-        }
-      },
-      function (error) {
-        return Promise.reject(error);
-      },
-    );
+    //       return config;
+    //     } catch (error) {
+    //       console.log(error);
+    //     }
+    //   },
+    //   function (error) {
+    //     return Promise.reject(error);
+    //   },
+    // );
 
     store.dispatch(getUserInfoInMypageRequest(user_id));
 

@@ -1,9 +1,14 @@
+import axios from 'axios';
 import { ApiService, CsrApiService } from '..';
 import { ReportRequestBody } from '../../../modules/mypage/types';
 
 export class MypageService {
   static async asyncGetMypageUserInfo(userId: string) {
-    return await ApiService.getApi(`/user/${userId}/mypage`);
+    // return await ApiService.getApi(`/user/${userId}/mypage`);
+    return await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/user/${userId}/mypage`,
+      { withCredentials: true },
+    );
   }
   static async asyncPatchNickName(userId: string, value: string) {
     return await CsrApiService.patchApi(
