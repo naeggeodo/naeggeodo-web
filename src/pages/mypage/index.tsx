@@ -21,9 +21,10 @@ export const getServerSideProps = wrapper.getServerSideProps(
     const user_id = rootState.loginState.user_id;
     const stateAccessToken = rootState.loginState.accessToken;
 
+    removeCookiesServerside(context);
+
     const allCookies = cookies(context);
     const accessToken = allCookies.accessToken;
-    removeCookiesServerside(context);
 
     if (!accessToken) {
       return {
@@ -33,10 +34,18 @@ export const getServerSideProps = wrapper.getServerSideProps(
         },
       };
     }
+
     axiosInstance.interceptors.request.use(
       async function (config) {
         try {
-          config.headers = createCustomHeader(stateAccessToken);
+          const cookie = context.req ? context.req.cookies : "";
+          config.headers = {
+            Authorization: "",
+          };
+          if (context.req && cookie) {
+            const validAccessToken = cookie.accessToken;
+            config.headers = createCustomHeader(validAccessToken);
+          }
           return config;
         } catch (error) {
           console.log(error);
@@ -47,19 +56,27 @@ export const getServerSideProps = wrapper.getServerSideProps(
       }
     );
 
+    // axiosInstance.interceptors.request.use(
+    //   async function (config) {
+    //     try {
+    //       config.headers = {};
+    //       if (context.req && allCookies) {
+    //         config.headers = createCustomHeader(stateAccessToken);
+    //       }
+    //       return config;
+    //     } catch (error) {
+    //       console.log(error);
+    //     }
+    //   },
+    //   function (error) {
+    //     return Promise.reject(error);
+    //   }
+    // );
+
     store.dispatch(getUserInfoInMypageRequest(user_id));
 
     store.dispatch(END);
     await store.sagaTask.toPromise();
-
-    if (!accessToken) {
-      return {
-        redirect: {
-          destination: "/login",
-          permanent: false,
-        },
-      };
-    }
 
     return {
       props: {},
