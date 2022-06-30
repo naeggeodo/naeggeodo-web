@@ -82,7 +82,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
     saveCookies(store, context);
 
-    // store.dispatch(getLikesCountActions.request());
+    store.dispatch(getLikesCountActions.request());
 
     store.dispatch(END);
     await store.sagaTask.toPromise();
