@@ -26,14 +26,14 @@ export const getServerSideProps = wrapper.getServerSideProps(
     const allCookies = cookies(context);
     const accessToken = allCookies.accessToken;
 
-    if (!accessToken) {
-      return {
-        redirect: {
-          permanent: false,
-          destination: '/login',
-        },
-      };
-    }
+    // if (!accessToken) {
+    //   return {
+    //     redirect: {
+    //       permanent: false,
+    //       destination: '/login',
+    //     },
+    //   };
+    // }
 
     axiosInstance.interceptors.request.use(
       async function (config) {
