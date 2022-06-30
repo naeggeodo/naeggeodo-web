@@ -22,10 +22,10 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
     // removeCookiesServerside(context);
 
-    context.req.headers.cookie = '';
     const allCookies = cookies(context);
     console.log(allCookies, 'celebrity, iu');
-    const accessToken = rootState.loginState.accessToken;
+    const accessToken = allCookies.accessToken;
+    context.req.headers.cookie = '';
 
     // if (!accessToken) {
     //   return {
