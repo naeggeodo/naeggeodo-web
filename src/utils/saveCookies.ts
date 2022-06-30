@@ -15,5 +15,4 @@ export function saveCookies(store: Store, context) {
       ),
     );
   }
-  context.req.headers.cookie = '';
 }
