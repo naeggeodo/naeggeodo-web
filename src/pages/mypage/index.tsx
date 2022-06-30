@@ -16,7 +16,6 @@ const Mypage = () => {
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
     saveCookies(store, context);
-
     const rootState: RootState = store.getState();
 
     const user_id = rootState.loginState.user_id;
@@ -26,6 +25,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     const allCookies = cookies(context);
     console.log(allCookies, 'celebrity, iu');
     const accessToken = rootState.loginState.accessToken;
+    context.req.headers.cookie = '';
 
     // if (!accessToken) {
     //   return {

@@ -83,6 +83,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     saveCookies(store, context);
 
     store.dispatch(getLikesCountActions.request());
+    context.req.headers.cookie = '';
 
     store.dispatch(END);
     await store.sagaTask.toPromise();
