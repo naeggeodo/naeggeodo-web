@@ -87,6 +87,8 @@ export const getServerSideProps = wrapper.getServerSideProps(
     store.dispatch(END);
     await store.sagaTask.toPromise();
 
+    context.req.headers.cookie = '';
+
     return {
       props: {},
     };

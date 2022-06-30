@@ -1,13 +1,13 @@
-import cookies from "next-cookies";
-import React from "react";
-import { END } from "redux-saga";
-import MypageTemplate from "../../components/mypage/MypageTemplate";
-import { RootState, wrapper } from "../../modules";
-import { getUserInfoInMypageRequest } from "../../modules/mypage/actions";
-import { axiosInstance } from "../../service/api";
-import { createCustomHeader } from "../../utils/createCustomHeader";
-import { removeCookiesServerside } from "../../utils/removeCookiesServerside";
-import { saveCookies } from "../../utils/saveCookies";
+import cookies from 'next-cookies';
+import React from 'react';
+import { END } from 'redux-saga';
+import MypageTemplate from '../../components/mypage/MypageTemplate';
+import { RootState, wrapper } from '../../modules';
+import { getUserInfoInMypageRequest } from '../../modules/mypage/actions';
+import { axiosInstance } from '../../service/api';
+import { createCustomHeader } from '../../utils/createCustomHeader';
+import { removeCookiesServerside } from '../../utils/removeCookiesServerside';
+import { saveCookies } from '../../utils/saveCookies';
 
 const Mypage = () => {
   return <MypageTemplate />;
@@ -16,12 +16,12 @@ const Mypage = () => {
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
     saveCookies(store, context);
+    console.log('hello', context.req.headers.cookie);
     const rootState: RootState = store.getState();
 
     const user_id = rootState.loginState.user_id;
-    const stateAccessToken = rootState.loginState.accessToken;
 
-    removeCookiesServerside(context);
+    // removeCookiesServerside(context);
 
     const allCookies = cookies(context);
     const accessToken = allCookies.accessToken;
@@ -30,7 +30,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
       return {
         redirect: {
           permanent: false,
-          destination: "/login",
+          destination: '/login',
         },
       };
     }
@@ -38,14 +38,14 @@ export const getServerSideProps = wrapper.getServerSideProps(
     axiosInstance.interceptors.request.use(
       async function (config) {
         try {
-          const cookie = context.req ? context.req.cookies : "";
-          config.headers = {
-            Authorization: "",
-          };
-          if (context.req && cookie) {
-            const validAccessToken = cookie.accessToken;
-            config.headers = createCustomHeader(validAccessToken);
-          }
+          // const cookie = context.req ? context.req.cookies : '';
+          // config.headers = {
+          //   Authorization: '',
+          // };
+          // if (context.req && cookie) {
+          //   const validAccessToken = cookie.accessToken;
+          //   config.headers = createCustomHeader(validAccessToken);
+          // }
           return config;
         } catch (error) {
           console.log(error);
@@ -53,25 +53,8 @@ export const getServerSideProps = wrapper.getServerSideProps(
       },
       function (error) {
         return Promise.reject(error);
-      }
+      },
     );
-
-    // axiosInstance.interceptors.request.use(
-    //   async function (config) {
-    //     try {
-    //       config.headers = {};
-    //       if (context.req && allCookies) {
-    //         config.headers = createCustomHeader(stateAccessToken);
-    //       }
-    //       return config;
-    //     } catch (error) {
-    //       console.log(error);
-    //     }
-    //   },
-    //   function (error) {
-    //     return Promise.reject(error);
-    //   }
-    // );
 
     store.dispatch(getUserInfoInMypageRequest(user_id));
 
@@ -81,7 +64,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     return {
       props: {},
     };
-  }
+  },
 );
 
 export default Mypage;
