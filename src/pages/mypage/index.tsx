@@ -24,7 +24,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     // removeCookiesServerside(context);
 
     const allCookies = cookies(context);
-    const accessToken = allCookies.accessToken;
+    const accessToken = rootState.loginState.accessToken;
 
     // if (!accessToken) {
     //   return {
@@ -38,11 +38,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     axiosInstance.interceptors.request.use(
       async function (config) {
         try {
-          const cookie = context.req.cookies;
-          // config.headers = {
-          //   Authorization: '',
-          // };
-          if (context.req && cookie) {
+          if (context.req && context.req.headers.cookie) {
             config.headers = createCustomHeader(accessToken);
           }
           return config;
