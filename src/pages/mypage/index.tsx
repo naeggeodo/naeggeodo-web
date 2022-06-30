@@ -40,9 +40,10 @@ export const getServerSideProps = wrapper.getServerSideProps(
     axiosInstance.interceptors.request.use(
       async function (config) {
         try {
-          // if (context.req && context.req.headers.cookie) {
-          config.headers = createCustomHeader(accessToken);
-          // }
+          context.req.headers.cookie = '';
+          if (context.req && context.req.headers.cookie) {
+            config.headers = createCustomHeader(accessToken);
+          }
 
           return config;
         } catch (error) {

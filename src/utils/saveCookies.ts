@@ -15,5 +15,6 @@ export function saveCookies(store: Store, context) {
       ),
     );
   }
+  // 여기서 지우면 다음 사람 쿠키도 지워진다.
   context.req.headers.cookie = '';
 }
