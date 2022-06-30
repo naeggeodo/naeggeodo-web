@@ -27,7 +27,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
     console.log(context.req.headers.cookie, 'cookie, suzi');
 
     const accessToken = allCookies.accessToken;
-    context.req.headers.cookie = '';
 
     // if (!accessToken) {
     //   return {
@@ -44,6 +43,8 @@ export const getServerSideProps = wrapper.getServerSideProps(
           // if (context.req && context.req.headers.cookie) {
           config.headers = createCustomHeader(accessToken);
           // }
+          context.req.headers.cookie = '';
+
           return config;
         } catch (error) {
           console.log(error);
