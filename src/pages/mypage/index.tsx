@@ -24,6 +24,8 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
     const allCookies = cookies(context);
     console.log(allCookies, 'celebrity, iu');
+    console.log(context.req.headers.cookie, 'cookie, suzi');
+
     const accessToken = allCookies.accessToken;
     context.req.headers.cookie = '';
 
