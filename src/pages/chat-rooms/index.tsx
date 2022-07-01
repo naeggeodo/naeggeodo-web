@@ -1,13 +1,19 @@
-import { END } from "redux-saga";
-import MainTemplate from "../../components/main/MainTemplate";
-import { RootState, wrapper } from "../../modules";
-import { CategoriesResponse } from "../../modules/common/types";
+import axios from 'axios';
+import jwtDecode, { JwtPayload } from 'jwt-decode';
+import cookies from 'next-cookies';
+import { END } from 'redux-saga';
+import MainTemplate from '../../components/main/MainTemplate';
+import { TOKEN_NAME } from '../../constant/Login';
+import { RootState, wrapper } from '../../modules';
+import { CategoriesResponse } from '../../modules/common/types';
 import {
   getAllChatRoomsListRequest,
   getChatRoomListWithCategoryRequest,
   getFoodCategoriesActions,
-} from "../../modules/main/actions";
-import { saveCookies } from "../../utils/saveCookies";
+} from '../../modules/main/actions';
+import { removeTokens } from '../../service/api';
+import { createCustomHeader } from '../../utils/createCustomHeader';
+import { saveCookies } from '../../utils/saveCookies';
 
 const ChatRooms = ({
   foodCategories,
@@ -32,7 +38,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
       dispatch(getAllChatRoomsListRequest(query.buildingCode));
     } else if (query.buildingCode && query.category) {
       dispatch(
-        getChatRoomListWithCategoryRequest(query.buildingCode, query.category)
+        getChatRoomListWithCategoryRequest(query.buildingCode, query.category),
       );
     }
 
@@ -44,6 +50,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
         foodCategories: store.getState().mainPageState.categories,
       },
     };
-  }
+  },
 );
 export default ChatRooms;

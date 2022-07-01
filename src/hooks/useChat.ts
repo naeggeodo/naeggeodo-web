@@ -1,7 +1,8 @@
 import { CompatClient } from '@stomp/stompjs';
+import { NextRouter } from 'next/router';
 import { ChattingSubmitBody, ErrorMessage } from '../modules/chatting/types';
 
-export function useChat(router) {
+export function useChat(router: NextRouter) {
   const onSendMessage = (
     stompClient: CompatClient,
     data: ChattingSubmitBody,

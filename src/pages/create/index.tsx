@@ -2,6 +2,7 @@ import axios from 'axios';
 import React from 'react';
 import { END } from 'redux-saga';
 import CreateTemplate from '../../components/create/CreateTemplate';
+import { removeSsrTokens } from '../../hooks/utils/removeSsrTokens';
 import { RootState, wrapper } from '../../modules';
 import {
   getPrevCreatedListActions,
@@ -21,6 +22,8 @@ export const getServerSideProps = wrapper.getServerSideProps(
     const rootState: RootState = store.getState();
     const user_id = rootState.loginState.user_id;
     const accessToken = rootState.loginState.accessToken;
+
+    removeSsrTokens(context);
 
     axios.defaults.headers['Authorization'] = '';
     if (context.req && context.req.headers.cookie) {

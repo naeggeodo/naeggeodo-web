@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { END } from 'redux-saga';
 import ProgressTemplate from '../../components/progress/ProgressTemplate';
+import { removeSsrTokens } from '../../hooks/utils/removeSsrTokens';
 import { RootState, wrapper } from '../../modules';
 import { getProgressingActions } from '../../modules/progress/actions';
 import { saveCookies } from '../../utils/saveCookies';
@@ -16,6 +17,8 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
     const user_id = rootState.loginState.user_id;
     const accessToken = rootState.loginState.accessToken;
+
+    removeSsrTokens(context);
 
     axios.defaults.headers['Authorization'] = '';
     if (context.req && context.req.headers.cookie) {

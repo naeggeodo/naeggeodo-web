@@ -1,14 +1,15 @@
-import React from "react";
-import { END } from "redux-saga";
+import React from 'react';
+import { END } from 'redux-saga';
 
-import SearchTemplate from "../../components/search/SearchTemplate";
-import { wrapper } from "../../modules";
+import SearchTemplate from '../../components/search/SearchTemplate';
+import { removeSsrTokens } from '../../hooks/utils/removeSsrTokens';
+import { wrapper } from '../../modules';
 import {
   getResultByInputActions,
   getResultByTagActions,
   getSearchTagListActions,
-} from "../../modules/search/actions";
-import { saveCookies } from "../../utils/saveCookies";
+} from '../../modules/search/actions';
+import { saveCookies } from '../../utils/saveCookies';
 
 const Search = () => {
   return <SearchTemplate />;
@@ -20,13 +21,15 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
     store.dispatch(getSearchTagListActions.request());
 
+    removeSsrTokens(context);
+
     if (context.query.tag) {
       store.dispatch(
-        getResultByTagActions.request(decodeURI(context.query.tag as string))
+        getResultByTagActions.request(decodeURI(context.query.tag as string)),
       );
     } else if (context.query.keyword) {
       store.dispatch(
-        getResultByInputActions.request(context.query.keyword as string)
+        getResultByInputActions.request(context.query.keyword as string),
       );
     }
 
@@ -36,7 +39,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     return {
       props: {},
     };
-  }
+  },
 );
 
 export default Search;

@@ -2,6 +2,7 @@ import axios from 'axios';
 import React from 'react';
 import { END } from 'redux-saga';
 import MypageTemplate from '../../components/mypage/MypageTemplate';
+import { removeSsrTokens } from '../../hooks/utils/removeSsrTokens';
 import { RootState, wrapper } from '../../modules';
 import { getUserInfoInMypageRequest } from '../../modules/mypage/actions';
 import { saveCookies } from '../../utils/saveCookies';
@@ -21,6 +22,8 @@ export const getServerSideProps = wrapper.getServerSideProps(
     if (context.req && context.req.headers.cookie) {
       axios.defaults.headers['Authorization'] = `Bearer ${accessToken}`;
     }
+
+    removeSsrTokens(context);
 
     if (!accessToken) {
       return {

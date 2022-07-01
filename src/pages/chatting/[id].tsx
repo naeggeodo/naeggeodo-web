@@ -10,6 +10,7 @@ import {
 import { saveCookies } from '../../utils/saveCookies';
 import { getQuickChattingListActions } from '../../modules/quick-chatting/actions';
 import axios from 'axios';
+import { removeSsrTokens } from '../../hooks/utils/removeSsrTokens';
 
 const chatting = () => {
   return <ChattingTemplate />;
@@ -27,6 +28,8 @@ export const getServerSideProps = wrapper.getServerSideProps(
     if (context.req && context.req.headers.cookie) {
       axios.defaults.headers['Authorization'] = `Bearer ${accessToken}`;
     }
+
+    removeSsrTokens(context);
 
     if (!accessToken) {
       return {
