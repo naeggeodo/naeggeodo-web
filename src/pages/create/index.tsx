@@ -1,3 +1,4 @@
+import axios from 'axios';
 import cookies from 'next-cookies';
 import React from 'react';
 import { END } from 'redux-saga';
@@ -10,7 +11,7 @@ import {
 } from '../../modules/create/actions';
 import { axiosInstance } from '../../service/api';
 import { createCustomHeader } from '../../utils/createCustomHeader';
-import { removeCookiesServerside } from '../../utils/removeCookiesServerside';
+import { removeCookiesServerSide } from '../../utils/removeCookiesServerSide';
 import { saveCookies } from '../../utils/saveCookies';
 
 const create = () => {
@@ -23,10 +24,14 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
     const rootState: RootState = store.getState();
     const user_id = rootState.loginState.user_id;
-    const allCookies = cookies(context);
-    const accessToken = allCookies.accessToken;
+    const accessToken = rootState.loginState.accessToken;
 
-    removeCookiesServerside(context);
+    axios.defaults.headers['Authorization'] = '';
+    if (context.req && context.req.headers.cookie) {
+      axios.defaults.headers['Authorization'] = `Bearer ${accessToken}`;
+    }
+
+    removeCookiesServerSide(context);
     if (!accessToken) {
       return {
         redirect: {
@@ -35,20 +40,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
         },
       };
     }
-
-    // axiosInstance.interceptors.request.use(
-    //   async function (config) {
-    //     try {
-    //       config.headers = createCustomHeader(accessToken);
-    //       return config;
-    //     } catch (error) {
-    //       console.log(error);
-    //     }
-    //   },
-    //   function (error) {
-    //     return Promise.reject(error);
-    //   }
-    // );
 
     if (accessToken) {
       store.dispatch(getPrevCreatedListActions.request(user_id));

@@ -1,13 +1,10 @@
 import axios from 'axios';
-import cookies from 'next-cookies';
 import React from 'react';
 import { END } from 'redux-saga';
 import MypageTemplate from '../../components/mypage/MypageTemplate';
 import { RootState, wrapper } from '../../modules';
 import { getUserInfoInMypageRequest } from '../../modules/mypage/actions';
-import { axiosInstance } from '../../service/api';
-import { createCustomHeader } from '../../utils/createCustomHeader';
-import { removeCookiesServerside } from '../../utils/removeCookiesServerside';
+import { removeCookiesServerSide } from '../../utils/removeCookiesServerSide';
 import { saveCookies } from '../../utils/saveCookies';
 
 const Mypage = () => {
@@ -21,40 +18,21 @@ export const getServerSideProps = wrapper.getServerSideProps(
     const user_id = rootState.loginState.user_id;
     const accessToken = rootState.loginState.accessToken;
 
-    removeCookiesServerside(context);
+    removeCookiesServerSide(context);
 
     axios.defaults.headers['Authorization'] = '';
     if (context.req && context.req.headers.cookie) {
       axios.defaults.headers['Authorization'] = `Bearer ${accessToken}`;
     }
 
-    // if (!accessToken) {
-    //   return {
-    //     redirect: {
-    //       permanent: false,
-    //       destination: '/login',
-    //     },
-    //   };
-    // }
-
-    // axiosInstance.interceptors.request.use(
-    //   async function (config) {
-    //     try {
-    //       const cookie = context.req ? context.req.headers.cookie : '';
-
-    //       if (context.req && cookie) {
-    //         config.headers = createCustomHeader(cookies(context).accessToken);
-    //       }
-
-    //       return config;
-    //     } catch (error) {
-    //       console.log(error);
-    //     }
-    //   },
-    //   function (error) {
-    //     return Promise.reject(error);
-    //   },
-    // );
+    if (!accessToken) {
+      return {
+        redirect: {
+          permanent: false,
+          destination: '/login',
+        },
+      };
+    }
 
     store.dispatch(getUserInfoInMypageRequest(user_id));
 

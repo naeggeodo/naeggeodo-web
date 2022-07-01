@@ -1,8 +1,8 @@
-import { removeCookies } from "cookies-next";
-import jwtDecode, { JwtPayload } from "jwt-decode";
-import cookies from "next-cookies";
+import { removeCookies } from 'cookies-next';
+import jwtDecode, { JwtPayload } from 'jwt-decode';
+import cookies from 'next-cookies';
 
-export const removeCookiesServerside = (context) => {
+export const removeCookiesServerSide = (context) => {
   const allCookies = cookies(context);
   const accessToken = allCookies.accessToken;
   if (accessToken) {
@@ -12,19 +12,19 @@ export const removeCookiesServerside = (context) => {
     const expiredTime = new Date(exp).getTime() / 1000; // 초
     const betweenTime = Math.floor(expiredTime - nowTime);
     if (betweenTime <= 20) {
-      removeCookies("accessToken", {
+      removeCookies('accessToken', {
         req: context.req,
         res: context.res,
       });
-      removeCookies("address", {
+      removeCookies('address', {
         req: context.req,
         res: context.res,
       });
-      removeCookies("buildingCode", {
+      removeCookies('buildingCode', {
         req: context.req,
         res: context.res,
       });
-      removeCookies("user_id", {
+      removeCookies('user_id', {
         req: context.req,
         res: context.res,
       });

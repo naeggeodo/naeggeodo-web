@@ -1,3 +1,4 @@
+import axios from 'axios';
 import cookies from 'next-cookies';
 import { END } from 'redux-saga';
 import ProgressTemplate from '../../components/progress/ProgressTemplate';
@@ -5,7 +6,7 @@ import { RootState, wrapper } from '../../modules';
 import { getProgressingActions } from '../../modules/progress/actions';
 import { axiosInstance } from '../../service/api';
 import { createCustomHeader } from '../../utils/createCustomHeader';
-import { removeCookiesServerside } from '../../utils/removeCookiesServerside';
+import { removeCookiesServerSide } from '../../utils/removeCookiesServerSide';
 import { saveCookies } from '../../utils/saveCookies';
 
 const Progress = () => {
@@ -18,11 +19,14 @@ export const getServerSideProps = wrapper.getServerSideProps(
     const rootState: RootState = store.getState();
 
     const user_id = rootState.loginState.user_id;
-    const stateAccessToken = rootState.loginState.accessToken;
+    const accessToken = rootState.loginState.accessToken;
 
-    const allCookies = cookies(context);
-    const accessToken = allCookies.accessToken;
-    removeCookiesServerside(context);
+    axios.defaults.headers['Authorization'] = '';
+    if (context.req && context.req.headers.cookie) {
+      axios.defaults.headers['Authorization'] = `Bearer ${accessToken}`;
+    }
+
+    removeCookiesServerSide(context);
     if (!accessToken) {
       return {
         redirect: {
@@ -31,19 +35,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
         },
       };
     }
-    // axiosInstance.interceptors.request.use(
-    //   async function (config) {
-    //     try {
-    //       config.headers = createCustomHeader(stateAccessToken);
-    //       return config;
-    //     } catch (error) {
-    //       console.log(error);
-    //     }
-    //   },
-    //   function (error) {
-    //     return Promise.reject(error);
-    //   }
-    // );
 
     store.dispatch(getProgressingActions.request(user_id));
 

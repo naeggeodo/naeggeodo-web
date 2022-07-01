@@ -11,8 +11,9 @@ import { saveCookies } from '../../utils/saveCookies';
 import { getQuickChattingListActions } from '../../modules/quick-chatting/actions';
 import { axiosInstance } from '../../service/api';
 import { createCustomHeader } from '../../utils/createCustomHeader';
-import { removeCookiesServerside } from '../../utils/removeCookiesServerside';
+import { removeCookiesServerSide } from '../../utils/removeCookiesServerSide';
 import cookies from 'next-cookies';
+import axios from 'axios';
 
 const chatting = () => {
   return <ChattingTemplate />;
@@ -24,34 +25,14 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
     const rootState: RootState = store.getState();
     const user_id = rootState.loginState.user_id;
+    const accessToken = rootState.loginState.accessToken;
 
-    const stateAccessToken = rootState.loginState.accessToken;
-
-    const allCookies = cookies(context);
-    const accessToken = allCookies.accessToken;
-    removeCookiesServerside(context);
-    if (!accessToken) {
-      return {
-        redirect: {
-          permanent: false,
-          destination: '/login',
-        },
-      };
+    axios.defaults.headers['Authorization'] = '';
+    if (context.req && context.req.headers.cookie) {
+      axios.defaults.headers['Authorization'] = `Bearer ${accessToken}`;
     }
-    // axiosInstance.interceptors.request.use(
-    //   async function (config) {
-    //     try {
-    //       config.headers = createCustomHeader(stateAccessToken);
-    //       return config;
-    //     } catch (error) {
-    //       console.log(error);
-    //     }
-    //   },
-    //   function (error) {
-    //     return Promise.reject(error);
-    //   },
-    // );
 
+    removeCookiesServerSide(context);
     if (!accessToken) {
       return {
         redirect: {
