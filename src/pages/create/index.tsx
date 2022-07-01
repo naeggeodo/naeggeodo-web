@@ -11,7 +11,6 @@ import {
 } from '../../modules/create/actions';
 import { axiosInstance } from '../../service/api';
 import { createCustomHeader } from '../../utils/createCustomHeader';
-import { removeCookiesSsr } from '../../utils/removeCookiesSsr';
 import { saveCookies } from '../../utils/saveCookies';
 
 const create = () => {
@@ -30,7 +29,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
     if (context.req && context.req.headers.cookie) {
       axios.defaults.headers['Authorization'] = `Bearer ${accessToken}`;
     }
-    removeCookiesSsr(context);
     if (!accessToken) {
       return {
         redirect: {

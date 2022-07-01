@@ -13,7 +13,6 @@ import { axiosInstance } from '../../service/api';
 import { createCustomHeader } from '../../utils/createCustomHeader';
 import cookies from 'next-cookies';
 import axios from 'axios';
-import { removeCookiesSsr } from '../../utils/removeCookiesSsr';
 
 const chatting = () => {
   return <ChattingTemplate />;
@@ -32,7 +31,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
       axios.defaults.headers['Authorization'] = `Bearer ${accessToken}`;
     }
 
-    removeCookiesSsr(context);
     if (!accessToken) {
       return {
         redirect: {

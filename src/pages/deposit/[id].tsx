@@ -10,7 +10,6 @@ import {
 } from '../../modules/chatting/actions';
 import { axiosInstance } from '../../service/api';
 import { createCustomHeader } from '../../utils/createCustomHeader';
-import { removeCookiesSsr } from '../../utils/removeCookiesSsr';
 import { saveCookies } from '../../utils/saveCookies';
 
 const checkDeposit = () => <CheckDepositTemplate />;
@@ -27,7 +26,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
       axios.defaults.headers['Authorization'] = `Bearer ${accessToken}`;
     }
 
-    removeCookiesSsr(context);
     if (!accessToken) {
       return {
         redirect: {

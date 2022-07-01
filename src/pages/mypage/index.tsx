@@ -4,7 +4,6 @@ import { END } from 'redux-saga';
 import MypageTemplate from '../../components/mypage/MypageTemplate';
 import { RootState, wrapper } from '../../modules';
 import { getUserInfoInMypageRequest } from '../../modules/mypage/actions';
-import { removeCookiesSsr } from '../../utils/removeCookiesSsr';
 import { saveCookies } from '../../utils/saveCookies';
 
 const Mypage = () => {
@@ -18,7 +17,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
     const user_id = rootState.loginState.user_id;
     const accessToken = rootState.loginState.accessToken;
 
-    removeCookiesSsr(context);
     axios.defaults.headers['Authorization'] = '';
     if (context.req && context.req.headers.cookie) {
       axios.defaults.headers['Authorization'] = `Bearer ${accessToken}`;

@@ -6,7 +6,6 @@ import { RootState, wrapper } from '../../modules';
 import { getProgressingActions } from '../../modules/progress/actions';
 import { axiosInstance } from '../../service/api';
 import { createCustomHeader } from '../../utils/createCustomHeader';
-import { removeCookiesSsr } from '../../utils/removeCookiesSsr';
 import { saveCookies } from '../../utils/saveCookies';
 
 const Progress = () => {
@@ -26,7 +25,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
       axios.defaults.headers['Authorization'] = `Bearer ${accessToken}`;
     }
 
-    removeCookiesSsr(context);
     if (!accessToken) {
       return {
         redirect: {
