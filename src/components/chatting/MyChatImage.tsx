@@ -1,20 +1,20 @@
-import styled from "styled-components";
 import Image from "next/image";
+import { useMemo } from "react";
+import styled from "styled-components";
+import { ChattingListItem } from "../../modules/chatting/types";
 import palette from "../../styles/palette";
 import DateFormatter from "../../utils/DateFormatter";
 
-import { ChattingListItem } from "../../modules/chatting/types";
-import { useEffect, useMemo } from "react";
-
-const MyChatItem = ({
-  message,
+const MyChatImage = ({
   date,
+  message,
 }: {
+  date: string;
   message: ChattingListItem;
-  date?: string;
 }) => {
   const chatDate = useMemo(() => new DateFormatter(date), [date]);
   const currentDate = new Date();
+
   const today = useMemo(
     () =>
       `${currentDate.getFullYear()}-${String(
@@ -29,7 +29,12 @@ const MyChatItem = ({
         {today === chatDate.date ? null : <span>{chatDate.formatDate()}</span>}
         <span>{chatDate.formatTime()}</span>
       </Time>
-      <Content>{message.contents}</Content>
+      <StyledImg
+        src={message.contents}
+        alt="채팅 이미지"
+        width={250}
+        height={500}
+      />
     </Container>
   );
 };
@@ -53,23 +58,10 @@ const Time = styled.p`
   color: ${palette.DarkGray};
 `;
 
-const Content = styled.p`
-  word-break: break-all;
-  max-width: 60%;
-
-  padding: 6px 10px;
-
-  font-size: 0.9375rem;
-  line-height: 1.2em;
-  background-color: ${palette.mainOrange};
-  color: #fff;
-  border-radius: 10px 10px 0px 10px;
-`;
-
 const StyledImg = styled(Image)`
   border-radius: 10px;
   border: 1px solid red;
   overflow: hidden;
 `;
 
-export default MyChatItem;
+export default MyChatImage;
