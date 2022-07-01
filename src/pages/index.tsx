@@ -41,20 +41,20 @@ const RendingPage = () => {
             <Title>
               우리 동네
               <br />
-              배달비 반값 플랫폼
+              배달비 반값 프로젝트
               <br />
               <Strong>내꺼도</Strong> 🛵
             </Title>
 
             <Description>
-              지금 채팅방을 생성해서
+              간편하게 채팅방을 생성하고
               <br />
-              같이 먹을 사람을 모집해 보세요
+              배달비를 더치페이 할 이웃을 만나보세요!
             </Description>
 
             <StartContainer>
               <MoveMainPageButton onClick={moveToChatRooms}>
-                지금 둘러보기
+                우리 아파트 이웃 만나기
               </MoveMainPageButton>
             </StartContainer>
           </div>
@@ -118,7 +118,7 @@ const Strong = styled.strong`
   color: ${palette.mainOrange};
 `;
 
-const Description = styled.p`
+const Description = styled.h2`
   line-height: 1.2;
   color: ${palette.DarkGray};
   margin-top: 30px;
