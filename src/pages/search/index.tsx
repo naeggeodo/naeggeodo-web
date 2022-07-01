@@ -2,7 +2,6 @@ import React from 'react';
 import { END } from 'redux-saga';
 
 import SearchTemplate from '../../components/search/SearchTemplate';
-import { removeSsrTokens } from '../../hooks/utils/removeSsrTokens';
 import { wrapper } from '../../modules';
 import {
   getResultByInputActions,
@@ -20,8 +19,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
     saveCookies(store, context);
 
     store.dispatch(getSearchTagListActions.request());
-
-    removeSsrTokens(context);
 
     if (context.query.tag) {
       store.dispatch(

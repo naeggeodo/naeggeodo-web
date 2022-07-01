@@ -1,9 +1,5 @@
-import axios from 'axios';
-import jwtDecode, { JwtPayload } from 'jwt-decode';
-import cookies from 'next-cookies';
 import { END } from 'redux-saga';
 import MainTemplate from '../../components/main/MainTemplate';
-import { TOKEN_NAME } from '../../constant/Login';
 import { RootState, wrapper } from '../../modules';
 import { CategoriesResponse } from '../../modules/common/types';
 import {
@@ -11,8 +7,6 @@ import {
   getChatRoomListWithCategoryRequest,
   getFoodCategoriesActions,
 } from '../../modules/main/actions';
-import { removeTokens } from '../../service/api';
-import { createCustomHeader } from '../../utils/createCustomHeader';
 import { saveCookies } from '../../utils/saveCookies';
 
 const ChatRooms = ({

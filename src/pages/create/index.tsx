@@ -23,7 +23,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     const user_id = rootState.loginState.user_id;
     const accessToken = rootState.loginState.accessToken;
 
-    removeSsrTokens(context);
+    removeSsrTokens(context, store);
 
     axios.defaults.headers['Authorization'] = '';
     if (context.req && context.req.headers.cookie) {

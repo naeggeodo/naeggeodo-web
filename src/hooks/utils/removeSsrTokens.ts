@@ -1,8 +1,9 @@
 import { removeCookies } from 'cookies-next';
 import jwtDecode, { JwtPayload } from 'jwt-decode';
 import cookies from 'next-cookies';
+import { saveAccessToken } from '../../modules/login/actions';
 
-export const removeSsrTokens = (context) => {
+export const removeSsrTokens = (context, store) => {
   const allCookies = cookies(context);
   const accessToken = allCookies.accessToken;
 
@@ -31,5 +32,6 @@ export const removeSsrTokens = (context) => {
         res: context.res,
       });
     }
+    store.dispatch(saveAccessToken(''));
   }
 };

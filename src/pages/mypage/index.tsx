@@ -23,7 +23,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
       axios.defaults.headers['Authorization'] = `Bearer ${accessToken}`;
     }
 
-    removeSsrTokens(context);
+    removeSsrTokens(context, store);
 
     if (!accessToken) {
       return {
