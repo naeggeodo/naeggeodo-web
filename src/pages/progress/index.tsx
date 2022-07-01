@@ -1,11 +1,8 @@
 import axios from 'axios';
-import cookies from 'next-cookies';
 import { END } from 'redux-saga';
 import ProgressTemplate from '../../components/progress/ProgressTemplate';
 import { RootState, wrapper } from '../../modules';
 import { getProgressingActions } from '../../modules/progress/actions';
-import { axiosInstance } from '../../service/api';
-import { createCustomHeader } from '../../utils/createCustomHeader';
 import { saveCookies } from '../../utils/saveCookies';
 
 const Progress = () => {

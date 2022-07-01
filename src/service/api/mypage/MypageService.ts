@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ApiService, CsrApiService } from '..';
+import { CsrApiService } from '..';
 import { ReportRequestBody } from '../../../modules/mypage/types';
 
 export class MypageService {

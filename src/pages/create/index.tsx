@@ -1,5 +1,4 @@
 import axios from 'axios';
-import cookies from 'next-cookies';
 import React from 'react';
 import { END } from 'redux-saga';
 import CreateTemplate from '../../components/create/CreateTemplate';
@@ -9,8 +8,6 @@ import {
   saveBuildingCode,
   saveUserId,
 } from '../../modules/create/actions';
-import { axiosInstance } from '../../service/api';
-import { createCustomHeader } from '../../utils/createCustomHeader';
 import { saveCookies } from '../../utils/saveCookies';
 
 const create = () => {

@@ -6,6 +6,9 @@ export default class QuickChatService {
   static async asyncGetQuickChattingList(userId: string) {
     return await axios.get(
       `${process.env.NEXT_PUBLIC_API_URL}/user/${userId}/quick-chatting`,
+      {
+        withCredentials: true,
+      },
     );
   }
 

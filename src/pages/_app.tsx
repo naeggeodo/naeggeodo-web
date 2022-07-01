@@ -1,8 +1,8 @@
-import GlobalStyle from "../styles/GlobalStyle";
-import { wrapper } from "../modules";
-import Head from "next/head";
-import App, { AppContext } from "next/app";
-import palette from "../styles/palette";
+import GlobalStyle from '../styles/GlobalStyle';
+import { wrapper } from '../modules';
+import Head from 'next/head';
+import App, { AppContext } from 'next/app';
+import palette from '../styles/palette';
 
 const app = ({ Component, pageProps }) => {
   return (
@@ -33,7 +33,7 @@ console.log(
   `color:${palette.DarkGray}`,
   `color:${palette.DarkGray}`,
   `color:${palette.DarkGray}`,
-  `color:${palette.DarkGray}`
+  `color:${palette.DarkGray}`,
 );
 
 app.getInitialProps = wrapper.getInitialAppProps(
@@ -41,7 +41,7 @@ app.getInitialProps = wrapper.getInitialAppProps(
     const myAppInitialProps = App.getInitialProps(context);
 
     return { ...myAppInitialProps };
-  }
+  },
 );
 
 export default wrapper.withRedux(app);

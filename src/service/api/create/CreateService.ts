@@ -10,6 +10,7 @@ export class CreateService {
   static async asyncGetPrevCreatedList(userId: string) {
     return axios.get(`${process.env.NEXT_PUBLIC_API_URL}/${userId}`, {
       params: { state: 'END' },
+      withCredentials: true,
     });
   }
 

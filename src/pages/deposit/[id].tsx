@@ -1,5 +1,4 @@
 import axios from 'axios';
-import cookies from 'next-cookies';
 import { END } from 'redux-saga';
 
 import CheckDepositTemplate from '../../components/check-deposit/CheckDepositTemplate';
@@ -8,8 +7,6 @@ import {
   getCurrentChatRoomAsyncActions,
   getCurrentChatUserListActions,
 } from '../../modules/chatting/actions';
-import { axiosInstance } from '../../service/api';
-import { createCustomHeader } from '../../utils/createCustomHeader';
 import { saveCookies } from '../../utils/saveCookies';
 
 const checkDeposit = () => <CheckDepositTemplate />;

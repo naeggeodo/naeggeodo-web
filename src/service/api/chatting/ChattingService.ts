@@ -1,10 +1,13 @@
 import axios from 'axios';
-import { ApiService, CsrApiService } from '..';
+import { CsrApiService } from '..';
 
 export default class ChattingService {
   static async asyncGetChattingRoomInfo(chattingRoomId: string) {
     return await axios.get(
       `${process.env.NEXT_PUBLIC_API_URL}/chat-rooms/${chattingRoomId}`,
+      {
+        withCredentials: true,
+      },
     );
   }
 
@@ -20,12 +23,18 @@ export default class ChattingService {
   static async asyncGetCurrentChatUserList(chattingRoomId: string) {
     return await axios.get(
       `${process.env.NEXT_PUBLIC_API_URL}/chat-rooms/${chattingRoomId}/users`,
+      {
+        withCredentials: true,
+      },
     );
   }
 
   static async asyncGetUserNickname(userId: string) {
     return await axios.get(
       `${process.env.NEXT_PUBLIC_API_URL}/user/${userId}/nickname`,
+      {
+        withCredentials: true,
+      },
     );
   }
 }

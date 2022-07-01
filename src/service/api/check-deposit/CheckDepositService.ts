@@ -2,29 +2,21 @@ import { CsrApiService } from '..';
 
 export default class CheckDepositService {
   static async asyncDepositHandler(chattingRoomId: string, userId: string) {
-    try {
-      const response = await CsrApiService.patchApi(
-        `/chat-rooms/${chattingRoomId}/users/${userId}`,
-        {},
-      );
-      return response.data;
-    } catch (err) {
-      console.log(err);
-    }
+    const response = await CsrApiService.patchApi(
+      `/chat-rooms/${chattingRoomId}/users/${userId}`,
+      {},
+    );
+    return response.data;
   }
 
   static async asyncConvertToComplete(chattingRoomId: string) {
-    try {
-      const response = await CsrApiService.patchParamsApi(
-        `/chat-rooms/${chattingRoomId}`,
-        {
-          state: 'END',
-        },
-      );
+    const response = await CsrApiService.patchParamsApi(
+      `/chat-rooms/${chattingRoomId}`,
+      {
+        state: 'END',
+      },
+    );
 
-      return response.data;
-    } catch (err) {
-      console.log(err);
-    }
+    return response.data;
   }
 }
