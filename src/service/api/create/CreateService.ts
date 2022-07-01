@@ -1,4 +1,5 @@
-import { ApiService, CsrApiService } from '..';
+import axios from 'axios';
+import { CsrApiService } from '..';
 import { OrderTimeType } from '../../../modules/common/types';
 
 export class CreateService {
@@ -7,8 +8,8 @@ export class CreateService {
   }
 
   static async asyncGetPrevCreatedList(userId: string) {
-    return ApiService.getParamsApi(`/chat-rooms/order-list/${userId}`, {
-      state: 'END',
+    return axios.get(`${process.env.NEXT_PUBLIC_API_URL}/${userId}`, {
+      params: { state: 'END' },
     });
   }
 
