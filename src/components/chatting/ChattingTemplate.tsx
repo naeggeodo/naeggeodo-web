@@ -26,6 +26,8 @@ import imageCompression from 'browser-image-compression';
 import { Options } from '../../../types/libType';
 
 var stompClient: CompatClient;
+let imageLength: number;
+let imageResult: string = '';
 
 const ChattingTemplate = () => {
   const { dispatch, router } = useLoadLib();
@@ -117,7 +119,9 @@ const ChattingTemplate = () => {
               user_id: newMessage.sender,
               nickname: newMessage.nickname,
             };
-            dispatch(setCurrentChattingList(body));
+            if (newMessage.type !== 'IMAGE') {
+              dispatch(setCurrentChattingList(body));
+            }
 
             if (newMessage.type === 'CNT') {
               dispatch(
@@ -129,7 +133,23 @@ const ChattingTemplate = () => {
                 setParticipatingUsers(JSON.parse(newMessage.contents).users),
               );
             } else if (newMessage.type === 'IMAGE') {
-              dispatch(setImageListInChatting(newMessage.contents));
+              if (newMessage.contents.length <= 10) {
+                imageLength = Number(newMessage.contents);
+              } else {
+                imageResult += newMessage.contents;
+              }
+
+              if (imageResult.length === imageLength) {
+                dispatch(setImageListInChatting(imageResult));
+                const chattingBody = {
+                  ...body,
+                  contents: imageResult,
+                };
+                dispatch(setCurrentChattingList(chattingBody));
+
+                imageResult = '';
+                imageLength = 0;
+              }
             }
           },
           { chatMain_id: router.query.id as string },
@@ -172,20 +192,20 @@ const ChattingTemplate = () => {
   const sendImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     try {
       const imgFile = e.target.files[0];
+      const fileReader = new FileReader();
       const options: Options = {
-        maxSizeMB: 0.1,
-        maxWidthOrHeight: 150,
+        maxSizeMB: 5,
+        maxWidthOrHeight: 800,
         fileType: imgFile.type,
       };
-      const fileReader = new FileReader();
 
-      if (imgFile.size >= 200000) {
+      if (imgFile.size >= 5000000) {
         alert('보낼 수 없는 크기의 사이즈입니다');
         e.target.value = '';
         return;
       }
 
-      if (imgFile.size >= 7000) {
+      if (imgFile.size >= 6000) {
         const compressedFile = await imageCompression(imgFile, options);
         fileReader.readAsDataURL(compressedFile);
       } else {
@@ -193,15 +213,36 @@ const ChattingTemplate = () => {
       }
 
       fileReader.onload = async (e) => {
-        const result = e.target.result;
-        const data = {
+        const result = e.target.result as string;
+        const chunkSize = 8000;
+        const count = Math.ceil(result.length / chunkSize);
+
+        const imageLength = {
           chatMain_id: String(router.query.id),
           sender: user_id,
-          contents: result as string,
+          contents: String(result.length),
           type: 'IMAGE',
           nickname: nickname,
         };
-        onSendMessage(stompClient, data);
+
+        onSendMessage(stompClient, imageLength);
+
+        for (let i = 1; i <= count; i++) {
+          const substrImage = result.substring(
+            (i - 1) * chunkSize,
+            i * chunkSize,
+          );
+
+          const data = {
+            chatMain_id: String(router.query.id),
+            sender: user_id,
+            contents: substrImage as string,
+            type: 'IMAGE',
+            nickname: nickname,
+          };
+
+          onSendMessage(stompClient, data);
+        }
       };
       e.target.value = '';
     } catch (err) {

@@ -34,7 +34,7 @@ const MyChatItem = ({
           src={message.contents}
           alt="채팅 이미지"
           width={250}
-          height={250}
+          height={500}
         />
       ) : (
         <Content>{message.contents}</Content>
