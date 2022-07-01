@@ -8,8 +8,9 @@ const app = ({ Component, pageProps }) => {
   return (
     <>
       <Head>
-        <title>내꺼도 같이 시켜줘</title>
+        <title>내꺼도 시켜줘</title>
         <link rel="icon" href="/assets/images/favicon.ico" />
+        <link rel="shortcut icon" href="/assets/images/favicon.ico"></link>
         <meta
           name="viewport"
           content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width"
@@ -29,11 +30,11 @@ console.log(
 %c██║╚██╗██║██╔══██║██╔══╝  ██║   ██║██║   ██║██╔══╝  ██║   ██║██║  ██║██║   ██║
 %c██║ ╚████║██║  ██║███████╗╚██████╔╝╚██████╔╝███████╗╚██████╔╝██████╔╝╚██████╔╝
   ╚═╝  ╚═══╝╚═╝  ╚═╝╚══════╝ ╚═════╝  ╚═════╝ ╚══════╝ ╚═════╝ ╚═════╝  ╚═════╝`,
-  `color:${palette.DarkGray}`,
-  `color:${palette.DarkGray}`,
-  `color:${palette.DarkGray}`,
-  `color:${palette.DarkGray}`,
-  `color:${palette.DarkGray}`,
+  `color:${palette.mainOrange}`,
+  `color:${palette.mainOrange}`,
+  `color:${palette.mainOrange}`,
+  `color:${palette.mainOrange}`,
+  `color:${palette.mainOrange}`,
 );
 
 app.getInitialProps = wrapper.getInitialAppProps(
