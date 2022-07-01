@@ -107,32 +107,7 @@
 7. 공지사항, 이용약관, 개인정보 처리방침 등을 클릭하면 노션 페이지로 이동합니다.
 8. 로그아웃 버튼을 누르면 로그아웃 처리되고 인덱스 페이지로 리다이렉트 됩니다.
 
-
-## 👥 Git
-git-flow 전략의 `main`, `develop`, `feature` 브랜치를 사용합니다.
-
-### `Branch rule`
-**main**
-- 모든 테스트를 마치고 배포하는 코드를 관리한다.
-- 직접적으로 commit하지 않고, PR을 통해 merge한다.
-
-**develop**
-- 기능 개발이 완료된 코드를 관리한다.
-- 팀에서 유지하는 가장 최신의 코드이다.
-
-**feature**
-- develop브랜치에서 분기하여 만든다.
-- 기능별로 feature브랜치를 만들며, 브랜치명은 `'feature/기능이름'`로 한다.
-	- ex) feature/chat
-- 개발이 완료된 브랜치는 develop브랜치로 PR을 남긴다.
-
-### `Commit prefix`
-**classification**
-- `feat` : new feature
-- `fix` : bug fix
-- `refactor` : refactoring production code
-- `config` : modify project setting
-- `chore` : update trivial tasks
+![KakaoTalk_Photo_2022-07-02-00-32-53](https://user-images.githubusercontent.com/33951916/176928378-78a65fe7-f4e9-4feb-bc3d-216450e3e5d2.gif)
 
 ### 설계
 - UI 설계 : [피그마](https://www.figma.com/file/flk99RkWlj4rw1djcltdhl/%EB%82%B4%EA%BA%BC%EB%8F%84-(1)?node-id=0%3A1)
