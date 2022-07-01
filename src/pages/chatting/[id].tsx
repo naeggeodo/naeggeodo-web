@@ -11,9 +11,9 @@ import { saveCookies } from '../../utils/saveCookies';
 import { getQuickChattingListActions } from '../../modules/quick-chatting/actions';
 import { axiosInstance } from '../../service/api';
 import { createCustomHeader } from '../../utils/createCustomHeader';
-import { removeCookiesServerSide } from '../../utils/removeCookiesServerSide';
 import cookies from 'next-cookies';
 import axios from 'axios';
+import { removeCookiesSsr } from '../../utils/removeCookiesSsr';
 
 const chatting = () => {
   return <ChattingTemplate />;
@@ -32,7 +32,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
       axios.defaults.headers['Authorization'] = `Bearer ${accessToken}`;
     }
 
-    removeCookiesServerSide(context);
+    removeCookiesSsr(context);
     if (!accessToken) {
       return {
         redirect: {
