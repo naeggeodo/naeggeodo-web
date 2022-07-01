@@ -33,5 +33,12 @@ export const removeSsrTokens = (context, store) => {
       });
     }
     store.dispatch(saveAccessToken(''));
+
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/login',
+      },
+    };
   }
 };
