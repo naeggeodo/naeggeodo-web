@@ -49,7 +49,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     //   },
     //   function (error) {
     //     return Promise.reject(error);
-    //   }
+    //   },
     // );
 
     if (!accessToken) {
