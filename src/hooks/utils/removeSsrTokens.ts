@@ -32,7 +32,6 @@ export const removeSsrTokens = (context, store) => {
         res: context.res,
       });
     }
-    store.dispatch(saveAccessToken(''));
 
     return {
       redirect: {
