@@ -1,33 +1,33 @@
-import React, { useState, useEffect, useRef, FormEvent } from "react";
-import styled from "styled-components";
-import { CompatClient, Stomp } from "@stomp/stompjs";
-import SockJS from "sockjs-client";
-import { useSelector } from "react-redux";
+import React, { useState, useEffect, useRef, FormEvent } from 'react';
+import styled from 'styled-components';
+import { CompatClient, Stomp } from '@stomp/stompjs';
+import SockJS from 'sockjs-client';
+import { useSelector } from 'react-redux';
 
-import Header from "../chatting/Header";
-import GoInfoBtn from "../chatting/GoInfoBtn";
-import SubmitForm from "../chatting/SubmitForm";
-import ChatDrawer from "./ChatDrawer";
-import { RootState } from "../../modules";
-import ChattingList from "./ChattingList";
-import { useSelectLoginStates } from "../../hooks/select/useSelectLoginStates";
+import Header from '../chatting/Header';
+import GoInfoBtn from '../chatting/GoInfoBtn';
+import SubmitForm from '../chatting/SubmitForm';
+import ChatDrawer from './ChatDrawer';
+import { RootState } from '../../modules';
+import ChattingList from './ChattingList';
+import { useSelectLoginStates } from '../../hooks/select/useSelectLoginStates';
 import {
   changeCurrentCountInChatting,
   setCurrentChattingList,
   setImageListInChatting,
   setParticipatingUsers,
-} from "../../modules/chatting/actions";
-import DateFormatter from "../../utils/DateFormatter";
-import { useChat } from "../../hooks/useChat";
-import { useSelectChatRoomInfo } from "../../hooks/select/useSelectChatRoomInfo";
-import { useLoadLib } from "../../hooks/utils/useLoadLib";
-import ExitModalTemplate from "./ExitModalTemplate";
-import imageCompression from "browser-image-compression";
-import { Options } from "../../../types/libType";
+} from '../../modules/chatting/actions';
+import DateFormatter from '../../utils/DateFormatter';
+import { useChat } from '../../hooks/useChat';
+import { useSelectChatRoomInfo } from '../../hooks/select/useSelectChatRoomInfo';
+import { useLoadLib } from '../../hooks/utils/useLoadLib';
+import ExitModalTemplate from './ExitModalTemplate';
+import imageCompression from 'browser-image-compression';
+import { Options } from '../../../types/libType';
 
 var stompClient: CompatClient;
 let imageLength: number;
-let imageResult = "";
+let imageResult = '';
 
 const ChattingTemplate = () => {
   const { dispatch, router } = useLoadLib();
@@ -39,13 +39,13 @@ const ChattingTemplate = () => {
   const { link, imgPath, currentCount, maxCount, title } =
     useSelectChatRoomInfo();
   const { chatRoomInfo, chattingList, nickname } = useSelector(
-    (state: RootState) => state.chattingRoomState
+    (state: RootState) => state.chattingRoomState,
   );
   const exitModalIsOpen = useSelector(
-    (state: RootState) => state.modalStates.exitModalIsOpen
+    (state: RootState) => state.modalStates.exitModalIsOpen,
   );
 
-  const [message, setMessage] = useState<string>("");
+  const [message, setMessage] = useState<string>('');
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
 
   const changeMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,7 +62,7 @@ const ChattingTemplate = () => {
   useEffect(() => {
     chatListDivRef.current.scroll({
       top: scrollRef.current.offsetTop,
-      behavior: "smooth",
+      behavior: 'smooth',
     });
   }, [chattingList.messages]);
 
@@ -75,22 +75,22 @@ const ChattingTemplate = () => {
     const sendData = {
       chatMain_id: router.query.id,
       sender: user_id,
-      contents: "님이 입장하셨습니다.",
-      type: "WELCOME",
+      contents: '님이 입장하셨습니다.',
+      type: 'WELCOME',
       nickname,
     };
-    stompClient.send("/app/chat/enter", {}, JSON.stringify(sendData));
+    stompClient.send('/app/chat/enter', {}, JSON.stringify(sendData));
   }
 
   function exit() {
     const data = {
       chatMain_id: router.query.id,
       sender: user_id,
-      contents: "님이 퇴장하셨습니다.",
-      type: "EXIT",
+      contents: '님이 퇴장하셨습니다.',
+      type: 'EXIT',
       nickname,
     };
-    stompClient.send("/app/chat/exit", {}, JSON.stringify(data));
+    stompClient.send('/app/chat/exit', {}, JSON.stringify(data));
   }
 
   const connect = () => {
@@ -104,7 +104,7 @@ const ChattingTemplate = () => {
       },
       () => {
         const sessionId = /\/([^\\/]+)\/websocket/.exec(
-          socket._transport.url
+          socket._transport.url,
         )[1];
         stompClient.subscribe(
           `/topic/${router.query.id}`,
@@ -119,20 +119,20 @@ const ChattingTemplate = () => {
               user_id: newMessage.sender,
               nickname: newMessage.nickname,
             };
-            if (newMessage.type !== "IMAGE") {
+            if (newMessage.type !== 'IMAGE') {
               dispatch(setCurrentChattingList(body));
             }
 
-            if (newMessage.type === "CNT") {
+            if (newMessage.type === 'CNT') {
               dispatch(
                 changeCurrentCountInChatting(
-                  JSON.parse(newMessage.contents).currentCount
-                )
+                  JSON.parse(newMessage.contents).currentCount,
+                ),
               );
               dispatch(
-                setParticipatingUsers(JSON.parse(newMessage.contents).users)
+                setParticipatingUsers(JSON.parse(newMessage.contents).users),
               );
-            } else if (newMessage.type === "IMAGE") {
+            } else if (newMessage.type === 'IMAGE') {
               if (newMessage.contents.length <= 10) {
                 imageLength = Number(newMessage.contents);
               } else {
@@ -147,26 +147,26 @@ const ChattingTemplate = () => {
                 };
                 dispatch(setCurrentChattingList(chattingBody));
 
-                imageResult = "";
+                imageResult = '';
                 imageLength = 0;
               }
             }
           },
-          { chatMain_id: router.query.id as string }
+          { chatMain_id: router.query.id as string },
         );
 
         stompClient.subscribe(`/user/queue/${sessionId}`, (e) => {
           const messageObj = JSON.parse(e.body);
-          if (messageObj.type === "BAN") {
-            window.alert("강제퇴장 당하셨습니다.");
-            router.replace("/chat-rooms");
-          } else if (messageObj === "ALERT") {
+          if (messageObj.type === 'BAN') {
+            window.alert('강제퇴장 당하셨습니다.');
+            router.replace('/chat-rooms');
+          } else if (messageObj === 'ALERT') {
             window.alert(messageObj.contents);
           }
         });
         onEnter();
       },
-      onError
+      onError,
     );
   };
 
@@ -182,11 +182,11 @@ const ChattingTemplate = () => {
       chatMain_id: String(router.query.id),
       sender: user_id,
       contents: message,
-      type: "TEXT",
+      type: 'TEXT',
       nickname: nickname,
     };
     onSendMessage(stompClient, data);
-    setMessage("");
+    setMessage('');
   };
 
   const sendImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -200,8 +200,8 @@ const ChattingTemplate = () => {
       };
 
       if (imgFile.size >= 5000000) {
-        alert("보낼 수 없는 크기의 사이즈입니다");
-        e.target.value = "";
+        alert('보낼 수 없는 크기의 사이즈입니다');
+        e.target.value = '';
         return;
       }
 
@@ -221,7 +221,7 @@ const ChattingTemplate = () => {
           chatMain_id: String(router.query.id),
           sender: user_id,
           contents: String(result.length),
-          type: "IMAGE",
+          type: 'IMAGE',
           nickname: nickname,
         };
 
@@ -230,21 +230,21 @@ const ChattingTemplate = () => {
         for (let i = 1; i <= count; i++) {
           const substrImage = result.substring(
             (i - 1) * chunkSize,
-            i * chunkSize
+            i * chunkSize,
           );
 
           const data = {
             chatMain_id: String(router.query.id),
             sender: user_id,
             contents: substrImage as string,
-            type: "IMAGE",
+            type: 'IMAGE',
             nickname: nickname,
           };
 
           onSendMessage(stompClient, data);
         }
       };
-      e.target.value = "";
+      e.target.value = '';
     } catch (err) {
       console.log(err);
     }
@@ -261,7 +261,7 @@ const ChattingTemplate = () => {
         setIsDrawerOpen={setIsDrawerOpen}
         title={title}
       />
-      {chatRoomInfo?.state !== "END" && chatRoomInfo?.user_id === user_id && (
+      {chatRoomInfo?.state !== 'END' && chatRoomInfo?.user_id === user_id && (
         <GoInfoBtn />
       )}
       <Content ref={chatListDivRef}>

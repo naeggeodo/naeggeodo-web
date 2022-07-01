@@ -1,16 +1,16 @@
-import { useCallback, useEffect, useState } from "react";
-import styled from "styled-components";
-import { CompatClient } from "@stomp/stompjs";
-import { useSelector } from "react-redux";
-import Image from "next/image";
+import { useCallback, useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { CompatClient } from '@stomp/stompjs';
+import { useSelector } from 'react-redux';
+import Image from 'next/image';
 
-import { useChat } from "../../../hooks/useChat";
-import palette from "../../../styles/palette";
-import { RootState } from "../../../modules";
-import { useRouter } from "next/router";
-import { useSelectLoginStates } from "../../../hooks/select/useSelectLoginStates";
-import QuickChatListEditModal from "./QuickChatListEditModal";
-import { QuickChattingListResponse } from "../../../modules/quick-chatting/types";
+import { useChat } from '../../../hooks/useChat';
+import palette from '../../../styles/palette';
+import { RootState } from '../../../modules';
+import { useRouter } from 'next/router';
+import { useSelectLoginStates } from '../../../hooks/select/useSelectLoginStates';
+import QuickChatListEditModal from './QuickChatListEditModal';
+import { QuickChattingListResponse } from '../../../modules/quick-chatting/types';
 
 type StyledType = {
   isActive: boolean;
@@ -27,11 +27,11 @@ const QuickChatList = ({
   const router = useRouter();
   const { onSendMessage } = useChat(router);
   const { nickname } = useSelector(
-    (state: RootState) => state.chattingRoomState
+    (state: RootState) => state.chattingRoomState,
   );
 
   const { quickChat }: QuickChattingListResponse = useSelector(
-    (state: RootState) => state.quickChatStates.quickChatResponse
+    (state: RootState) => state.quickChatStates.quickChatResponse,
   );
   const { user_id } = useSelectLoginStates();
 
@@ -41,19 +41,19 @@ const QuickChatList = ({
   const [validQuickChat, setValidQuickChat] = useState([]);
 
   useEffect(() => {
-    const validArr = quickChat.filter((v) => v.msg !== "");
+    const validArr = quickChat.filter((v) => v.msg !== '');
     setValidQuickChat(validArr);
   }, [quickChat]);
 
   const sendMessage = (
-    e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
+    e: React.MouseEvent<HTMLParagraphElement, MouseEvent>,
   ) => {
     const clickTarget = e.target as HTMLParagraphElement;
     const data = {
       chatMain_id: String(router.query.id),
       sender: user_id,
       contents: clickTarget.innerHTML,
-      type: "TEXT",
+      type: 'TEXT',
       nickname,
     };
 
@@ -69,11 +69,11 @@ const QuickChatList = ({
       {quickChat &&
         quickChat.map(
           (quickChat) =>
-            quickChat.msg !== "" && (
+            quickChat.msg !== '' && (
               <Item key={quickChat.idx} onClick={sendMessage}>
                 {quickChat.msg}
               </Item>
-            )
+            ),
         )}
 
       <EditBtn onClick={openQuickChatEditModal}>
@@ -96,9 +96,6 @@ const QuickChatList = ({
 };
 
 const Container = styled.div<StyledType>`
-  position: absolute;
-  bottom: 50px;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -108,8 +105,8 @@ const Container = styled.div<StyledType>`
     props.isActive
       ? props.length > 0
         ? `${65 * props.length}px`
-        : "60px"
-      : "0px"};
+        : '60px'
+      : '0px'};
 
   padding: 0 6% 0px;
 

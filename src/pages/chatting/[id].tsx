@@ -1,15 +1,15 @@
-import { END } from 'redux-saga';
-
 import { RootState, wrapper } from '../../modules';
-import ChattingTemplate from '../../components/chatting/ChattingTemplate';
+import { END } from 'redux-saga';
+import axios from 'axios';
 import {
   getChattingListActions,
   getCurrentChatRoomAsyncActions,
   getUserNicknameActions,
 } from '../../modules/chatting/actions';
+
+import ChattingTemplate from '../../components/chatting/ChattingTemplate';
 import { saveCookies } from '../../utils/saveCookies';
 import { getQuickChattingListActions } from '../../modules/quick-chatting/actions';
-import axios from 'axios';
 import { removeSsrTokens } from '../../hooks/utils/removeSsrTokens';
 
 const chatting = () => {
