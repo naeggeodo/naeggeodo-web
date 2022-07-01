@@ -1,47 +1,32 @@
-import { ApiService, CsrApiService } from '..';
+import axios from 'axios';
+import { CsrApiService } from '..';
 import { Category } from '../../../modules/common/types';
 
 export default class MainService {
   static async asyncGetCategories() {
-    try {
-      return ApiService.getApi('/categories');
-    } catch (err) {
-      console.log(err);
-    }
+    return axios.get(`${process.env.NEXT_PUBLIC_API_URL}/categories`);
   }
 
   static async asyncGetAllChatRooms(buildingCode: string) {
-    try {
-      return ApiService.getApi(
-        encodeURI(`/chat-rooms?buildingCode=${buildingCode}`),
-      );
-    } catch (err) {
-      console.log(err);
-    }
+    return axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/chat-rooms?buildingCode=${buildingCode}`,
+    );
   }
 
   static async asyncGetChatRoomsWithCategory(
     buildingCode: string,
     category: Category,
   ) {
-    try {
-      return ApiService.getApi(
-        encodeURI(
-          `/chat-rooms?category=${category}&buildingCode=${buildingCode}`,
-        ),
-      );
-    } catch (err) {
-      console.log(err);
-    }
+    return axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}${encodeURI(
+        `/chat-rooms?category=${category}&buildingCode=${buildingCode}`,
+      )}`,
+    );
   }
 
   // ? 좋아요 카운팅
   static async asyncGetLikesCount() {
-    try {
-      return ApiService.getApi('/like');
-    } catch (error) {
-      console.log(error);
-    }
+    return axios.get(`${process.env.NEXT_PUBLIC_API_URL}/like`);
   }
 
   // ? 좋아요 증가

@@ -1,12 +1,11 @@
+import axios from 'axios';
 import { ApiService, CsrApiService } from '..';
 
 export default class ChattingService {
   static async asyncGetChattingRoomInfo(chattingRoomId: string) {
-    try {
-      return await ApiService.getApi(`/chat-rooms/${chattingRoomId}`);
-    } catch (err) {
-      console.log(err);
-    }
+    return await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/chat-rooms/${chattingRoomId}`,
+    );
   }
 
   static async asyncGetPreviousChattingList(
@@ -19,10 +18,14 @@ export default class ChattingService {
   }
 
   static async asyncGetCurrentChatUserList(chattingRoomId: string) {
-    return await ApiService.getApi(`/chat-rooms/${chattingRoomId}/users`);
+    return await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/chat-rooms/${chattingRoomId}/users`,
+    );
   }
 
   static async asyncGetUserNickname(userId: string) {
-    return await ApiService.getApi(`/user/${userId}/nickname`);
+    return await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/user/${userId}/nickname`,
+    );
   }
 }

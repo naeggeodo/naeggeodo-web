@@ -9,9 +9,6 @@ import {
 } from '../../modules/chatting/actions';
 import { saveCookies } from '../../utils/saveCookies';
 import { getQuickChattingListActions } from '../../modules/quick-chatting/actions';
-import { axiosInstance } from '../../service/api';
-import { createCustomHeader } from '../../utils/createCustomHeader';
-import cookies from 'next-cookies';
 import axios from 'axios';
 
 const chatting = () => {
