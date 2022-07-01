@@ -1,10 +1,10 @@
-import styled from "styled-components";
-import Image from "next/image";
-import palette from "../../styles/palette";
-import DateFormatter from "../../utils/DateFormatter";
+import styled from 'styled-components';
+import Image from 'next/image';
+import palette from '../../styles/palette';
+import DateFormatter from '../../utils/DateFormatter';
 
-import { ChattingListItem } from "../../modules/chatting/types";
-import { useEffect, useMemo } from "react";
+import { ChattingListItem } from '../../modules/chatting/types';
+import { useMemo } from 'react';
 
 const MyChatItem = ({
   message,
@@ -18,9 +18,9 @@ const MyChatItem = ({
   const today = useMemo(
     () =>
       `${currentDate.getFullYear()}-${String(
-        currentDate.getMonth() + 1
-      ).padStart(2, "0")}-${currentDate.getDate()}`,
-    [currentDate]
+        currentDate.getMonth() + 1,
+      ).padStart(2, '0')}-${currentDate.getDate()}`,
+    [currentDate],
   );
 
   return (
@@ -64,12 +64,6 @@ const Content = styled.p`
   background-color: ${palette.mainOrange};
   color: #fff;
   border-radius: 10px 10px 0px 10px;
-`;
-
-const StyledImg = styled(Image)`
-  border-radius: 10px;
-  border: 1px solid red;
-  overflow: hidden;
 `;
 
 export default MyChatItem;
