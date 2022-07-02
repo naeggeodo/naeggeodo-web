@@ -136,7 +136,8 @@ const ChattingTemplate = () => {
               if (newMessage.contents.length <= 10) {
                 imageLength = Number(newMessage.contents);
               } else {
-                imageResult += newMessage.contents;
+                const excludeWaterMark = newMessage.contents.substring(16);
+                imageResult += excludeWaterMark;
               }
 
               if (imageResult.length === imageLength) {
@@ -199,7 +200,7 @@ const ChattingTemplate = () => {
         fileType: imgFile.type,
       };
 
-      if (imgFile.size >= 5000000) {
+      if (imgFile.size >= 3000000) {
         alert('보낼 수 없는 크기의 사이즈입니다');
         e.target.value = '';
         return;
@@ -214,7 +215,7 @@ const ChattingTemplate = () => {
 
       fileReader.onload = async (e) => {
         const result = e.target.result as string;
-        const chunkSize = 8000;
+        const chunkSize = 3000;
         const count = Math.ceil(result.length / chunkSize);
 
         const imageLength = {
@@ -236,7 +237,7 @@ const ChattingTemplate = () => {
           const data = {
             chatMain_id: String(router.query.id),
             sender: user_id,
-            contents: substrImage as string,
+            contents: `naeggeodoservice${substrImage}` as string,
             type: 'IMAGE',
             nickname: nickname,
           };
