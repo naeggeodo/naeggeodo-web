@@ -136,12 +136,11 @@ const ChattingTemplate = () => {
               if (newMessage.contents.length <= 10) {
                 imageLength = Number(newMessage.contents);
               } else {
-                const excludeWaterMark = newMessage.contents.substring(16);
-                imageResult += excludeWaterMark;
+                imageResult += newMessage.contents;
               }
 
               if (imageResult.length === imageLength) {
-                dispatch(setImageListInChatting(imageResult));
+                // dispatch(setImageListInChatting(imageResult));
                 const chattingBody = {
                   ...body,
                   contents: imageResult,
@@ -215,13 +214,14 @@ const ChattingTemplate = () => {
 
       fileReader.onload = async (e) => {
         const result = e.target.result as string;
+        const transformed = result.replace('data:image/png;base64', '');
         const chunkSize = 3000;
-        const count = Math.ceil(result.length / chunkSize);
+        const count = Math.ceil(transformed.length / chunkSize);
 
         const imageLength = {
           chatMain_id: String(router.query.id),
           sender: user_id,
-          contents: String(result.length),
+          contents: String(transformed.length),
           type: 'IMAGE',
           nickname: nickname,
         };
@@ -229,7 +229,7 @@ const ChattingTemplate = () => {
         onSendMessage(stompClient, imageLength);
 
         for (let i = 1; i <= count; i++) {
-          const substrImage = result.substring(
+          const substrImage = transformed.substring(
             (i - 1) * chunkSize,
             i * chunkSize,
           );
@@ -237,7 +237,7 @@ const ChattingTemplate = () => {
           const data = {
             chatMain_id: String(router.query.id),
             sender: user_id,
-            contents: `naeggeodoservice${substrImage}` as string,
+            contents: substrImage as string,
             type: 'IMAGE',
             nickname: nickname,
           };
