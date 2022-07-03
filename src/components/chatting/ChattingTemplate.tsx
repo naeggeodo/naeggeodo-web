@@ -22,7 +22,6 @@ import { useChat } from '../../hooks/useChat';
 import { useSelectChatRoomInfo } from '../../hooks/select/useSelectChatRoomInfo';
 import { useLoadLib } from '../../hooks/utils/useLoadLib';
 import ExitModalTemplate from './ExitModalTemplate';
-import { Options } from '../../../types/libType';
 
 var stompClient: CompatClient;
 let imageLength: number;
@@ -139,7 +138,7 @@ const ChattingTemplate = () => {
               }
 
               if (imageResult.length === imageLength) {
-                // dispatch(setImageListInChatting(imageResult));
+                dispatch(setImageListInChatting(imageResult));
                 const chattingBody = {
                   ...body,
                   contents: imageResult,
