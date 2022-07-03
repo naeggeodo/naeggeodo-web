@@ -22,7 +22,6 @@ import { useChat } from '../../hooks/useChat';
 import { useSelectChatRoomInfo } from '../../hooks/select/useSelectChatRoomInfo';
 import { useLoadLib } from '../../hooks/utils/useLoadLib';
 import ExitModalTemplate from './ExitModalTemplate';
-import imageCompression from 'browser-image-compression';
 import { Options } from '../../../types/libType';
 
 var stompClient: CompatClient;
@@ -193,10 +192,6 @@ const ChattingTemplate = () => {
     try {
       const imgFile = e.target.files[0];
       const fileReader = new FileReader();
-      const options: Options = {
-        maxSizeMB: 5,
-        maxWidthOrHeight: 800,
-      };
 
       if (imgFile.size >= 3000000) {
         alert('보낼 수 없는 크기의 사이즈입니다');
@@ -204,16 +199,10 @@ const ChattingTemplate = () => {
         return;
       }
 
-      if (imgFile.size >= 6000) {
-        const compressedFile = await imageCompression(imgFile, options);
-        fileReader.readAsDataURL(compressedFile);
-      } else {
-        fileReader.readAsDataURL(imgFile);
-      }
-
+      fileReader.readAsDataURL(imgFile);
       fileReader.onload = async (e) => {
         const result = e.target.result as string;
-        const chunkSize = 2000;
+        const chunkSize = 3000;
         const count = Math.ceil(result.length / chunkSize);
 
         const imageLength = {
