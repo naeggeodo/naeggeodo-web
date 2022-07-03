@@ -22,7 +22,6 @@ import { useChat } from '../../hooks/useChat';
 import { useSelectChatRoomInfo } from '../../hooks/select/useSelectChatRoomInfo';
 import { useLoadLib } from '../../hooks/utils/useLoadLib';
 import ExitModalTemplate from './ExitModalTemplate';
-import imageCompression from 'browser-image-compression';
 import { Options } from '../../../types/libType';
 
 var stompClient: CompatClient;
@@ -193,11 +192,6 @@ const ChattingTemplate = () => {
     try {
       const imgFile = e.target.files[0];
       const fileReader = new FileReader();
-      const options: Options = {
-        maxSizeMB: 5,
-        maxWidthOrHeight: 800,
-        fileType: imgFile.type,
-      };
 
       if (imgFile.size >= 3000000) {
         alert('보낼 수 없는 크기의 사이즈입니다');
@@ -205,23 +199,16 @@ const ChattingTemplate = () => {
         return;
       }
 
-      if (imgFile.size >= 6000) {
-        const compressedFile = await imageCompression(imgFile, options);
-        fileReader.readAsDataURL(compressedFile);
-      } else {
-        fileReader.readAsDataURL(imgFile);
-      }
-
+      fileReader.readAsDataURL(imgFile);
       fileReader.onload = async (e) => {
         const result = e.target.result as string;
-        const transformed = result.replace('data:image/png;base64', '');
         const chunkSize = 3000;
-        const count = Math.ceil(transformed.length / chunkSize);
+        const count = Math.ceil(result.length / chunkSize);
 
         const imageLength = {
           chatMain_id: String(router.query.id),
           sender: user_id,
-          contents: String(transformed.length),
+          contents: String(result.length),
           type: 'IMAGE',
           nickname: nickname,
         };
@@ -229,7 +216,7 @@ const ChattingTemplate = () => {
         onSendMessage(stompClient, imageLength);
 
         for (let i = 1; i <= count; i++) {
-          const substrImage = transformed.substring(
+          const substrImage = result.substring(
             (i - 1) * chunkSize,
             i * chunkSize,
           );

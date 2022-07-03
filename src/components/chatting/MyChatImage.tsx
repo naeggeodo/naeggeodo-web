@@ -30,7 +30,7 @@ const MyChatImage = ({
         <span>{chatDate.formatTime()}</span>
       </Time>
       <StyledImg
-        src={`data:image/png;base64${message.contents}`}
+        src={message.contents}
         alt="채팅 이미지"
         width={250}
         height={500}
