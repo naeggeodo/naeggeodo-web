@@ -206,22 +206,21 @@ const ChattingTemplate = () => {
       }
 
       if (imgFile.size >= 6000) {
-        const compressedFile = await imageCompression(imgFile, options);
-        fileReader.readAsDataURL(compressedFile);
+        // const compressedFile = await imageCompression(imgFile, options);
+        fileReader.readAsDataURL(imgFile);
       } else {
         fileReader.readAsDataURL(imgFile);
       }
 
       fileReader.onload = async (e) => {
         const result = e.target.result as string;
-        const transformed = result.replace('data:image/png;base64', '');
-        const chunkSize = 3000;
-        const count = Math.ceil(transformed.length / chunkSize);
+        const chunkSize = 2000;
+        const count = Math.ceil(result.length / chunkSize);
 
         const imageLength = {
           chatMain_id: String(router.query.id),
           sender: user_id,
-          contents: String(transformed.length),
+          contents: String(result.length),
           type: 'IMAGE',
           nickname: nickname,
         };
@@ -229,7 +228,7 @@ const ChattingTemplate = () => {
         onSendMessage(stompClient, imageLength);
 
         for (let i = 1; i <= count; i++) {
-          const substrImage = transformed.substring(
+          const substrImage = result.substring(
             (i - 1) * chunkSize,
             i * chunkSize,
           );
