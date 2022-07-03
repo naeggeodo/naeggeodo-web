@@ -196,7 +196,6 @@ const ChattingTemplate = () => {
       const options: Options = {
         maxSizeMB: 5,
         maxWidthOrHeight: 800,
-        fileType: imgFile.type,
       };
 
       if (imgFile.size >= 3000000) {
@@ -206,8 +205,8 @@ const ChattingTemplate = () => {
       }
 
       if (imgFile.size >= 6000) {
-        // const compressedFile = await imageCompression(imgFile, options);
-        fileReader.readAsDataURL(imgFile);
+        const compressedFile = await imageCompression(imgFile, options);
+        fileReader.readAsDataURL(compressedFile);
       } else {
         fileReader.readAsDataURL(imgFile);
       }
