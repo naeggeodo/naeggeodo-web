@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import Image from 'next/image';
 import palette from '../../styles/palette';
 import DateFormatter from '../../utils/DateFormatter';
 
