@@ -92,6 +92,7 @@ const SubmitForm = ({
 const Container = styled.div`
   width: 100%;
   background: #fff;
+  border-radius: 20px 20px 0px 0px;
 `;
 
 const FormContainer = styled.div`
