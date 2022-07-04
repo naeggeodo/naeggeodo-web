@@ -98,17 +98,17 @@ const QuickChatList = ({
 const Container = styled.div<StyledType>`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
 
   width: 100%;
   height: ${(props) =>
     props.isActive
       ? props.length > 0
-        ? `${65 * props.length}px`
+        ? `${60 * props.length}px`
         : '60px'
       : '0px'};
 
-  padding: 0 6% 0px;
+  padding: 0px 6% 0px;
 
   transition: 0.3s;
 
@@ -127,7 +127,6 @@ const Container = styled.div<StyledType>`
 const Item = styled.p`
   font-size: 0.9375rem;
   line-height: 20px;
-  margin-bottom: 22px;
   cursor: pointer;
 `;
 
