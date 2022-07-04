@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useRef, FormEvent } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  FormEvent,
+  useLayoutEffect,
+} from 'react';
 import styled from 'styled-components';
 import { CompatClient, Stomp } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
@@ -57,7 +63,13 @@ const ChattingTemplate = () => {
     };
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    chatListDivRef.current.scroll({
+      top: scrollRef.current.offsetTop,
+    });
+  }, []);
+
+  useLayoutEffect(() => {
     chatListDivRef.current.scroll({
       top: scrollRef.current.offsetTop,
       behavior: 'smooth',

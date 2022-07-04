@@ -147,7 +147,6 @@ const TimeTitleWrapper = styled.div`
 
     font-family: 'SpoqaBold';
     font-size: 0.9375rem;
-    color: ${palette.black};
     background-color: ${palette.lightOrange};
     color: #fff;
     border-radius: 5px;
