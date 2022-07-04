@@ -249,7 +249,7 @@ const CreateForm = () => {
               <SearchFileButton htmlFor="file">파일 찾기</SearchFileButton>
               <InputFile
                 onChange={uploadImg}
-                accept="image/*"
+                accept=".jpg, .jpeg, .png, .svg"
                 type="file"
                 id="file"
               />
