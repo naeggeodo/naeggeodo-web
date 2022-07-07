@@ -1,11 +1,11 @@
-import Image from "next/image";
-import React, { useMemo } from "react";
-import { useSelector } from "react-redux";
-import styled from "styled-components";
-import { RootState } from "../../modules";
-import { ChattingListItem } from "../../modules/chatting/types";
-import palette from "../../styles/palette";
-import DateFormatter from "../../utils/DateFormatter";
+import Image from 'next/image';
+import React, { useMemo } from 'react';
+import { useSelector } from 'react-redux';
+import styled from 'styled-components';
+import { RootState } from '../../modules';
+import { ChattingListItem } from '../../modules/chatting/types';
+import palette from '../../styles/palette';
+import DateFormatter from '../../utils/DateFormatter';
 
 const ChatItem = ({
   message,
@@ -16,15 +16,15 @@ const ChatItem = ({
 }) => {
   const chatDate = useMemo(() => new DateFormatter(date), [date]);
   const master_id = useSelector(
-    (state: RootState) => state.chattingRoomState.chatRoomInfo.user_id
+    (state: RootState) => state.chattingRoomState.chatRoomInfo.user_id,
   );
   const currentDate = new Date();
   const today = useMemo(
     () =>
-      `${currentDate.getFullYear()}-${String(
-        currentDate.getMonth() + 1
-      ).padStart(2, "0")}-${currentDate.getDate()}`,
-    [currentDate]
+      `${String(currentDate.getMonth() + 1).padStart(2, '0')}/${String(
+        currentDate.getDate(),
+      ).padStart(2, '0')}`,
+    [currentDate],
   );
 
   return (
@@ -50,8 +50,8 @@ const ChatItem = ({
           <TextRow>
             <Content>{message.contents}</Content>
             <Time>
-              {today === chatDate.date ? null : (
-                <span>{chatDate.formatDate()}</span>
+              {today === chatDate.formatDate() ? null : (
+                <span>{chatDate.formatDate() + ' '}</span>
               )}
               <span>{chatDate.formatTime()}</span>
             </Time>
