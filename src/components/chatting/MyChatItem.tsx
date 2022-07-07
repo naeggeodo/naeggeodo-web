@@ -16,16 +16,18 @@ const MyChatItem = ({
   const currentDate = new Date();
   const today = useMemo(
     () =>
-      `${currentDate.getFullYear()}-${String(
-        currentDate.getMonth() + 1,
-      ).padStart(2, '0')}-${currentDate.getDate()}`,
+      `${String(currentDate.getMonth() + 1).padStart(2, '0')}/${String(
+        currentDate.getDate(),
+      ).padStart(2, '0')}`,
     [currentDate],
   );
 
   return (
     <Container>
       <Time>
-        {today === chatDate.date ? null : <span>{chatDate.formatDate()}</span>}
+        {today === chatDate.formatDate() ? null : (
+          <span>{chatDate.formatDate()}</span>
+        )}
         <span>{chatDate.formatTime()}</span>
       </Time>
       <Content>{message.contents}</Content>
