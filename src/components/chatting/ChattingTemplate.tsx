@@ -106,6 +106,7 @@ const ChattingTemplate = () => {
   const connect = () => {
     const socket: any = new SockJS(`${process.env.NEXT_PUBLIC_API_URL}/chat`);
     stompClient = Stomp.over(() => socket);
+    stompClient.debug = () => {};
     stompClient.connect(
       {
         chatMain_id: router.query.id,
