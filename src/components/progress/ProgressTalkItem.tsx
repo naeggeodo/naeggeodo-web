@@ -54,26 +54,31 @@ const ProgressTalkItem = ({
       <TextContainer>
         <TimeTitleWrapper className="target">
           <form onSubmit={onSaveTitle}>
-            <input
-              onChange={onChangeTitle}
-              type="text"
-              name="title"
-              value={chatTitle}
-              disabled
-              ref={(el) => (inputRefs.current[index] = el)}
-              id={String(id)}
-            />
+            <label htmlFor={String(id)}>
+              <input
+                onChange={onChangeTitle}
+                type="text"
+                name="title"
+                value={chatTitle}
+                disabled
+                ref={(el) => (inputRefs.current[index] = el)}
+                id={String(id)}
+              />
+            </label>
           </form>
-          <ModifyButton onClick={handleModifyButtonClick} data-id={String(id)}>
-            {user_id === myId && elementId !== id ? (
+          {user_id === myId && elementId !== id ? (
+            <ModifyButton
+              name="제목 수정 버튼"
+              onClick={handleModifyButtonClick}
+              data-id={String(id)}>
               <Image
                 src="/assets/images/pencilicon.svg"
                 width={26}
                 height={26}
                 alt="제목수정 아이콘"
               />
-            ) : null}
-          </ModifyButton>
+            </ModifyButton>
+          ) : null}
           {elementId === id && (
             <ConfirmButton onClick={onSaveTitle}>
               <Image
@@ -142,7 +147,7 @@ const TimeTitleWrapper = styled.div`
     width: 100%;
   }
 
-  form > input:first-child {
+  form > label > input {
     width: 100%;
 
     font-family: 'SpoqaBold';

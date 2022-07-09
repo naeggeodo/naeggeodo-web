@@ -80,15 +80,18 @@ const MypageUserInfo = () => {
     <Container>
       <Title>안녕하세요,</Title>
       <Title>
-        <Name
-          ref={inputRef}
-          value={nickNameState}
-          maxLength={12}
-          isClicked={isClicked}
-          onChange={changeNickName}></Name>
+        <label htmlFor="nickname-input">
+          <Name
+            id="nickname-input"
+            ref={inputRef}
+            value={nickNameState}
+            maxLength={12}
+            isClicked={isClicked}
+            onChange={changeNickName}></Name>
+        </label>
         <span>님</span>
         {isClicked ? (
-          <ModifyButton onClick={saveNickName}>
+          <ModifyButton name="수정 버튼" onClick={saveNickName}>
             <Image
               src="/assets/images/check.svg"
               width={26}
