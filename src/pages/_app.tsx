@@ -13,7 +13,7 @@ const app = ({ Component, pageProps }) => {
         <link rel="shortcut icon" href="/assets/images/favicon.ico"></link>
         <meta
           name="viewport"
-          content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width"
+          content="initial-scale=1.0,maximum-scale=5,width=device-width"
         />
       </Head>
       <GlobalStyle />
