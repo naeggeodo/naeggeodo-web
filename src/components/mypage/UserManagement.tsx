@@ -31,7 +31,12 @@ const UserManagement = () => {
     <Container>
       <SectionTitle>회원 정보</SectionTitle>
       <MenuItem onClick={logOut}>
-        <Image src="/assets/images/logouticon.svg" width={20} height={20} />
+        <Image
+          src="/assets/images/logouticon.svg"
+          width={20}
+          height={20}
+          alt="로그아웃 아이콘"
+        />
         로그아웃
       </MenuItem>
     </Container>

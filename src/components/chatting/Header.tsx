@@ -75,6 +75,7 @@ const Header = ({
                   src="/assets/images/earth.svg"
                   width={25}
                   height={25}
+                  alt="링크 이미지"
                   objectFit="contain"></StyledWeb>
               </a>
             </Link>
